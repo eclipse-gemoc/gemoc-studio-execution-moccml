@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="k3ModelState" nsURI="http://www.eclipse.org/gemoc/k3/rtd/modelState"
+    nsPrefix="k3ModelState">
+  <eClassifiers xsi:type="ecore:EClass" name="K3ModelState">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedElementstates" upperBound="-1"
+        eType="#//ElementState" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ElementState">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="savedRTDs" upperBound="-1"
+        eType="#//JavaObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="JavaObject" instanceTypeName="object"/>
+</ecore:EPackage>

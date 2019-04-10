@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.gemoc.concurrent_addons.feature"
+      label="GEMOC Concurrent Addons and Views"
+      version="2.3.0.qualifier"
+      provider-name="%providerName"
+      image="gemocstudio32.png">
+
+   <description url="http://gemoc.org/studio/">
+      Views and addons contributing to the CCSL Java Concurrent Execution Engine.
+   </description>
+
+   <copyright url="http://www.eclipse.org/legal/epl-v10.html">
+      Copyright (c) 2012, 2017 Inria and others
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <plugin
+         id="org.eclipse.gemoc.addon.vcdgenerator"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gemoc.addon.eventscheduling.timeline"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

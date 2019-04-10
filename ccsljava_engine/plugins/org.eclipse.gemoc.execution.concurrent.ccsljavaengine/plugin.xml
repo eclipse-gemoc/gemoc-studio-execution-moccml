@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<!--
+    Copyright (c) 2017 INRIA and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+        INRIA - initial API and implementation
+ *     I3S Laboratory - API update and bug fix
+ -->
+
+<plugin>
+   <extension
+         point="org.eclipse.gemoc.gemoc_language_workbench.deciders">
+      <DeciderSpecification
+            Class="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.deciders.RandomDecider"
+            Icon="icons/question-shield-black-16.png"
+            Name="Random decider">
+      </DeciderSpecification>
+      <DeciderSpecification
+            Class="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.deciders.CcslSolverDecider"
+            Icon="icons/app-shield-black-16.png"
+            Name="Solver decider">
+      </DeciderSpecification>
+   </extension>
+   <extension
+         point="org.eclipse.gemoc.gemoc_language_workbench.engine_addon">
+      <AddonGroup
+            Name="General"
+            id="General.AddonGroup">
+      </AddonGroup>
+      <AddonGroup
+            Name="Concurrent"
+            id="Concurrent.AddonGroup">
+      </AddonGroup>
+   </extension>
+   <extension
+         point="org.eclipse.gemoc.gemoc_language_workbench.engine_addon">
+      <Addon
+            AddonGroupId="Concurrent.AddonGroup"
+            Class="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.eventscheduling.trace.EventSchedulingModelExecutionTracingAddon"
+            Default="true"
+            Name="MultiBranch Reflective Trace"
+            ShortDescription="Trace the execution events. It is able to trace LogicalStep decisions of concurrent engine."
+            id="EventSchedulingExecutionTracing.Addon">
+      </Addon>
+   </extension>
+</plugin>

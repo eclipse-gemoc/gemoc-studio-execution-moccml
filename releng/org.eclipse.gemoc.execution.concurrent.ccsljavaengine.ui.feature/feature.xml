@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.feature"
+      label="GEMOC Execution Engine CCSL Java Runtime UI"
+      version="2.3.0.qualifier"
+      provider-name="%providerName"
+      image="gemocstudio32.png">
+
+   <description url="http://gemoc.org/studio/">
+      CCSL Java Execution Engine Runtime UI
+User Interface for the running languages built for the concurrent engine.
+   </description>
+
+   <copyright url="http://www.eclipse.org/legal/epl-v10.html">
+      Copyright (c) 2012, 2017 Inria and others
+All rights reserved. This program and the accompanying materials
+are made available under the terms of the Eclipse Public License v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import feature="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.feature" version="0.0.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

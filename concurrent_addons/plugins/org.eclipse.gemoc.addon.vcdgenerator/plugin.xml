@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<!--
+    Copyright (c) 2017 I3S laboratory and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+        I3S laboratory - initial API and implementation
+ -->
+
+<plugin>
+
+   <extension
+         point="org.eclipse.gemoc.gemoc_language_workbench.engine_addon">
+      <Addon
+            AddonGroupId="Concurrent.AddonGroup"
+            Class="org.eclipse.gemoc.addon.vcdgenerator.manager.VCDGeneratorManager"
+            Default="false"
+            Name="VCD visualization"
+            ShortDescription="Open a Value Change Dump view that displays when the MSE are triggered."
+            id="VCD_Visualization">
+      </Addon>
+   </extension>
+
+</plugin>
