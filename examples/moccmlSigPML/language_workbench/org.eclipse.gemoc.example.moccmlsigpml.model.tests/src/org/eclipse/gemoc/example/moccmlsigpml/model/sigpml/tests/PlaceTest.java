@@ -12,12 +12,6 @@ import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlFactory;
  * A test case for the model object '<em><b>Place</b></em>'.
  * <!-- end-user-doc -->
  * <p>
- * The following features are tested:
- * <ul>
- *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#getByteSize() <em>Byte Size</em>}</li>
- * </ul>
- * </p>
- * <p>
  * The following operations are tested:
  * <ul>
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#push() <em>Push</em>}</li>
@@ -78,32 +72,6 @@ public class PlaceTest extends NamedElementTest {
 	@Override
 	protected void tearDown() throws Exception {
 		setFixture(null);
-	}
-
-	/**
-	 * Tests the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#getByteSize() <em>Byte Size</em>}' feature getter.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#getByteSize()
-	 * @generated
-	 */
-	public void testGetByteSize() {
-		// TODO: implement this feature getter test method
-		// Ensure that you remove @generated or mark it @generated NOT
-		fail();
-	}
-
-	/**
-	 * Tests the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#setByteSize(int) <em>Byte Size</em>}' feature setter.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#setByteSize(int)
-	 * @generated
-	 */
-	public void testSetByteSize() {
-		// TODO: implement this feature setter test method
-		// Ensure that you remove @generated or mark it @generated NOT
-		fail();
 	}
 
 	/**

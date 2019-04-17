@@ -21,7 +21,6 @@ import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.InputPort;
 import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.OutputPort;
 import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place;
 import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlPackage;
-import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.sizeType;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,8 +34,6 @@ import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.sizeType;
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.PlaceImpl#getItsInputPort <em>Its Input Port</em>}</li>
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.PlaceImpl#getSize <em>Size</em>}</li>
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.PlaceImpl#getOwner <em>Owner</em>}</li>
- *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.PlaceImpl#getType <em>Type</em>}</li>
- *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.PlaceImpl#getByteSize <em>Byte Size</em>}</li>
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.PlaceImpl#getDelay <em>Delay</em>}</li>
  * </ul>
  *
@@ -82,36 +79,6 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 	 * @ordered
 	 */
 	protected int size = SIZE_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getType()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final sizeType TYPE_EDEFAULT = sizeType.B;
-
-	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getType()
-	 * @generated
-	 * @ordered
-	 */
-	protected sizeType type = TYPE_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getByteSize() <em>Byte Size</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getByteSize()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final int BYTE_SIZE_EDEFAULT = 0;
 
 	/**
 	 * The default value of the '{@link #getDelay() <em>Delay</em>}' attribute.
@@ -295,49 +262,6 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public sizeType getType() {
-		return type;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setType(sizeType newType) {
-		sizeType oldType = type;
-		type = newType == null ? TYPE_EDEFAULT : newType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SigpmlPackage.PLACE__TYPE, oldType, type));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public int getByteSize() {
-		// TODO: implement this method to return the 'Byte Size' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setByteSize(int newByteSize) {
-		// TODO: implement this method to set the 'Byte Size' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public int getDelay() {
 		return delay;
 	}
@@ -438,10 +362,6 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 				return getSize();
 			case SigpmlPackage.PLACE__OWNER:
 				return getOwner();
-			case SigpmlPackage.PLACE__TYPE:
-				return getType();
-			case SigpmlPackage.PLACE__BYTE_SIZE:
-				return getByteSize();
 			case SigpmlPackage.PLACE__DELAY:
 				return getDelay();
 		}
@@ -467,12 +387,6 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 				return;
 			case SigpmlPackage.PLACE__OWNER:
 				setOwner((Application)newValue);
-				return;
-			case SigpmlPackage.PLACE__TYPE:
-				setType((sizeType)newValue);
-				return;
-			case SigpmlPackage.PLACE__BYTE_SIZE:
-				setByteSize((Integer)newValue);
 				return;
 			case SigpmlPackage.PLACE__DELAY:
 				setDelay((Integer)newValue);
@@ -501,12 +415,6 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 			case SigpmlPackage.PLACE__OWNER:
 				setOwner((Application)null);
 				return;
-			case SigpmlPackage.PLACE__TYPE:
-				setType(TYPE_EDEFAULT);
-				return;
-			case SigpmlPackage.PLACE__BYTE_SIZE:
-				setByteSize(BYTE_SIZE_EDEFAULT);
-				return;
 			case SigpmlPackage.PLACE__DELAY:
 				setDelay(DELAY_EDEFAULT);
 				return;
@@ -530,10 +438,6 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 				return size != SIZE_EDEFAULT;
 			case SigpmlPackage.PLACE__OWNER:
 				return getOwner() != null;
-			case SigpmlPackage.PLACE__TYPE:
-				return type != TYPE_EDEFAULT;
-			case SigpmlPackage.PLACE__BYTE_SIZE:
-				return getByteSize() != BYTE_SIZE_EDEFAULT;
 			case SigpmlPackage.PLACE__DELAY:
 				return delay != DELAY_EDEFAULT;
 		}
@@ -570,8 +474,6 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (size: ");
 		result.append(size);
-		result.append(", type: ");
-		result.append(type);
 		result.append(", delay: ");
 		result.append(delay);
 		result.append(')');

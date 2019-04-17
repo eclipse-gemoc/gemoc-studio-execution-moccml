@@ -90,8 +90,10 @@ public class SigPMLModelStateHelper implements IK3ModelStateHelper{
 				elemState.getSavedRTDs().add(n2v2);
 				AttributeNameToValue n2v3 = new AttributeNameToValue("hasBeenStopped", SigPMLRTDAccessor.gethasBeenStopped(elem));
 				elemState.getSavedRTDs().add(n2v3);
-				AttributeNameToValue n2v4 = new AttributeNameToValue("isCurrentlyExecuting", SigPMLRTDAccessor.getisCurrentlyExecuting(elem));
+				AttributeNameToValue n2v4 = new AttributeNameToValue("currentExecCycle", SigPMLRTDAccessor.getcurrentExecCycle(elem));
 				elemState.getSavedRTDs().add(n2v4);
+				AttributeNameToValue n2v5 = new AttributeNameToValue("isCurrentlyExecuting", SigPMLRTDAccessor.getisCurrentlyExecuting(elem));
+				elemState.getSavedRTDs().add(n2v5);
 			}
 			clazz = K3DslHelper.getTarget(org.eclipse.gemoc.example.moccmlsigpml.k3dsa.InputPortAspect.class);
 			if (clazz.isInstance(elem)) {
@@ -106,7 +108,7 @@ public class SigPMLModelStateHelper implements IK3ModelStateHelper{
 				ElementState elemState = theFactory.createElementState();
 				elemState.setModelElement(elem);
 				res.getOwnedElementstates().add(elemState);
-				AttributeNameToValue n2v0 = new AttributeNameToValue("currentExecCycle", SigPMLRTDAccessor.getcurrentExecCycle(elem));
+				AttributeNameToValue n2v0 = new AttributeNameToValue("executionCycle", SigPMLRTDAccessor.getexecutionCycle(elem));
 				elemState.getSavedRTDs().add(n2v0);
 			}
 		}

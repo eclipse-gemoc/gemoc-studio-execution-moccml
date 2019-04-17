@@ -5,7 +5,6 @@ package org.eclipse.gemoc.example.moccmlsigpml.model.sigpml;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -24,7 +23,6 @@ import org.eclipse.emf.ecore.EReference;
  * <!-- end-user-doc -->
  * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlFactory
  * @model kind="package"
- *        annotation="http://www.eclipse.org/emf/2002/Ecore invocationDelegates='http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot' settingDelegates='http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot' validationDelegates='http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot'"
  * @generated
  */
 public interface SigpmlPackage extends EPackage {
@@ -42,7 +40,7 @@ public interface SigpmlPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	String eNS_URI = "http://org.gemoc.sigpml.model/1.0";
+	String eNS_URI = "http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0";
 
 	/**
 	 * The package namespace name.
@@ -217,22 +215,13 @@ public interface SigpmlPackage extends EPackage {
 	int AGENT__ALLOCATED_TO = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Current Exec Cycle</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AGENT__CURRENT_EXEC_CYCLE = NAMED_ELEMENT_FEATURE_COUNT + 5;
-
-	/**
 	 * The number of structural features of the '<em>Agent</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int AGENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 6;
+	int AGENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The operation id for the '<em>Execute</em>' operation.
@@ -308,31 +297,13 @@ public interface SigpmlPackage extends EPackage {
 	int PORT__RATE = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Byte Rate</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT__BYTE_RATE = NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PORT__TYPE = NAMED_ELEMENT_FEATURE_COUNT + 3;
-
-	/**
 	 * The number of structural features of the '<em>Port</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PORT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 4;
+	int PORT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Port</em>' class.
@@ -379,24 +350,6 @@ public interface SigpmlPackage extends EPackage {
 	 * @ordered
 	 */
 	int INPUT_PORT__RATE = PORT__RATE;
-
-	/**
-	 * The feature id for the '<em><b>Byte Rate</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INPUT_PORT__BYTE_RATE = PORT__BYTE_RATE;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INPUT_PORT__TYPE = PORT__TYPE;
 
 	/**
 	 * The number of structural features of the '<em>Input Port</em>' class.
@@ -461,24 +414,6 @@ public interface SigpmlPackage extends EPackage {
 	 * @ordered
 	 */
 	int OUTPUT_PORT__RATE = PORT__RATE;
-
-	/**
-	 * The feature id for the '<em><b>Byte Rate</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OUTPUT_PORT__BYTE_RATE = PORT__BYTE_RATE;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OUTPUT_PORT__TYPE = PORT__TYPE;
 
 	/**
 	 * The number of structural features of the '<em>Output Port</em>' class.
@@ -563,31 +498,13 @@ public interface SigpmlPackage extends EPackage {
 	int PLACE__OWNER = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLACE__TYPE = NAMED_ELEMENT_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Byte Size</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLACE__BYTE_SIZE = NAMED_ELEMENT_FEATURE_COUNT + 5;
-
-	/**
 	 * The feature id for the '<em><b>Delay</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PLACE__DELAY = NAMED_ELEMENT_FEATURE_COUNT + 6;
+	int PLACE__DELAY = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Place</em>' class.
@@ -596,7 +513,7 @@ public interface SigpmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PLACE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 7;
+	int PLACE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The operation id for the '<em>Push</em>' operation.
@@ -983,16 +900,6 @@ public interface SigpmlPackage extends EPackage {
 	int SYSTEM_OPERATION_COUNT = NAMED_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.sizeType <em>size Type</em>}' enum.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.sizeType
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.SigpmlPackageImpl#getsizeType()
-	 * @generated
-	 */
-	int SIZE_TYPE = 13;
-
-	/**
 	 * The meta object id for the '<em>Object</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1000,7 +907,7 @@ public interface SigpmlPackage extends EPackage {
 	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.SigpmlPackageImpl#getObject()
 	 * @generated
 	 */
-	int OBJECT = 14;
+	int OBJECT = 13;
 
 
 	/**
@@ -1101,17 +1008,6 @@ public interface SigpmlPackage extends EPackage {
 	EReference getAgent_AllocatedTo();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent#getCurrentExecCycle <em>Current Exec Cycle</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Current Exec Cycle</em>'.
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent#getCurrentExecCycle()
-	 * @see #getAgent()
-	 * @generated
-	 */
-	EAttribute getAgent_CurrentExecCycle();
-
-	/**
 	 * Returns the meta object for the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent#execute() <em>Execute</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1172,28 +1068,6 @@ public interface SigpmlPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getPort_Rate();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Port#getByteRate <em>Byte Rate</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Byte Rate</em>'.
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Port#getByteRate()
-	 * @see #getPort()
-	 * @generated
-	 */
-	EAttribute getPort_ByteRate();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Port#getType <em>Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Port#getType()
-	 * @see #getPort()
-	 * @generated
-	 */
-	EAttribute getPort_Type();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.InputPort <em>Input Port</em>}'.
@@ -1288,28 +1162,6 @@ public interface SigpmlPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getPlace_Owner();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#getType <em>Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#getType()
-	 * @see #getPlace()
-	 * @generated
-	 */
-	EAttribute getPlace_Type();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#getByteSize <em>Byte Size</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Byte Size</em>'.
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#getByteSize()
-	 * @see #getPlace()
-	 * @generated
-	 */
-	EAttribute getPlace_ByteSize();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#getDelay <em>Delay</em>}'.
@@ -1522,16 +1374,6 @@ public interface SigpmlPackage extends EPackage {
 	EReference getSystem_OwnedHWPlatform();
 
 	/**
-	 * Returns the meta object for enum '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.sizeType <em>size Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>size Type</em>'.
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.sizeType
-	 * @generated
-	 */
-	EEnum getsizeType();
-
-	/**
 	 * Returns the meta object for data type '{@link java.lang.Object <em>Object</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1642,14 +1484,6 @@ public interface SigpmlPackage extends EPackage {
 		EReference AGENT__ALLOCATED_TO = eINSTANCE.getAgent_AllocatedTo();
 
 		/**
-		 * The meta object literal for the '<em><b>Current Exec Cycle</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute AGENT__CURRENT_EXEC_CYCLE = eINSTANCE.getAgent_CurrentExecCycle();
-
-		/**
 		 * The meta object literal for the '<em><b>Execute</b></em>' operation.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1698,22 +1532,6 @@ public interface SigpmlPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute PORT__RATE = eINSTANCE.getPort_Rate();
-
-		/**
-		 * The meta object literal for the '<em><b>Byte Rate</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PORT__BYTE_RATE = eINSTANCE.getPort_ByteRate();
-
-		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PORT__TYPE = eINSTANCE.getPort_Type();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.InputPortImpl <em>Input Port</em>}' class.
@@ -1792,22 +1610,6 @@ public interface SigpmlPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PLACE__OWNER = eINSTANCE.getPlace_Owner();
-
-		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PLACE__TYPE = eINSTANCE.getPlace_Type();
-
-		/**
-		 * The meta object literal for the '<em><b>Byte Size</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PLACE__BYTE_SIZE = eINSTANCE.getPlace_ByteSize();
 
 		/**
 		 * The meta object literal for the '<em><b>Delay</b></em>' attribute feature.
@@ -1982,16 +1784,6 @@ public interface SigpmlPackage extends EPackage {
 		 * @generated
 		 */
 		EReference SYSTEM__OWNED_HW_PLATFORM = eINSTANCE.getSystem_OwnedHWPlatform();
-
-		/**
-		 * The meta object literal for the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.sizeType <em>size Type</em>}' enum.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.sizeType
-		 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.SigpmlPackageImpl#getsizeType()
-		 * @generated
-		 */
-		EEnum SIZE_TYPE = eINSTANCE.getsizeType();
 
 		/**
 		 * The meta object literal for the '<em>Object</em>' data type.

@@ -16,7 +16,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <!-- @generated sigpml -->
       <package
-            uri="http://org.gemoc.sigpml.model/1.0"
+            uri="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0"
             class="org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlPackage"
             genModel="model/sigpml.genmodel"/>
    </extension>

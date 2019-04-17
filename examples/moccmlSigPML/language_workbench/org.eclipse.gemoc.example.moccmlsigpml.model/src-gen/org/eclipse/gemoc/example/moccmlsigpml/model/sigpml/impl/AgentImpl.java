@@ -39,7 +39,6 @@ import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlPackage;
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.AgentImpl#getOwner <em>Owner</em>}</li>
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.AgentImpl#getCode <em>Code</em>}</li>
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.AgentImpl#getAllocatedTo <em>Allocated To</em>}</li>
- *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.AgentImpl#getCurrentExecCycle <em>Current Exec Cycle</em>}</li>
  * </ul>
  *
  * @generated
@@ -104,26 +103,6 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 	 * @ordered
 	 */
 	protected HWComputationalResource allocatedTo;
-
-	/**
-	 * The default value of the '{@link #getCurrentExecCycle() <em>Current Exec Cycle</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCurrentExecCycle()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final int CURRENT_EXEC_CYCLE_EDEFAULT = 0;
-
-	/**
-	 * The cached value of the '{@link #getCurrentExecCycle() <em>Current Exec Cycle</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCurrentExecCycle()
-	 * @generated
-	 * @ordered
-	 */
-	protected int currentExecCycle = CURRENT_EXEC_CYCLE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -282,27 +261,6 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getCurrentExecCycle() {
-		return currentExecCycle;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setCurrentExecCycle(int newCurrentExecCycle) {
-		int oldCurrentExecCycle = currentExecCycle;
-		currentExecCycle = newCurrentExecCycle;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SigpmlPackage.AGENT__CURRENT_EXEC_CYCLE, oldCurrentExecCycle, currentExecCycle));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public void execute() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -399,8 +357,6 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 			case SigpmlPackage.AGENT__ALLOCATED_TO:
 				if (resolve) return getAllocatedTo();
 				return basicGetAllocatedTo();
-			case SigpmlPackage.AGENT__CURRENT_EXEC_CYCLE:
-				return getCurrentExecCycle();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -430,9 +386,6 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 			case SigpmlPackage.AGENT__ALLOCATED_TO:
 				setAllocatedTo((HWComputationalResource)newValue);
 				return;
-			case SigpmlPackage.AGENT__CURRENT_EXEC_CYCLE:
-				setCurrentExecCycle((Integer)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -460,9 +413,6 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 			case SigpmlPackage.AGENT__ALLOCATED_TO:
 				setAllocatedTo((HWComputationalResource)null);
 				return;
-			case SigpmlPackage.AGENT__CURRENT_EXEC_CYCLE:
-				setCurrentExecCycle(CURRENT_EXEC_CYCLE_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -485,8 +435,6 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 				return CODE_EDEFAULT == null ? code != null : !CODE_EDEFAULT.equals(code);
 			case SigpmlPackage.AGENT__ALLOCATED_TO:
 				return allocatedTo != null;
-			case SigpmlPackage.AGENT__CURRENT_EXEC_CYCLE:
-				return currentExecCycle != CURRENT_EXEC_CYCLE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -526,8 +474,6 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 		result.append(cycles);
 		result.append(", code: ");
 		result.append(code);
-		result.append(", currentExecCycle: ");
-		result.append(currentExecCycle);
 		result.append(')');
 		return result.toString();
 	}

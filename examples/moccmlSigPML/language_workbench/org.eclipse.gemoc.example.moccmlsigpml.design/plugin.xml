@@ -15,7 +15,7 @@
 
 
   <extension point="org.eclipse.sirius.componentization">
-    <component class="org.eclipse.gemoc.example.moccmlsigpml.concrete.design.Activator"
+    <component class="org.eclipse.gemoc.example.moccmlsigpml.design.Activator"
                id="org.eclipse.gemoc.example.moccmlsigpml.design"
 	       name="SigPML">
     </component>

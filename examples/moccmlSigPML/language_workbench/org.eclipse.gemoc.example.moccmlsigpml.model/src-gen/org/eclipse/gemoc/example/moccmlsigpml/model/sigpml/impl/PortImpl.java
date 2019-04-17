@@ -15,7 +15,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent;
 import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Port;
 import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlPackage;
-import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.sizeType;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,8 +26,6 @@ import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.sizeType;
  * <ul>
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.PortImpl#getOwner <em>Owner</em>}</li>
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.PortImpl#getRate <em>Rate</em>}</li>
- *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.PortImpl#getByteRate <em>Byte Rate</em>}</li>
- *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.PortImpl#getType <em>Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -53,36 +50,6 @@ public abstract class PortImpl extends NamedElementImpl implements Port {
 	 * @ordered
 	 */
 	protected int rate = RATE_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getByteRate() <em>Byte Rate</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getByteRate()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final int BYTE_RATE_EDEFAULT = 0;
-
-	/**
-	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getType()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final sizeType TYPE_EDEFAULT = sizeType.B;
-
-	/**
-	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getType()
-	 * @generated
-	 * @ordered
-	 */
-	protected sizeType type = TYPE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -170,49 +137,6 @@ public abstract class PortImpl extends NamedElementImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getByteRate() {
-		// TODO: implement this method to return the 'Byte Rate' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setByteRate(int newByteRate) {
-		// TODO: implement this method to set the 'Byte Rate' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public sizeType getType() {
-		return type;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setType(sizeType newType) {
-		sizeType oldType = type;
-		type = newType == null ? TYPE_EDEFAULT : newType;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, SigpmlPackage.PORT__TYPE, oldType, type));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -264,10 +188,6 @@ public abstract class PortImpl extends NamedElementImpl implements Port {
 				return getOwner();
 			case SigpmlPackage.PORT__RATE:
 				return getRate();
-			case SigpmlPackage.PORT__BYTE_RATE:
-				return getByteRate();
-			case SigpmlPackage.PORT__TYPE:
-				return getType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -285,12 +205,6 @@ public abstract class PortImpl extends NamedElementImpl implements Port {
 				return;
 			case SigpmlPackage.PORT__RATE:
 				setRate((Integer)newValue);
-				return;
-			case SigpmlPackage.PORT__BYTE_RATE:
-				setByteRate((Integer)newValue);
-				return;
-			case SigpmlPackage.PORT__TYPE:
-				setType((sizeType)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -310,12 +224,6 @@ public abstract class PortImpl extends NamedElementImpl implements Port {
 			case SigpmlPackage.PORT__RATE:
 				setRate(RATE_EDEFAULT);
 				return;
-			case SigpmlPackage.PORT__BYTE_RATE:
-				setByteRate(BYTE_RATE_EDEFAULT);
-				return;
-			case SigpmlPackage.PORT__TYPE:
-				setType(TYPE_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -332,10 +240,6 @@ public abstract class PortImpl extends NamedElementImpl implements Port {
 				return getOwner() != null;
 			case SigpmlPackage.PORT__RATE:
 				return rate != RATE_EDEFAULT;
-			case SigpmlPackage.PORT__BYTE_RATE:
-				return getByteRate() != BYTE_RATE_EDEFAULT;
-			case SigpmlPackage.PORT__TYPE:
-				return type != TYPE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -352,8 +256,6 @@ public abstract class PortImpl extends NamedElementImpl implements Port {
 		StringBuilder result = new StringBuilder(super.toString());
 		result.append(" (rate: ");
 		result.append(rate);
-		result.append(", type: ");
-		result.append(type);
 		result.append(')');
 		return result.toString();
 	}

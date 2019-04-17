@@ -33,17 +33,23 @@ public class SigPMLRTDAccessor {
 	public static boolean sethasBeenStopped(EObject eObject, java.lang.Boolean newValue) {
 		return setAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.AgentAspect", "hasBeenStopped", newValue);
 	}
+  public static java.lang.Integer getcurrentExecCycle(EObject eObject) {
+		return (java.lang.Integer)  getAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.AgentAspect", "currentExecCycle");
+	}
+	public static boolean setcurrentExecCycle(EObject eObject, java.lang.Integer newValue) {
+		return setAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.AgentAspect", "currentExecCycle", newValue);
+	}
   public static java.lang.Boolean getisCurrentlyExecuting(EObject eObject) {
 		return (java.lang.Boolean)  getAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.AgentAspect", "isCurrentlyExecuting");
 	}
 	public static boolean setisCurrentlyExecuting(EObject eObject, java.lang.Boolean newValue) {
 		return setAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.AgentAspect", "isCurrentlyExecuting", newValue);
 	}
-  public static java.lang.Integer getcurrentExecCycle(EObject eObject) {
-		return (java.lang.Integer)  getAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.HWComputationalResourceAspect", "currentExecCycle");
+  public static java.lang.Integer getexecutionCycle(EObject eObject) {
+		return (java.lang.Integer)  getAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.HWComputationalResourceAspect", "executionCycle");
 	}
-	public static boolean setcurrentExecCycle(EObject eObject, java.lang.Integer newValue) {
-		return setAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.HWComputationalResourceAspect", "currentExecCycle", newValue);
+	public static boolean setexecutionCycle(EObject eObject, java.lang.Integer newValue) {
+		return setAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.HWComputationalResourceAspect", "executionCycle", newValue);
 	}
   public static java.lang.Integer getsizeToread(EObject eObject) {
 		return (java.lang.Integer)  getAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.InputPortAspect", "sizeToread");

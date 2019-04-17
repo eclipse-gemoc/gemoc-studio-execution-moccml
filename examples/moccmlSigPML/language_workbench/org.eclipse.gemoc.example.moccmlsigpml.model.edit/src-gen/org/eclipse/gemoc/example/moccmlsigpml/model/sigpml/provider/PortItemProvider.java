@@ -46,8 +46,6 @@ public class PortItemProvider extends NamedElementItemProvider {
 			super.getPropertyDescriptors(object);
 
 			addRatePropertyDescriptor(object);
-			addByteRatePropertyDescriptor(object);
-			addTypePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -70,50 +68,6 @@ public class PortItemProvider extends NamedElementItemProvider {
 				 false,
 				 false,
 				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Byte Rate feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addByteRatePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Port_byteRate_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Port_byteRate_feature", "_UI_Port_type"),
-				 SigpmlPackage.Literals.PORT__BYTE_RATE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Type feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Port_type_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Port_type_feature", "_UI_Port_type"),
-				 SigpmlPackage.Literals.PORT__TYPE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -146,8 +100,6 @@ public class PortItemProvider extends NamedElementItemProvider {
 
 		switch (notification.getFeatureID(Port.class)) {
 			case SigpmlPackage.PORT__RATE:
-			case SigpmlPackage.PORT__BYTE_RATE:
-			case SigpmlPackage.PORT__TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

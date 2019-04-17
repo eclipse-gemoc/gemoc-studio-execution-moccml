@@ -18,7 +18,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent#getOwner <em>Owner</em>}</li>
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent#getCode <em>Code</em>}</li>
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent#getAllocatedTo <em>Allocated To</em>}</li>
- *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent#getCurrentExecCycle <em>Current Exec Cycle</em>}</li>
  * </ul>
  *
  * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlPackage#getAgent()
@@ -149,32 +148,6 @@ public interface Agent extends NamedElement {
 	 * @generated
 	 */
 	void setAllocatedTo(HWComputationalResource value);
-
-	/**
-	 * Returns the value of the '<em><b>Current Exec Cycle</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Current Exec Cycle</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Current Exec Cycle</em>' attribute.
-	 * @see #setCurrentExecCycle(int)
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlPackage#getAgent_CurrentExecCycle()
-	 * @model
-	 * @generated
-	 */
-	int getCurrentExecCycle();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent#getCurrentExecCycle <em>Current Exec Cycle</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Current Exec Cycle</em>' attribute.
-	 * @see #getCurrentExecCycle()
-	 * @generated
-	 */
-	void setCurrentExecCycle(int value);
 
 	/**
 	 * <!-- begin-user-doc -->

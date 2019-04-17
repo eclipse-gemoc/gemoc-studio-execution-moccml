@@ -26,17 +26,16 @@ import static extension org.eclipse.gemoc.example.moccmlsigpml.k3dsa.PlaceAspect
 import static extension org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SystemAspect.*
 import groovy.lang.Binding
 import groovy.lang.GroovyShell
-
-
+import cnrs.luchogie.up.data.rendering.figure.ConnectedLineFigureRenderer
 
 @Aspect(className = HWComputationalResource)
 class HWComputationalResourceAspect {
-	public Integer currentExecCycle = 0
+	public Integer executionCycle = 0
 
 	def void incCycle() {
 		
-		_self.currentExecCycle = _self.currentExecCycle + 1
-		if (SystemAspect.DEBUG) println("time in CPU " + _self.name + " = " + _self.currentExecCycle)
+		_self.executionCycle = _self.executionCycle + 1
+		if (SystemAspect.DEBUG) println("execution cycle in CPU " + _self.name + " = " + _self.executionCycle)
 	}
 }
 
@@ -46,8 +45,8 @@ class AgentAspect extends NamedElementAspect {
 	public JFrame frame = new JFrame
 	public Figure figure = new Figure
 	public Boolean hasBeenStopped = false
-
-	public Boolean isCurrentlyExecuting
+	public Integer currentExecCycle = 0;
+	public Boolean isCurrentlyExecuting = false;
 
 	def void isExecuting() {
 		if (SystemAspect.DEBUG) println(_self.name+'\n      isExecuting ('+_self.currentExecCycle+')')
@@ -69,13 +68,22 @@ class AgentAspect extends NamedElementAspect {
 
 		val outputPortNames = newArrayList
 		_self.frame.setContentPane(_self.plotter)
-		_self.frame.setSize(400, 400)
+		_self.frame.setSize(700, 400)
+		_self.frame.alwaysOnTop = true;
+		_self.frame.title = _self.name
+		_self.plotter.getGraphics2DPlotter().setFigure(_self.figure);
+		_self.figure.addRenderer(new ConnectedLineFigureRenderer());
+		if (_self.frame.isVisible()){
+			_self.frame.repaint(500);
+		}else{
+			_self.frame.repaint(5000);
+		}
 
 		val binding = new Binding
 		binding.setVariable("plotter", _self.plotter)
 		binding.setVariable("frame", _self.frame)
 
-		val localTime = _self.allocatedTo.currentExecCycle
+		val localTime = _self.allocatedTo.executionCycle
 		binding.setVariable("localTime", localTime)
 		binding.setVariable("figure", _self.figure)
 
@@ -120,10 +128,7 @@ class AgentAspect extends NamedElementAspect {
 	
 			val res = shell.evaluate(_self.code) as Map<String, Object>
 	
-			if (res.containsValue("figure")) {
-				_self.figure.addFigure(res.get("figure") as Figure)
-			}
-	
+				
 			for (String portName : outputPortNames) {
 				_self.system.sharedMemory.put(portName, res.get(portName))
 			}

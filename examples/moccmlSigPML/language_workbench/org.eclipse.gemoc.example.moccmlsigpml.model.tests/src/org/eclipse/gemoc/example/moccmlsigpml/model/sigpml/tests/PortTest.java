@@ -8,12 +8,6 @@ import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Port;
  * <!-- begin-user-doc -->
  * A test case for the model object '<em><b>Port</b></em>'.
  * <!-- end-user-doc -->
- * <p>
- * The following features are tested:
- * <ul>
- *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Port#getByteRate() <em>Byte Rate</em>}</li>
- * </ul>
- * </p>
  * @generated
  */
 public abstract class PortTest extends NamedElementTest {
@@ -37,32 +31,6 @@ public abstract class PortTest extends NamedElementTest {
 	@Override
 	protected Port getFixture() {
 		return (Port)fixture;
-	}
-
-	/**
-	 * Tests the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Port#getByteRate() <em>Byte Rate</em>}' feature getter.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Port#getByteRate()
-	 * @generated
-	 */
-	public void testGetByteRate() {
-		// TODO: implement this feature getter test method
-		// Ensure that you remove @generated or mark it @generated NOT
-		fail();
-	}
-
-	/**
-	 * Tests the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Port#setByteRate(int) <em>Byte Rate</em>}' feature setter.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Port#setByteRate(int)
-	 * @generated
-	 */
-	public void testSetByteRate() {
-		// TODO: implement this feature setter test method
-		// Ensure that you remove @generated or mark it @generated NOT
-		fail();
 	}
 
 } //PortTest

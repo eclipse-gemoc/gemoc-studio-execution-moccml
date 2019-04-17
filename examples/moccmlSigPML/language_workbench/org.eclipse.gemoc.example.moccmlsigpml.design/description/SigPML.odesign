@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="SigPML" version="12.0.0.2017041100">
-  <ownedViewpoints name="SigPML" modelFileExtension="*.sigpml *.xsigpml">
-    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="SigPML" initialisation="true" showOnStartup="true" domainClass="System">
-      <metamodel href="../../org.gemoc.sample.sigpml.model/model/sigpml.ecore#/"/>
+  <ownedViewpoints name="SigPML" modelFileExtension="*.sigpml">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="SigPML" titleExpression="[self.name/]" initialisation="true" showOnStartup="true" domainClass="System" backgroundColor="//@userColorsPalettes[name='MyPalette']/@entries[name='backgroundColor']">
+      <metamodel href="../../org.eclipse.gemoc.example.moccmlsigpml.model/model/sigpml.ecore#/"/>
+      <layout xsi:type="description_1:CompositeLayout"/>
       <defaultLayer name="SigPML">
         <edgeMappings name="Place" sourceMapping="//@ownedViewpoints[name='SigPML']/@ownedRepresentations[name='SigPML']/@defaultLayer/@containerMappings[name='Application']/@subNodeMappings[name='Agent']/@borderedNodeMappings[name='OutputPort']" targetMapping="//@ownedViewpoints[name='SigPML']/@ownedRepresentations[name='SigPML']/@defaultLayer/@containerMappings[name='Application']/@subNodeMappings[name='Agent']/@borderedNodeMappings[name='InputPort']" targetFinderExpression="[self.itsInputPort/]" sourceFinderExpression="[self.itsOutputPort/]" domainClass="Place" useDomainElement="true">
           <style sizeComputationExpression="2" routingStyle="manhattan">
@@ -38,20 +39,20 @@
         </edgeMappings>
         <containerMappings name="HWPlatform" domainClass="HWPlatform">
           <subNodeMappings name="HWComputationalResource" semanticCandidatesExpression="feature:eAllContents" domainClass="HWComputationalResource">
-            <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="[self.name+'\n(is preemptive='+self.isUnderPreemptiveManagement+') '/]" labelAlignment="LEFT" sizeComputationExpression="-1" resizeKind="NSEW" arcWidth="1" arcHeight="1" workspacePath="/org.gemoc.sample.sigpml.design/picts/ksim_cpu.png">
+            <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="[self.name+'\n(is preemptive='+self.isUnderPreemptiveManagement+') '/]" labelAlignment="LEFT" sizeComputationExpression="-1" resizeKind="NSEW" arcWidth="1" arcHeight="1" workspacePath="/org.eclipse.gemoc.example.moccmlsigpml.design/picts/ksim_cpu.png">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
           </subNodeMappings>
           <subNodeMappings name="HWStorageResources" semanticCandidatesExpression="feature:eAllContents" domainClass="HWStorageResource">
-            <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="[self.name/]" labelAlignment="RIGHT" sizeComputationExpression="-1" resizeKind="NSEW" arcWidth="1" arcHeight="1" workspacePath="/org.gemoc.sample.sigpml.design/picts/ram_small.png">
+            <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="[self.name/]" labelAlignment="RIGHT" sizeComputationExpression="-1" resizeKind="NSEW" arcWidth="1" arcHeight="1" workspacePath="/org.eclipse.gemoc.example.moccmlsigpml.design/picts/ram_small.png">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelFormat>bold</labelFormat>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
           </subNodeMappings>
           <subNodeMappings name="HWCommunicationResource" semanticCandidatesExpression="feature:eAllContents" domainClass="HWCommunicationResource">
-            <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="[self.name/]" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" arcWidth="1" arcHeight="1" workspacePath="/org.gemoc.sample.sigpml.design/picts/Bus_small.png">
+            <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="[self.name/]" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" arcWidth="1" arcHeight="1" workspacePath="/org.eclipse.gemoc.example.moccmlsigpml.design/picts/Bus_small.png">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelFormat>bold</labelFormat>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -200,12 +201,12 @@
       </additionalLayers>
       <additionalLayers name="SigPMLAnimation" label="SigPML Animation">
         <decorationDescriptionsSet>
-          <decorationDescriptions xsi:type="description:SemanticBasedDecoration" name="isExecuting" position="SOUTH" preconditionExpression="service:self.getIsCurrentlyExecuting()" imageExpression="/org.gemoc.sample.sigpml.xsigpml.design/icons/play2_small.jpeg" domainClass="sigpml.Agent"/>
+          <decorationDescriptions xsi:type="description:SemanticBasedDecoration" name="isExecuting" position="SOUTH" preconditionExpression="service:self.getIsCurrentlyExecuting()" imageExpression="/org.eclipse.gemoc.example.moccmlsigpml.design/icons/play2_small.jpeg" domainClass="sigpml.Agent"/>
         </decorationDescriptionsSet>
         <customization>
           <vsmElementCustomizations xsi:type="description:VSMElementCustomization">
             <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='SigPML']/@ownedRepresentations[name='SigPML']/@defaultLayer/@edgeMappings[name='Place']/@style/@centerLabelStyleDescription" attributeName="labelExpression" value="[self.getCurrentSize() + ' / ' + self.oclAsType(Place).size/]"/>
-            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='SigPML']/@ownedRepresentations[name='SigPML']/@defaultLayer/@containerMappings[name='Application']/@subNodeMappings[name='Agent']/@style" attributeName="labelExpression" value="[self.name+'\n'+self.currentExecCycle +' on '+self.cycles/]"/>
+            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='SigPML']/@ownedRepresentations[name='SigPML']/@defaultLayer/@containerMappings[name='Application']/@subNodeMappings[name='Agent']/@style" attributeName="labelExpression" value="[self.name+'\n'+self.getCurrentExecCycle +' on '+self.cycles/]"/>
           </vsmElementCustomizations>
           <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="service:self.hasBeenActivated">
             <featureCustomizations xsi:type="description:EReferenceCustomization" appliedOn="//@ownedViewpoints[name='SigPML']/@ownedRepresentations[name='SigPML']/@defaultLayer/@containerMappings[name='Application']/@subNodeMappings[name='Agent']/@style" referenceName="borderColor">
@@ -215,12 +216,13 @@
         </customization>
       </additionalLayers>
     </ownedRepresentations>
-    <ownedJavaExtensions qualifiedClassName="org.gemoc.sample.sigpml.concrete.design.services.SigPMLDebuggerServices"/>
-    <ownedJavaExtensions qualifiedClassName="org.gemoc.sample.sigpml.concrete.design.services.SigPMLAnimatorServices"/>
-    <ownedJavaExtensions qualifiedClassName="org.gemoc.sample.sigpml.concrete.design.services.K3RuntimeDataHelper"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.gemoc.example.moccmlsigpml.design.services.SigPMLDebuggerServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.gemoc.example.moccmlsigpml.design.services.SigPMLAnimatorServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.eclipse.gemoc.example.moccmlsigpml.design.services.K3RuntimeDataHelper"/>
   </ownedViewpoints>
   <userColorsPalettes name="MyPalette">
     <entries xsi:type="description:UserFixedColor" red="201" green="219" blue="236" name="current instruction"/>
     <entries xsi:type="description:UserFixedColor" red="255" green="255" blue="230" name="veryPaleYellow"/>
+    <entries xsi:type="description:UserFixedColor" red="245" green="255" blue="255" name="backgroundColor"/>
   </userColorsPalettes>
 </description:Group>

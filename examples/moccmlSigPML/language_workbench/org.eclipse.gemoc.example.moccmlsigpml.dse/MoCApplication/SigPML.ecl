@@ -1,11 +1,12 @@
-import 'platform:/resource/org.gemoc.sample.sigpml.model/model/sigpml.ecore'
+import 'platform:/resource/org.eclipse.gemoc.example.moccmlsigpml.model/model/sigpml.ecore'
 
-ECLimport "platform:/resource/org.gemoc.sample.sigpml.moc.lib/MoCLib/SigPML.ccslLib"
-ECLimport "platform:/resource/org.gemoc.sample.sigpml.moc.lib/MoCLib/SigPML_memory_fsm.moccml"
+ECLimport "platform:/resource/org.eclipse.gemoc.example.moccmlsigpml.moc.lib/MoCLib/SigPML.ccslLib"
+--ECLimport "platform:/resource/org.eclipse.gemoc.example.moccmlsigpml.moc.lib/MoCLib/SigPML_memory_fsm.moccml"
 ECLimport "platform:/plugin/fr.inria.aoste.timesquare.ccslkernel.model/ccsllibrary/kernel.ccslLib" 
 ECLimport "platform:/plugin/fr.inria.aoste.timesquare.ccslkernel.model/ccsllibrary/CCSL.ccslLib" 
  
 package sigpml
+
 
 	context Agent 
 	def : startAgent: Event= self.execute()
@@ -15,9 +16,9 @@ package sigpml
 	context InputPort
 	def : ratePlusOne : Integer = self.rate+1
 	def : read : Event= self.read()
-	
+	 
 	context OutputPort
-	def : write : Event= self.write()
+	def : write : Event= self.write() 
 
 	context Place
 	def : push :Event = self.push()
@@ -30,10 +31,10 @@ package sigpml
 	def : idle: Event= self
 	
 	context HWStorageResource
-	def : isReading : Event= self 
+	def : isReading : Event= self
 	def : isWriting: Event= self
 	
-	context Place
+	context Place 
 	
 	inv BoundedPlaces:
 		(self.size > 0) implies
@@ -131,5 +132,7 @@ package sigpml
 	inv isWritingAccordingToPortWrite:
 		let allPortWrites : Event = Expression Union(self.allocatedPlaces.itsOutputPort.oclAsType(OutputPort).write) in
 		Relation Coincides(self.isWriting, allPortWrites)
+	
+	
 	
 endpackage   

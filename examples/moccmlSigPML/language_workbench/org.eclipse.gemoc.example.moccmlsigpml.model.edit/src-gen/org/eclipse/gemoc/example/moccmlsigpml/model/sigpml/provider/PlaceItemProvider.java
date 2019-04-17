@@ -48,8 +48,6 @@ public class PlaceItemProvider extends NamedElementItemProvider {
 			addItsOutputPortPropertyDescriptor(object);
 			addItsInputPortPropertyDescriptor(object);
 			addSizePropertyDescriptor(object);
-			addTypePropertyDescriptor(object);
-			addByteSizePropertyDescriptor(object);
 			addDelayPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -122,50 +120,6 @@ public class PlaceItemProvider extends NamedElementItemProvider {
 	}
 
 	/**
-	 * This adds a property descriptor for the Type feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Place_type_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Place_type_feature", "_UI_Place_type"),
-				 SigpmlPackage.Literals.PLACE__TYPE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Byte Size feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addByteSizePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Place_byteSize_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Place_byteSize_feature", "_UI_Place_type"),
-				 SigpmlPackage.Literals.PLACE__BYTE_SIZE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Delay feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -226,8 +180,6 @@ public class PlaceItemProvider extends NamedElementItemProvider {
 
 		switch (notification.getFeatureID(Place.class)) {
 			case SigpmlPackage.PLACE__SIZE:
-			case SigpmlPackage.PLACE__TYPE:
-			case SigpmlPackage.PLACE__BYTE_SIZE:
 			case SigpmlPackage.PLACE__DELAY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

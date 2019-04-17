@@ -16,14 +16,11 @@ package org.eclipse.gemoc.example.moccmlsigpml.model.sigpml;
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#getItsInputPort <em>Its Input Port</em>}</li>
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#getSize <em>Size</em>}</li>
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#getOwner <em>Owner</em>}</li>
- *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#getType <em>Type</em>}</li>
- *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#getByteSize <em>Byte Size</em>}</li>
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#getDelay <em>Delay</em>}</li>
  * </ul>
  *
  * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlPackage#getPlace()
- * @model annotation="http://www.eclipse.org/emf/2002/Ecore constraints='matchRates'"
- *        annotation="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot matchRates='if byteSize &gt; 0 then byteSize &gt;= itsOutputPort.byteRate and byteSize &gt;= itsInputPort.byteRate else true endif'"
+ * @model
  * @generated
  */
 public interface Place extends NamedElement {
@@ -132,61 +129,6 @@ public interface Place extends NamedElement {
 	 * @generated
 	 */
 	void setOwner(Application value);
-
-	/**
-	 * Returns the value of the '<em><b>Type</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.sizeType}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Type</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Type</em>' attribute.
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.sizeType
-	 * @see #setType(sizeType)
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlPackage#getPlace_Type()
-	 * @model required="true"
-	 * @generated
-	 */
-	sizeType getType();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#getType <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Type</em>' attribute.
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.sizeType
-	 * @see #getType()
-	 * @generated
-	 */
-	void setType(sizeType value);
-
-	/**
-	 * Returns the value of the '<em><b>Byte Size</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Byte Size</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Byte Size</em>' attribute.
-	 * @see #setByteSize(int)
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlPackage#getPlace_ByteSize()
-	 * @model required="true" transient="true" volatile="true" derived="true"
-	 * @generated
-	 */
-	int getByteSize();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place#getByteSize <em>Byte Size</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Byte Size</em>' attribute.
-	 * @see #getByteSize()
-	 * @generated
-	 */
-	void setByteSize(int value);
 
 	/**
 	 * Returns the value of the '<em><b>Delay</b></em>' attribute.

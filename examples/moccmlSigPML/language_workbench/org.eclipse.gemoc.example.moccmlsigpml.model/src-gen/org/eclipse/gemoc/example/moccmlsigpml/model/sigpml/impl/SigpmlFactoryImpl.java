@@ -22,7 +22,6 @@ import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.OutputPort;
 import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place;
 import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlFactory;
 import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlPackage;
-import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.sizeType;
 
 /**
  * <!-- begin-user-doc -->
@@ -91,8 +90,6 @@ public class SigpmlFactoryImpl extends EFactoryImpl implements SigpmlFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case SigpmlPackage.SIZE_TYPE:
-				return createsizeTypeFromString(eDataType, initialValue);
 			case SigpmlPackage.OBJECT:
 				return createObjectFromString(eDataType, initialValue);
 			default:
@@ -108,8 +105,6 @@ public class SigpmlFactoryImpl extends EFactoryImpl implements SigpmlFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case SigpmlPackage.SIZE_TYPE:
-				return convertsizeTypeToString(eDataType, instanceValue);
 			case SigpmlPackage.OBJECT:
 				return convertObjectToString(eDataType, instanceValue);
 			default:
@@ -215,26 +210,6 @@ public class SigpmlFactoryImpl extends EFactoryImpl implements SigpmlFactory {
 	public org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.System createSystem() {
 		SystemImpl system = new SystemImpl();
 		return system;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public sizeType createsizeTypeFromString(EDataType eDataType, String initialValue) {
-		sizeType result = sizeType.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertsizeTypeToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

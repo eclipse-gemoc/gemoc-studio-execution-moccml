@@ -14,8 +14,6 @@ package org.eclipse.gemoc.example.moccmlsigpml.model.sigpml;
  * <ul>
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Port#getOwner <em>Owner</em>}</li>
  *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Port#getRate <em>Rate</em>}</li>
- *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Port#getByteRate <em>Byte Rate</em>}</li>
- *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Port#getType <em>Type</em>}</li>
  * </ul>
  *
  * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlPackage#getPort()
@@ -76,60 +74,5 @@ public interface Port extends NamedElement {
 	 * @generated
 	 */
 	void setRate(int value);
-
-	/**
-	 * Returns the value of the '<em><b>Byte Rate</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Byte Rate</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Byte Rate</em>' attribute.
-	 * @see #setByteRate(int)
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlPackage#getPort_ByteRate()
-	 * @model required="true" transient="true" volatile="true" derived="true"
-	 * @generated
-	 */
-	int getByteRate();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Port#getByteRate <em>Byte Rate</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Byte Rate</em>' attribute.
-	 * @see #getByteRate()
-	 * @generated
-	 */
-	void setByteRate(int value);
-
-	/**
-	 * Returns the value of the '<em><b>Type</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.sizeType}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Type</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Type</em>' attribute.
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.sizeType
-	 * @see #setType(sizeType)
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlPackage#getPort_Type()
-	 * @model required="true"
-	 * @generated
-	 */
-	sizeType getType();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Port#getType <em>Type</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Type</em>' attribute.
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.sizeType
-	 * @see #getType()
-	 * @generated
-	 */
-	void setType(sizeType value);
 
 } // Port

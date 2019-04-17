@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: org.eclipse.gemoc.example.moccmlsigpml.design
 Bundle-SymbolicName: org.eclipse.gemoc.example.moccmlsigpml.design;singleton:=true
 Bundle-Version: 1.0.0
-Bundle-Activator: org.eclipse.gemoc.example.moccmlsigpml.concrete.design.Activator
+Bundle-Activator: org.eclipse.gemoc.example.moccmlsigpml.design.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.sirius,

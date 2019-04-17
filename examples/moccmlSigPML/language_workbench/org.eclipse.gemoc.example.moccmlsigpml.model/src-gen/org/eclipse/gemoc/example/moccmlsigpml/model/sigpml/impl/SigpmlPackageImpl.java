@@ -5,12 +5,9 @@ package org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
-import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EValidator;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent;
@@ -27,9 +24,6 @@ import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place;
 import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Port;
 import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlFactory;
 import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlPackage;
-import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.sizeType;
-
-import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.util.SigpmlValidator;
 
 /**
  * <!-- begin-user-doc -->
@@ -134,13 +128,6 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EEnum sizeTypeEEnum = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EDataType objectEDataType = null;
 
 	/**
@@ -195,15 +182,6 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 
 		// Initialize created meta-data
 		theSigpmlPackage.initializePackageContents();
-
-		// Register package validator
-		EValidator.Registry.INSTANCE.put
-			(theSigpmlPackage,
-			 new EValidator.Descriptor() {
-				 public EValidator getEValidator() {
-					 return SigpmlValidator.INSTANCE;
-				 }
-			 });
 
 		// Mark meta-data to indicate it can't be changed
 		theSigpmlPackage.freeze();
@@ -299,15 +277,6 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAgent_CurrentExecCycle() {
-		return (EAttribute)agentEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EOperation getAgent__Execute() {
 		return agentEClass.getEOperations().get(0);
 	}
@@ -355,24 +324,6 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 */
 	public EAttribute getPort_Rate() {
 		return (EAttribute)portEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getPort_ByteRate() {
-		return (EAttribute)portEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getPort_Type() {
-		return (EAttribute)portEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -461,26 +412,8 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPlace_Type() {
-		return (EAttribute)placeEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getPlace_ByteSize() {
-		return (EAttribute)placeEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getPlace_Delay() {
-		return (EAttribute)placeEClass.getEStructuralFeatures().get(6);
+		return (EAttribute)placeEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -659,15 +592,6 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EEnum getsizeType() {
-		return sizeTypeEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EDataType getObject() {
 		return objectEDataType;
 	}
@@ -710,7 +634,6 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 		createEReference(agentEClass, AGENT__OWNER);
 		createEAttribute(agentEClass, AGENT__CODE);
 		createEReference(agentEClass, AGENT__ALLOCATED_TO);
-		createEAttribute(agentEClass, AGENT__CURRENT_EXEC_CYCLE);
 		createEOperation(agentEClass, AGENT___EXECUTE);
 		createEOperation(agentEClass, AGENT___STOP);
 		createEOperation(agentEClass, AGENT___IS_EXECUTING);
@@ -718,8 +641,6 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 		portEClass = createEClass(PORT);
 		createEReference(portEClass, PORT__OWNER);
 		createEAttribute(portEClass, PORT__RATE);
-		createEAttribute(portEClass, PORT__BYTE_RATE);
-		createEAttribute(portEClass, PORT__TYPE);
 
 		inputPortEClass = createEClass(INPUT_PORT);
 		createEOperation(inputPortEClass, INPUT_PORT___READ);
@@ -732,8 +653,6 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 		createEReference(placeEClass, PLACE__ITS_INPUT_PORT);
 		createEAttribute(placeEClass, PLACE__SIZE);
 		createEReference(placeEClass, PLACE__OWNER);
-		createEAttribute(placeEClass, PLACE__TYPE);
-		createEAttribute(placeEClass, PLACE__BYTE_SIZE);
 		createEAttribute(placeEClass, PLACE__DELAY);
 		createEOperation(placeEClass, PLACE___PUSH);
 		createEOperation(placeEClass, PLACE___POP);
@@ -761,9 +680,6 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 		systemEClass = createEClass(SYSTEM);
 		createEReference(systemEClass, SYSTEM__OWNED_APPLICATION);
 		createEReference(systemEClass, SYSTEM__OWNED_HW_PLATFORM);
-
-		// Create enums
-		sizeTypeEEnum = createEEnum(SIZE_TYPE);
 
 		// Create data types
 		objectEDataType = createEDataType(OBJECT);
@@ -821,7 +737,6 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 		initEReference(getAgent_Owner(), this.getApplication(), this.getApplication_OwnedAgents(), "owner", null, 1, 1, Agent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAgent_Code(), ecorePackage.getEString(), "code", null, 0, 1, Agent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAgent_AllocatedTo(), this.getHWComputationalResource(), null, "allocatedTo", null, 0, 1, Agent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAgent_CurrentExecCycle(), ecorePackage.getEInt(), "currentExecCycle", null, 0, 1, Agent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEOperation(getAgent__Execute(), null, "execute", 0, 1, IS_UNIQUE, IS_ORDERED);
 
@@ -832,8 +747,6 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 		initEClass(portEClass, Port.class, "Port", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPort_Owner(), this.getAgent(), this.getAgent_OwnedPorts(), "owner", null, 1, 1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPort_Rate(), ecorePackage.getEInt(), "rate", null, 1, 1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPort_ByteRate(), ecorePackage.getEInt(), "byteRate", null, 1, 1, Port.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPort_Type(), this.getsizeType(), "type", null, 1, 1, Port.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(inputPortEClass, InputPort.class, "InputPort", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -848,8 +761,6 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 		initEReference(getPlace_ItsInputPort(), this.getInputPort(), null, "itsInputPort", null, 1, 1, Place.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPlace_Size(), ecorePackage.getEInt(), "size", null, 0, 1, Place.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPlace_Owner(), this.getApplication(), this.getApplication_OwnedPlaces(), "owner", null, 1, 1, Place.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPlace_Type(), this.getsizeType(), "type", null, 1, 1, Place.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPlace_ByteSize(), ecorePackage.getEInt(), "byteSize", null, 1, 1, Place.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPlace_Delay(), ecorePackage.getEInt(), "delay", null, 0, 1, Place.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEOperation(getPlace__Push(), null, "push", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -881,64 +792,11 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 		initEReference(getSystem_OwnedApplication(), this.getApplication(), null, "ownedApplication", null, 0, 1, org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.System.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSystem_OwnedHWPlatform(), this.getHWPlatform(), null, "ownedHWPlatform", null, 0, 1, org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.System.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		// Initialize enums and add enum literals
-		initEEnum(sizeTypeEEnum, sizeType.class, "sizeType");
-		addEEnumLiteral(sizeTypeEEnum, sizeType.B);
-		addEEnumLiteral(sizeTypeEEnum, sizeType.KB);
-		addEEnumLiteral(sizeTypeEEnum, sizeType.MB);
-		addEEnumLiteral(sizeTypeEEnum, sizeType.GB);
-
 		// Initialize data types
 		initEDataType(objectEDataType, Object.class, "Object", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);
-
-		// Create annotations
-		// http://www.eclipse.org/emf/2002/Ecore
-		createEcoreAnnotations();
-		// http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot
-		createPivotAnnotations();
-	}
-
-	/**
-	 * Initializes the annotations for <b>http://www.eclipse.org/emf/2002/Ecore</b>.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void createEcoreAnnotations() {
-		String source = "http://www.eclipse.org/emf/2002/Ecore";
-		addAnnotation
-		  (this,
-		   source,
-		   new String[] {
-			   "invocationDelegates", "http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot",
-			   "settingDelegates", "http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot",
-			   "validationDelegates", "http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"
-		   });
-		addAnnotation
-		  (placeEClass,
-		   source,
-		   new String[] {
-			   "constraints", "matchRates"
-		   });
-	}
-
-	/**
-	 * Initializes the annotations for <b>http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot</b>.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void createPivotAnnotations() {
-		String source = "http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot";
-		addAnnotation
-		  (placeEClass,
-		   source,
-		   new String[] {
-			   "matchRates", "if byteSize > 0 then byteSize >= itsOutputPort.byteRate and byteSize >= itsInputPort.byteRate else true endif"
-		   });
 	}
 
 } //SigpmlPackageImpl

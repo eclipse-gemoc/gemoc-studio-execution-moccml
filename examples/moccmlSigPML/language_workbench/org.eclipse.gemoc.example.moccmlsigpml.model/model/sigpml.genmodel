@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ASCII"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gemoc.example.moccmlsigpml.model/src-gen"
     editDirectory="/org.eclipse.gemoc.example.moccmlsigpml.model.edit/src-gen" editorDirectory="/org.eclipse.gemoc.example.moccmlsigpml.model.editor/src-gen"
@@ -12,12 +12,6 @@
   <foreignModel>sigpml.ecore</foreignModel>
   <genPackages prefix="Sigpml" basePackage="org.eclipse.gemoc.example.moccmlsigpml.model"
       disposableProviderFactory="true" ecorePackage="sigpml.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="sigpml.ecore#//sizeType">
-      <genEnumLiterals ecoreEnumLiteral="sigpml.ecore#//sizeType/B"/>
-      <genEnumLiterals ecoreEnumLiteral="sigpml.ecore#//sizeType/kB"/>
-      <genEnumLiterals ecoreEnumLiteral="sigpml.ecore#//sizeType/MB"/>
-      <genEnumLiterals ecoreEnumLiteral="sigpml.ecore#//sizeType/GB"/>
-    </genEnums>
     <genDataTypes ecoreDataType="sigpml.ecore#//Object"/>
     <genClasses ecoreClass="sigpml.ecore#//Application">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference sigpml.ecore#//Application/ownedAgents"/>
@@ -29,7 +23,6 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference sigpml.ecore#//Agent/owner"/>
       <genFeatures createChild="false" propertyMultiLine="true" ecoreFeature="ecore:EAttribute sigpml.ecore#//Agent/code"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference sigpml.ecore#//Agent/allocatedTo"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sigpml.ecore#//Agent/currentExecCycle"/>
       <genOperations ecoreOperation="sigpml.ecore#//Agent/execute"/>
       <genOperations ecoreOperation="sigpml.ecore#//Agent/stop"/>
       <genOperations ecoreOperation="sigpml.ecore#//Agent/isExecuting"/>
@@ -37,8 +30,6 @@
     <genClasses image="false" ecoreClass="sigpml.ecore#//Port">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference sigpml.ecore#//Port/owner"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sigpml.ecore#//Port/rate"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sigpml.ecore#//Port/byteRate"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sigpml.ecore#//Port/type"/>
     </genClasses>
     <genClasses ecoreClass="sigpml.ecore#//InputPort">
       <genOperations ecoreOperation="sigpml.ecore#//InputPort/read"/>
@@ -51,8 +42,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference sigpml.ecore#//Place/itsInputPort"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sigpml.ecore#//Place/size"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference sigpml.ecore#//Place/owner"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sigpml.ecore#//Place/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sigpml.ecore#//Place/byteSize"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute sigpml.ecore#//Place/delay"/>
       <genOperations ecoreOperation="sigpml.ecore#//Place/push"/>
       <genOperations ecoreOperation="sigpml.ecore#//Place/pop"/>

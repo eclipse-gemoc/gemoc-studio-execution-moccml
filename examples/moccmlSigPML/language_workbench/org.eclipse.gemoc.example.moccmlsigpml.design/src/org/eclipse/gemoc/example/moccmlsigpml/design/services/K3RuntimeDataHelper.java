@@ -14,7 +14,8 @@ public class K3RuntimeDataHelper {
 		return SigPMLRTDAccessor.getcurrentSize(eObject);
 	}
 	
-
-	
+	public int getCurrentExecCycle(EObject eObject) {
+		return SigPMLRTDAccessor.getcurrentExecCycle(eObject);
+	}
 
 }
