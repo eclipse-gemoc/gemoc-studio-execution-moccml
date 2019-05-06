@@ -47,13 +47,18 @@ abstract public class GenerateExtendedCCSLFileAction implements IObjectActionDel
 	private String getFeedbackFileExtension() {
 		return "feedback";
 	}
+	
+	private String getPriorityFileExtension() {
+		return "prioritymodel";
+	}
 
 	protected void doQvToTransfo() {
 		int numberOfCharToRemove = modelFile.getFullPath().toString().length() - modelFile.getFileExtension().length() -1;
 		String outputMoCPath = "platform:/resource" + modelFile.getFullPath().toString().substring(0, numberOfCharToRemove) + "_executionModel." + getMoCFileExtension();
 		String outputFeedbackPath = "platform:/resource" + modelFile.getFullPath().toString().substring(0, numberOfCharToRemove) + "_executionModel." + getFeedbackFileExtension();
+		String priorityFeedbackPath = "platform:/resource" + modelFile.getFullPath().toString().substring(0, numberOfCharToRemove) + "_executionModel." + getPriorityFileExtension();
 		QvtoTransformationPerformer performer = new QvtoTransformationPerformer();
-		performer.run(new ResourceSetImpl(), qvtoUriString, modelUriString, outputMoCPath, outputFeedbackPath);
+		performer.run(new ResourceSetImpl(), qvtoUriString, modelUriString, outputMoCPath, outputFeedbackPath, priorityFeedbackPath);
 	}
 
 	/**

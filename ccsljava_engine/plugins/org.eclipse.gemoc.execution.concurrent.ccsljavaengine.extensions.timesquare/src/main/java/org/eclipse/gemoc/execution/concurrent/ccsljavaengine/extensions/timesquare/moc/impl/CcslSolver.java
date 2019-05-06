@@ -68,6 +68,7 @@ import fr.inria.aoste.timesquare.ccslkernel.runtime.exceptions.NoBooleanSolution
 import fr.inria.aoste.timesquare.ccslkernel.runtime.exceptions.SimulationException;
 import fr.inria.aoste.timesquare.ccslkernel.solver.exception.SolverException;
 import fr.inria.aoste.timesquare.ccslkernel.solver.launch.CCSLKernelSolverWrapper;
+import fr.inria.aoste.timesquare.ccslkernel.solver.priorities.PrioritySolver;
 import fr.inria.aoste.timesquare.instantrelation.CCSLRelationModel.OccurrenceRelation;
 import fr.inria.aoste.timesquare.instantrelation.listener.RelationModelListener;
 import fr.inria.aoste.timesquare.simulationpolicy.maxcardpolicy.MaxCardSimulationPolicy;
@@ -183,7 +184,7 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 			this.solverInputURI = URI.createPlatformResourceURI(_alternativeExecutionModelPath, true);
 		}
 		URI feedbackURI = URI.createPlatformResourceURI(getFeedbackPathFromMSEModelPath(context.getWorkspace().getMSEModelPath()).toString(), true);
-		
+		URI priorityURI = URI.createPlatformResourceURI(getPriorityPathFromMSEModelPath(context.getWorkspace().getMSEModelPath()).toString(), true);
 		try 
 		{
 			//ResourceSet resourceSet = context.getResourceModel().getResourceSet();		
@@ -194,8 +195,13 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 			traceResources(resourceSet);
 			traceUnresolvedProxies(resourceSet, solverInputURI);			
 			
+			ResourceSet prioResourceSet = new ResourceSetImpl();
+			Resource prioResource = prioResourceSet .getResource(priorityURI, true);
+			EcoreUtil.resolveAll(prioResourceSet);
+			
 			this.solverWrapper = new CCSLKernelSolverWrapper();
 			this.solverWrapper.getSolver().loadModel(ccslResource);
+			this.solverWrapper.getSolver().loadPriorityModel(prioResource);
 			this.solverWrapper.getSolver().initSimulation();
 			this.solverWrapper.getSolver().setPolicy(new MaxCardSimulationPolicy());
 
@@ -429,7 +435,8 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 						"platform:/plugin" + transformationPath, 
 						context.getRunConfiguration().getExecutedModelURI().toString(), 
 						"platform:/resource" + workspace.getMoCPath().toString(),
-						"platform:/resource" + getFeedbackPathFromMSEModelPath(workspace.getMSEModelPath()).toString());	
+						"platform:/resource" + getFeedbackPathFromMSEModelPath(workspace.getMSEModelPath()).toString(),	
+						"platform:/resource" + getPriorityPathFromMSEModelPath(workspace.getMSEModelPath()).toString());	
 			// TODO must now generate the MSEModel based on this feedbackmodel, that'll wrap the ModelSpecificEvent from Timesquare to MSE for our internal trace
 			generateMSEModel(context);
 			// TODO must reload the model resourceSet since some element may have changed
@@ -484,6 +491,12 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 	public IPath getFeedbackPathFromMSEModelPath(IPath mseModelPath) 
 	{
 		IPath msePath= mseModelPath.removeFileExtension().addFileExtension("feedback");
+		return msePath;
+	}
+	
+	public IPath getPriorityPathFromMSEModelPath(IPath mseModelPath) 
+	{
+		IPath msePath= mseModelPath.removeFileExtension().addFileExtension("prioritymodel");
 		return msePath;
 	}
 
