@@ -63,7 +63,7 @@ public class QvtoTransformationPerformer {
 		ExtendedCCSLStandaloneSetup.doSetup();
 	}
 	
-	public void run(ResourceSet resourceSet, String transformationPath, String modelPath, String outputMoCPath, String outputFeedbackPath) 
+	public void run(ResourceSet resourceSet, String transformationPath, String modelPath, String outputMoCPath, String outputFeedbackPath, String outputPriorityPath) 
 	{		
 		//initialize console
 		getMessagingSystem();
@@ -82,10 +82,11 @@ public class QvtoTransformationPerformer {
 		ModelExtent input = new BasicModelExtent(modelResource.getContents());
 		ModelExtent outputMoC = new BasicModelExtent();
 		ModelExtent outputFeedback = new BasicModelExtent();
-
+		ModelExtent outputPriority = new BasicModelExtent();
+		
 		ExecutionContextImpl context = new ExecutionContextImpl();
 
-		ExecutionDiagnostic diagnostic = executor.execute(context, input, outputMoC, outputFeedback);
+		ExecutionDiagnostic diagnostic = executor.execute(context, input, outputMoC, outputFeedback, outputPriority);
 		System.out.println(diagnostic);
 		if(diagnostic.getSeverity() != ExecutionDiagnostic.OK){
 			messagingSystem.error(diagnostic.getMessage(), Activator.PLUGIN_ID);
@@ -95,17 +96,22 @@ public class QvtoTransformationPerformer {
 	    
 	    URI outputMoCUri = URI.createURI(outputMoCPath, true);
 	    URI outputFeedbackUri = URI.createURI(outputFeedbackPath, true);
+	    URI outputPriorityUri = URI.createURI(outputPriorityPath, true);
 	    Resource outputMoCResource = null;
 	    Resource outputFeedbackResource = null;
+	    Resource outputPriorityResource = null;
 	    try
 	    {
 	    	outputMoCResource = outputResourceSet.createResource(outputMoCUri);
 	    	outputFeedbackResource = outputResourceSet.createResource(outputFeedbackUri);
+	    	outputPriorityResource = outputResourceSet.createResource(outputPriorityUri);
 		    outputMoCResource.getContents().addAll(outputMoC.getContents());
 		    outputFeedbackResource.getContents().addAll(outputFeedback.getContents());
+		    outputPriorityResource.getContents().addAll(outputPriority.getContents());
 		    hackImportStatements(modelURI, outputMoC);		    
 			outputMoCResource.save(null);
 			outputFeedbackResource.save(null);
+			outputPriorityResource.save(null);
 	    }
 	    catch (Exception e)
 	    {
