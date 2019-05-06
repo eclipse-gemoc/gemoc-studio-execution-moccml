@@ -225,7 +225,7 @@ public class GemocDSEBuilder extends IncrementalProjectBuilder {
 	}
 	
 	void updateQVTOFromECL(IResource resource) {		
-		if (resource instanceof IFile && resource.getName().endsWith(".ecl")) {
+		if (resource instanceof IFile && (resource.getName().endsWith(".ecl") || resource.getName().endsWith(".moccmlmapping"))) {
 			IProject project = resource.getProject();
 			final IFile eclFile = (IFile) resource;
 			deleteMarkers(eclFile);
