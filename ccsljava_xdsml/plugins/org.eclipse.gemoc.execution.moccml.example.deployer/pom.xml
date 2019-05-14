@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<properties>
+		<sigpml_example_root>${basedir}/../../../examples/moccmlSigPML</sigpml_example_root>
+		<sigpml_example_language_root>${sigpml_example_root}/language_workbench</sigpml_example_language_root>
+		<sigpml_example_modeling_root>${sigpml_example_root}/modeling_workbench</sigpml_example_modeling_root>
+	</properties>
+
+	<parent>
+		<relativePath>../../..</relativePath>
+		<groupId>org.eclipse.gemoc.execution.concurrent.ccsljava</groupId>
+		<artifactId>org.eclipse.gemoc.execution.concurrent.ccsljava.root</artifactId>
+		<version>2.3.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>org.eclipse.gemoc.execution.moccml.example.deployer</artifactId>
+	<packaging>eclipse-plugin</packaging>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<mkdir dir="${basedir}/zips" />
+
+								<!-- sigPML language -->
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccmlsigpml.zip">
+									<fileset
+										dir="${sigpml_example_language_root}/org.eclipse.gemoc.example.moccmlsigpml/" />
+								</zip>
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccmlsigpmldesign.zip">
+									<fileset
+										dir="${sigpml_example_language_root}/org.eclipse.gemoc.example.moccmlsigpml.design/" />
+								</zip>
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccmlsigpml.dse.zip">
+									<fileset
+										dir="${sigpml_example_language_root}/org.eclipse.gemoc.example.moccmlsigpml.dse/" />
+								</zip>
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccmlsigpml.groovy.zip">
+									<fileset
+										dir="${sigpml_example_language_root}/org.eclipse.gemoc.example.moccmlsigpml.groovy" />
+								</zip>
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccmlsigpml.k3dsa.zip">
+									<fileset
+										dir="${sigpml_example_language_root}/org.eclipse.gemoc.example.moccmlsigpml.k3dsa" />
+								</zip>
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccmlsigpml.lib.zip">
+									<fileset
+										dir="${sigpml_example_language_root}/org.eclipse.gemoc.example.moccmlsigpml.lib" />
+								</zip>
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccmlsigpml.model.zip">
+									<fileset
+										dir="${sigpml_example_language_root}/org.eclipse.gemoc.example.moccmlsigpml.model" />
+								</zip>
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccmlsigpml.model.edit.zip">
+									<fileset
+										dir="${sigpml_example_language_root}/org.eclipse.gemoc.example.moccmlsigpml.model.edit" />
+								</zip>
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccmlsigpml.model.editor.zip">
+									<fileset
+										dir="${sigpml_example_language_root}/org.eclipse.gemoc.example.moccmlsigpml.model.editor" />
+								</zip>
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.ultimateplotter.zip">
+									<fileset
+										dir="${sigpml_example_language_root}/org.eclipse.gemoc.ultimateplotter" />
+								</zip>
+								<!-- sigPML models -->
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccmlsigpml.simple_example.zip">
+									<fileset
+										dir="${sigpml_example_modeling_root}/org.eclipse.gemoc.example.moccmlsigpml.simple_example/" />
+								</zip>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project> 
