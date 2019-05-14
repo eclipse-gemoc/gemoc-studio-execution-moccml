@@ -15,7 +15,7 @@
     <XDSML_Definition name="xSigPML" xdsmlFilePath="platform:/plugin/org.eclipse.gemoc.example.moccmlsigpml/src/org/eclipse/gemoc/example/moccmlsigpml/sigpml.dsl" modelLoader_class="org.eclipse.gemoc.executionframework.extensions.sirius.modelloader.DefaultModelLoader" />
   </extension>
   <extension point="org.eclipse.gemoc.gemoc_language_workbench.concurrent.xdsml">
-    <XDSML_Definition codeExecutor_class="sigpml.xdsml.api.impl.SigPMLCodeExecutor" modelLoader_class="org.eclipse.gemoc.executionframework.extensions.sirius.modelloader.DefaultModelLoader" name="xSigPML" solver_class="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare.moc.impl.CcslSolver" toCCSLQVTOFilePath="/org.eclipse.gemoc.example.moccmlsigpml.moc.dse/qvto-gen/modeling/SigPML.qvto" xdsmlFilePath="/org.eclipse.gemoc.example.moccmlsigpml/bin/org/eclipse/gemoc/example/moccmlsigpml/sigpml.dsl">
+    <XDSML_Definition codeExecutor_class="sigpml.xdsml.api.impl.SigPMLCodeExecutor" modelLoader_class="org.eclipse.gemoc.executionframework.extensions.sirius.modelloader.DefaultModelLoader" name="xSigPML" solver_class="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare.moc.impl.CcslSolver" toCCSLQVTOFilePath="/org.eclipse.gemoc.example.moccmlsigpml.moc.dse/qvto-gen/modeling/SigPML.qvto" xdsmlFilePath="/org.eclipse.gemoc.example.moccmlsigpml/src/org/eclipse/gemoc/example/moccmlsigpml/sigpml.dsl">
       <XDSML_Definition_Customization fileExtensions="sigpml" />
     </XDSML_Definition>
   </extension>
