@@ -19,9 +19,16 @@ public class SigPMLExampleWizard extends AbstractExampleWizard {
 	protected Collection<ProjectDescriptor> getProjectDescriptors() {
 		List<ProjectDescriptor> projects = new ArrayList<ProjectDescriptor>(1);
 		// extract project in a compilation friendly way, give the compiler a chance to be more efficient and succeed without a "clean all"
-		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.sample.ale.fsm.model.zip", 	"org.eclipse.gemoc.sample.ale.fsm.model"));
-		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.sample.ale.fsm.design.zip", 	"org.eclipse.gemoc.sample.ale.fsm.design"));
-		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.sample.ale.xfsm.design.zip", 	"org.eclipse.gemoc.sample.ale.xfsm.design"));
+		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.example.moccmlsigpml.model.zip", 	"org.eclipse.gemoc.example.moccmlsigpml.model"));;
+		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.example.moccmlsigpml.model.edit.zip", 	"org.eclipse.gemoc.example.moccmlsigpml.model.edit"));;
+		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.example.moccmlsigpml.model.editor.zip", 	"org.eclipse.gemoc.example.moccmlsigpml.model.editor"));;
+		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.example.moccmlsigpml.groovy.zip", 	"org.eclipse.gemoc.example.moccmlsigpml.groovy"));
+		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.example.moccmlsigpml.k3dsa.zip", 	"org.eclipse.gemoc.example.moccmlsigpml.k3dsa"));;
+		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.example.moccmlsigpml.lib.zip", 	"org.eclipse.gemoc.example.moccmlsigpml.lib"));;
+		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.example.moccmlsigpml.design.zip", 	"org.eclipse.gemoc.example.moccmlsigpml.design"));;
+		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.example.moccmlsigpml.zip", 	"org.eclipse.gemoc.example.moccmlsigpml"));
+		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.ultimateplotter.zip", 	"org.eclipse.gemoc.example.ultimateplotter"));
+		
 return projects;
 	}
 

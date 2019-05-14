@@ -43,7 +43,7 @@
 										dir="${sigpml_example_language_root}/org.eclipse.gemoc.example.moccmlsigpml/" />
 								</zip>
 								<zip
-									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccmlsigpmldesign.zip">
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccmlsigpml.design.zip">
 									<fileset
 										dir="${sigpml_example_language_root}/org.eclipse.gemoc.example.moccmlsigpml.design/" />
 								</zip>

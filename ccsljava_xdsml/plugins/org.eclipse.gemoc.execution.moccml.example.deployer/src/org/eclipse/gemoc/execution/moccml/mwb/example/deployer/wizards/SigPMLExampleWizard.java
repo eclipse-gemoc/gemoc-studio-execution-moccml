@@ -19,7 +19,7 @@ public class SigPMLExampleWizard extends AbstractExampleWizard {
 	protected Collection<ProjectDescriptor> getProjectDescriptors() {
 		List<ProjectDescriptor> projects = new ArrayList<ProjectDescriptor>(1);
 		// extract project in a compilation friendly way, give the compiler a chance to be more efficient and succeed without a "clean all"
-		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.sample.ale.fsm.model_examples.zip", 	"org.eclipse.gemoc.sample.ale.fsm.model_examples"));
+		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.example.moccmlsigpml.simple_example.zip", 	"org.eclipse.gemoc.example.moccmlsigpml.simple_example"));
 return projects;
 	}
 

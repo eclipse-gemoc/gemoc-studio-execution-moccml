@@ -12,7 +12,7 @@ public class Activator extends AbstractUIPlugin {
 
 	
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.eclipse.gemoc.ale.language.sample.deployer"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "org.eclipse.gemoc.execution.moccml.example.deployer"; //$NON-NLS-1$
 	
 	private static BundleContext context;
 	
