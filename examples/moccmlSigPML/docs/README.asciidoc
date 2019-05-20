@@ -75,17 +75,17 @@ Main eclipse plugins:
 .SigPML metamodel overview
 [#img-sigpml-ecore]
 [caption="Figure 1: "]
-image::images/sigpml-ecore.png[sigpml-ecore]
+image::images/sigpml-ecore.png[sigpml-ecore,800]
 
 .Agents in SigPML metamodel
 [#img-sigpml-ecore-agents]
 [caption="Figure 1: "]
-image::images/sigpml-ecore-agents.png[sigpml-ecore-agents]
+image::images/sigpml-ecore_agents.png[sigpml-ecore-agents, 800]
 
 .HW Resources in SigPML metamodel
 [#img-sigpml-ecore-hwresources]
 [caption="Figure 1: "]
-image::images/sigpml-ecore-hwresources.png[sigpml-ecore-hwresources]
+image::images/sigpml-ecore_hwresources.png[sigpml-ecore-hwresources,800]
 
 === Model Designer documentation image:http://gemoc.github.io/gemoc-studio/publish/guide/html_single/images/icons/IconeGemocModel_16.png[title="GEMOC Model icon"]
 
