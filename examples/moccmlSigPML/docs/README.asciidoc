@@ -1,0 +1,103 @@
+////////////////////////////////////////////////////////////////
+//	Reproduce title only if not included in master documentation
+////////////////////////////////////////////////////////////////
+ifndef::includedInMaster[]
+= Examples
+endif::[]
+
+[[MOCCMLSigPML-example]]
+== MOCCML SigPML Example
+
+footnote:[asciidoc source of this page:  https://github.com/eclipse/gemoc-studio-execution-moccml/tree/master/examples/moccmlSigPML/docs/README.asciidoc.]
+
+
+=== Presentation
+
+This example features a simple executable language using GEMOC Java Engine.   
+
+It illustrates the GEMOC animation framework on a Finite State Machine language where the concepts of both the syntax and semantic domains are in a single ecore file.   
+
+The example focuses on the tooling of a single language (FSM) with the following tools:
+
+SigPML is a DSL dedicated to data flow processing. It is based on blocks, ports and connectors which associated ports to create directed flows.
+
+
+=== Installation
+
+
+Installation can be done using two ways: 
+
+- using the example deployer wizard directly from the GEMOC Studio 
+- or by cloning and importing the project from github.
+
+==== Installing using the example deployer wizard
+Install the projects of this language:
+
+- File -> new  -> Examples... -> GEMOC MOCCML SigPML Language example
+
+Create and start an eclipse runtime:
+
+- Run  ->  Run Configurations... -> Eclipse application > new
+
+In the second Eclipse instance.
+
+Install sample models for the language:
+
+- File -> new  -> Examples... -> GEMOC models for MoccmlSigPML Language
+
+Run (or debug ) one of the provided model using the predefined launch configurations:
+
+- Run  ->  Debug Configurations... -> Gemoc Concurrent eXecutable Model -> one of the MOCCMLSigPML launch conf.
+
+
+==== Installing from git
+
+This language can be installed by importing the projects of this https://github.com/eclipse/gemoc-studio-execution-moccml/tree/master/examples/moccmlSigPML[git repository] in a GEMOC Studio. The language projects must be imported in the first workspace (language wokbench), then launch a new Eclipse instance from the first (ie. as a modeling workbench where the language is deployed) and then import the sample models. (see http://gemoc.github.io/gemoc-studio/publish/guide/html_single/Guide.html#deploy-languages-chapter[GEMOC documentation] for more details about the language deployment process)
+
+
+=== Language Designer documentation image:http://gemoc.github.io/gemoc-studio/publish/guide/html_single/images/icons/IconeGemocLanguage_16.png[title="GEMOC Language icon"]
+
+==== Organization of the code
+Main eclipse plugins:
+
+- _org.eclipse.gemoc.example.moccmlsigpml_ contains the definition of the language (using GEMOC dsl file).
+- _org.eclipse.gemoc.example.moccmlsigpml.model_ contains the metamodel of SigPML, using the Ecore language.
+- _org.eclipse.gemoc.example.moccmlsigpml.k3dsa_ contains the Domain Specific Action of the operational semantics of SigPML (ie. the atomic actions of the interpreter), using the Kermeta3 language.
+- _org.eclipse.gemoc.example.moccmlsigpml.groovy_ contains a groovy interpreter used to dynamically interpret some text expression from the user model.
+- _org.eclipse.gemoc.example.moccmlsigpml.dse_ contains the Domain Specific Event of the operational semantics of SigPML (ie. the observable events of the interpreter), using the ECL language.
+- _org.eclipse.gemoc.example.moccmlsigpml.lib_ contains a library of Event relations used by the dse. The library is defined using the moccml language.
+- _org.eclipse.gemoc.example.moccmlsigpml.design_ contains the graphical concrete syntax of SigPML, using Sirius. It defines several layers, the default layer is an editor, the other layers are used by the debug/animation.
+- _org.eclipse.gemoc.example.moccmlsigpml.model.edit_ contains EMF edition support. It is used to customize the various views in Sirius and in the simulator (for example by providing custom icons in the various views)
+- _org.eclipse.gemoc.example.moccmlsigpml.model.editor_ contains the EMF tree editor for SigPML.
+- _org.eclipse.gemoc.ultimateplotter_ contains some libs providing a 2D representation of the running model. (Ie. custom to this domain)
+
+==== Overview of the metamodel
+.SigPML metamodel overview
+[#img-sigpml-ecore]
+[caption="Figure 1: "]
+image::images/sigpml-ecore.png[sigpml-ecore,800]
+
+.Agents in SigPML metamodel
+[#img-sigpml-ecore-agents]
+[caption="Figure 1: "]
+image::images/sigpml-ecore_agents.png[sigpml-ecore-agents, 800]
+
+.HW Resources in SigPML metamodel
+[#img-sigpml-ecore-hwresources]
+[caption="Figure 1: "]
+image::images/sigpml-ecore_hwresources.png[sigpml-ecore-hwresources,800]
+
+=== Model Designer documentation image:http://gemoc.github.io/gemoc-studio/publish/guide/html_single/images/icons/IconeGemocModel_16.png[title="GEMOC Model icon"]
+
+The projects in modeling workbench contains some sample models.
+
+you can run them from the modeling workbench by creating a launch configuration and using the GEMOC Concurrent Engine.
+(see model details about launching the concurrent engine in http://gemoc.github.io/gemoc-studio/publish/guide/html_single/Guide.html#_executing_model_with_the_indexterm_primary_concurrent_engine_primary_indexterm_concurrent_engine[GEMOC Documentation]).
+
+=== Additional resources and related links
+Please note that some of the document listed here may describe an early implementation of the language and may slightly differ from the current version.
+
+- http://gemoc.github.io/gemoc-studio/publish/tutorial_sigpml/html_single/Tutorial_SigPML.html
+- https://hal.inria.fr/hal-01087442
+- http://gemoc.org/date15/
+
