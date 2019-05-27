@@ -18,7 +18,7 @@ import org.eclipse.gemoc.commons.eclipse.core.resources.NewProjectWorkspaceListe
 import org.eclipse.gemoc.commons.eclipse.ui.WizardFinder;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.Activator;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.dialogs.SelectECLIFileDialog;
-import org.eclipse.gemoc.xdsmlframework.ide.ui.xdsml.wizards.MelangeXDSMLProjectHelper;
+import org.eclipse.gemoc.xdsmlframework.ui.utils.XDSMLProjectHelper;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWizard;
@@ -115,7 +115,7 @@ public class CreateDSEWizardContextAction {
 	}
 
 	protected void initWizardFromMelangeLanguage(CreateNewDSEProject createNewDSEProjectWizard, String language){
-		createNewDSEProjectWizard._askProjectNamePage.setInitialProjectName(MelangeXDSMLProjectHelper.baseProjectName(gemocLanguageIProject)+".dse");
+		createNewDSEProjectWizard._askProjectNamePage.setInitialProjectName(XDSMLProjectHelper.baseProjectName(gemocLanguageIProject)+".dse");
 		createNewDSEProjectWizard._askDSEInfoPage.initialTemplateECLFileFieldValue = language;
 //		createNewDSEProjectWizard._askDSEInfoPage.initialEcoreFileFieldValue =  "platform:/resource"+MelangeXDSMLProjectHelper.getFirstEcorePath(language);
 		// FIXME currently we do not know how to store the DefaultRootContainer in a melangeXDSML project 
