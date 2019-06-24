@@ -31,11 +31,7 @@
         
         
         <!-- feature and update site -->
-        <module>releng/org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.feature</module>
-        <module>releng/org.eclipse.gemoc.execution.concurrent.ccsljavaengine.feature</module>
-        <module>releng/org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.feature</module>
-        <module>releng/org.eclipse.gemoc.concurrent_addons.feature</module>
-        <module>releng/org.eclipse.gemoc.execution.concurrent.ccsljava.repository</module>
+        <module>releng</module>
         
         <!-- tests (not a single one for now)-->
 <!--         <module>ccsljava_xdsml/tests/org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.tests</module> -->
