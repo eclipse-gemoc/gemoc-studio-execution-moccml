@@ -1,6 +1,6 @@
 # Changelog
 
-## v3.1.0-glose (25/06/2019)
+## v3.1.0-20190627 (27/06/2019)
 
 #### Enhancements:
 
@@ -16,4 +16,5 @@
 
 #### Release Engineering
 
+- [**releng**] Add gexpressions to studio/updatesite and restructure update site [#16](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/16)
 - [**releng**] Update icons to official branding colors [#14](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/14)
