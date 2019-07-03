@@ -33,7 +33,9 @@ public class Activator implements BundleActivator {
 		if (messagingSystem == null) 
 		{
 			MessagingSystemManager msm = new MessagingSystemManager();
-			messagingSystem = msm.createBestPlatformMessagingSystem(PLUGIN_ID, "GEMOC extensions k3");
+			messagingSystem = msm.createBestPlatformMessagingSystem(
+					org.eclipse.gemoc.executionframework.engine.Activator.PLUGIN_ID, 
+					org.eclipse.gemoc.executionframework.engine.Activator.CONSOLE_NAME);
 		}
 		return messagingSystem;
 	}

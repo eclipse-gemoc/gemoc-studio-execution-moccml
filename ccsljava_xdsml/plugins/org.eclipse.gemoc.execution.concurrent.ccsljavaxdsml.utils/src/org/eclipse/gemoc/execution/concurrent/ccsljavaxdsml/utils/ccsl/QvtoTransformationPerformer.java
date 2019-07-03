@@ -42,7 +42,9 @@ public class QvtoTransformationPerformer {
 		if (messagingSystem == null) {
 			MessagingSystemManager msm = new MessagingSystemManager();
 			// use the baseMessageGroup of the engine in order to share consoles instead of duplicating them
-			messagingSystem = msm.createBestPlatformMessagingSystem(org.eclipse.gemoc.executionframework.engine.Activator.PLUGIN_ID, "Modeling Workbench Console");
+			messagingSystem = msm.createBestPlatformMessagingSystem(
+					org.eclipse.gemoc.executionframework.engine.Activator.PLUGIN_ID, 
+					org.eclipse.gemoc.executionframework.engine.Activator.CONSOLE_NAME);
 		}
 		return messagingSystem;
 	}

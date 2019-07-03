@@ -76,7 +76,8 @@ public class Activator extends GemocPlugin {
 			{
 				_loggingBackend = new DefaultLoggingBackend(this);
 				MessagingSystemManager msm = new MessagingSystemManager();
-				MessagingSystem ms = msm.createBestPlatformMessagingSystem(org.eclipse.gemoc.executionframework.engine.Activator.PLUGIN_ID, 
+				MessagingSystem ms = msm.createBestPlatformMessagingSystem(
+						org.eclipse.gemoc.executionframework.engine.Activator.PLUGIN_ID, 
 						org.eclipse.gemoc.executionframework.engine.Activator.CONSOLE_NAME);
 				_loggingBackend.setMessagingSystem(ms);
 			}
