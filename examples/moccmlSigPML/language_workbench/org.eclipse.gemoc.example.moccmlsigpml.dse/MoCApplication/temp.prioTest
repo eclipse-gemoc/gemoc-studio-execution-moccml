@@ -1,0 +1,9 @@
+context Agent
+	inv ShortherMostPrior:
+		(self.cycles < self.oclAsType(ecore::EObject).eContainer().oclAsType(Application).ownedAgents->select(a | a  <> self).cycles->min())
+		implies 
+			Prior : self.startAgent 
+						prevails on 
+					self.oclAsType(ecore::EObject).eContainer().oclAsType(Application).ownedAgents->select(a |a.cycles = self.oclAsType(ecore::EObject).eContainer().oclAsType(Application).ownedAgents->select(ag | ag  <> self).cycles->min())->first().startAgent
+
+	

@@ -16,7 +16,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.gemoc.commons.eclipse.core.resources.NewProjectWorkspaceListener;
 import org.eclipse.gemoc.commons.eclipse.ui.WizardFinder;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.Activator;
-import org.eclipse.gemoc.xdsmlframework.ide.ui.xdsml.wizards.MelangeXDSMLProjectHelper;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.IWorkbench;
@@ -106,7 +105,7 @@ public class CreateMOCCWizardContextAction {
 	}
 	
 	protected void initWizardFromLanguage(CreateNewMoCProject createNewMOCProjectWizard, String language){
-		createNewMOCProjectWizard._askProjectNamePage.setInitialProjectName(MelangeXDSMLProjectHelper.baseProjectName(gemocLanguageIProject)+".mocc");
+		createNewMOCProjectWizard._askProjectNamePage.setInitialProjectName(gemocLanguageIProject.getProject().getName()+".mocc");
 		createNewMOCProjectWizard._askMoCInfoPage.initialTemplateMoCFileFieldValue = language.replaceAll(" ", "_");
 	}
 	

@@ -9,6 +9,9 @@ package sigpml
 
 
 	context Agent 
+	def : time : TimeBase(ADenseClock) = self.elapseTime()
+	
+	
 	def : startAgent: Event= self.execute()
 	def : stopAgent: Event = self.stop()
 	def : isExecuting :Event = self.isExecuting()
@@ -133,6 +136,16 @@ package sigpml
 		let allPortWrites : Event = Expression Union(self.allocatedPlaces.itsOutputPort.oclAsType(OutputPort).write) in
 		Relation Coincides(self.isWriting, allPortWrites)
 	
+	
+	
+	context Agent
+	inv ShortherMostPrior:
+		(self.cycles < self.oclAsType(ecore::EObject).eContainer().oclAsType(Application).ownedAgents->select(a | a  <> self).cycles->min())
+		implies 
+			Prior : self.startAgent 
+						prevails on 
+					self.oclAsType(ecore::EObject).eContainer().oclAsType(Application).ownedAgents->select(a |a.cycles = self.oclAsType(ecore::EObject).eContainer().oclAsType(Application).ownedAgents->select(ag | ag  <> self).cycles->min())->first().startAgent
+
 	
 	
 endpackage   
