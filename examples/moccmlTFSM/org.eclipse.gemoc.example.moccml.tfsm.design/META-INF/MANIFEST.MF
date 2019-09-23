@@ -22,7 +22,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.gemoc.executionframework.engine,
  fr.inria.diverse.k3.al.annotationprocessor.plugin;bundle-version="3.2.3",
  org.eclipse.gemoc.example.moccml.tfsm.k3dsa;bundle-version="2.3.0",
- org.eclipse.gemoc.example.moccml..tfsm
+ org.eclipse.gemoc.example.moccml.tfsm
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ManifestVersion: 2
