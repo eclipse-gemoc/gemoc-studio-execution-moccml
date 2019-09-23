@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  <extension point="org.eclipse.gemoc.gemoc_language_workbench.concurrent.xdsml">
+    <XDSML_Definition name="concurrentTFSM" xdsmlFilePath="/org.eclipse.gemoc.example.moccml..tfsm/src/org/eclipse/gemoc/example/moccml/tfsm/concurrentTFSM.dsl" codeExecutor_class="oncurrenttfsm.xdsml.api.impl.OncurrentTFSMCodeExecutor" modelLoader_class="org.eclipse.gemoc.executionframework.extensions.sirius.modelloader.DefaultModelLoader" solver_class="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare.moc.impl.CcslSolver" toCCSLQVTOFilePath="" />
+  </extension>
+  <extension point="org.eclipse.gemoc.gemoc_language_workbench.sequential.xdsml">
+    <XDSML_Definition name="concurrentTFSM" xdsmlFilePath="platform:/plugin/org.eclipse.gemoc.example.moccml..tfsm/src/org/eclipse/gemoc/example/moccml/tfsm/concurrentTFSM.dsl" modelLoader_class="org.eclipse.gemoc.executionframework.extensions.sirius.modelloader.DefaultModelLoader" />
+  </extension>
+</plugin>
