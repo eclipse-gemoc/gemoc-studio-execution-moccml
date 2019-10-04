@@ -31,6 +31,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalSte
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.ICodeExecutor;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMSEStateController;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ISolver;
 import org.eclipse.gemoc.executionframework.engine.Activator;
 import org.eclipse.gemoc.executionframework.engine.core.AbstractExecutionEngine;
@@ -90,10 +91,10 @@ import fr.inria.diverse.k3.al.annotationprocessor.InitializeModel;
  */
 public class ConcurrentExecutionEngine extends AbstractExecutionEngine<IConcurrentExecutionContext, IConcurrentRunConfiguration>implements IConcurrentExecutionEngine{
 
-	protected IMSEStateController _mseStateController;
+	private IMSEStateController _mseStateController;
 	
 	
-	public ConcurrentExecutionEngine(IConcurrentExecutionContext concurrentexecutionContext, ISolver s) throws CoreException 
+	public ConcurrentExecutionEngine(IConcurrentExecutionContext concurrentexecutionContext, ICCSLSolver s) throws CoreException 
 	{
 		super();
 		_solver = s;
@@ -106,7 +107,7 @@ public class ConcurrentExecutionEngine extends AbstractExecutionEngine<IConcurre
 		}
 	}
 
-	protected ILogicalStepDecider _logicalStepDecider;
+	private ILogicalStepDecider _logicalStepDecider;
 
 	@Override
 	public ILogicalStepDecider getLogicalStepDecider() {
@@ -118,11 +119,11 @@ public class ConcurrentExecutionEngine extends AbstractExecutionEngine<IConcurre
 		_logicalStepDecider = newDecider;
 	}
 
-	public void computePossibleLogicalSteps() {
+	protected void computePossibleLogicalSteps() {
 		_possibleLogicalSteps = getSolver().computeAndGetPossibleLogicalSteps();
 	}
 
-	public void updatePossibleLogicalSteps() {
+	private void updatePossibleLogicalSteps() {
 		for (IMSEStateController c : getConcurrentExecutionContext().getExecutionPlatform()
 				.getMSEStateControllers()) {
 			c.applyMSEFutureStates(getSolver());
@@ -158,7 +159,7 @@ public class ConcurrentExecutionEngine extends AbstractExecutionEngine<IConcurre
 
 	}
 
-	public void notifyLogicalStepSelected() {
+	private void notifyLogicalStepSelected() {
 		for (IEngineAddon addon : getExecutionContext().getExecutionPlatform().getEngineAddons()) {
 			try {
 				addon.stepSelected(this, getSelectedLogicalStep());
@@ -168,7 +169,7 @@ public class ConcurrentExecutionEngine extends AbstractExecutionEngine<IConcurre
 		}
 	}
 
-	public void notifyAboutToSelectLogicalStep() {
+	private void notifyAboutToSelectLogicalStep() {
 		for (IEngineAddon addon : getExecutionContext().getExecutionPlatform().getEngineAddons()) {
 			try {
 				addon.aboutToSelectStep(this, getPossibleLogicalSteps());
@@ -178,7 +179,7 @@ public class ConcurrentExecutionEngine extends AbstractExecutionEngine<IConcurre
 		}
 	}
 
-	protected Step<?> _selectedLogicalStep;
+	private Step<?> _selectedLogicalStep;
 
 	@Override
 	public Step<?> getSelectedLogicalStep() {
@@ -187,8 +188,7 @@ public class ConcurrentExecutionEngine extends AbstractExecutionEngine<IConcurre
 		}
 	}
 
-	@Override
-	public void setSelectedLogicalStep(Step<?> ls) {
+	protected void setSelectedLogicalStep(Step<?> ls) {
 		synchronized (this) {
 			_selectedLogicalStep = ls;
 		}
@@ -208,14 +208,14 @@ public class ConcurrentExecutionEngine extends AbstractExecutionEngine<IConcurre
 			return null;
 	}
 
-	protected ISolver _solver;
+	protected ICCSLSolver _solver;
 
 	@Override
-	public ISolver getSolver() {
+	public ICCSLSolver getSolver() {
 		return _solver;
 	}
 
-	public void notifyProposedLogicalStepsChanged() {
+	private void notifyProposedLogicalStepsChanged() {
 		for (IEngineAddon addon : getExecutionContext().getExecutionPlatform().getEngineAddons()) {
 			try {
 				addon.proposedStepsChanged(this, getPossibleLogicalSteps());
@@ -231,7 +231,7 @@ public class ConcurrentExecutionEngine extends AbstractExecutionEngine<IConcurre
 				+ " ; ModelResource=" + _executionContext.getResourceModel() + "]";
 	}
 
-	public void performExecutionStep() throws InterruptedException {
+	private void performExecutionStep() throws InterruptedException, CodeExecutionException {
 		switchDeciderIfNecessary();
 		computePossibleLogicalSteps();
 		updatePossibleLogicalSteps();
@@ -265,7 +265,7 @@ public class ConcurrentExecutionEngine extends AbstractExecutionEngine<IConcurre
 		}
 	}
 
-	private Step<?> selectAndExecuteLogicalStep() throws InterruptedException {
+	private Step<?> selectAndExecuteLogicalStep() throws InterruptedException, CodeExecutionException {
 		setEngineStatus(EngineStatus.RunStatus.WaitingLogicalStepSelection);
 		notifyAboutToSelectLogicalStep();
 		Step<?> selectedLogicalStep = getLogicalStepDecider().decide(this, getPossibleLogicalSteps());
@@ -284,9 +284,10 @@ public class ConcurrentExecutionEngine extends AbstractExecutionEngine<IConcurre
 	 * run all the event occurrences of this logical step
 	 * 
 	 * @param logicalStepToApply
+	 * @throws CodeExecutionException 
 	 */
 	@SuppressWarnings("unchecked")
-	public void executeSelectedLogicalStep() {
+	protected void executeSelectedLogicalStep() throws CodeExecutionException {
 		// = step in debug mode, goes to next logical step
 		// -> run all event occurrences of the logical step
 		// step into / open internal thread and pause them
@@ -320,7 +321,7 @@ public class ConcurrentExecutionEngine extends AbstractExecutionEngine<IConcurre
 		}
 	}
 
-	private void executeSmallStep(SmallStep<?> smallStep) {
+	private void executeSmallStep(SmallStep<?> smallStep) throws CodeExecutionException {
 		MSE mse = smallStep.getMseoccurrence().getMse();
 		if (mse.getAction() != null) {
 			ArrayList<When> whenStatements = new ArrayList<When>();
@@ -352,8 +353,8 @@ public class ConcurrentExecutionEngine extends AbstractExecutionEngine<IConcurre
 		}
 	}
 
-	protected ArrayList<IFutureAction> _futureActions = new ArrayList<>();
-	protected Object _futureActionsLock = new Object();
+	private ArrayList<IFutureAction> _futureActions = new ArrayList<>();
+	private Object _futureActionsLock = new Object();
 
 	@Override
 	public void addFutureAction(IFutureAction action) {
@@ -378,12 +379,11 @@ public class ConcurrentExecutionEngine extends AbstractExecutionEngine<IConcurre
 
 	@Override
 	public void setSolver(ISolver solver) {
-		_solver = solver;
+		_solver = (ICCSLSolver) solver;
 
 	}
 
-	@Override
-	public ICodeExecutor getCodeExecutor() {
+	private ICodeExecutor getCodeExecutor() {
 		return getConcurrentExecutionContext().getExecutionPlatform().getCodeExecutor();
 	}
 
@@ -424,7 +424,7 @@ public class ConcurrentExecutionEngine extends AbstractExecutionEngine<IConcurre
 		Activator.getDefault().debug("*** Engine initialization done. ***");
 	}
 
-	protected void executeInitializeModelMethod(IConcurrentExecutionContext executionContext) {
+	private void executeInitializeModelMethod(IConcurrentExecutionContext executionContext) {
 
 		String modelInitializationMethodQName = executionContext.getRunConfiguration().getModelInitializationMethod();
 		if (!modelInitializationMethodQName.isEmpty()) {

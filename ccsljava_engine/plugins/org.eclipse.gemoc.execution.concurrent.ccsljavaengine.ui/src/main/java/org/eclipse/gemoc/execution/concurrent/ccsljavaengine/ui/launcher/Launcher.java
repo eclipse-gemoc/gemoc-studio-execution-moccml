@@ -40,8 +40,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.Activator;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.step.LogicalStepsView;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.StimuliManagerView;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionContext;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ISolver;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.executionframework.engine.core.RunConfiguration;
 import org.eclipse.gemoc.executionframework.engine.ui.launcher.AbstractGemocLauncher;
 import org.eclipse.gemoc.executionframework.extensions.sirius.services.AbstractGemocAnimatorServices;
@@ -98,9 +97,9 @@ public class Launcher extends AbstractGemocLauncher<IConcurrentExecutionContext>
 			IConcurrentExecutionContext concurrentexecutionContext = new ConcurrentModelExecutionContext(
 					runConfiguration, executionMode);
 			concurrentexecutionContext.initializeResourceModel();
-			ISolver _solver = null;
+			ICCSLSolver _solver = null;
 			try {
-				_solver = concurrentexecutionContext.getLanguageDefinitionExtension().instanciateSolver();
+				_solver = (ICCSLSolver) concurrentexecutionContext.getLanguageDefinitionExtension().instanciateSolver();
 				_solver.prepareBeforeModelLoading(concurrentexecutionContext);
 				_solver.initialize(concurrentexecutionContext);
 			} catch (CoreException e) {
@@ -110,7 +109,7 @@ public class Launcher extends AbstractGemocLauncher<IConcurrentExecutionContext>
 
 			if (runConfiguration.getIsExhaustiveSimulation()) {
 				_executionEngine = new ExhaustiveConcurrentExecutionEngine(concurrentexecutionContext, _solver);
-			}else {
+			} else {
 				_executionEngine = new ConcurrentExecutionEngine(concurrentexecutionContext, _solver);
 			}
 			openViewsRecommandedByAddons(runConfiguration);
@@ -224,7 +223,6 @@ public class Launcher extends AbstractGemocLauncher<IConcurrentExecutionContext>
 	protected EObject getFirstInstruction(ILaunchConfiguration configuration) {
 		return EcorePackage.eINSTANCE;
 	}
-
 
 	@Override
 	protected String getDebugTargetName(ILaunchConfiguration configuration, EObject firstInstruction) {

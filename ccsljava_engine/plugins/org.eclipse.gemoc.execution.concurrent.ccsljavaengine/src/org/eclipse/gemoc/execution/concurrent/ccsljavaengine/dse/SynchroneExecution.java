@@ -27,7 +27,7 @@ public class SynchroneExecution extends OperationExecution {
 	}
 
 	@Override
-	public void run() {
+	public void run() throws CodeExecutionException {
 
 		beforeStepCallback(getSmallStep());
 		Object res = callExecutor();
@@ -41,21 +41,16 @@ public class SynchroneExecution extends OperationExecution {
 	}
 
 	/**
-	 * Calls the {@link EventExecutor} for the given
-	 * {@link EngineEventOccurence}.
+	 * Calls the {@link EventExecutor} for the given {@link EngineEventOccurence}.
 	 * 
-	 * @param mse
-	 *            the {@link EngineEventOccurence} to execute
+	 * @param mse the {@link EngineEventOccurence} to execute
 	 * @return the {@link FeedbackData} if any, <code>null</code> other wise
+	 * @throws CodeExecutionException
 	 */
-	private Object callExecutor() {
+	private Object callExecutor() throws CodeExecutionException {
 		Object res = null;
 
-		try {
-			res = getExecutionContext().getExecutionPlatform().getCodeExecutor().execute(getSmallStep().getMseoccurrence());
-		} catch (CodeExecutionException e) {
-			Activator.getDefault().error("Exception received " + e.getMessage(), e);
-		}
+		res = getExecutionContext().getExecutionPlatform().getCodeExecutor().execute(getSmallStep().getMseoccurrence());
 
 		return res;
 	}

@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -33,7 +34,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.h
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelState;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ISolver;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.executionframework.engine.Activator;
 import org.eclipse.gemoc.executionframework.engine.core.CommandExecution;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.Branch;
@@ -60,10 +61,9 @@ import org.eclipse.gemoc.xdsmlframework.api.extensions.engine_addon.EngineAddonS
  * @author ftanguy
  *
  */
-@SuppressWarnings("restriction")
 public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 
-	private IExecutionContext<?,?,?> _executionContext;
+	private IExecutionContext<?, ?, ?> _executionContext;
 	private IExecutionEngine<?> _executionEngine;
 	private ExecutionTraceModel _executionTraceModel;
 	private Choice _lastChoice;
@@ -75,10 +75,11 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 //	private boolean stateChanged = false;
 	private boolean _backToPastHappened = false;
 	private boolean _cannotSaveTrace = false;
-	
+
 	protected int stepNumber = 0;
-	
-	// if true, the trace doesn't work on a pure Concurrentengine, some features will be disabled
+
+	// if true, the trace doesn't work on a pure Concurrentengine, some features
+	// will be disabled
 	private boolean _limitedMode = false;
 
 	private void modifyTrace(final Runnable r) {
@@ -100,10 +101,9 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 	}
 
 	public void branch(Choice choice) throws ModelExecutionTracingException {
-		if(_limitedMode){
+		if (_limitedMode) {
 			// Cannot Branch in limited mode
-		}
-		else{
+		} else {
 			internalBranch(choice);
 			_backToPastHappened = true;
 			if (_executionEngine instanceof IConcurrentExecutionEngine) {
@@ -134,40 +134,43 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 					try {
 						restoreModelState(choice);
 						restoreSolverState(choice);
-						//TODO: here we should notify the addons !
+						// TODO: here we should notify the addons !
 					} catch (Exception e) {
-						org.eclipse.gemoc.execution.concurrent.ccsljavaengine.Activator.getDefault().error("Error while creating branch", e);
-						
+						org.eclipse.gemoc.execution.concurrent.ccsljavaengine.Activator.getDefault()
+								.error("Error while creating branch", e);
+
 					}
 				}
 			};
 			CommandExecution.execute(getEditingDomain(), command);
 		}
 	}
-	
+
 	private void restoreModelState(Choice choice) {
 		ModelState state = choice.getContextState().getModelState();
 		restoreModelState(state, true);
 	}
-	
+
 	private FileOutputStream getFileOutputStream(File f) {
 		FileOutputStream res = null;
 		try {
 			res = new FileOutputStream(f);
-		} catch (FileNotFoundException e) {}
+		} catch (FileNotFoundException e) {
+		}
 		return res;
 	}
-	
+
 	private String tmpRestoreFilePath;
 	private File outputRestoreTmp = null;
 	private FileOutputStream outputRestoreTmpStream = null;
 	private PrintWriter outputRestoreTmpWriter = null;
 	private IK3ModelStateHelper modelStateHelper = null;
-	
+
 	@Override
 	public void engineAboutToStop(IExecutionEngine<?> engine) {
 		tmpRestoreFilePath = System.getProperty("tmpRestoreFileProperty");
-		outputRestoreTmp = tmpRestoreFilePath != null && tmpRestoreFilePath.length() > 0 ? new File(tmpRestoreFilePath) : null;
+		outputRestoreTmp = tmpRestoreFilePath != null && tmpRestoreFilePath.length() > 0 ? new File(tmpRestoreFilePath)
+				: null;
 		outputRestoreTmpStream = outputRestoreTmp != null ? getFileOutputStream(outputRestoreTmp) : null;
 		outputRestoreTmpWriter = outputRestoreTmpStream != null ? new PrintWriter(outputRestoreTmpStream, true) : null;
 		if (outputRestoreTmpWriter != null) {
@@ -188,30 +191,30 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 			}
 		}
 	}
-	
+
 	public void jump(final ModelState state) {
 //		if(_limitedMode){
 //			// Cannot jump in limited mode
 //		}
 //		else{
-			modifyTrace(new Runnable() {
-				@Override
-				public void run() {
-					long t1 = System.nanoTime();
-					restoreModelState(state, false);
-					long t2 = System.nanoTime();
-					System.out.println("MEASURED TIME: " + (t2 - t1));
-					if (outputRestoreTmpWriter != null) {
-						outputRestoreTmpWriter.println(t2 - t1);
-					}
+		modifyTrace(new Runnable() {
+			@Override
+			public void run() {
+				long t1 = System.nanoTime();
+				restoreModelState(state, false);
+				long t2 = System.nanoTime();
+				System.out.println("MEASURED TIME: " + (t2 - t1));
+				if (outputRestoreTmpWriter != null) {
+					outputRestoreTmpWriter.println(t2 - t1);
 				}
-			});
+			}
+		});
 //		}
 	}
 
-	
 	/**
 	 * This method works only with concurrentExecuctioncontex
+	 * 
 	 * @param state
 	 * @param restoreAspects
 	 */
@@ -222,8 +225,9 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 	private void restoreSolverState(Choice choice) {
 		if (_executionEngine instanceof IConcurrentExecutionEngine) {
 			IConcurrentExecutionEngine engine_cast = (IConcurrentExecutionEngine) _executionEngine;
-			ISolver solver = engine_cast.getSolver();
-			Activator.getDefault().debug("restoring solver state: " + choice.getContextState().getSolverState().getSerializableModel());
+			ICCSLSolver solver = (ICCSLSolver) engine_cast.getSolver();
+			Activator.getDefault().debug(
+					"restoring solver state: " + choice.getContextState().getSolverState().getSerializableModel());
 			solver.setState(choice.getContextState().getSolverState().getSerializableModel());
 		}
 	}
@@ -242,43 +246,46 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 			ExecutionTraceModel traceModel = (ExecutionTraceModel) traceResource.getContents().get(0);
 
 //			if (stateChanged || currentState == null) {
-				Activator.getDefault().debug(String.format("[trace-%10s] new model state %3d detected", 
-						getCurrentEngineShortName(),
-						traceModel.getReachedStates().size()));
-		//new way to save RTDs		
-				String fullLanguageName = this._executionContext.getLanguageDefinitionExtension().getName();
-				int lastDot = fullLanguageName.lastIndexOf(".");
-				if(lastDot == -1)lastDot = 0;
-				String languageName = fullLanguageName.substring(lastDot+1);
-				String languageToUpperFirst = languageName.substring(0, 1).toUpperCase() + languageName.substring(1);
-				if(modelStateHelper == null) {
-					try {
-						modelStateHelper = (IK3ModelStateHelper) this._executionContext.getDslBundle().loadClass(languageToUpperFirst.toLowerCase()+".xdsml.api.impl."+languageToUpperFirst+"ModelStateHelper").newInstance();
-					} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-						e.printStackTrace();
-					}
+			Activator.getDefault().debug(String.format("[trace-%10s] new model state %3d detected",
+					getCurrentEngineShortName(), traceModel.getReachedStates().size()));
+			// new way to save RTDs
+			String fullLanguageName = this._executionContext.getLanguageDefinitionExtension().getName();
+			int lastDot = fullLanguageName.lastIndexOf(".");
+			if (lastDot == -1)
+				lastDot = 0;
+			String languageName = fullLanguageName.substring(lastDot + 1);
+			String languageToUpperFirst = languageName.substring(0, 1).toUpperCase() + languageName.substring(1);
+			if (modelStateHelper == null) {
+				try {
+					modelStateHelper = (IK3ModelStateHelper) this._executionContext.getDslBundle()
+							.loadClass(languageToUpperFirst.toLowerCase() + ".xdsml.api.impl." + languageToUpperFirst
+									+ "ModelStateHelper")
+							.getConstructor().newInstance();
+				} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+					e.printStackTrace();
 				}
-				EObject model = this._executionContext.getResourceModel().getContents().get(0);	
-				K3ModelState result = modelStateHelper.getK3ModelState(model);
-				
-				// No one needs to observe the clone
-				result.eAdapters().clear();
-				ModelState modelState = null;
-				modelState = Gemoc_execution_traceFactory.eINSTANCE.createModelState();
-				traceModel.getReachedStates().add(modelState);
-				modelState.setModel(result);
-				currentState = modelState;
-				traceResource.getContents().add(result);
+			}
+			EObject model = this._executionContext.getResourceModel().getContents().get(0);
+			K3ModelState result = modelStateHelper.getK3ModelState(model);
+
+			// No one needs to observe the clone
+			result.eAdapters().clear();
+			ModelState modelState = null;
+			modelState = Gemoc_execution_traceFactory.eINSTANCE.createModelState();
+			traceModel.getReachedStates().add(modelState);
+			modelState.setModel(result);
+			currentState = modelState;
+			traceResource.getContents().add(result);
 //				stateChanged = false;
 
-			}
+		}
 //		}
 	}
 
 	/**
-	 * Store the current context State 
+	 * Store the current context State
 	 */
-	private void storeCurrentContextState(){
+	private void storeCurrentContextState() {
 		Resource traceResource = _executionTraceModel.eResource();
 		if (traceResource.getContents().size() > 0) {
 
@@ -295,19 +302,21 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 				if (_executionEngine instanceof IConcurrentExecutionEngine) {
 					IConcurrentExecutionEngine engine_cast = (IConcurrentExecutionEngine) _executionEngine;
 					SolverState solverState = Gemoc_execution_traceFactory.eINSTANCE.createSolverState();
-					solverState.setSerializableModel(engine_cast.getSolver().getState());
+					ICCSLSolver solver_cast = (ICCSLSolver) engine_cast.getSolver();
+					solverState.setSerializableModel(solver_cast.getState());
 					contextState.setSolverState(solverState);
 				}
 
 				choices.get(choices.size() - 1).setContextState(contextState);
 				contextState.setChoice(choices.get(choices.size() - 1));
-			
+
 			}
 		}
 	}
-	
+
 	/**
 	 * S
+	 * 
 	 * @param stepNumber
 	 */
 	private void saveTraceModel() {
@@ -320,16 +329,17 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 //					if (path != null && path.length() > 0) {
 //						traceResource.setURI(URI.createFileURI(path));
 //					}
-					
-					Activator.getDefault().debug(String.format("[trace-%10s] %d states saved to %s",
-							getCurrentEngineShortName(),
-							_executionTraceModel.getReachedStates().size(), 
-							_executionTraceModel.eResource().getURI()));
+
+					Activator.getDefault()
+							.debug(String.format("[trace-%10s] %d states saved to %s", getCurrentEngineShortName(),
+									_executionTraceModel.getReachedStates().size(),
+									_executionTraceModel.eResource().getURI()));
 					traceResource.save(null);
 				} catch (IOException e) {
-					//chuuuut :-/ TODO: context State seems to miss a container
-					org.eclipse.gemoc.execution.concurrent.ccsljavaengine.Activator.getDefault().error("Error while saving trace to disk", e);
-					//_cannotSaveTrace = true;
+					// chuuuut :-/ TODO: context State seems to miss a container
+					org.eclipse.gemoc.execution.concurrent.ccsljavaengine.Activator.getDefault()
+							.error("Error while saving trace to disk", e);
+					// _cannotSaveTrace = true;
 				}
 			}
 
@@ -339,28 +349,32 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 	public Branch getCurrentBranch() {
 		return _currentBranch;
 	}
-	
+
 	public Choice getCurrentChoice() {
 		return _lastChoice;
 	}
 
 	private void setUp(IExecutionEngine<?> engine) {
 		if (_executionContext == null) {
-			
-			if(!(engine.getExecutionContext() instanceof IConcurrentExecutionContext)){
-				// DVK current implementation of this addon is Concurrent specific (due to the use of the CodeExecutor
-				// for now fail with an error message, later work may generalize this and remove the dependency (by removing some features ?)
-				System.err.println("use of MultibranchTracingAddon with non concurrent engine, will work in a limited mode");
-				Activator.getDefault().warn("Use of MultibranchTracingAddon with non concurrent engine. The trace will work in a limited mode");
-				_limitedMode = true; 
+
+			if (!(engine.getExecutionContext() instanceof IConcurrentExecutionContext)) {
+				// DVK current implementation of this addon is Concurrent specific (due to the
+				// use of the CodeExecutor
+				// for now fail with an error message, later work may generalize this and remove
+				// the dependency (by removing some features ?)
+				System.err.println(
+						"use of MultibranchTracingAddon with non concurrent engine, will work in a limited mode");
+				Activator.getDefault().warn(
+						"Use of MultibranchTracingAddon with non concurrent engine. The trace will work in a limited mode");
+				_limitedMode = true;
 			}
 			_executionEngine = engine;
-			if (_executionTraceModel == null){
+			if (_executionTraceModel == null) {
 				_executionTraceModel = Gemoc_execution_traceFactory.eINSTANCE.createExecutionTraceModel();
 				_currentBranch = Gemoc_execution_traceFactory.eINSTANCE.createBranch();
 				_currentBranch.setStartIndex(0);
 				_executionTraceModel.getBranches().add(_currentBranch);
-				setModelExecutionContext( engine.getExecutionContext());
+				setModelExecutionContext(engine.getExecutionContext());
 			}
 			adapter = new EContentAdapter() {
 
@@ -380,12 +394,11 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 
 	// private static class GemocTraceResource extends ResourceImpl
 
-	private void setModelExecutionContext(IExecutionContext<?,?,?> executionContext) {
+	private void setModelExecutionContext(IExecutionContext<?, ?, ?> executionContext) {
 		_executionContext = executionContext;
 		ResourceSet rs = _executionContext.getResourceModel().getResourceSet();
-		URI traceModelURI = URI.createPlatformResourceURI(_executionContext.getWorkspace().getExecutionPath()
-				.toString()
-				+ "/execution.trace", false);
+		URI traceModelURI = URI.createPlatformResourceURI(
+				_executionContext.getWorkspace().getExecutionPath().toString() + "/execution.trace", false);
 		final Resource modelResource = rs.createResource(traceModelURI);
 
 		RecordingCommand command = new RecordingCommand(getEditingDomain(), "set model execution context") {
@@ -422,7 +435,7 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 				}
 				choice.getPossibleLogicalSteps().addAll(possibleLogicalSteps);
 				_lastChoice = choice;
-				
+
 				long t1 = System.nanoTime();
 				storeCurrentContextState();
 				long t2 = System.nanoTime();
@@ -434,45 +447,57 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 		CommandExecution.execute(getEditingDomain(), command);
 	}
 
-	private void updateTraceModelAfterExecution(final Step<?> selectedLogicalStep) {		
+	private void updateTraceModelAfterExecution(final Step<?> selectedLogicalStep) {
 		RecordingCommand command = new RecordingCommand(getEditingDomain(), "update trace model after deciding") {
 			@Override
 			protected void doExecute() {
-				// in limited mode do nothing, we trace only the method call rather than the method return
-				if(!_limitedMode){
+				// in limited mode do nothing, we trace only the method call rather than the
+				// method return
+				if (!_limitedMode) {
 					if (_lastChoice != null) {
 						if (_lastChoice.getPossibleLogicalSteps().size() == 0)
 							return;
-						if (_lastChoice.getPossibleLogicalSteps().contains(selectedLogicalStep.eContainer())) { //warning we want to store all the generic small step chosen in parallel
-							_lastChoice.setChosenLogicalStep((GenericParallelStep)selectedLogicalStep.eContainer());
+						if (_lastChoice.getPossibleLogicalSteps().contains(selectedLogicalStep.eContainer())) { // warning
+																												// we
+																												// want
+																												// to
+																												// store
+																												// all
+																												// the
+																												// generic
+																												// small
+																												// step
+																												// chosen
+																												// in
+																												// parallel
+							_lastChoice.setChosenLogicalStep((GenericParallelStep) selectedLogicalStep.eContainer());
 						}
 					}
-				}
-				else {
+				} else {
 					// limited mode
 					// this is actually the end of the call, which may be in a stack
 					// retrieve the choice in the previous choice that has this logicalStep
 					// then mark it as chosen (ie. fully executed)
 					Choice choiceFullyExecuted = findPreviousChoiceWithLogicalStep(_lastChoice, selectedLogicalStep);
-					if(choiceFullyExecuted != null){
-						choiceFullyExecuted.setChosenLogicalStep(selectedLogicalStep);						
+					if (choiceFullyExecuted != null) {
+						choiceFullyExecuted.setChosenLogicalStep(selectedLogicalStep);
 					}
 				}
-				
+
 			}
 		};
 		CommandExecution.execute(getEditingDomain(), command);
 	}
 
-	private Choice findPreviousChoiceWithLogicalStep(final Choice startingChoice, final Step<?> selectedLogicalStep){
-		if(startingChoice.getPossibleLogicalSteps().contains(selectedLogicalStep)){
+	private Choice findPreviousChoiceWithLogicalStep(final Choice startingChoice, final Step<?> selectedLogicalStep) {
+		if (startingChoice.getPossibleLogicalSteps().contains(selectedLogicalStep)) {
 			return startingChoice;
-		}
-		else if(startingChoice.getPreviousChoice() != null){
+		} else if (startingChoice.getPreviousChoice() != null) {
 			return findPreviousChoiceWithLogicalStep(startingChoice.getPreviousChoice(), selectedLogicalStep);
-		} else return null;
+		} else
+			return null;
 	}
-	
+
 	public ExecutionTraceModel getExecutionTrace() {
 		return _executionTraceModel;
 	}
@@ -484,28 +509,27 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 	}
 
 	@Override
-	public void aboutToExecuteStep(
-			IExecutionEngine<?> executionEngine,
-			Step<?> logicalStepToApply) {	
-		if(_limitedMode){
-			// in limited mode the engine is not concurrent so it will not call the aboutToSelectLogicalStep method
+	public void aboutToExecuteStep(IExecutionEngine<?> executionEngine, Step<?> logicalStepToApply) {
+		if (_limitedMode) {
+			// in limited mode the engine is not concurrent so it will not call the
+			// aboutToSelectLogicalStep method
 			// so we do it here
 			setUp(executionEngine);
 			ArrayList<Step<?>> beforeDecing = new ArrayList<Step<?>>();
-			
+
 			if (logicalStepToApply.getMseoccurrence().getMse().eContainer() == null) {
 				System.out.println("MSE CONTAINER NULL");
 			}
-			
+
 			beforeDecing.add(logicalStepToApply);
 			updateTraceModelBeforeDeciding(beforeDecing);
 		}
 	}
-	
+
 	@Override
 	public void stepExecuted(IExecutionEngine<?> engine, Step<?> logicalStepExecuted) {
-		setUp(engine);		
-		updateTraceModelAfterExecution(logicalStepExecuted);	
+		setUp(engine);
+		updateTraceModelAfterExecution(logicalStepExecuted);
 		RecordingCommand command = new RecordingCommand(getEditingDomain(), "Save trace model") {
 			@Override
 			protected void doExecute() {
@@ -520,19 +544,18 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 				saveTraceModel();
 			}
 		};
-		CommandExecution.execute(getEditingDomain(), command);;
-	}
-	
-	@Override
-	public void engineAboutToDispose(IExecutionEngine<?> engine){
+		CommandExecution.execute(getEditingDomain(), command);
+		;
 	}
 
-	
+	@Override
+	public void engineAboutToDispose(IExecutionEngine<?> engine) {
+	}
+
 	public void reintegrateBranch(final Choice choice) {
-		if(_limitedMode){
+		if (_limitedMode) {
 			// Cannot reintegrateBranch in limited mode
-		}
-		else{
+		} else {
 			RecordingCommand command = new RecordingCommand(getEditingDomain(), "Reintegrate branch") {
 				@Override
 				protected void doExecute() {
@@ -548,7 +571,8 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 							((IConcurrentExecutionEngine) _executionEngine).getLogicalStepDecider().preempt();
 						}
 					} catch (Exception e) {
-						org.eclipse.gemoc.execution.concurrent.ccsljavaengine.Activator.getDefault().error("Error while reintegrating branch", e);
+						org.eclipse.gemoc.execution.concurrent.ccsljavaengine.Activator.getDefault()
+								.error("Error while reintegrating branch", e);
 					}
 				}
 			};
@@ -606,14 +630,15 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 
 				// No need to observe changes in the model anymore
 				_executionContext.getResourceModel().eAdapters().remove(adapter);
-				
+
 			}
 		});
 		RecordingCommand command = new RecordingCommand(getEditingDomain(), "Save trace model") {
 			@Override
 			protected void doExecute() {
-				_executionTraceModel.getChoices().forEach(c -> c.getPossibleLogicalSteps()
-						.forEach(s -> ((ParallelStep<?,?>)s).getSubSteps().forEach((ss -> ss.getMseoccurrence().setMse(null))))); 
+				_executionTraceModel.getChoices()
+						.forEach(c -> c.getPossibleLogicalSteps().forEach(s -> ((ParallelStep<?, ?>) s).getSubSteps()
+								.forEach((ss -> ss.getMseoccurrence().setMse(null)))));
 				_executionTraceModel.getChoices().forEach(c -> {
 					ContextState s = c.getContextState();
 					if (s.eContainer() == null) {
@@ -634,30 +659,30 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 		outputAddTmpStream = outputAddTmp != null ? getFileOutputStream(outputAddTmp) : null;
 		outputAddTmpWriter = outputAddTmpStream != null ? new PrintWriter(outputAddTmpStream, true) : null;
 	}
-	
+
 	@Override
 	public List<String> validate(List<IEngineAddon> otherAddons) {
 		ArrayList<String> errors = new ArrayList<String>();
-		
+
 		boolean found = false;
 		String addonName = "";
 		for (IEngineAddon iEngineAddon : otherAddons) {
-			if( iEngineAddon instanceof IMultiDimensionalTraceAddon){
+			if (iEngineAddon instanceof IMultiDimensionalTraceAddon) {
 				found = true;
 				addonName = EngineAddonSpecificationExtensionPoint.getName(iEngineAddon);
 				break;
 			}
 		}
-		
-		if(found){
+
+		if (found) {
 			String thisName = EngineAddonSpecificationExtensionPoint.getName(this);
-			errors.add(thisName+" can't run with "+ addonName);
+			errors.add(thisName + " can't run with " + addonName);
 		}
-		
+
 		return errors;
 	}
-	
-	public String getCurrentEngineShortName(){
+
+	public String getCurrentEngineShortName() {
 		return _executionContext.getRunConfiguration().getExecutedModelURI().lastSegment();
 	}
 }

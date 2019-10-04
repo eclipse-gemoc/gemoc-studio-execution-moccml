@@ -17,6 +17,7 @@ import java.util.Map.Entry;
 import java.util.function.Consumer;
 
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMSEStateController;
 import org.eclipse.gemoc.executionframework.engine.Activator;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ActionFinishedCondition;
@@ -189,7 +190,7 @@ public class ASynchroneExecution extends OperationExecution {
 		return goOn;
 	}
 
-	private void executeMSESynchronously() {
+	private void executeMSESynchronously() throws CodeExecutionException {
 		SynchroneExecution execution = new SynchroneExecution(getSmallStep(), getEngine(), beforeStep, afterStep);
 		execution.run();
 		setResult(execution.getResult());

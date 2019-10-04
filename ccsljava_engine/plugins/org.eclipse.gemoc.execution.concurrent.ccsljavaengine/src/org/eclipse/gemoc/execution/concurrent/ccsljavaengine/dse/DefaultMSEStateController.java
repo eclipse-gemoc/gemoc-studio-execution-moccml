@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMSEStateController;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ISolver;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 
@@ -26,12 +27,12 @@ import fr.inria.aoste.trace.TraceFactory;
 public class DefaultMSEStateController implements IMSEStateController
 {
 
-	private void applyForcePresence(ISolver solver, EventOccurrence eventOccurrence) 
+	private void applyForcePresence(ICCSLSolver solver, EventOccurrence eventOccurrence) 
 	{
 		solver.forceEventOccurrence(eventOccurrence);
 	}
 	
-	private void applyForceAbsence(ISolver solver, EventOccurrence eventOccurrence) 
+	private void applyForceAbsence(ICCSLSolver solver, EventOccurrence eventOccurrence) 
 	{
 		solver.forbidEventOccurrence(eventOccurrence);
 	}
@@ -47,7 +48,7 @@ public class DefaultMSEStateController implements IMSEStateController
 		return eo;
 	}
 
-	public void applyMSEFutureStates(ISolver solver) 
+	public void applyMSEFutureStates(ICCSLSolver solver) 
 	{
 		for(Entry<ModelSpecificEvent, Boolean> entry : _mseNextStates.entrySet())
 		{
@@ -82,9 +83,16 @@ public class DefaultMSEStateController implements IMSEStateController
 		_mseNextStates.put(mse, willTick);		
 	}
 	
+	@Override
 	public void freeInTheFuture(ModelSpecificEvent mse)
 	{
 		_mseNextStates.remove(mse);
+	}
+
+	@Override
+	public void applyMSEFutureStates(ISolver solver) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

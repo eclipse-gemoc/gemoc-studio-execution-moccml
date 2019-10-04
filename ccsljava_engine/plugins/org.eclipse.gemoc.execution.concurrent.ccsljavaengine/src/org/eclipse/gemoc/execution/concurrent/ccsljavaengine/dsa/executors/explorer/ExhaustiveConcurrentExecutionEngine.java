@@ -23,7 +23,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse.ConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper.IK3ModelStateHelper;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionContext;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ISolver;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericStep;
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
@@ -42,7 +43,7 @@ import grph.Grph;
  */
 public class ExhaustiveConcurrentExecutionEngine extends ConcurrentExecutionEngine{	
 	
-	public ExhaustiveConcurrentExecutionEngine(IConcurrentExecutionContext concurrentexecutionContext, ISolver s) throws CoreException 
+	public ExhaustiveConcurrentExecutionEngine(IConcurrentExecutionContext concurrentexecutionContext, ICCSLSolver s) throws CoreException 
 	{
 		super(concurrentexecutionContext,s);
 	}
@@ -54,8 +55,9 @@ public class ExhaustiveConcurrentExecutionEngine extends ConcurrentExecutionEngi
 	
 	/**
 	 * actually performs all the execution steps...
+	 * @throws CodeExecutionException 
 	 */
-	public void performExecutionStep() throws InterruptedException {
+	public void performExecutionStep() throws InterruptedException, CodeExecutionException {
 		String fullLanguageName = this._executionContext.getLanguageDefinitionExtension().getName();
 		int lastDot = fullLanguageName.lastIndexOf(".");
 		if(lastDot == -1)lastDot = 0;
@@ -140,7 +142,7 @@ public class ExhaustiveConcurrentExecutionEngine extends ConcurrentExecutionEngi
 	private String prettyPrint(GenericParallelStep aStep) {
 		StringBuilder sbStep = new StringBuilder();
 		for(GenericStep s : aStep.getSubSteps()) {
-			sbStep.append(((SmallStep)s).getMseoccurrence().getMse().getName()+ " ");
+			sbStep.append(((SmallStep<?>)s).getMseoccurrence().getMse().getName()+ " ");
 		}
 		return sbStep.toString();
 	}

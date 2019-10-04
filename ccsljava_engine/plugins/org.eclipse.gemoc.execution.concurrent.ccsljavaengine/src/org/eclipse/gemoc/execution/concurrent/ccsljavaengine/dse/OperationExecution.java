@@ -15,6 +15,7 @@ import java.util.function.Consumer;
 
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 
@@ -42,7 +43,7 @@ public abstract class OperationExecution {
 		afterStepCallback.run();
 	}
 
-	abstract public void run();
+	abstract public void run() throws CodeExecutionException;
 
 	protected IConcurrentExecutionContext getExecutionContext() {
 		return _engine.getConcurrentExecutionContext();
