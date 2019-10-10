@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.AbstractSolverCodeExecutorConcurrentEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper.IK3ModelStateHelper;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelState;
@@ -65,7 +66,7 @@ import org.eclipse.gemoc.xdsmlframework.api.extensions.engine_addon.EngineAddonS
 public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 
 	private IExecutionContext<?, ?, ?> _executionContext;
-	private IExecutionEngine<?> _executionEngine;
+	private AbstractConcurrentExecutionEngine<?, ?> _executionEngine;
 	private ExecutionTraceModel _executionTraceModel;
 	private Choice _lastChoice;
 	private Branch _currentBranch;
@@ -107,9 +108,7 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 		} else {
 			internalBranch(choice);
 			_backToPastHappened = true;
-			if (_executionEngine instanceof AbstractConcurrentExecutionEngine) {
-				((AbstractConcurrentExecutionEngine) _executionEngine).getLogicalStepDecider().preempt();
-			}
+			_executionEngine.getLogicalStepDecider().preempt();
 		}
 	}
 
@@ -224,9 +223,9 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 	}
 
 	private void restoreSolverState(Choice choice) {
-		if (_executionEngine instanceof MoccmlExecutionEngine) {
+		if (_executionEngine instanceof AbstractSolverCodeExecutorConcurrentEngine) {
 			MoccmlExecutionEngine engine_cast = (MoccmlExecutionEngine) _executionEngine;
-			ICCSLSolver solver = (ICCSLSolver) engine_cast.getSolver();
+			ICCSLSolver solver = engine_cast.getSolver();
 			Activator.getDefault().debug(
 					"restoring solver state: " + choice.getContextState().getSolverState().getSerializableModel());
 			solver.setState(choice.getContextState().getSolverState().getSerializableModel());
@@ -262,7 +261,9 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 							.loadClass(languageToUpperFirst.toLowerCase() + ".xdsml.api.impl." + languageToUpperFirst
 									+ "ModelStateHelper")
 							.getConstructor().newInstance();
-				} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+				} catch (InstantiationException | IllegalAccessException | ClassNotFoundException
+						| IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+						| SecurityException e) {
 					e.printStackTrace();
 				}
 			}
@@ -303,7 +304,7 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 				if (_executionEngine instanceof MoccmlExecutionEngine) {
 					MoccmlExecutionEngine engine_cast = (MoccmlExecutionEngine) _executionEngine;
 					SolverState solverState = Gemoc_execution_traceFactory.eINSTANCE.createSolverState();
-					ICCSLSolver solver_cast = (ICCSLSolver) engine_cast.getSolver();
+					ICCSLSolver solver_cast = engine_cast.getSolver();
 					solverState.setSerializableModel(solver_cast.getState());
 					contextState.setSolverState(solverState);
 				}
@@ -369,7 +370,12 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 						"Use of MultibranchTracingAddon with non concurrent engine. The trace will work in a limited mode");
 				_limitedMode = true;
 			}
-			_executionEngine = engine;
+			if (engine instanceof AbstractConcurrentExecutionEngine) {
+				_executionEngine = (AbstractConcurrentExecutionEngine<?, ?>) engine;
+			} else {
+				throw new RuntimeException(
+						"The event scheduling tracing addon cannot work with a non-concurrent engine.");
+			}
 			if (_executionTraceModel == null) {
 				_executionTraceModel = Gemoc_execution_traceFactory.eINSTANCE.createExecutionTraceModel();
 				_currentBranch = Gemoc_execution_traceFactory.eINSTANCE.createBranch();
@@ -568,9 +574,7 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 					try {
 						restoreModelState(choice);
 						restoreSolverState(choice);
-						if (_executionEngine instanceof MoccmlExecutionEngine) {
-							((MoccmlExecutionEngine) _executionEngine).getLogicalStepDecider().preempt();
-						}
+						_executionEngine.getLogicalStepDecider().preempt();
 					} catch (Exception e) {
 						org.eclipse.gemoc.execution.concurrent.ccsljavaengine.Activator.getDefault()
 								.error("Error while reintegrating branch", e);
