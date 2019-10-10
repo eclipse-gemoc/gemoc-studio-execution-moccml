@@ -39,7 +39,6 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.BaseConcurrentModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.concurrentmse.FeedbackMSE;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare.Activator;
@@ -356,7 +355,7 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 	@Override
 	public void initialize(AbstractConcurrentModelExecutionContext context) 
 	{
-		if (context instanceof BaseConcurrentModelExecutionContext){
+		if (context instanceof MoccmlModelExecutionContext){
 			_alternativeExecutionModelPath = ((MoccmlModelExecutionContext)context).alternativeExecutionModelPath;
 		}
 		createSolver(context);
@@ -443,7 +442,7 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 	/**
 	 * generates a MSEModel that wraps the FeedbackModel used by Timesquare
 	 */
-	private void generateMSEModel(final BaseConcurrentModelExecutionContext context){
+	private void generateMSEModel(final AbstractConcurrentModelExecutionContext context){
 		final URI feedbackURI = URI.createPlatformResourceURI(getFeedbackPathFromMSEModelPath(context.getWorkspace().getMSEModelPath()).toString(), true);
 		final URI mseModelURI = URI.createPlatformResourceURI(context.getWorkspace().getMSEModelPath().toString(), true);
 		

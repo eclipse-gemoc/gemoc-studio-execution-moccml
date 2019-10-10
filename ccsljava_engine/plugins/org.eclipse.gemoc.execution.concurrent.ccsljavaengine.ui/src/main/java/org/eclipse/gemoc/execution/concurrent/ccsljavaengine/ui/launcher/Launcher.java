@@ -32,7 +32,6 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gemoc.commons.eclipse.messagingsystem.api.MessagingSystem;
 import org.eclipse.gemoc.commons.eclipse.ui.ViewHelper;
 import org.eclipse.gemoc.dsl.debug.ide.adapter.IDSLCurrentInstructionListener;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.BaseConcurrentModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ConcurrentRunConfiguration;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlRunConfiguration;
@@ -58,7 +57,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 
-public class Launcher extends AbstractGemocLauncher<BaseConcurrentModelExecutionContext> {
+public class Launcher extends AbstractGemocLauncher<MoccmlModelExecutionContext> {
 
 	public final static String TYPE_ID = Activator.PLUGIN_ID + ".launcher";
 
