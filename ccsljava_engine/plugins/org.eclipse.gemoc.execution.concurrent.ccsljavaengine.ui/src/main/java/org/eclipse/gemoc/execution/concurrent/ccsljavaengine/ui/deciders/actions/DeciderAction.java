@@ -12,10 +12,10 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.deciders.actions;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.deciders.DeciderSpecificationExtension;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.deciders.ILogicalStepDecider;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.ConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.Activator;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders.DeciderSpecificationExtension;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 
@@ -47,8 +47,8 @@ public class DeciderAction extends Action
 		}
 	}
 
-	protected ConcurrentExecutionEngine _engine;
-	public void setEngine(ConcurrentExecutionEngine engine) {
+	protected AbstractConcurrentExecutionEngine _engine;
+	public void setEngine(AbstractConcurrentExecutionEngine engine) {
 		_engine = engine;
 	}
 	

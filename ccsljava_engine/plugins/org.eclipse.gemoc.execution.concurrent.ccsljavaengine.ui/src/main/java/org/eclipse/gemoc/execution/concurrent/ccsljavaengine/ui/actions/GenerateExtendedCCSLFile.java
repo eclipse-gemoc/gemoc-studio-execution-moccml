@@ -14,8 +14,8 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.actions;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlLanguageDefinitionExtension;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlLanguageDefinitionExtensionPoint;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageDefinitionExtension;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageDefinitionExtensionPoint;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinitionExtension;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;

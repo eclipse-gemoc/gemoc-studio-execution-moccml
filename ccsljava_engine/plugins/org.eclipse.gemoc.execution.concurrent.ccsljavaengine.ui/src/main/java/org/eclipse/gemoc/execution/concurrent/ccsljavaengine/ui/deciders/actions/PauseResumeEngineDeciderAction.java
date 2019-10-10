@@ -11,11 +11,11 @@
  *******************************************************************************/
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.deciders.actions;
 
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.deciders.ILogicalStepDecider;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.ConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.SharedIcons;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.deciders.AbstractUserDecider;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;
 import org.eclipse.gemoc.executionframework.ui.views.engine.actions.AbstractEngineAction;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.xdsmlframework.api.core.EngineStatus.RunStatus;
@@ -104,8 +104,8 @@ public class PauseResumeEngineDeciderAction extends AbstractEngineAction
 	public void engineSelectionChanged(IExecutionEngine engine) {
 		super.engineSelectionChanged(engine);
 		if(engine != null){
-			if (engine instanceof ConcurrentExecutionEngine)
-				_currentAction.setEngine((ConcurrentExecutionEngine)engine);
+			if (engine instanceof AbstractConcurrentExecutionEngine)
+				_currentAction.setEngine((AbstractConcurrentExecutionEngine)engine);
 			updateButton();
 		}
 	}

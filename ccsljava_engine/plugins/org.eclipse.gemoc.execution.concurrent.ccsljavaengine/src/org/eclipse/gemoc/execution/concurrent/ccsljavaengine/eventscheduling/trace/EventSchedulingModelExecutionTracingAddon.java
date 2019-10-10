@@ -30,12 +30,12 @@ import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ConcurrentModelExecutionContext;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ICCSLSolver;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.ConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.BaseConcurrentModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper.IK3ModelStateHelper;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelState;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.executionframework.engine.Activator;
 import org.eclipse.gemoc.executionframework.engine.core.CommandExecution;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.Branch;
@@ -107,8 +107,8 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 		} else {
 			internalBranch(choice);
 			_backToPastHappened = true;
-			if (_executionEngine instanceof ConcurrentExecutionEngine) {
-				((ConcurrentExecutionEngine) _executionEngine).getLogicalStepDecider().preempt();
+			if (_executionEngine instanceof AbstractConcurrentExecutionEngine) {
+				((AbstractConcurrentExecutionEngine) _executionEngine).getLogicalStepDecider().preempt();
 			}
 		}
 	}
@@ -358,7 +358,7 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 	private void setUp(IExecutionEngine<?> engine) {
 		if (_executionContext == null) {
 
-			if (!(engine.getExecutionContext() instanceof ConcurrentModelExecutionContext)) {
+			if (!(engine.getExecutionContext() instanceof BaseConcurrentModelExecutionContext)) {
 				// DVK current implementation of this addon is Concurrent specific (due to the
 				// use of the CodeExecutor
 				// for now fail with an error message, later work may generalize this and remove

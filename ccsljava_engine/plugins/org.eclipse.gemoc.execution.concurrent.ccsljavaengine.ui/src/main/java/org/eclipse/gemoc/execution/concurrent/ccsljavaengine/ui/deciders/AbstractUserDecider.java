@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import org.eclipse.gemoc.commons.eclipse.ui.ViewHelper;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.deciders.ILogicalStepDecider;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.ConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.SharedIcons;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.step.LogicalStepsView;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener2;
@@ -39,7 +39,7 @@ public abstract class AbstractUserDecider implements ILogicalStepDecider
 	private Semaphore _semaphore = null;
 
 	@Override
-	public Step decide(final ConcurrentExecutionEngine engine, final List<Step<?>> possibleLogicalSteps)
+	public Step decide(final AbstractConcurrentExecutionEngine engine, final List<Step<?>> possibleLogicalSteps)
 			throws InterruptedException {
 		_preemptionHappened = false;
 		_semaphore = new Semaphore(0);

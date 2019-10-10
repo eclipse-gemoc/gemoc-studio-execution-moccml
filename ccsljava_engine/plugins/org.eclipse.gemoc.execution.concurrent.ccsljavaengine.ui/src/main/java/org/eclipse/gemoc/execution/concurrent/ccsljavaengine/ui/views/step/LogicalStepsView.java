@@ -20,11 +20,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gemoc.commons.eclipse.ui.TreeViewerHelper;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.ConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.Activator;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.SharedIcons;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.deciders.actions.PauseResumeEngineDeciderAction;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.deciders.actions.SwitchDeciderAction;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.executionframework.engine.core.GemocRunningEnginesRegistry;
 import org.eclipse.gemoc.executionframework.ui.IMSEPresenter;
 import org.eclipse.gemoc.executionframework.ui.utils.ViewUtils;
@@ -288,13 +288,13 @@ public class LogicalStepsView extends EngineSelectionDependentViewPart implement
 		_viewer.getControl().setFocus();
 	}
 
-	private ConcurrentExecutionEngine _currentEngine;
+	private AbstractConcurrentExecutionEngine _currentEngine;
 
 	@Override
 	public void engineSelectionChanged(IExecutionEngine<?> engine) {
-		if (engine != null && engine instanceof ConcurrentExecutionEngine
+		if (engine != null && engine instanceof AbstractConcurrentExecutionEngine
 				&& engine.getExecutionContext().getExecutionMode().equals(ExecutionMode.Animation)) {
-			_currentEngine = (ConcurrentExecutionEngine) engine;
+			_currentEngine = (AbstractConcurrentExecutionEngine) engine;
 			_viewer.setInput(_currentEngine);
 			if (_currentEngine != null && !_currentEngine.getRunningStatus().equals(RunStatus.Stopped)) {
 				TreeViewerHelper.resizeColumns(_viewer);

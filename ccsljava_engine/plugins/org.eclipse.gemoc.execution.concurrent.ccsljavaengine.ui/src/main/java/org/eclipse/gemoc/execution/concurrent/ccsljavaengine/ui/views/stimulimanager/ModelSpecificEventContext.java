@@ -16,10 +16,10 @@ import java.util.Collection;
 
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse.DefaultMSEStateController;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.ConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.stimuliscenario.Future;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.scenario.ScenarioManager;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 
 public class ModelSpecificEventContext 
 {
@@ -142,7 +142,7 @@ public class ModelSpecificEventContext
 		return _mseSet.getMSEs();
 	}
 	
-	public ConcurrentExecutionEngine getEngine()
+	public AbstractConcurrentExecutionEngine getEngine()
 	{
 		return _engine;
 	}

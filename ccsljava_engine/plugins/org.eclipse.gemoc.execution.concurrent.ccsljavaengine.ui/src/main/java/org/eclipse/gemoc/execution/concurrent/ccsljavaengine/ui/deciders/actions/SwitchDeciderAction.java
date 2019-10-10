@@ -13,7 +13,7 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.deciders.action
 
 import java.util.ArrayList;
 
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.ConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.executionframework.ui.views.engine.actions.AbstractEngineAction;
 import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionEngine;
 import org.eclipse.jface.action.Action;
@@ -92,10 +92,10 @@ public class SwitchDeciderAction extends AbstractEngineAction
 	public void engineSelectionChanged(IExecutionEngine engine) 
 	{
 		super.engineSelectionChanged(engine);
-		if (engine instanceof ConcurrentExecutionEngine) {
+		if (engine instanceof AbstractConcurrentExecutionEngine) {
 			for (DeciderAction action : DeciderManager.getAllDeciderActions())
 			{
-				action.setEngine((ConcurrentExecutionEngine)getCurrentSelectedEngine());
+				action.setEngine((AbstractConcurrentExecutionEngine)getCurrentSelectedEngine());
 			}		
 		}
 	}

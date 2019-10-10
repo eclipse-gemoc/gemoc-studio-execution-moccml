@@ -11,7 +11,8 @@
  *******************************************************************************/
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse;
 
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IMoccmlFutureAction;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlFutureAction;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlMSEStateController;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 
 public class FreeClockFutureAction implements IMoccmlFutureAction
