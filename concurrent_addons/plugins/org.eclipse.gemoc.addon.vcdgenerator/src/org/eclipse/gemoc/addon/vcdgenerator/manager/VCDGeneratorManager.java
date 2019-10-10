@@ -24,8 +24,9 @@ import org.eclipse.gemoc.addon.vcdgenerator.ScoreBoard;
 import org.eclipse.gemoc.addon.vcdgenerator.behaviors.AbstractVCDClockBehavior;
 import org.eclipse.gemoc.addon.vcdgenerator.behaviors.VCDGeneratorClockBehavior;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.concurrentmse.FeedbackMSE;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse.ConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ISolver;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.trace.commons.model.helper.StepHelper;
 import org.eclipse.gemoc.trace.commons.model.trace.MSEOccurrence;
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
@@ -149,12 +150,12 @@ public class VCDGeneratorManager extends DefaultEngineAddon{
 		this._durationModelFilename = _durationModelFilename;
 	}
 
-	private ISolver _solver = null;
+	private ICCSLSolver _solver = null;
 	
 	@Override
 	public void engineAboutToStart(IExecutionEngine engine) {
-		if(engine instanceof IConcurrentExecutionEngine){
-			_solver = ((IConcurrentExecutionEngine)engine).getSolver();	
+		if(engine instanceof ConcurrentExecutionEngine){
+			_solver = ((ConcurrentExecutionEngine)engine).getSolver();	
 		}
 		_behaviorList = null;
 		_behaviorList = new Vector<AbstractVCDClockBehavior>();
