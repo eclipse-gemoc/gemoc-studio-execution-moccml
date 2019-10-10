@@ -155,7 +155,7 @@ public class ASynchroneExecution extends OperationExecution {
 				} else {
 					FreeClockFutureAction action = new FreeClockFutureAction(entry.getKey().getEventToBeForced(),
 							entry.getKey().getOnTrigger(), _clockController);
-					getEngine().addFutureAction(action);
+					((ConcurrentExecutionEngine)getEngine()).addFutureAction(action);
 				}
 			}
 		}

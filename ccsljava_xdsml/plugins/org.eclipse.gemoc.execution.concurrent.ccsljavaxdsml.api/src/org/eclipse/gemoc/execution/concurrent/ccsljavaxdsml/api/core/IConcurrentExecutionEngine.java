@@ -27,8 +27,6 @@ public interface IConcurrentExecutionEngine extends IExecutionEngine<IConcurrent
 
 	Step<?> getSelectedLogicalStep();
 
-	void addFutureAction(IFutureAction action);
-
 	ILogicalStepDecider getLogicalStepDecider();
 
 	void changeLogicalStepDecider(ILogicalStepDecider newDecider);
