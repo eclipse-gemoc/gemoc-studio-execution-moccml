@@ -15,45 +15,30 @@ import java.util.Collection;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IMoccmlExecutionPlatform;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.ICodeExecutor;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlMSEStateController;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageDefinitionExtension;
-import org.eclipse.gemoc.executionframework.engine.commons.DefaultExecutionPlatform;
 import org.eclipse.gemoc.xdsmlframework.api.core.IRunConfiguration;
 
-public class MoccmlExecutionPlatform extends DefaultExecutionPlatform implements IMoccmlExecutionPlatform  {
-	
-	private ICodeExecutor _codeExecutor;
+public class MoccmlExecutionPlatform extends CodeExecutorBasedExecutionPlatform implements IMoccmlExecutionPlatform {
+
 	private Collection<IMoccmlMSEStateController> _clockControllers;
-	
-	public MoccmlExecutionPlatform(MoccmlLanguageDefinitionExtension _languageDefinition, IRunConfiguration runConfiguration) throws CoreException 
-	{
-		super(_languageDefinition, runConfiguration);	
-		_codeExecutor = _languageDefinition.instanciateCodeExecutor();
+
+	public MoccmlExecutionPlatform(MoccmlLanguageDefinitionExtension _languageDefinition,
+			IRunConfiguration runConfiguration) throws CoreException {
+		super(_languageDefinition, runConfiguration);
 		_clockControllers = _languageDefinition.instanciateMSEStateControllers();
-		
-	}
 
-
-	@Override
-	public ICodeExecutor getCodeExecutor() 
-	{
-		return _codeExecutor;
 	}
 
 	@Override
-	public Collection<IMoccmlMSEStateController> getMSEStateControllers() 
-	{
+	public Collection<IMoccmlMSEStateController> getMSEStateControllers() {
 		return _clockControllers;
 	}
 
 	@Override
-	public void dispose() 
-	{
+	public void dispose() {
 		super.dispose();
 		_clockControllers.clear();
 	}
-
-
 
 }

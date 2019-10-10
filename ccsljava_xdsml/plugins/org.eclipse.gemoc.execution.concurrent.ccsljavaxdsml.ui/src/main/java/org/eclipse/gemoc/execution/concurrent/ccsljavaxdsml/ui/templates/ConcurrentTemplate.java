@@ -226,6 +226,7 @@ public class ConcurrentTemplate extends JavaxdsmlTemplateSection {
 		
 	}
 	
+	@Override
 	public void addPages(Wizard wizard) {
 		WizardPage page = createPage(0, IHelpContextIds.TEMPLATE_CONCURRENT_SINGLE_LANGUAGE);
 		page.setTitle(WizardTemplateMessages.ConcurrentLanguageTemplate_title);
@@ -234,6 +235,7 @@ public class ConcurrentTemplate extends JavaxdsmlTemplateSection {
 		markPagesAdded();
 	}
 
+	@Override
 	public boolean isDependentOnParentWizard() {
 		return true;
 	}
@@ -253,6 +255,7 @@ public class ConcurrentTemplate extends JavaxdsmlTemplateSection {
 		}
 	}
 	
+	@Override
 	protected void initializeFields(BaseProjectWizardFields data) {
 		final String projectName = ((NewMelangeProjectWizardFields)data).projectName;
 		String packageName = inferPackageNameFromProjectName(projectName);
@@ -305,6 +308,7 @@ public class ConcurrentTemplate extends JavaxdsmlTemplateSection {
 		}
 	}
 
+	@Override
 	public String getUsedExtensionPoint() {
 		return "org.eclipse.ui.actionSets"; //$NON-NLS-1$
 	}

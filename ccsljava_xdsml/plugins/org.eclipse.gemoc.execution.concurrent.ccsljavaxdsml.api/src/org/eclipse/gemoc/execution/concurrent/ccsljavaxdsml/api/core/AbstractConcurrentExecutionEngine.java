@@ -4,11 +4,17 @@ import java.util.List;
 
 import org.eclipse.gemoc.executionframework.engine.core.AbstractExecutionEngine;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
+import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionContext;
+import org.eclipse.gemoc.xdsmlframework.api.core.IRunConfiguration;
 
-public abstract class AbstractConcurrentExecutionEngine extends AbstractExecutionEngine {
+public abstract class AbstractConcurrentExecutionEngine
+<C extends AbstractConcurrentModelExecutionContext<R,?,?>, R extends IConcurrentRunConfiguration> 
+extends AbstractExecutionEngine<C,R>
+
+{
 	
 	
-	public abstract AbstractConcurrentModelExecutionContext getConcurrentExecutionContext();
+	public abstract C getConcurrentExecutionContext();
 
 	public abstract void recomputePossibleLogicalSteps();
 

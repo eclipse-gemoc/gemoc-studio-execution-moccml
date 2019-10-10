@@ -3,7 +3,6 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IMoccmlExecutionPlatform;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IMoccmlRunConfiguration;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageDefinitionExtension;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageDefinitionExtensionPoint;
@@ -12,7 +11,7 @@ import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ActionModel;
 import org.eclipse.gemoc.xdsmlframework.api.core.ExecutionMode;
 
 public class MoccmlModelExecutionContext extends
-		BaseConcurrentModelExecutionContext<IMoccmlRunConfiguration, IMoccmlExecutionPlatform, MoccmlLanguageDefinitionExtension> {
+		BaseConcurrentModelExecutionContext<IMoccmlRunConfiguration, MoccmlExecutionPlatform, MoccmlLanguageDefinitionExtension> {
 	
 	public MoccmlModelExecutionContext(IMoccmlRunConfiguration runConfiguration, ExecutionMode executionMode)
 			throws EngineContextException {
@@ -52,7 +51,7 @@ public class MoccmlModelExecutionContext extends
 	}
 
 	@Override
-	protected IMoccmlExecutionPlatform createExecutionPlatform() throws CoreException {
+	protected MoccmlExecutionPlatform createExecutionPlatform() throws CoreException {
 		return new MoccmlExecutionPlatform((MoccmlLanguageDefinitionExtension) _languageDefinition, _runConfiguration);
 	}
 

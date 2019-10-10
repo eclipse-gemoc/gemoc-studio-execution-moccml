@@ -93,6 +93,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 		ccslRelation = modelFactory.createOccurrenceRelationModel();
 	}
 
+	@Override
 	public void setIOutputTraceList(IOutputTraceList outputlist) {
 		irml.setIOutputTraceList(outputlist);
 	}
@@ -117,6 +118,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 	 * 
 	 * @return A list of ClockConstraint
 	 */
+	@Override
 	public EList<CCSLConstraintRef> getClockConstraintList() {
 		return ccslRelation.getRefsToCCSLConstraints();
 	}
@@ -128,6 +130,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 	 * @param eObject
 	 *     a model element
 	 */
+	@Override
 	public void getModelRoot(EObject eObject) {
 		// TODO ..
 		irml.clear();
@@ -145,6 +148,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 	 * @param stepTrace
 	 *            a StepTrace of a trace model
 	 */
+	@Override
 	public void addClockConstraint(LogicalStep stepTrace) {
 
 		if (stepTrace.getEventOccurrences().isEmpty())
@@ -158,11 +162,13 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 //		disp();
 	}
 
+	@Override
 	public void extract(EObject eo1) {
 		LookForExtensions.getDefault().getICCSLModel(eo1, this);
 //		disp();
 	}
 
+	@Override
 	public ArrayList<IDescription> getDescription() {
 		ArrayList<IDescription> desc = new ArrayList<IDescription>(lab.size());
 		for (AbstractCreator a : lab) {
@@ -171,6 +177,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 		return desc;
 	}
 
+	@Override
 	public void disp() {
 		for (AbstractCreator clockConstraint : lab) {
 			System.out.println(clockConstraint.getDescription().toString());
@@ -185,6 +192,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 	 *            A list of trace model paths
 	 * @return A list of StepTrace
 	 */
+	@Override
 	public ArrayList<LogicalStep> loadTrace(IPath path) {
 		ArrayList<LogicalStep> steps = new ArrayList<LogicalStep>();
 
@@ -208,10 +216,12 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 		return steps;
 	}
 
+	@Override
 	public ModelElementReference searchClock(EObject eo) {
 		return searchClock(new EObject[] { eo });
 	}
 
+	@Override
 	public ModelElementReference searchClock(EObject[] eObjects) {
 
 		boucle1: for (ModelElementReference mer : listClock) {
@@ -227,10 +237,12 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 		return null;
 	}
 
+	@Override
 	public ModelElementReference searchConstraint(EObject eo) {
 		return searchConstraint(new EObject[] { eo });
 	}
 
+	@Override
 	public ModelElementReference searchConstraint(EObject[] eObjects) {
 		boucle1: for (ModelElementReference mer : listRelation) {
 			if (mer.getElementRef().size() == eObjects.length) {
@@ -244,18 +256,22 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 		return null;
 	}
 
+	@Override
 	public List<ModelElementReference> getListClock() {
 		return listClock;
 	}
 
+	@Override
 	public List<ModelElementReference> getListRelation() {
 		return listRelation;
 	}
 
+	@Override
 	public void setListClock(List<ModelElementReference> listClock) {
 		this.listClock = listClock;
 	}
 
+	@Override
 	public void setListRelation(List<ModelElementReference> listrelation) {
 		this.listRelation = listrelation;
 	}
@@ -274,6 +290,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 	 * @param stepTrace
 	 *            a StepTrace of a trace model
 	 */
+	@Override
 	public void resolve(LogicalStep stepTrace) {
 		List<ResolveClockConstraintException> list = new ArrayList<ResolveClockConstraintException>();
 		try { 
@@ -355,6 +372,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 	 * @param namefilein
 	 *            the file name of the instants relation model
 	 */
+	@Override
 	public void saveRelationModel(IPath folderin, String namefilein) {
 		local = folderin;
 		namefile = namefilein;
@@ -365,6 +383,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 
 	}
 
+	@Override
 	public void saveRelationModel(ResourceSet rs, IPath folderin, String namefilein) {
 		local = folderin;
 		namefile = namefilein;
@@ -375,6 +394,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 
 	}
 
+	@Override
 	public void unload() {
 		// TODO
 		try {
@@ -385,11 +405,13 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 		}
 	}
 
+	@Override
 	public void aNewClockConstraint(CCSLConstraintRef clockConstraint) {
 		getClockConstraintList().add(clockConstraint);
 		irml.aNewClockConstraint(clockConstraint);
 	}
 
+	@Override
 	public AbstractCreator add(AbstractCreator ab) {
 		if (ab != null) {
 			if (ab.addChecking()) {
@@ -407,6 +429,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 		return ab;
 	}
 
+	@Override
 	public AbstractCreator add(AbstractCreator ab, ActivationCreator activationCreator) {
 		if (ab != null) {
 			if (ab.addChecking()) {
@@ -426,6 +449,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 		return ab;
 	}
 
+	@Override
 	public CCSLConstraintRef addAndCreateAlternates(ModelElementReference a, ModelElementReference b, int a1, int b1,
 			boolean left, boolean rigth) {
 		CCSLConstraintRef cref = CCSLRelationModelFactory.eINSTANCE.createCCSLConstraintRef();
@@ -445,6 +469,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 		return cref;
 	}
 
+	@Override
 	public CCSLConstraintRef addAndCreatePrecedes(ModelElementReference a, ModelElementReference b, int a1, int b1,
 			boolean strict) {
 
@@ -460,6 +485,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 		return cref;
 	}
 
+	@Override
 	public CCSLConstraintRef addAndCreateSync(ModelElementReference a, ModelElementReference b, int a1, int b1,
 			boolean left, boolean rigth) {
 		CCSLConstraintRef cref = CCSLRelationModelFactory.eINSTANCE.createCCSLConstraintRef();
@@ -480,6 +506,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 		return cref;
 	}
 
+	@Override
 	public CCSLConstraintRef addAndCreateEqual(ModelElementReference a, ModelElementReference b) {
 		CCSLConstraintRef cref = CCSLRelationModelFactory.eINSTANCE.createCCSLConstraintRef();
 		cref.getCcslElements().add(a);
@@ -504,6 +531,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 	 *            (ModelElementReference)
 	 * @return an element from the instantRelamtionModel named CCSLConstraintRef
 	 */
+	@Override
 	public CCSLConstraintRef addAndCreateConcatenation(ModelElementReference res, ModelElementReference c1,
 			ModelElementReference c2) {
 		CCSLConstraintRef cref = CCSLRelationModelFactory.eINSTANCE.createCCSLConstraintRef();
@@ -535,6 +563,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 	 *            (ModelElementReference)
 	 * @return an element from the instantRelamtionModel named CCSLConstraintRef
 	 */
+	@Override
 	public CCSLConstraintRef addAndCreateUpTo(ModelElementReference res, ModelElementReference c1,
 			ModelElementReference c2) {
 		CCSLConstraintRef cref = CCSLRelationModelFactory.eINSTANCE.createCCSLConstraintRef();
@@ -557,6 +586,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 		return cref;
 	}
 
+	@Override
 	public CCSLConstraintRef addandCreateInf(ModelElementReference r, ModelElementReference lst[]) {
 		CCSLConstraintRef cref = CCSLRelationModelFactory.eINSTANCE.createCCSLConstraintRef();
 		cref.getCcslElements().add(r);
@@ -573,6 +603,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 		return cref;
 	}
 
+	@Override
 	public CCSLConstraintRef addandCreateSup(ModelElementReference r, ModelElementReference lst[]) {
 		CCSLConstraintRef cref = CCSLRelationModelFactory.eINSTANCE.createCCSLConstraintRef();
 		cref.getCcslElements().add(r);
@@ -590,6 +621,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 		return cref;
 	}
 
+	@Override
 	public CCSLConstraintRef addandCreateInterOrUnion(ModelElementReference r, ModelElementReference a,
 			ModelElementReference b) {
 		CCSLConstraintRef cref = CCSLRelationModelFactory.eINSTANCE.createCCSLConstraintRef();
@@ -605,6 +637,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 		return cref;
 	}
 
+	@Override
 	public CCSLConstraintRef addandCreateDelayedFor(ModelElementReference r, ModelElementReference a,
 			ModelElementReference b, int n) {
 		CCSLConstraintRef cref = CCSLRelationModelFactory.eINSTANCE.createCCSLConstraintRef();
@@ -625,6 +658,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 		return cref;
 	}
 
+	@Override
 	public CCSLConstraintRef addandCreateSampledOn(ModelElementReference sup, ModelElementReference superc,
 			ModelElementReference trigger, boolean strictly) {
 		CCSLConstraintRef cref = CCSLRelationModelFactory.eINSTANCE.createCCSLConstraintRef();
@@ -643,6 +677,7 @@ public class GemocInstantRelationModelGenerator extends InstantRelationModelGene
 		return cref;
 	}
 
+	@Override
 	public CCSLConstraintRef addandCreateSustain(ModelElementReference res, ModelElementReference sustain,
 			ModelElementReference upto) {
 		CCSLConstraintRef cref = CCSLRelationModelFactory.eINSTANCE.createCCSLConstraintRef();

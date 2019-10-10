@@ -85,6 +85,7 @@ public class GemocLanguageDesignerBuilder extends IncrementalProjectBuilder {
 		 * org.eclipse.core.resources.IResourceDeltaVisitor#visit(org.eclipse
 		 * .core.resources.IResourceDelta)
 		 */
+		@Override
 		public boolean visit(IResourceDelta delta) throws CoreException {
 			IResource resource = delta.getResource();
 			switch (delta.getKind()) {
@@ -110,6 +111,7 @@ public class GemocLanguageDesignerBuilder extends IncrementalProjectBuilder {
 	
 	class LanguageProjectResourceVisitor implements IResourceVisitor {
 		
+		@Override
 		public boolean visit(IResource resource) {
 			updateProjectPluginConfiguration(resource);
 			checkConsistency(resource);
@@ -127,6 +129,7 @@ public class GemocLanguageDesignerBuilder extends IncrementalProjectBuilder {
 	 * @see org.eclipse.core.internal.events.InternalBuilder#build(int,
 	 * java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
 	 */
+	@Override
 	protected IProject[] build(int kind, Map args, IProgressMonitor monitor) throws CoreException {
 		if (kind == FULL_BUILD) {
 			fullBuild(monitor);
