@@ -11,18 +11,17 @@
  *******************************************************************************/
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse;
 
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IFutureAction;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMSEStateController;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IMoccmlFutureAction;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 
-public class FreeClockFutureAction implements IFutureAction
+public class FreeClockFutureAction implements IMoccmlFutureAction
 {
 
 	private ModelSpecificEvent _mseToBeForced;
 	private ModelSpecificEvent _triggeringMSE;
-	private IMSEStateController _clockController;
+	private IMoccmlMSEStateController _clockController;
 	
-	public FreeClockFutureAction(ModelSpecificEvent mseToBeForced, ModelSpecificEvent triggeringMSE, IMSEStateController clockController) 
+	public FreeClockFutureAction(ModelSpecificEvent mseToBeForced, ModelSpecificEvent triggeringMSE, IMoccmlMSEStateController clockController) 
 	{
 		_mseToBeForced = mseToBeForced;
 		_triggeringMSE = triggeringMSE;

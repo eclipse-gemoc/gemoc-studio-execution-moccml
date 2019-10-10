@@ -11,7 +11,7 @@
  *******************************************************************************/
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.step;
 
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.ConcurrentExecutionEngine;
 import org.eclipse.gemoc.trace.commons.model.helper.StepHelper;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.xdsmlframework.api.core.EngineStatus.RunStatus;
@@ -32,9 +32,9 @@ public class LogicalStepsViewContentProvider implements ITreeContentProvider {
 
 	@Override
 	public Object[] getElements(Object inputElement) {
-		if (inputElement instanceof IConcurrentExecutionEngine)
+		if (inputElement instanceof ConcurrentExecutionEngine)
 		{
-			IConcurrentExecutionEngine engine = (IConcurrentExecutionEngine)inputElement;
+			ConcurrentExecutionEngine engine = (ConcurrentExecutionEngine)inputElement;
 			if (engine.getRunningStatus().equals(RunStatus.Stopped))
 			{
 				String message = "Engine is not running";
@@ -64,9 +64,9 @@ public class LogicalStepsViewContentProvider implements ITreeContentProvider {
 
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		if (parentElement instanceof IConcurrentExecutionEngine)
+		if (parentElement instanceof ConcurrentExecutionEngine)
 		{
-			IConcurrentExecutionEngine engine = (IConcurrentExecutionEngine)parentElement;
+			ConcurrentExecutionEngine engine = (ConcurrentExecutionEngine)parentElement;
 			return engine.getPossibleLogicalSteps().toArray();
 		}
 		else if (parentElement instanceof Step)
@@ -86,9 +86,9 @@ public class LogicalStepsViewContentProvider implements ITreeContentProvider {
 	@Override
 	public boolean hasChildren(Object element) 
 	{
-		if (element instanceof IConcurrentExecutionEngine)
+		if (element instanceof ConcurrentExecutionEngine)
 		{
-			IConcurrentExecutionEngine engine = (IConcurrentExecutionEngine)element;
+			ConcurrentExecutionEngine engine = (ConcurrentExecutionEngine)element;
 			return engine.getPossibleLogicalSteps().size() > 0;
 		}
 		else if (element instanceof Step)

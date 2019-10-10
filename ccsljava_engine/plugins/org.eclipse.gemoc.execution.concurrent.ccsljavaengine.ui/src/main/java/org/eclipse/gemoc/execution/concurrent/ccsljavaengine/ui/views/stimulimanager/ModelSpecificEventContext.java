@@ -14,15 +14,17 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulima
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse.DefaultMSEStateController;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.ConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.stimuliscenario.Future;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.scenario.ScenarioManager;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
 
 public class ModelSpecificEventContext 
 {
 
-	private IConcurrentExecutionEngine _engine;
+	private MoccmlExecutionEngine _engine;
 	
 	private ModelSpecificEventSet _mseSet;
 	
@@ -31,7 +33,7 @@ public class ModelSpecificEventContext
 	private ScenarioManager _scenarioManager;
 
 	
-	public ModelSpecificEventContext(IConcurrentExecutionEngine engine)
+	public ModelSpecificEventContext(MoccmlExecutionEngine engine)
 	{
 		_engine = engine;
 		_executionStep = (int) engine.getEngineStatus().getNbLogicalStepRun();
@@ -41,7 +43,8 @@ public class ModelSpecificEventContext
 
 	private void configure()
 	{
-		_mseSet = new ModelSpecificEventSet(_engine.getConcurrentExecutionContext().getFeedbackModel());
+		MoccmlModelExecutionContext execontext =  (MoccmlModelExecutionContext) _engine.getConcurrentExecutionContext();
+		_mseSet = new ModelSpecificEventSet(execontext.getFeedbackModel());
 		_engine.getConcurrentExecutionContext().getExecutionPlatform().getMSEStateControllers().add(_clockController);
 	}
 
@@ -139,7 +142,7 @@ public class ModelSpecificEventContext
 		return _mseSet.getMSEs();
 	}
 	
-	public IConcurrentExecutionEngine getEngine()
+	public ConcurrentExecutionEngine getEngine()
 	{
 		return _engine;
 	}

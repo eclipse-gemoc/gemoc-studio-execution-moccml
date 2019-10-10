@@ -30,11 +30,12 @@ import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ConcurrentModelExecutionContext;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ICCSLSolver;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.ConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper.IK3ModelStateHelper;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelState;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionContext;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.executionframework.engine.Activator;
 import org.eclipse.gemoc.executionframework.engine.core.CommandExecution;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.Branch;
@@ -106,8 +107,8 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 		} else {
 			internalBranch(choice);
 			_backToPastHappened = true;
-			if (_executionEngine instanceof IConcurrentExecutionEngine) {
-				((IConcurrentExecutionEngine) _executionEngine).getLogicalStepDecider().preempt();
+			if (_executionEngine instanceof ConcurrentExecutionEngine) {
+				((ConcurrentExecutionEngine) _executionEngine).getLogicalStepDecider().preempt();
 			}
 		}
 	}
@@ -223,8 +224,8 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 	}
 
 	private void restoreSolverState(Choice choice) {
-		if (_executionEngine instanceof IConcurrentExecutionEngine) {
-			IConcurrentExecutionEngine engine_cast = (IConcurrentExecutionEngine) _executionEngine;
+		if (_executionEngine instanceof MoccmlExecutionEngine) {
+			MoccmlExecutionEngine engine_cast = (MoccmlExecutionEngine) _executionEngine;
 			ICCSLSolver solver = (ICCSLSolver) engine_cast.getSolver();
 			Activator.getDefault().debug(
 					"restoring solver state: " + choice.getContextState().getSolverState().getSerializableModel());
@@ -299,8 +300,8 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 				ModelState modelState = currentState;
 				contextState.setModelState(modelState);
 
-				if (_executionEngine instanceof IConcurrentExecutionEngine) {
-					IConcurrentExecutionEngine engine_cast = (IConcurrentExecutionEngine) _executionEngine;
+				if (_executionEngine instanceof MoccmlExecutionEngine) {
+					MoccmlExecutionEngine engine_cast = (MoccmlExecutionEngine) _executionEngine;
 					SolverState solverState = Gemoc_execution_traceFactory.eINSTANCE.createSolverState();
 					ICCSLSolver solver_cast = (ICCSLSolver) engine_cast.getSolver();
 					solverState.setSerializableModel(solver_cast.getState());
@@ -357,7 +358,7 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 	private void setUp(IExecutionEngine<?> engine) {
 		if (_executionContext == null) {
 
-			if (!(engine.getExecutionContext() instanceof IConcurrentExecutionContext)) {
+			if (!(engine.getExecutionContext() instanceof ConcurrentModelExecutionContext)) {
 				// DVK current implementation of this addon is Concurrent specific (due to the
 				// use of the CodeExecutor
 				// for now fail with an error message, later work may generalize this and remove
@@ -567,8 +568,8 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 					try {
 						restoreModelState(choice);
 						restoreSolverState(choice);
-						if (_executionEngine instanceof IConcurrentExecutionEngine) {
-							((IConcurrentExecutionEngine) _executionEngine).getLogicalStepDecider().preempt();
+						if (_executionEngine instanceof MoccmlExecutionEngine) {
+							((MoccmlExecutionEngine) _executionEngine).getLogicalStepDecider().preempt();
 						}
 					} catch (Exception e) {
 						org.eclipse.gemoc.execution.concurrent.ccsljavaengine.Activator.getDefault()

@@ -40,9 +40,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ConcurrentModelExecutionContext;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.concurrentmse.FeedbackMSE;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare.Activator;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils.ccsl.QvtoTransformationPerformer;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ActionModel;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
@@ -79,7 +79,7 @@ import fr.inria.aoste.trace.relation.IDescription;
  * Implementation of the ISolver dedicated to CCSL.
  * 
  */
-public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver {
+public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ICCSLSolver {
 
 	protected CCSLKernelSolverWrapper solverWrapper = null;
 	protected URI solverInputURI = null;
@@ -353,20 +353,20 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 	
 	
 	@Override
-	public void initialize(IConcurrentExecutionContext context) 
+	public void initialize(ConcurrentModelExecutionContext context) 
 	{
 		if (context instanceof ConcurrentModelExecutionContext){
-			_alternativeExecutionModelPath = ((ConcurrentModelExecutionContext)context).alternativeExecutionModelPath;
+			_alternativeExecutionModelPath = ((MoccmlModelExecutionContext)context).alternativeExecutionModelPath;
 		}
 		createSolver(context);
 	}
 	
 	@Override
-	public void prepareBeforeModelLoading(IConcurrentExecutionContext context) 
+	public void prepareBeforeModelLoading(ConcurrentModelExecutionContext context) 
 	{
-		generateMoC(context);
+		generateMoC((MoccmlModelExecutionContext)context);
 	}
-	private void generateMoC(IConcurrentExecutionContext context) 
+	private void generateMoC(MoccmlModelExecutionContext context) 
 	{
 		IExecutionWorkspace workspace = context.getWorkspace();
 		boolean mustGenerate = false;
@@ -442,7 +442,7 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 	/**
 	 * generates a MSEModel that wraps the FeedbackModel used by Timesquare
 	 */
-	private void generateMSEModel(final IConcurrentExecutionContext context){
+	private void generateMSEModel(final ConcurrentModelExecutionContext context){
 		final URI feedbackURI = URI.createPlatformResourceURI(getFeedbackPathFromMSEModelPath(context.getWorkspace().getMSEModelPath()).toString(), true);
 		final URI mseModelURI = URI.createPlatformResourceURI(context.getWorkspace().getMSEModelPath().toString(), true);
 		

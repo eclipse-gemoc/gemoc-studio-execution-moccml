@@ -34,13 +34,15 @@ import org.eclipse.gemoc.commons.eclipse.ui.ViewHelper;
 import org.eclipse.gemoc.dsl.debug.ide.adapter.IDSLCurrentInstructionListener;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ConcurrentModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ConcurrentRunConfiguration;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ICCSLSolver;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlRunConfiguration;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dsa.executors.explorer.ExhaustiveConcurrentExecutionEngine;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse.ConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.Activator;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.step.LogicalStepsView;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.StimuliManagerView;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionContext;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IMoccmlRunConfiguration;
 import org.eclipse.gemoc.executionframework.engine.core.RunConfiguration;
 import org.eclipse.gemoc.executionframework.engine.ui.launcher.AbstractGemocLauncher;
 import org.eclipse.gemoc.executionframework.extensions.sirius.services.AbstractGemocAnimatorServices;
@@ -56,17 +58,17 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 
-public class Launcher extends AbstractGemocLauncher<IConcurrentExecutionContext> {
+public class Launcher extends AbstractGemocLauncher<ConcurrentModelExecutionContext> {
 
 	public final static String TYPE_ID = Activator.PLUGIN_ID + ".launcher";
 
-	private ConcurrentExecutionEngine _executionEngine;
+	private MoccmlExecutionEngine _executionEngine;
 
 	@Override
 	public void launch(final ILaunchConfiguration configuration, final String mode, final ILaunch launch,
 			IProgressMonitor monitor) throws CoreException {
 		try {
-			debug("About to initialize and run the GEMOC Execution Engine...");
+			debug("About to initialize and run the GEMOC Moccml Engine...");
 
 			// make sure to have the engine view when starting the engine
 			PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
@@ -79,7 +81,7 @@ public class Launcher extends AbstractGemocLauncher<IConcurrentExecutionContext>
 			});
 
 			// We parse the run configuration
-			final ConcurrentRunConfiguration runConfiguration = new ConcurrentRunConfiguration(configuration);
+			final IMoccmlRunConfiguration runConfiguration = new MoccmlRunConfiguration(configuration);
 
 			// We detect if we are running in debug mode or not
 			ExecutionMode executionMode = null;
@@ -94,7 +96,7 @@ public class Launcher extends AbstractGemocLauncher<IConcurrentExecutionContext>
 				return;
 			}
 
-			IConcurrentExecutionContext concurrentexecutionContext = new ConcurrentModelExecutionContext(
+			MoccmlModelExecutionContext concurrentexecutionContext = new MoccmlModelExecutionContext(
 					runConfiguration, executionMode);
 			concurrentexecutionContext.initializeResourceModel();
 			ICCSLSolver _solver = null;
@@ -110,7 +112,7 @@ public class Launcher extends AbstractGemocLauncher<IConcurrentExecutionContext>
 			if (runConfiguration.getIsExhaustiveSimulation()) {
 				_executionEngine = new ExhaustiveConcurrentExecutionEngine(concurrentexecutionContext, _solver);
 			} else {
-				_executionEngine = new ConcurrentExecutionEngine(concurrentexecutionContext, _solver);
+				_executionEngine = new MoccmlExecutionEngine(concurrentexecutionContext, _solver);
 			}
 			openViewsRecommandedByAddons(runConfiguration);
 
@@ -248,7 +250,7 @@ public class Launcher extends AbstractGemocLauncher<IConcurrentExecutionContext>
 
 	@Override
 	public String getModelIdentifier() {
-		if (_executionEngine instanceof ConcurrentExecutionEngine)
+		if (_executionEngine instanceof MoccmlExecutionEngine)
 			return Activator.PLUGIN_ID + ".debugModel";
 		else
 			return MODEL_ID;

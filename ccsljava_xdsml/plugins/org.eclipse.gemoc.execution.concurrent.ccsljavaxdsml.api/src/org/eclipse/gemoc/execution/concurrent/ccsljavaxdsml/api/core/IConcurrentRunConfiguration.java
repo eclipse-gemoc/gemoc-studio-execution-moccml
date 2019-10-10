@@ -19,8 +19,6 @@ public interface IConcurrentRunConfiguration extends IRunConfiguration{
 	public static final String LAUNCH_INITIALIZATION_ARGUMENTS = "GEMOC_LAUNCH_INITIALIZATION_ARGUMENTS";
 
 	String getDeciderName();
-	String getExecutionModelPath();
 	String getModelInitializationMethod();
 	String getModelInitializationArguments();
-	boolean getIsExhaustiveSimulation();
 }

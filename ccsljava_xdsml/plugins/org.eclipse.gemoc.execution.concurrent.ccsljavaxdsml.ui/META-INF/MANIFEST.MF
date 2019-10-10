@@ -46,7 +46,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.gemoc.dsl;bundle-version="3.0.0",
  org.eclipse.jdt,
  org.eclipse.jdt.core.manipulation,
- org.eclipse.jdt.launching
+ org.eclipse.jdt.launching,
+ org.eclipse.gemoc.execution.concurrent.ccsljavaengine;bundle-version="2.3.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.core.filesystem

@@ -44,7 +44,7 @@ import org.eclipse.gemoc.commons.eclipse.core.resources.IFileUtils;
 import org.eclipse.gemoc.commons.eclipse.pde.manifest.ManifestChanger;
 import org.eclipse.gemoc.dsl.Dsl;
 import org.eclipse.gemoc.dsl.Entry;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.ConcurrentLanguageDefinitionExtensionPoint;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlLanguageDefinitionExtensionPoint;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.Activator;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinitionExtensionPoint;
 import org.eclipse.gemoc.xdsmlframework.ide.ui.builder.pde.PluginXMLHelper;
@@ -500,9 +500,9 @@ public class GemocLanguageDesignerBuilder extends IncrementalProjectBuilder {
 		PluginXMLHelper.createEmptyTemplateFile(pluginfile, false);
 		PluginXMLHelper helper = new PluginXMLHelper();
 		helper.loadDocument(pluginfile);
-		Element gemocExtensionPoint = helper.getOrCreateExtensionPoint(ConcurrentLanguageDefinitionExtensionPoint.GEMOC_CONCURRENT_LANGUAGE_EXTENSION_POINT);
+		Element gemocExtensionPoint = helper.getOrCreateExtensionPoint(MoccmlLanguageDefinitionExtensionPoint.GEMOC_CONCURRENT_LANGUAGE_EXTENSION_POINT);
 		helper.updateXDSMLDefinitionAttributeInExtensionPoint(gemocExtensionPoint,
-				ConcurrentLanguageDefinitionExtensionPoint.GEMOC_LANGUAGE_EXTENSION_POINT_XDSML_DEF_CODEEXECUTOR_ATT, value);
+				MoccmlLanguageDefinitionExtensionPoint.GEMOC_LANGUAGE_EXTENSION_POINT_XDSML_DEF_CODEEXECUTOR_ATT, value);
 		helper.saveDocument(pluginfile);
 	}
 	
@@ -511,7 +511,7 @@ public class GemocLanguageDesignerBuilder extends IncrementalProjectBuilder {
 		PluginXMLHelper.createEmptyTemplateFile(pluginfile, false);
 		PluginXMLHelper helper = new PluginXMLHelper();
 		helper.loadDocument(pluginfile);
-		Element gemocExtensionPoint = helper.getOrCreateExtensionPoint(ConcurrentLanguageDefinitionExtensionPoint.GEMOC_CONCURRENT_LANGUAGE_EXTENSION_POINT);
+		Element gemocExtensionPoint = helper.getOrCreateExtensionPoint(MoccmlLanguageDefinitionExtensionPoint.GEMOC_CONCURRENT_LANGUAGE_EXTENSION_POINT);
 		helper.updateXDSMLDefinitionInExtensionPoint(gemocExtensionPoint, languageName);
 		helper.updateXDSMLDefinitionAttributeInExtensionPoint(gemocExtensionPoint,
 				LanguageDefinitionExtensionPoint.GEMOC_LANGUAGE_EXTENSION_POINT_XDSML_DEF_XDSML_FILE_PATH_ATT, 
@@ -555,7 +555,7 @@ public class GemocLanguageDesignerBuilder extends IncrementalProjectBuilder {
 		PluginXMLHelper.createEmptyTemplateFile(pluginfile, false);
 		PluginXMLHelper helper = new PluginXMLHelper();
 		helper.loadDocument(pluginfile);
-		Element gemocExtensionPoint = helper.getOrCreateExtensionPoint(ConcurrentLanguageDefinitionExtensionPoint.GEMOC_CONCURRENT_LANGUAGE_EXTENSION_POINT);
+		Element gemocExtensionPoint = helper.getOrCreateExtensionPoint(MoccmlLanguageDefinitionExtensionPoint.GEMOC_CONCURRENT_LANGUAGE_EXTENSION_POINT);
 		helper.updateXDSMLDefinitionAttributeInExtensionPoint(
 				gemocExtensionPoint,
 				LanguageDefinitionExtensionPoint.GEMOC_LANGUAGE_EXTENSION_POINT_XDSML_DEF_LOADMODEL_ATT,
@@ -604,9 +604,9 @@ public class GemocLanguageDesignerBuilder extends IncrementalProjectBuilder {
 		PluginXMLHelper.createEmptyTemplateFile(pluginfile, false);
 		PluginXMLHelper helper = new PluginXMLHelper();
 		helper.loadDocument(pluginfile);
-		Element gemocExtensionPoint = helper.getOrCreateExtensionPoint(ConcurrentLanguageDefinitionExtensionPoint.GEMOC_CONCURRENT_LANGUAGE_EXTENSION_POINT);
+		Element gemocExtensionPoint = helper.getOrCreateExtensionPoint(MoccmlLanguageDefinitionExtensionPoint.GEMOC_CONCURRENT_LANGUAGE_EXTENSION_POINT);
 		helper.updateXDSMLDefinitionAttributeInExtensionPoint(gemocExtensionPoint,
-				ConcurrentLanguageDefinitionExtensionPoint.GEMOC_LANGUAGE_EXTENSION_POINT_XDSML_DEF_SOLVER_ATT, 
+				MoccmlLanguageDefinitionExtensionPoint.GEMOC_LANGUAGE_EXTENSION_POINT_XDSML_DEF_SOLVER_ATT, 
 				computedSolverClassName);
 		helper.saveDocument(pluginfile);
 	}
@@ -647,10 +647,10 @@ public class GemocLanguageDesignerBuilder extends IncrementalProjectBuilder {
 		PluginXMLHelper.createEmptyTemplateFile(pluginfile, false);
 		PluginXMLHelper helper = new PluginXMLHelper();
 		helper.loadDocument(pluginfile);
-		Element gemocExtensionPoint = helper.getOrCreateExtensionPoint(ConcurrentLanguageDefinitionExtensionPoint.GEMOC_CONCURRENT_LANGUAGE_EXTENSION_POINT);
+		Element gemocExtensionPoint = helper.getOrCreateExtensionPoint(MoccmlLanguageDefinitionExtensionPoint.GEMOC_CONCURRENT_LANGUAGE_EXTENSION_POINT);
 		helper.updateXDSMLDefinitionAttributeInExtensionPoint(
 				gemocExtensionPoint,
-				ConcurrentLanguageDefinitionExtensionPoint.GEMOC_LANGUAGE_EXTENSION_POINT_XDSML_DEF_TO_CCSL_QVTO_FILE_PATH_ATT,
+				MoccmlLanguageDefinitionExtensionPoint.GEMOC_LANGUAGE_EXTENSION_POINT_XDSML_DEF_TO_CCSL_QVTO_FILE_PATH_ATT,
 				computedQVTOLocationURI);
 		helper.saveDocument(pluginfile);
 	}

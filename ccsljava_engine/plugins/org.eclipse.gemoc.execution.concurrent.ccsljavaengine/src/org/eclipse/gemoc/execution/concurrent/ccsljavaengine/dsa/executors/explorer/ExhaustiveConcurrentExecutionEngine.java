@@ -20,11 +20,11 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse.ConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ICCSLSolver;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper.IK3ModelStateHelper;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericStep;
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
@@ -35,15 +35,15 @@ import grph.Grph;
 /**
  * Experimental feature to explore the whole state space of a model. Seen for now as an execution engine but may before a dedicated tool that delegate actual execution to a gemoc engine.
  * 
- * @see ConcurrentExecutionEngine
+ * @see MoccmlExecutionEngine
  * 
  * @author julien.deantoni@polytech.unice.fr
  * @param <T>
  * 
  */
-public class ExhaustiveConcurrentExecutionEngine extends ConcurrentExecutionEngine{	
+public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine{	
 	
-	public ExhaustiveConcurrentExecutionEngine(IConcurrentExecutionContext concurrentexecutionContext, ICCSLSolver s) throws CoreException 
+	public ExhaustiveConcurrentExecutionEngine(MoccmlModelExecutionContext concurrentexecutionContext, ICCSLSolver s) throws CoreException 
 	{
 		super(concurrentexecutionContext,s);
 	}

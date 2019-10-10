@@ -11,10 +11,11 @@
  *******************************************************************************/
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.deciders.actions;
 
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.deciders.ILogicalStepDecider;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.ConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.SharedIcons;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.deciders.AbstractUserDecider;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;
 import org.eclipse.gemoc.executionframework.ui.views.engine.actions.AbstractEngineAction;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.xdsmlframework.api.core.EngineStatus.RunStatus;
@@ -56,8 +57,8 @@ public class PauseResumeEngineDeciderAction extends AbstractEngineAction
 				setEnabled(	true);
 				
 				// find the decider opposed to the one currently used by the engine
-				if (getCurrentSelectedEngine() instanceof IConcurrentExecutionEngine) {
-					IConcurrentExecutionEngine engine_cast = (IConcurrentExecutionEngine) getCurrentSelectedEngine();
+				if (getCurrentSelectedEngine() instanceof MoccmlExecutionEngine) {
+					MoccmlExecutionEngine engine_cast = (MoccmlExecutionEngine) getCurrentSelectedEngine();
 				_currentAction = DeciderManager.getSwitchDeciderAction(engine_cast.getLogicalStepDecider());
 				if(_currentAction.equals(_stepByStepDeciderAction)){
 					setToolTipText("Suspend associated engine using "+ _currentAction.getText());
@@ -77,9 +78,9 @@ public class PauseResumeEngineDeciderAction extends AbstractEngineAction
 	public void run()
 	{
 		if (getCurrentSelectedEngine() != null
-			&& _currentAction != null && getCurrentSelectedEngine() instanceof IConcurrentExecutionEngine)
+			&& _currentAction != null && getCurrentSelectedEngine() instanceof MoccmlExecutionEngine)
 		{
-			IConcurrentExecutionEngine engine_cast = (IConcurrentExecutionEngine) getCurrentSelectedEngine();
+			MoccmlExecutionEngine engine_cast = (MoccmlExecutionEngine) getCurrentSelectedEngine();
 			ILogicalStepDecider savedDecider = engine_cast.getLogicalStepDecider();
 			// apply the decider change
 			_currentAction.run();			
@@ -103,8 +104,8 @@ public class PauseResumeEngineDeciderAction extends AbstractEngineAction
 	public void engineSelectionChanged(IExecutionEngine engine) {
 		super.engineSelectionChanged(engine);
 		if(engine != null){
-			if (engine instanceof IConcurrentExecutionEngine)
-				_currentAction.setEngine((IConcurrentExecutionEngine)engine);
+			if (engine instanceof ConcurrentExecutionEngine)
+				_currentAction.setEngine((ConcurrentExecutionEngine)engine);
 			updateButton();
 		}
 	}

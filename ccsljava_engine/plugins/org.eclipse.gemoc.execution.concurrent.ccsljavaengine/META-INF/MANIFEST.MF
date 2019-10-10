@@ -34,7 +34,7 @@ Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaengine,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dsa.executors,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dsa.executors.explorer,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse,
- org.eclipse.gemoc.execution.concurrent.ccsljavaengine.eventscheduling.trace,
- org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui
+ org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine,
+ org.eclipse.gemoc.execution.concurrent.ccsljavaengine.eventscheduling.trace
 Bundle-Vendor: Inria
 Automatic-Module-Name: org.eclipse.gemoc.execution.concurrent.ccsljavaengine

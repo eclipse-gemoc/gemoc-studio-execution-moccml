@@ -16,9 +16,9 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
 
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.ConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMSEStateController;
 import org.eclipse.gemoc.executionframework.engine.Activator;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ActionFinishedCondition;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ActionResultCondition;
@@ -33,13 +33,13 @@ import org.eclipse.gemoc.trace.commons.model.trace.Step;
 public class ASynchroneExecution extends OperationExecution {
 
 	private Collection<When> _whenStatements;
-	private IMSEStateController _clockController;
+	private IMoccmlMSEStateController _clockController;
 	private HashMap<Force, When> _forces;
 	private Consumer<Step<?>> beforeStep;
 	private Runnable afterStep;
 
 	public ASynchroneExecution(SmallStep<?> smallStep, Collection<When> whenStatements,
-			IMSEStateController clockController, IConcurrentExecutionEngine engine, Consumer<Step<?>> beforeStep,
+			IMoccmlMSEStateController clockController, ConcurrentExecutionEngine engine, Consumer<Step<?>> beforeStep,
 			Runnable afterStep) {
 		super(smallStep, engine, beforeStep, afterStep);
 		this.beforeStep = beforeStep;
@@ -155,7 +155,7 @@ public class ASynchroneExecution extends OperationExecution {
 				} else {
 					FreeClockFutureAction action = new FreeClockFutureAction(entry.getKey().getEventToBeForced(),
 							entry.getKey().getOnTrigger(), _clockController);
-					((ConcurrentExecutionEngine)getEngine()).addFutureAction(action);
+					((MoccmlExecutionEngine)getEngine()).addFutureAction(action);
 				}
 			}
 		}

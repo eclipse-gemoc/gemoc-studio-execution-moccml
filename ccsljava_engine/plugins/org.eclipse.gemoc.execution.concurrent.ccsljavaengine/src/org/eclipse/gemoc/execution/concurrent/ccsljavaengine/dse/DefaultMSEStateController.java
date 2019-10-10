@@ -15,16 +15,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMSEStateController;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ISolver;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ICCSLSolver;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ISolver;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 
 import fr.inria.aoste.trace.EventOccurrence;
 import fr.inria.aoste.trace.ModelElementReference;
 import fr.inria.aoste.trace.TraceFactory;
 
-public class DefaultMSEStateController implements IMSEStateController
+public class DefaultMSEStateController implements IMoccmlMSEStateController
 {
 
 	private void applyForcePresence(ICCSLSolver solver, EventOccurrence eventOccurrence) 

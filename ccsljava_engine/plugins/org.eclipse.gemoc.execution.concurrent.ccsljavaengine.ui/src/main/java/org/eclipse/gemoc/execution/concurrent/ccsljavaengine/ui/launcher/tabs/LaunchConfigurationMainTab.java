@@ -31,13 +31,13 @@ import org.eclipse.gemoc.dsl.debug.ide.launch.AbstractDSLLaunchConfigurationDele
 import org.eclipse.gemoc.dsl.debug.ide.sirius.ui.launch.AbstractDSLLaunchConfigurationDelegateSiriusUI;
 import org.eclipse.gemoc.dsl.debug.ide.ui.launch.AbstractDSLLaunchConfigurationDelegateUI;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ConcurrentRunConfiguration;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlLanguageDefinitionExtension;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlLanguageDefinitionExtensionPoint;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.deciders.DeciderSpecificationExtension;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.deciders.DeciderSpecificationExtensionPoint;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.Activator;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.LauncherMessages;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.ICodeExecutor;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders.DeciderSpecificationExtension;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders.DeciderSpecificationExtensionPoint;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.ConcurrentLanguageDefinitionExtension;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.ConcurrentLanguageDefinitionExtensionPoint;
 import org.eclipse.gemoc.executionframework.engine.commons.DslHelper;
 import org.eclipse.gemoc.executionframework.engine.core.RunConfiguration;
 import org.eclipse.gemoc.xdsmlframework.ui.utils.dialogs.SelectAIRDIFileDialog;
@@ -323,7 +323,7 @@ public class LaunchConfigurationMainTab extends LaunchConfigurationTab {
 	protected void updateLaunchConfigurationDialog() {
 		super.updateLaunchConfigurationDialog();
 		// modelInitializationMethod must come from the xdsml, maybe later we would allows an "expert mode" where we will allow to change it there
-		ConcurrentLanguageDefinitionExtension languageDefinitionExtPoint = ConcurrentLanguageDefinitionExtensionPoint
+		MoccmlLanguageDefinitionExtension languageDefinitionExtPoint = MoccmlLanguageDefinitionExtensionPoint
 						.findDefinition(_languageCombo.getText());
 		if(languageDefinitionExtPoint != null ){
 			_modelInitializationMethodText.setText(getModelInitializationMethodName(languageDefinitionExtPoint));
@@ -335,7 +335,7 @@ public class LaunchConfigurationMainTab extends LaunchConfigurationTab {
 		
 	}
 	
-	protected String getModelInitializationMethodName(ConcurrentLanguageDefinitionExtension languageDefinitionExtension){
+	protected String getModelInitializationMethodName(MoccmlLanguageDefinitionExtension languageDefinitionExtension){
 		
 		ICodeExecutor codeExecutor;
 		try {

@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gemoc.commons.eclipse.ui.ViewHelper;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.ConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.stimuliscenario.EventState;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.stimuliscenario.ExecutionStep;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.stimuliscenario.Future;
@@ -26,7 +27,6 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimuliman
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.ModelSpecificEventContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.ModelSpecificEventWrapper;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.StimuliManagerView;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 
 public class ScenarioPlayer extends ScenarioTool
@@ -110,7 +110,7 @@ public class ScenarioPlayer extends ScenarioTool
 		resetPlayProgressIndex();
 		_fragment = null;
 		_mseContext.freeAllClocks();
-		((IConcurrentExecutionEngine)_mseContext.getEngine()).recomputePossibleLogicalSteps();
+		((ConcurrentExecutionEngine)_mseContext.getEngine()).recomputePossibleLogicalSteps();
 	}
 	
 	
