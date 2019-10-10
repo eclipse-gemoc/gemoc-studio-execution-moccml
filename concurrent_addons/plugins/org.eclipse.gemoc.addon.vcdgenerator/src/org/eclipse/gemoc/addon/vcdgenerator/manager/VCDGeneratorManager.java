@@ -25,14 +25,13 @@ import org.eclipse.gemoc.addon.vcdgenerator.behaviors.AbstractVCDClockBehavior;
 import org.eclipse.gemoc.addon.vcdgenerator.behaviors.VCDGeneratorClockBehavior;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.concurrentmse.FeedbackMSE;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse.ConcurrentExecutionEngine;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.trace.commons.model.helper.StepHelper;
 import org.eclipse.gemoc.trace.commons.model.trace.MSEOccurrence;
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionEngine;
-import org.eclipse.gemoc.xdsmlframework.api.engine_addon.DefaultEngineAddon;
+import org.eclipse.gemoc.xdsmlframework.api.engine_addon.IEngineAddon;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Display;
 
@@ -74,7 +73,7 @@ import fr.inria.aoste.trace.TraceFactory;
  * modified on February 2015 by julien deantoni to make it an gemoc engine addon
  * 
  */
-public class VCDGeneratorManager extends DefaultEngineAddon{
+public class VCDGeneratorManager implements IEngineAddon{
 
 	private final static String PLUGIN_NAME = "VCD Generation";
 	private final static String VERSION_NAME = "2.1.0";
@@ -153,7 +152,7 @@ public class VCDGeneratorManager extends DefaultEngineAddon{
 	private ICCSLSolver _solver = null;
 	
 	@Override
-	public void engineAboutToStart(IExecutionEngine engine) {
+	public void engineAboutToStart(IExecutionEngine<?> engine) {
 		if(engine instanceof ConcurrentExecutionEngine){
 			_solver = ((ConcurrentExecutionEngine)engine).getSolver();	
 		}
@@ -227,8 +226,6 @@ public class VCDGeneratorManager extends DefaultEngineAddon{
 
 	}
 
-	private String discretize = null;
-
 	/**
 	 * addVCDGeneratorBehavior method<BR>
 	 * This methods adds a behavior to the list of behaviors that the simulation
@@ -250,7 +247,7 @@ public class VCDGeneratorManager extends DefaultEngineAddon{
 			_pulses = true;
 		if (behavior.isGhosts())
 			_ghosts = true;
-		discretize = behavior.getDiscretize();
+		behavior.getDiscretize();
 	}
 
 
@@ -323,7 +320,7 @@ public class VCDGeneratorManager extends DefaultEngineAddon{
 	 * @since 1.0.0
 	 */
 	@Override
-	public void engineStarted(IExecutionEngine executionEngine) {
+	public void engineStarted(IExecutionEngine<?> executionEngine) {
 		
 		IPath fin = executionEngine.getExecutionContext().getWorkspace().getExecutionPath();
 		IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(fin);
@@ -399,7 +396,7 @@ public class VCDGeneratorManager extends DefaultEngineAddon{
 	 * @since 1.0.0
 	 */
 	@Override
-	public void engineAboutToStop(IExecutionEngine engine) {
+	public void engineAboutToStop(IExecutionEngine<?> engine) {
 		_currentStep++;
 		if (_scoreBoard != null)
 		{
@@ -436,7 +433,6 @@ public class VCDGeneratorManager extends DefaultEngineAddon{
 	}
 
 	
-	private int step = 0;
 	/**
 	 * aNewStep method<BR>
 	 * This generates the steps numbers on the output and updates the VCD
@@ -446,7 +442,7 @@ public class VCDGeneratorManager extends DefaultEngineAddon{
 	 * @since 1.0.0
 	 */
 	@Override
-	public void stepExecuted(IExecutionEngine engine, Step logicalStepExecuted){
+	public void stepExecuted(IExecutionEngine<?> engine, Step<?> logicalStepExecuted){
 		if (_scoreBoard == null || logicalStepExecuted == null)
 			return;
 		if(logicalStepExecuted instanceof SmallStep){
@@ -604,19 +600,17 @@ public class VCDGeneratorManager extends DefaultEngineAddon{
 	 * @since 1.0.0
 	 */
 	@Override
-	public void engineStopped(IExecutionEngine engine) {
+	public void engineStopped(IExecutionEngine<?> engine) {
 		// System.out.println("Finalize VCDGeneratorManager");
 		engineAboutToStop(engine);
 		if (_scoreBoard != null)
 			ScoreBoard.removeScoreboard(_scoreBoard);
-		super.engineStopped(engine);
 	}
 
 	
 	
 	@Override
-	public void engineAboutToDispose(IExecutionEngine engine) {
-		super.engineAboutToDispose(engine);
+	public void engineAboutToDispose(IExecutionEngine<?> engine) {
 		if (_vcdEditor != null){
 			_vcdEditor.getEditorSite().getPage().closeEditor(_vcdEditor, true);		
 			_vcdEditor = null;
