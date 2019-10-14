@@ -19,6 +19,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.SharedIcons;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.step.LogicalStepsView;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.DeciderException;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener2;
@@ -39,8 +40,8 @@ public abstract class AbstractUserDecider implements ILogicalStepDecider
 	private Semaphore _semaphore = null;
 
 	@Override
-	public Step decide(final AbstractConcurrentExecutionEngine engine, final List<Step<?>> possibleLogicalSteps)
-			throws InterruptedException {
+	public Step decide(final AbstractConcurrentExecutionEngine engine, final List<Step<?>> possibleLogicalSteps) throws DeciderException
+			 {
 		_preemptionHappened = false;
 		_semaphore = new Semaphore(0);
 		if(!isStepByStep() 
@@ -101,7 +102,11 @@ public abstract class AbstractUserDecider implements ILogicalStepDecider
 		
 		
 		// wait for user selection if it applies to this engine
-		_semaphore.acquire();
+		try {
+			_semaphore.acquire();
+		} catch (InterruptedException e) {
+			throw new DeciderException(e);
+		}
 		_semaphore = null;
 		// clean menu listener
 		decisionView.removeMenuListener(menuListener);

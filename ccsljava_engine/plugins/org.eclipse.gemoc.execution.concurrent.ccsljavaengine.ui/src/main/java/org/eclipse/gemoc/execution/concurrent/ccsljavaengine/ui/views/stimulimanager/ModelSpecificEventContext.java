@@ -43,9 +43,9 @@ public class ModelSpecificEventContext
 
 	private void configure()
 	{
-		MoccmlModelExecutionContext execontext =  (MoccmlModelExecutionContext) _engine.getConcurrentExecutionContext();
+		MoccmlModelExecutionContext execontext =  (MoccmlModelExecutionContext) _engine.getExecutionContext();
 		_mseSet = new ModelSpecificEventSet(execontext.getFeedbackModel());
-		_engine.getConcurrentExecutionContext().getExecutionPlatform().getMSEStateControllers().add(_clockController);
+		_engine.getExecutionContext().getExecutionPlatform().getMSEStateControllers().add(_clockController);
 	}
 
 	public void forceClock(ModelSpecificEventWrapper mse, ClockStatus state) 
@@ -142,7 +142,7 @@ public class ModelSpecificEventContext
 		return _mseSet.getMSEs();
 	}
 	
-	public AbstractConcurrentExecutionEngine getEngine()
+	public MoccmlExecutionEngine getEngine()
 	{
 		return _engine;
 	}

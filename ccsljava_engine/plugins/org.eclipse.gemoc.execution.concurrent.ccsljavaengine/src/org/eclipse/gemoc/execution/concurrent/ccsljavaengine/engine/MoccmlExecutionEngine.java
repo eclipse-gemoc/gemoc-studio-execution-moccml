@@ -32,7 +32,6 @@ import org.eclipse.gemoc.moccml.mapping.feedback.feedback.When;
 import org.eclipse.gemoc.trace.commons.model.trace.MSE;
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
-import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionContext;
 import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionEngine;
 
 /**
@@ -154,22 +153,6 @@ public class MoccmlExecutionEngine extends
 		}
 	}
 
-	/**
-	 * 
-	 * @return the IConcurrenExecutionContext or null if no such context is
-	 *         available
-	 */
-	@Override
-	public MoccmlModelExecutionContext getConcurrentExecutionContext() {
-
-		IExecutionContext<?, ?, ?> context = getExecutionContext();
-		if (context instanceof MoccmlModelExecutionContext) {
-			return (MoccmlModelExecutionContext) context;
-		} else
-			return null;
-	}
-
-	@Override
 	public void recomputePossibleLogicalSteps() {
 		getSolver().revertForceClockEffect();
 		updatePossibleLogicalSteps();
@@ -177,20 +160,16 @@ public class MoccmlExecutionEngine extends
 	}
 
 	@Override
-	protected void updatePossibleLogicalSteps() {
-		for (IMoccmlMSEStateController c : getConcurrentExecutionContext().getExecutionPlatform()
-				.getMSEStateControllers()) {
+	protected void beforeUpdatePossibleLogicalSteps() {
+		for (IMoccmlMSEStateController c : getExecutionContext().getExecutionPlatform().getMSEStateControllers()) {
 			c.applyMSEFutureStates(getSolver());
-		}
-		synchronized (this) {
-			_possibleLogicalSteps = getSolver().updatePossibleLogicalSteps();
 		}
 	}
 
 	@Override
 	protected void performInitialize(MoccmlModelExecutionContext executionContext) {
 
-		MoccmlModelExecutionContext concurrentExecutionContext = getConcurrentExecutionContext();
+		MoccmlModelExecutionContext concurrentExecutionContext = getExecutionContext();
 		getSolver().setExecutableModelResource(concurrentExecutionContext.getResourceModel());
 
 		this.changeLogicalStepDecider(concurrentExecutionContext.getLogicalStepDecider());
@@ -204,6 +183,11 @@ public class MoccmlExecutionEngine extends
 		((MoccmlModelExecutionContext) executionContext).setUpFeedbackModel();
 
 		Activator.getDefault().debug("*** Engine initialization done. ***");
+	}
+
+	@Override
+	protected void doAfterLogicalStepExecution(Step<?> logicalStep) {
+		getSolver().applyLogicalStep(logicalStep);
 	}
 
 }

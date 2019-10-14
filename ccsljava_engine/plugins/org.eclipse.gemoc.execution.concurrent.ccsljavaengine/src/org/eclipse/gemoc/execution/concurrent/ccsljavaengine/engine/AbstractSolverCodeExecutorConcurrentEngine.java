@@ -13,35 +13,19 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModel
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentRunConfiguration;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.ICodeExecutor;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ISolver;
 import org.eclipse.gemoc.executionframework.engine.Activator;
 import org.eclipse.gemoc.executionframework.engine.core.CommandExecution;
-import org.eclipse.gemoc.executionframework.engine.core.EngineStoppedException;
-import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
-import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
-import org.eclipse.gemoc.xdsmlframework.api.core.EngineStatus;
-import org.eclipse.gemoc.xdsmlframework.api.engine_addon.IEngineAddon;
 
 import fr.inria.diverse.k3.al.annotationprocessor.InitializeModel;
 
 public abstract class AbstractSolverCodeExecutorConcurrentEngine<C extends AbstractConcurrentModelExecutionContext<R, ? extends CodeExecutorBasedExecutionPlatform, ?>, R extends IConcurrentRunConfiguration, S extends ISolver>
 		extends AbstractConcurrentExecutionEngine<C, R> {
 
-	private ILogicalStepDecider _logicalStepDecider;
-
-	protected List<Step<?>> _possibleLogicalSteps = new ArrayList<>();
-
-	private Step<?> _selectedLogicalStep;
-
 	protected S _solver;
-
-	protected abstract void updatePossibleLogicalSteps();
-
-	protected abstract void executeSmallStep(SmallStep<?> smallStep) throws CodeExecutionException;
 
 	protected void setSolver(S solver) {
 		_solver = solver;
@@ -53,187 +37,31 @@ public abstract class AbstractSolverCodeExecutorConcurrentEngine<C extends Abstr
 	}
 
 	protected ICodeExecutor getCodeExecutor() {
-		return getConcurrentExecutionContext().getExecutionPlatform().getCodeExecutor();
+		return getExecutionContext().getExecutionPlatform().getCodeExecutor();
 	}
+
+	protected final List<Step<?>> computeWithoutUpdatePossibleLogicalSteps() {
+		return getSolver().computeAndGetPossibleLogicalSteps();
+	}
+
+	protected List<Step<?>> updatePossibleLogicalSteps() {
+		beforeUpdatePossibleLogicalSteps();
+		return getSolver().updatePossibleLogicalSteps();
+	}
+
+	protected abstract void beforeUpdatePossibleLogicalSteps();
 
 	@Override
-	protected void beforeStart() {
-
-	}
-
-	@Override
-	public void changeLogicalStepDecider(ILogicalStepDecider newDecider) {
-		_logicalStepDecider = newDecider;
-	}
-
-	protected void computePossibleLogicalSteps() {
-		_possibleLogicalSteps = getSolver().computeAndGetPossibleLogicalSteps();
-	}
-
-	/**
-	 * run all the event occurrences of this logical step
-	 * 
-	 * @param logicalStepToApply
-	 * @throws CodeExecutionException
-	 */
-	@SuppressWarnings("unchecked")
-	protected void executeSelectedLogicalStep() throws CodeExecutionException {
-		// = step in debug mode, goes to next logical step
-		// -> run all event occurrences of the logical step
-		// step into / open internal thread and pause them
-		// each concurrent event occurrence is presented as a separate
-		// thread in the debugger
-		// execution feedback is sent to the solver so it can take internal
-		// event into account
-
-		if (!_isStopped) { // execute while stopped may occur when we push the
-							// stop button when paused in the debugger
-			beforeExecutionStep(_selectedLogicalStep);
-			for (final Step<?> step : ((ParallelStep<Step<?>, ?>) _selectedLogicalStep).getSubSteps()) {
-				SmallStep<?> sstep = (SmallStep<?>) step;
-				executeSmallStep(sstep);
-			}
-			afterExecutionStep();
+	protected List<Step<?>> computePossibleLogicalSteps() {
+		computeWithoutUpdatePossibleLogicalSteps();
+		synchronized (this) {
+			return updatePossibleLogicalSteps();
 		}
 	}
 
 	@Override
 	protected final void finishDispose() {
 		getSolver().dispose();
-	}
-
-	@Override
-	public ILogicalStepDecider getLogicalStepDecider() {
-		return _logicalStepDecider;
-	}
-
-	@Override
-	public List<Step<?>> getPossibleLogicalSteps() {
-		synchronized (this) {
-			return new ArrayList<Step<?>>(_possibleLogicalSteps);
-		}
-	}
-
-	@Override
-	public Step<?> getSelectedLogicalStep() {
-		synchronized (this) {
-			return _selectedLogicalStep;
-		}
-	}
-
-	protected void notifyAboutToSelectLogicalStep() {
-		for (IEngineAddon addon : getExecutionContext().getExecutionPlatform().getEngineAddons()) {
-			try {
-				addon.aboutToSelectStep(this, getPossibleLogicalSteps());
-			} catch (Exception e) {
-				Activator.getDefault().error("Exception in Addon " + addon + ", " + e.getMessage(), e);
-			}
-		}
-	}
-
-	protected void notifyLogicalStepSelected() {
-		for (IEngineAddon addon : getExecutionContext().getExecutionPlatform().getEngineAddons()) {
-			try {
-				addon.stepSelected(this, getSelectedLogicalStep());
-			} catch (Exception e) {
-				Activator.getDefault().error("Exception in Addon " + addon + ", " + e.getMessage(), e);
-			}
-		}
-	}
-
-	protected void notifyProposedLogicalStepsChanged() {
-		for (IEngineAddon addon : getExecutionContext().getExecutionPlatform().getEngineAddons()) {
-			try {
-				addon.proposedStepsChanged(this, getPossibleLogicalSteps());
-			} catch (Exception e) {
-				Activator.getDefault().error("Exception in Addon " + addon + ", " + e.getMessage(), e);
-			}
-		}
-	}
-
-	protected void performExecutionStep() throws InterruptedException, CodeExecutionException {
-		switchDeciderIfNecessary();
-		computePossibleLogicalSteps();
-		updatePossibleLogicalSteps();
-		// 2- select one solution from available logical step /
-		// select interactive vs batch
-		if (_possibleLogicalSteps.size() == 0) {
-			Activator.getDefault().debug("No more LogicalStep to run");
-			stop();
-		} else {
-			// Activator.getDefault().debug("\t\t ---------------- LogicalStep "
-			// + count);
-			Step<?> selectedLogicalStep = selectAndExecuteLogicalStep();
-			// 3 - run the selected logical step
-			// inform the solver that we will run this step
-			if (selectedLogicalStep != null) {
-				getSolver().applyLogicalStep(selectedLogicalStep);
-
-// only for testing purpose
-//				List<fr.inria.aoste.timesquare.instantrelation.CCSLRelationModel.OccurrenceRelation> res = getSolver().getLastOccurrenceRelations();
-//				System.out.println("/********************DEBUG OCCURRENCE RELATIONS****************\n*  "
-//						+res
-//						+"\n**********************************************************/");
-
-				engineStatus.incrementNbLogicalStepRun();
-			} else {
-				// no logical step was selected, this is most probably due to a
-				// preempt on the LogicalStepDecider and a change of Decider,
-				// notify Addons that we'll rerun this ExecutionStep
-				// recomputePossibleLogicalSteps();
-			}
-		}
-	}
-
-	@Override
-	protected void performStart() {
-		engineStatus.setNbLogicalStepRun(0);
-		try {
-			while (!_isStopped) {
-				performExecutionStep();
-			}
-		} catch (EngineStoppedException ese) {
-			throw ese; // forward the stop exception
-		} catch (Throwable e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Override
-	protected final void performStop() {
-		setSelectedLogicalStep(null);
-		if (getLogicalStepDecider() != null) {
-			// unlock decider if this is a user decider
-			getLogicalStepDecider().preempt();
-		}
-
-	}
-
-	protected Step<?> selectAndExecuteLogicalStep() throws InterruptedException, CodeExecutionException {
-		setEngineStatus(EngineStatus.RunStatus.WaitingLogicalStepSelection);
-		notifyAboutToSelectLogicalStep();
-		Step<?> selectedLogicalStep = getLogicalStepDecider().decide(this, getPossibleLogicalSteps());
-		if (selectedLogicalStep != null) {
-			setSelectedLogicalStep(selectedLogicalStep);
-			setEngineStatus(EngineStatus.RunStatus.Running);
-			notifyLogicalStepSelected();
-			// run all the event occurrences of this logical
-			// step
-			executeSelectedLogicalStep();
-		}
-		return selectedLogicalStep;
-	}
-
-	protected void setSelectedLogicalStep(Step<?> ls) {
-		synchronized (this) {
-			_selectedLogicalStep = ls;
-		}
-	}
-
-	protected void switchDeciderIfNecessary() {
-		if (getLogicalStepDecider() != null && getLogicalStepDecider() != _logicalStepDecider) {
-			_logicalStepDecider = getLogicalStepDecider();
-		}
 	}
 
 	@Override
@@ -253,7 +81,7 @@ public abstract class AbstractSolverCodeExecutorConcurrentEngine<C extends Abstr
 					.debug("*** Calling Model initialization method " + modelInitializationMethodName + "(). ***");
 
 			final ArrayList<Object> modelInitializationParameters = new ArrayList<>();
-			ICodeExecutor codeExecutor = getConcurrentExecutionContext().getExecutionPlatform().getCodeExecutor();
+			ICodeExecutor codeExecutor = getExecutionContext().getExecutionPlatform().getCodeExecutor();
 			ArrayList<Object> parameters = new ArrayList<Object>();
 			// try with String[] args
 			parameters.add(new String[1]);

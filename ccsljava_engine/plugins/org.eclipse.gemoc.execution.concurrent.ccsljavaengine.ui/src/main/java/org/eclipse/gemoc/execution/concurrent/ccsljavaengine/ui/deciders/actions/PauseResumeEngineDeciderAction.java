@@ -16,6 +16,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.SharedIcons;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.deciders.AbstractUserDecider;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.DeciderException;
 import org.eclipse.gemoc.executionframework.ui.views.engine.actions.AbstractEngineAction;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.xdsmlframework.api.core.EngineStatus.RunStatus;
@@ -94,7 +95,7 @@ public class PauseResumeEngineDeciderAction extends AbstractEngineAction
 
 					selectedlogicalStep = engine_cast.getLogicalStepDecider().decide(engine_cast, engine_cast.getPossibleLogicalSteps());
 					((AbstractUserDecider) savedDecider).decideFromTimeLine(selectedlogicalStep);
-				} catch (InterruptedException e) {
+				} catch (DeciderException e) {
 				}
 			}
 		}

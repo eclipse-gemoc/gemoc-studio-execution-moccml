@@ -46,7 +46,7 @@ public abstract class OperationExecution {
 	abstract public void run() throws CodeExecutionException;
 
 	protected MoccmlModelExecutionContext getExecutionContext() {
-		return (MoccmlModelExecutionContext) _engine.getConcurrentExecutionContext();
+		return (MoccmlModelExecutionContext) _engine.getExecutionContext();
 	}
 
 	protected AbstractConcurrentExecutionEngine getEngine() {

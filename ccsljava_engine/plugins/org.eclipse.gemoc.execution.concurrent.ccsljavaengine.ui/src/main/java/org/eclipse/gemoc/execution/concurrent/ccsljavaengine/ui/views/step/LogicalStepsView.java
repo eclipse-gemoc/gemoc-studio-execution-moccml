@@ -248,6 +248,7 @@ public class LogicalStepsView extends EngineSelectionDependentViewPart implement
 		_menuManager = menuManager;
 		_menuManager.setRemoveAllWhenShown(true);
 		_menuManager.addMenuListener(new IMenuListener() {
+			@Override
 			public void menuAboutToShow(IMenuManager mgr) {
 				fillContextMenu(mgr);
 			}
