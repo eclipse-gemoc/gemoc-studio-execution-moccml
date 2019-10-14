@@ -12,7 +12,7 @@ import org.eclipse.gemoc.xdsmlframework.api.core.ExecutionMode;
 
 public class MoccmlModelExecutionContext extends
 		BaseConcurrentModelExecutionContext<IMoccmlRunConfiguration, MoccmlExecutionPlatform, MoccmlLanguageDefinitionExtension> {
-	
+
 	public MoccmlModelExecutionContext(IMoccmlRunConfiguration runConfiguration, ExecutionMode executionMode)
 			throws EngineContextException {
 		super(runConfiguration, executionMode);
@@ -52,7 +52,10 @@ public class MoccmlModelExecutionContext extends
 
 	@Override
 	protected MoccmlExecutionPlatform createExecutionPlatform() throws CoreException {
-		return new MoccmlExecutionPlatform((MoccmlLanguageDefinitionExtension) _languageDefinition, _runConfiguration);
+		MoccmlLanguageDefinitionExtension moccmlLangDef = (MoccmlLanguageDefinitionExtension) _languageDefinition;
+		MoccmlExecutionPlatform platform = new MoccmlExecutionPlatform(moccmlLangDef, _runConfiguration);
+		platform.setCodeExecutor(moccmlLangDef.instanciateCodeExecutor());
+		return platform;
 	}
 
 }
