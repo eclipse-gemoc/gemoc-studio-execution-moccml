@@ -12,7 +12,6 @@ Export-Package: org.eclipse.gemoc.example.moccmlsigpml.model.sigpml,
  org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl,
  org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.util
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore;visibility:=reexport,
- com.google.guava;bundle-version="15.0.0"
+ org.eclipse.emf.ecore;visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.eclipse.gemoc.example.moccmlsigpml.model

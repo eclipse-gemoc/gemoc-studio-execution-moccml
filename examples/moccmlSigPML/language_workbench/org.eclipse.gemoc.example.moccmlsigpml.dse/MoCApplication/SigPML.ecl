@@ -5,8 +5,8 @@ ECLimport "platform:/resource/org.eclipse.gemoc.example.moccmlsigpml.moc.lib/MoC
 ECLimport "platform:/plugin/fr.inria.aoste.timesquare.ccslkernel.model/ccsllibrary/kernel.ccslLib" 
 ECLimport "platform:/plugin/fr.inria.aoste.timesquare.ccslkernel.model/ccsllibrary/CCSL.ccslLib" 
  
-package sigpml
-
+package sigpml 
+ 
 
 	context Agent 
 	def : startAgent: Event= self.execute()
