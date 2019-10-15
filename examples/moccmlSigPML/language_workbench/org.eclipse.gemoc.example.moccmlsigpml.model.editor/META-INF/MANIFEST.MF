@@ -8,7 +8,7 @@ Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.gemoc.example.moccmlsigpml.presentation.SigpmlEditorPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.presentation,
  org.eclipse.gemoc.example.moccmlsigpml.presentation
 Require-Bundle: org.eclipse.core.runtime,

@@ -20,7 +20,7 @@ import org.eclipse.gemoc.commons.eclipse.ui.WizardFinder;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.Activator;
 import org.eclipse.gemoc.executionframework.ui.xdsml.activefile.ActiveFile;
 import org.eclipse.gemoc.executionframework.ui.xdsml.activefile.ActiveFileEcore;
-import org.eclipse.gemoc.xdsmlframework.ide.ui.xdsml.wizards.MelangeXDSMLProjectHelper;
+import org.eclipse.gemoc.xdsmlframework.ui.utils.XDSMLProjectHelper;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -71,7 +71,7 @@ public class CreateDSAWizardContextActionDSAK3 extends CreateDSAWizardContextBas
 				
 				wd.create();
 
-				k3Wizard.getPageProject().setProjectName(MelangeXDSMLProjectHelper.baseProjectName(_gemocLanguageIProject)+".k3dsa");
+				k3Wizard.getPageProject().setProjectName(XDSMLProjectHelper.baseProjectName(_gemocLanguageIProject)+".k3dsa");
 				k3Wizard.getPageProject().setProjectKind(KindsOfProject.PLUGIN);
 				// set field as much as possible
 				
