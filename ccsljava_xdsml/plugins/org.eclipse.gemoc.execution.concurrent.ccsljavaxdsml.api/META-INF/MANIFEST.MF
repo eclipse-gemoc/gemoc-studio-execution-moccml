@@ -24,3 +24,4 @@ Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc
+Import-Package: org.eclipse.gemoc.commons.eclipse.ui

@@ -28,7 +28,7 @@ public class GemocSourceLocator extends DSLSourceLocator {
 			final DSLStackFrameAdapter eStackFrame = (DSLStackFrameAdapter) stackFrame;
 			final EObject instruction = eStackFrame.getCurrentInstruction();
 			if (instruction instanceof Step) {
-				res = getFirstTarget((Step) instruction);
+				res = getFirstTarget((Step<?>) instruction);
 			} else if (instruction != null) {
 				res = instruction;
 			} else {
@@ -40,11 +40,10 @@ public class GemocSourceLocator extends DSLSourceLocator {
 		return res;
 	}
 
-	private EObject getFirstTarget(Step step) {
+	private EObject getFirstTarget(Step<?> step) {
 		EObject res = null;
 
-		for (MSE event : StepHelper.collectAllMSEs(step)) 
-		{
+		for (MSE event : StepHelper.collectAllMSEs(step)) {
 			res = event;
 			break;
 		}

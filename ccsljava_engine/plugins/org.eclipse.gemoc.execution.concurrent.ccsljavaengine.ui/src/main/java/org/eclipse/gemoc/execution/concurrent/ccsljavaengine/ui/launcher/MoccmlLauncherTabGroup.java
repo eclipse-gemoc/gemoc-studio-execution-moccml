@@ -19,10 +19,10 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.tabs.La
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.tabs.LaunchConfigurationBackendsTab;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.tabs.LaunchConfigurationMainTab;
 
-public class LauncherTabGroup extends
+public class MoccmlLauncherTabGroup extends
 		AbstractLaunchConfigurationTabGroup {
 
-	public LauncherTabGroup() 
+	public MoccmlLauncherTabGroup() 
 	{
 	}
 

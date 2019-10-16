@@ -32,7 +32,7 @@ import org.eclipse.gemoc.dsl.debug.ide.sirius.ui.launch.AbstractDSLLaunchConfigu
 import org.eclipse.gemoc.dsl.debug.ide.ui.launch.AbstractDSLLaunchConfigurationDelegateUI;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ConcurrentRunConfiguration;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.Activator;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.LauncherMessages;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.MoccmlLauncherMessages;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.ICodeExecutor;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders.DeciderSpecificationExtension;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders.DeciderSpecificationExtensionPoint;
@@ -381,26 +381,26 @@ public class LaunchConfigurationMainTab extends LaunchConfigurationTab {
 			
 			IResource modelIResource = workspace.getRoot().findMember(modelName);
 			if (modelIResource == null || !modelIResource.exists()) {
-				setErrorMessage(NLS.bind(LauncherMessages.ConcurrentMainTab_model_doesnt_exist, new String[] {modelName})); 
+				setErrorMessage(NLS.bind(MoccmlLauncherMessages.ConcurrentMainTab_model_doesnt_exist, new String[] {modelName})); 
 				return false;
 			}
 			if (modelName.equals("/")) {
-				setErrorMessage(LauncherMessages.ConcurrentMainTab_Model_not_specified); 
+				setErrorMessage(MoccmlLauncherMessages.ConcurrentMainTab_Model_not_specified); 
 				return false;
 			}
 			if (! (modelIResource instanceof IFile)) {
-				setErrorMessage(NLS.bind(LauncherMessages.ConcurrentMainTab_invalid_model_file, new String[] {modelName})); 
+				setErrorMessage(NLS.bind(MoccmlLauncherMessages.ConcurrentMainTab_invalid_model_file, new String[] {modelName})); 
 				return false;
 			}
 		}
 		if (modelName.length() == 0) {
-			setErrorMessage(LauncherMessages.ConcurrentMainTab_Model_not_specified); 
+			setErrorMessage(MoccmlLauncherMessages.ConcurrentMainTab_Model_not_specified); 
 			return false;
 		}
 		
 		String languageName = _languageCombo.getText().trim();
 		if (languageName.length() == 0) {
-			setErrorMessage(LauncherMessages.ConcurrentMainTab_Language_not_specified); 
+			setErrorMessage(MoccmlLauncherMessages.ConcurrentMainTab_Language_not_specified); 
 			return false;
 		}
 //		ConcurrentLanguageDefinitionExtension languageDefinitionExtPoint = ConcurrentLanguageDefinitionExtensionPoint
