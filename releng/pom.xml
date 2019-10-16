@@ -17,7 +17,6 @@
     <modules>   
         <module>org.eclipse.gemoc.concurrent_addons.feature</module>
         <module>org.eclipse.gemoc.execution.moccml.feature</module>
-        <module>org.eclipse.gemoc.execution.concurrent.ccsljava.repository</module>
         <module>org.eclipse.gemoc.execution.concurrent.ccsljavaengine.feature</module>
         <module>org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.feature</module>
         <module>org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.feature</module>        
