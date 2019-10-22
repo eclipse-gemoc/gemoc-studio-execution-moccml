@@ -69,7 +69,7 @@ public class GemocConcurrentPropertyTester extends PropertyTester {
 	
 	
 	protected boolean existsDSMLWithFileExtension(String fileExtension){
-		for(MoccmlLanguageDefinitionExtension lde : MoccmlLanguageDefinitionExtensionPoint.getSpecifications()){
+		for(MoccmlLanguageDefinitionExtension lde : new MoccmlLanguageDefinitionExtensionPoint().getSpecifications()){
 			if( lde.getFileExtensions().contains(fileExtension)) return true;
 		}
 		

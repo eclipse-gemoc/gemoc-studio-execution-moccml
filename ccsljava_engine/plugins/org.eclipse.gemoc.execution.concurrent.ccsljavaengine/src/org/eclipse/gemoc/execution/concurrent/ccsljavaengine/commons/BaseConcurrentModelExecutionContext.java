@@ -18,15 +18,22 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.deciders.LogicalSte
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentRunConfiguration;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.AbstractConcurrentLanguageExtensionPoint;
 import org.eclipse.gemoc.executionframework.engine.commons.EngineContextException;
 import org.eclipse.gemoc.trace.commons.model.trace.MSEModel;
 import org.eclipse.gemoc.xdsmlframework.api.core.ExecutionMode;
 import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionPlatform;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinitionExtension;
 
-public abstract class BaseConcurrentModelExecutionContext <R extends IConcurrentRunConfiguration, P extends IExecutionPlatform, L extends LanguageDefinitionExtension> extends AbstractConcurrentModelExecutionContext<R,P,L>  {
+public abstract class BaseConcurrentModelExecutionContext<R extends IConcurrentRunConfiguration, P extends IExecutionPlatform, L extends LanguageDefinitionExtension, EP extends AbstractConcurrentLanguageExtensionPoint<L>>
+		extends AbstractConcurrentModelExecutionContext<R, P, L, EP> {
 
-	
+	protected ILogicalStepDecider _logicalStepDecider;
+
+	protected MSEModel _mseModel;
+
+	private EP languageExtensionPoint;
+
 	public BaseConcurrentModelExecutionContext(R runConfiguration, ExecutionMode executionMode)
 			throws EngineContextException {
 		super(runConfiguration, executionMode);
@@ -43,7 +50,26 @@ public abstract class BaseConcurrentModelExecutionContext <R extends IConcurrent
 	}
 
 	@Override
-	public void setUpMSEModel() {
+	public void dispose() {
+		super.dispose();
+		_logicalStepDecider.dispose();
+	}
+
+	@Override
+	public final ILogicalStepDecider getLogicalStepDecider() {
+		return _logicalStepDecider;
+	}
+
+	@Override
+	public final MSEModel getMSEModel() {
+		if (_mseModel == null) {
+			setUpMSEModel();
+		}
+		return _mseModel;
+	}
+
+	@Override
+	public final void setUpMSEModel() {
 		URI msemodelPlatformURI = URI.createPlatformResourceURI(
 				getWorkspace().getMSEModelPath().removeFileExtension().addFileExtension("msemodel").toString(), true);
 		try {
@@ -54,27 +80,11 @@ public abstract class BaseConcurrentModelExecutionContext <R extends IConcurrent
 		}
 	}
 
-	@Override
-	public void dispose() {
-		super.dispose();
-		_logicalStepDecider.dispose();
-	}
-
-	protected ILogicalStepDecider _logicalStepDecider;
-
-	protected MSEModel _mseModel;
-
-	@Override
-	public MSEModel getMSEModel() {
-		if (_mseModel == null) {
-			setUpMSEModel();
+	protected EP getLanguageDefinitionExtensionPoint() {
+		if (languageExtensionPoint == null) {
+			languageExtensionPoint = createLanguageExtensionPoint();
 		}
-		return _mseModel;
-	}
-
-	@Override
-	public ILogicalStepDecider getLogicalStepDecider() {
-		return _logicalStepDecider;
+		return languageExtensionPoint;
 	}
 
 }

@@ -28,6 +28,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.step.Logic
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentRunConfiguration;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.AbstractConcurrentLanguageExtensionPoint;
 import org.eclipse.gemoc.executionframework.engine.commons.EngineContextException;
 import org.eclipse.gemoc.executionframework.engine.core.RunConfiguration;
 import org.eclipse.gemoc.executionframework.engine.ui.launcher.AbstractGemocLauncher;
@@ -46,7 +47,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 
-public abstract class AbstractConcurrentLauncher<R extends IConcurrentRunConfiguration, C extends AbstractConcurrentModelExecutionContext<R, ? extends IExecutionPlatform, ? extends LanguageDefinitionExtension>>
+public abstract class AbstractConcurrentLauncher<R extends IConcurrentRunConfiguration, C extends AbstractConcurrentModelExecutionContext<R, ? extends IExecutionPlatform, ? extends LanguageDefinitionExtension, ? extends AbstractConcurrentLanguageExtensionPoint<?>>>
 		extends AbstractGemocLauncher<C> {
 
 	public final static String TYPE_ID = Activator.PLUGIN_ID + ".launcher";

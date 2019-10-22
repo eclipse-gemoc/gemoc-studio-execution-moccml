@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.CodeExecutorBasedExecutionPlatform;
@@ -22,7 +23,7 @@ import org.eclipse.gemoc.trace.commons.model.trace.Step;
 
 import fr.inria.diverse.k3.al.annotationprocessor.InitializeModel;
 
-public abstract class AbstractSolverCodeExecutorConcurrentEngine<C extends AbstractConcurrentModelExecutionContext<R, ? extends CodeExecutorBasedExecutionPlatform, ?>, R extends IConcurrentRunConfiguration, S extends ISolver>
+public abstract class AbstractSolverCodeExecutorConcurrentEngine<C extends AbstractConcurrentModelExecutionContext<R, ? extends CodeExecutorBasedExecutionPlatform, ?, ?>, R extends IConcurrentRunConfiguration, S extends ISolver>
 		extends AbstractConcurrentExecutionEngine<C, R> {
 
 	protected S _solver;
@@ -119,8 +120,9 @@ public abstract class AbstractSolverCodeExecutorConcurrentEngine<C extends Abstr
 					}
 				}
 			}
+			ResourceSet rs = getExecutionContext().getResourceModel().getResourceSet();
 			final TransactionalEditingDomain editingDomain = TransactionalEditingDomain.Factory.INSTANCE
-					.getEditingDomain(getExecutionContext().getResourceModel().getResourceSet());
+					.getEditingDomain(rs);
 			if (editingDomain != null) {
 				final RecordingCommand command = new RecordingCommand(editingDomain,
 						"execute  " + modelInitializationMethodQName) {

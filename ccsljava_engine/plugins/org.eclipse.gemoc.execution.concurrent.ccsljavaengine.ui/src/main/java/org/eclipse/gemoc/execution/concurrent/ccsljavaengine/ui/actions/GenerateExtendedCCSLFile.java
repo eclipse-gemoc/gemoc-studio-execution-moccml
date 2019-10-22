@@ -45,7 +45,7 @@ public class GenerateExtendedCCSLFile extends GenerateExtendedCCSLFileAction {
 												modelUriString.length());
 			
 		List<MoccmlLanguageDefinitionExtension> applicableLanguageDefinitions = new ArrayList<MoccmlLanguageDefinitionExtension>();
-		for(MoccmlLanguageDefinitionExtension lde : MoccmlLanguageDefinitionExtensionPoint.getSpecifications()){
+		for(MoccmlLanguageDefinitionExtension lde : new MoccmlLanguageDefinitionExtensionPoint().getSpecifications()){
 			// select only applicable languages for the file extension
 			if(lde.getFileExtensions().contains(fileExtension)){
 				applicableLanguageDefinitions.add(lde);

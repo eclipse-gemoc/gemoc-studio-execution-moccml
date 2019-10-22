@@ -11,7 +11,7 @@ import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ActionModel;
 import org.eclipse.gemoc.xdsmlframework.api.core.ExecutionMode;
 
 public class MoccmlModelExecutionContext extends
-		BaseConcurrentModelExecutionContext<IMoccmlRunConfiguration, MoccmlExecutionPlatform, MoccmlLanguageDefinitionExtension> {
+		BaseConcurrentModelExecutionContext<IMoccmlRunConfiguration, MoccmlExecutionPlatform, MoccmlLanguageDefinitionExtension, MoccmlLanguageDefinitionExtensionPoint> {
 
 	public MoccmlModelExecutionContext(IMoccmlRunConfiguration runConfiguration, ExecutionMode executionMode)
 			throws EngineContextException {
@@ -39,8 +39,8 @@ public class MoccmlModelExecutionContext extends
 	@Override
 	protected MoccmlLanguageDefinitionExtension getLanguageDefinition(String languageName)
 			throws EngineContextException {
-		MoccmlLanguageDefinitionExtension languageDefinition = MoccmlLanguageDefinitionExtensionPoint
-				.findDefinition(_runConfiguration.getLanguageName());
+		MoccmlLanguageDefinitionExtension languageDefinition = getLanguageDefinitionExtensionPoint()
+				.findDefinition(languageName);
 		if (languageDefinition == null) {
 			String message = "Cannot find concurrent xdsml definition for the language "
 					+ _runConfiguration.getLanguageName() + ", please verify that is is correctly deployed.";
@@ -52,10 +52,18 @@ public class MoccmlModelExecutionContext extends
 
 	@Override
 	protected MoccmlExecutionPlatform createExecutionPlatform() throws CoreException {
-		MoccmlLanguageDefinitionExtension moccmlLangDef = (MoccmlLanguageDefinitionExtension) _languageDefinition;
+		MoccmlLanguageDefinitionExtension moccmlLangDef = (MoccmlLanguageDefinitionExtension) getLanguageDefinition();
 		MoccmlExecutionPlatform platform = new MoccmlExecutionPlatform(moccmlLangDef, _runConfiguration);
 		platform.setCodeExecutor(moccmlLangDef.instanciateCodeExecutor());
 		return platform;
 	}
+
+
+	@Override
+	protected MoccmlLanguageDefinitionExtensionPoint createLanguageExtensionPoint() {
+		return new MoccmlLanguageDefinitionExtensionPoint();
+	}
+
+
 
 }
