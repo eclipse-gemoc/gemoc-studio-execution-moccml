@@ -12,13 +12,15 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.templates;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-import org.eclipse.core.runtime.*;
-import org.osgi.framework.Bundle;
-
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.gemoc.commons.eclipse.pde.wizards.pages.pde.ui.templates.OptionTemplateSection;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.Activator;
+import org.osgi.framework.Bundle;
 
 /**
  * Common TemplateSection for templates applicable to K3 projects

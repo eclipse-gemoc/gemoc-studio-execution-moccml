@@ -19,7 +19,6 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse.DefaultMSEState
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.stimuliscenario.Future;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.scenario.ScenarioManager;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 
 public class ModelSpecificEventContext 
 {

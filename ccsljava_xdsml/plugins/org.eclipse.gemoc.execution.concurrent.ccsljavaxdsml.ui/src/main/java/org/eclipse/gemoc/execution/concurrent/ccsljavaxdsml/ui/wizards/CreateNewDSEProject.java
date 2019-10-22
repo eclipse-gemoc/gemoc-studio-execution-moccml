@@ -12,7 +12,6 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.wizards;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.eclipse.gemoc.commons.eclipse.core.resources.IProjectUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
@@ -22,6 +21,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.gemoc.commons.eclipse.core.resources.IProjectUtils;
 import org.eclipse.gemoc.commons.eclipse.pde.ui.PluginConverter;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.Activator;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.dse.AddRemoveGemocDSENatureHandler;
