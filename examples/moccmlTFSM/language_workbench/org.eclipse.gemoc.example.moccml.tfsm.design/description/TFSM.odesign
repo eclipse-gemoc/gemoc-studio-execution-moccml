@@ -8,14 +8,14 @@
         <edgeMappingImports name="Transitions" importedMapping="//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']"/>
         <containerMappings name="TimedSystem" labelDirectEdit="//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@toolSections.1/@ownedTools[name='editName']" semanticCandidatesExpression="[self/]" domainClass="TimedSystem">
           <subNodeMappings name="GlobalClock" labelDirectEdit="//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@toolSections.1/@ownedTools[name='editName']" semanticCandidatesExpression="[self.globalClocks/]" domainClass="FSMClock">
-            <style xsi:type="style:WorkspaceImageDescription" showIcon="false" resizeKind="NSEW" arcWidth="1" arcHeight="1" roundedCorner="true" workspacePath="/org.gemoc.sample.tfsm.concurrent.design/icons/clock_global_small.gif">
+            <style xsi:type="style:WorkspaceImageDescription" showIcon="false" resizeKind="NSEW" arcWidth="1" arcHeight="1" roundedCorner="true" workspacePath="/org.eclipse.gemoc.example.moccml.tfsm.design/icons/clock_global_small.gif">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelFormat>bold</labelFormat>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
           </subNodeMappings>
           <subNodeMappings name="Event" labelDirectEdit="//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@toolSections.1/@ownedTools[name='editName']" semanticCandidatesExpression="[self.globalEvents/]" domainClass="FSMEvent">
-            <style xsi:type="style:WorkspaceImageDescription" borderSizeComputationExpression="1" showIcon="false" iconPath="event_small.png" sizeComputationExpression="-1" arcWidth="1" arcHeight="1" roundedCorner="true" workspacePath="/org.gemoc.sample.tfsm.concurrent.design/icons/event_small.gif">
+            <style xsi:type="style:WorkspaceImageDescription" borderSizeComputationExpression="1" showIcon="false" iconPath="event_small.png" sizeComputationExpression="-1" arcWidth="1" arcHeight="1" roundedCorner="true" workspacePath="/org.eclipse.gemoc.example.moccml.tfsm.design/icons/event_small.gif">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
               <labelFormat>bold</labelFormat>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -23,7 +23,7 @@
           </subNodeMappings>
           <subContainerMappings name="TFSM" labelDirectEdit="//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@toolSections.1/@ownedTools[name='editName']" semanticCandidatesExpression="[self.tfsms/]" doubleClickDescription="//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@toolSections.0/@ownedTools[name='Open%20TFSM']" domainClass="TFSM">
             <subNodeMappings name="FSMEvent" semanticCandidatesExpression="[self.localEvents/]" domainClass="FSMEvent">
-              <style xsi:type="style:WorkspaceImageDescription" borderSizeComputationExpression="1" showIcon="false" iconPath="event_small.png" sizeComputationExpression="-1" arcWidth="1" arcHeight="1" roundedCorner="true" workspacePath="/org.gemoc.sample.tfsm.concurrent.design/icons/event_small.gif">
+              <style xsi:type="style:WorkspaceImageDescription" borderSizeComputationExpression="1" showIcon="false" iconPath="event_small.png" sizeComputationExpression="-1" arcWidth="1" arcHeight="1" roundedCorner="true" workspacePath="/org.eclipse.gemoc.example.moccml.tfsm.design/icons/event_small.gif">
                 <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_red']"/>
                 <labelFormat>bold</labelFormat>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -135,14 +135,14 @@
       <layout xsi:type="description_1:CompositeLayout"/>
       <defaultLayer name="Default">
         <nodeMappings name="LocalEvents" labelDirectEdit="//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@toolSections.1/@ownedTools[name='editName']" semanticCandidatesExpression="[self.localEvents/]" domainClass="FSMEvent">
-          <style xsi:type="style:WorkspaceImageDescription" showIcon="false" iconPath="event_small.png" sizeComputationExpression="-1" arcWidth="1" arcHeight="1" roundedCorner="true" workspacePath="/org.gemoc.sample.tfsm.concurrent.design/icons/event_small.gif">
+          <style xsi:type="style:WorkspaceImageDescription" showIcon="false" iconPath="event_small.png" sizeComputationExpression="-1" arcWidth="1" arcHeight="1" roundedCorner="true" workspacePath="/org.eclipse.gemoc.example.moccml.tfsm.design/icons/event_small.gif">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelFormat>bold</labelFormat>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
           </style>
         </nodeMappings>
         <nodeMappings name="Local Clock" labelDirectEdit="//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@toolSections.1/@ownedTools[name='editName']" semanticCandidatesExpression="[self.localClock/]" domainClass="FSMClock">
-          <style xsi:type="style:WorkspaceImageDescription" showIcon="false" sizeComputationExpression="5" resizeKind="NSEW" arcWidth="1" arcHeight="1" roundedCorner="true" workspacePath="/org.gemoc.sample.tfsm.concurrent.design/icons/clock_local_small.gif">
+          <style xsi:type="style:WorkspaceImageDescription" showIcon="false" sizeComputationExpression="5" resizeKind="NSEW" arcWidth="1" arcHeight="1" roundedCorner="true" workspacePath="/org.eclipse.gemoc.example.moccml.tfsm.design/icons/clock_local_small.gif">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelFormat>bold</labelFormat>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
