@@ -1,0 +1,789 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:diagram="http://www.eclipse.org/sirius/diagram/1.1.0" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:org.eclipse.gemoc.example.moccml.tfsm="http://www.gemoc.org/example/moccml/tfsm" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xsi:schemaLocation="http://www.eclipse.org/sirius/description/1.1.0 http://www.eclipse.org/sirius/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/style/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description/style">
+  <viewpoint:DAnalysis xmi:id="_ApBHUACyEeqiUOpqUYDaqw" selectedViews="_BFfA4ACyEeqiUOpqUYDaqw" version="13.0.0.201804031646">
+    <semanticResources>pingpong.tfsm</semanticResources>
+    <ownedViews xmi:type="viewpoint:DView" xmi:id="_BFfA4ACyEeqiUOpqUYDaqw">
+      <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']"/>
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_BHJNwACyEeqiUOpqUYDaqw" name="PingPong" repPath="#_BFfn8ACyEeqiUOpqUYDaqw">
+        <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']"/>
+        <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TimedSystem" href="pingpong.tfsm#/"/>
+      </ownedRepresentationDescriptors>
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_BH-7QACyEeqiUOpqUYDaqw" name="Ponger" repPath="#_BHdW0ACyEeqiUOpqUYDaqw">
+        <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']"/>
+        <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TFSM" href="pingpong.tfsm#//@tfsms.0"/>
+      </ownedRepresentationDescriptors>
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_BIU5lgCyEeqiUOpqUYDaqw" name="Pinger" repPath="#_BIHeIACyEeqiUOpqUYDaqw">
+        <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']"/>
+        <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TFSM" href="pingpong.tfsm#//@tfsms.1"/>
+      </ownedRepresentationDescriptors>
+    </ownedViews>
+  </viewpoint:DAnalysis>
+  <diagram:DSemanticDiagram xmi:id="_BHImsACyEeqiUOpqUYDaqw" name="PingPong" uid="_BFfn8ACyEeqiUOpqUYDaqw">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_BHImsQCyEeqiUOpqUYDaqw" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" xmi:id="_BHImsgCyEeqiUOpqUYDaqw"/>
+    </ownedAnnotationEntries>
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_BHJ00ACyEeqiUOpqUYDaqw" source="GMF_DIAGRAMS">
+      <data xmi:type="notation:Diagram" xmi:id="_BHJ00QCyEeqiUOpqUYDaqw" type="Sirius" element="_BHImsACyEeqiUOpqUYDaqw" measurementUnit="Pixel">
+        <children xmi:type="notation:Node" xmi:id="_BHJ00wCyEeqiUOpqUYDaqw" type="2002" element="_BHImtACyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BHKb4ACyEeqiUOpqUYDaqw" type="5006"/>
+          <children xmi:type="notation:Node" xmi:id="_BHKb4QCyEeqiUOpqUYDaqw" type="7001">
+            <children xmi:type="notation:Node" xmi:id="_BHKb5ACyEeqiUOpqUYDaqw" type="3008" element="_BHImtgCyEeqiUOpqUYDaqw">
+              <children xmi:type="notation:Node" xmi:id="_BHLC8ACyEeqiUOpqUYDaqw" type="5005"/>
+              <children xmi:type="notation:Node" xmi:id="_BHLC8QCyEeqiUOpqUYDaqw" type="7002">
+                <children xmi:type="notation:Node" xmi:id="_BHM4IACyEeqiUOpqUYDaqw" type="3007" element="_BHImuACyEeqiUOpqUYDaqw">
+                  <children xmi:type="notation:Node" xmi:id="_BHNfMACyEeqiUOpqUYDaqw" type="5003">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_BHNfMQCyEeqiUOpqUYDaqw" x="21"/>
+                  </children>
+                  <children xmi:type="notation:Node" xmi:id="_BHP7cACyEeqiUOpqUYDaqw" type="3002" element="_BHImuQCyEeqiUOpqUYDaqw">
+                    <styles xmi:type="notation:ShapeStyle" xmi:id="_BHP7cQCyEeqiUOpqUYDaqw" fontName="Ubuntu"/>
+                    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHP7cgCyEeqiUOpqUYDaqw"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_BHM4IQCyEeqiUOpqUYDaqw" fontColor="8947848" fontName="Ubuntu" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHM4IgCyEeqiUOpqUYDaqw" x="110" y="26" width="20" height="20"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_BHNfMgCyEeqiUOpqUYDaqw" type="3007" element="_BHImugCyEeqiUOpqUYDaqw">
+                  <children xmi:type="notation:Node" xmi:id="_BHOGQACyEeqiUOpqUYDaqw" type="5003">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_BHOGQQCyEeqiUOpqUYDaqw" y="5"/>
+                  </children>
+                  <children xmi:type="notation:Node" xmi:id="_BHP7cwCyEeqiUOpqUYDaqw" type="3002" element="_BHImuwCyEeqiUOpqUYDaqw">
+                    <styles xmi:type="notation:ShapeStyle" xmi:id="_BHP7dACyEeqiUOpqUYDaqw" fontName="Ubuntu"/>
+                    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHP7dQCyEeqiUOpqUYDaqw"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_BHNfMwCyEeqiUOpqUYDaqw" fontColor="7490599" fontName="Ubuntu" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHNfNACyEeqiUOpqUYDaqw" x="105" y="79" width="105" height="101"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_BHOGQgCyEeqiUOpqUYDaqw" type="3007" element="_BHImvACyEeqiUOpqUYDaqw">
+                  <children xmi:type="notation:Node" xmi:id="_BHOGRQCyEeqiUOpqUYDaqw" type="5003">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_BHOGRgCyEeqiUOpqUYDaqw" y="5"/>
+                  </children>
+                  <children xmi:type="notation:Node" xmi:id="_BHQigACyEeqiUOpqUYDaqw" type="3002" element="_BHImvQCyEeqiUOpqUYDaqw">
+                    <styles xmi:type="notation:ShapeStyle" xmi:id="_BHQigQCyEeqiUOpqUYDaqw" fontName="Ubuntu"/>
+                    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHQiggCyEeqiUOpqUYDaqw"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_BHOGQwCyEeqiUOpqUYDaqw" fontColor="7490599" fontName="Ubuntu" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHOGRACyEeqiUOpqUYDaqw" x="100" y="199" width="105" height="106"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_BHOtUACyEeqiUOpqUYDaqw" type="3007" element="_BHImvgCyEeqiUOpqUYDaqw">
+                  <children xmi:type="notation:Node" xmi:id="_BHPUYACyEeqiUOpqUYDaqw" type="5003">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_BHPUYQCyEeqiUOpqUYDaqw" y="-21"/>
+                  </children>
+                  <children xmi:type="notation:Node" xmi:id="_BHQigwCyEeqiUOpqUYDaqw" type="3005" element="_BHImvwCyEeqiUOpqUYDaqw">
+                    <styles xmi:type="notation:ShapeStyle" xmi:id="_BHQihACyEeqiUOpqUYDaqw" fontName="Ubuntu"/>
+                    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHQihQCyEeqiUOpqUYDaqw"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_BHOtUQCyEeqiUOpqUYDaqw" fontName="Ubuntu" fontHeight="8" bold="true"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHOtUgCyEeqiUOpqUYDaqw" x="29" y="27" width="50" height="35"/>
+                </children>
+                <styles xmi:type="notation:SortingStyle" xmi:id="_BHLC8gCyEeqiUOpqUYDaqw"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_BHLC8wCyEeqiUOpqUYDaqw"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_BHKb5QCyEeqiUOpqUYDaqw" fontColor="1345869" fontName="Ubuntu" fontHeight="8" bold="true"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHKb5gCyEeqiUOpqUYDaqw" x="30" y="29" width="263"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_BHLC9ACyEeqiUOpqUYDaqw" type="3008" element="_BHImwACyEeqiUOpqUYDaqw">
+              <children xmi:type="notation:Node" xmi:id="_BHLC9wCyEeqiUOpqUYDaqw" type="5005"/>
+              <children xmi:type="notation:Node" xmi:id="_BHLC-ACyEeqiUOpqUYDaqw" type="7002">
+                <children xmi:type="notation:Node" xmi:id="_BHRJkACyEeqiUOpqUYDaqw" type="3007" element="_BHImwgCyEeqiUOpqUYDaqw">
+                  <children xmi:type="notation:Node" xmi:id="_BHRJkwCyEeqiUOpqUYDaqw" type="5003">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_BHRJlACyEeqiUOpqUYDaqw" x="21"/>
+                  </children>
+                  <children xmi:type="notation:Node" xmi:id="_BHTl0ACyEeqiUOpqUYDaqw" type="3002" element="_BHImwwCyEeqiUOpqUYDaqw">
+                    <styles xmi:type="notation:ShapeStyle" xmi:id="_BHTl0QCyEeqiUOpqUYDaqw" fontName="Ubuntu"/>
+                    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHTl0gCyEeqiUOpqUYDaqw"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_BHRJkQCyEeqiUOpqUYDaqw" fontColor="8947848" fontName="Ubuntu" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHRJkgCyEeqiUOpqUYDaqw" x="110" y="26" width="20" height="20"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_BHRwoACyEeqiUOpqUYDaqw" type="3007" element="_BHImxACyEeqiUOpqUYDaqw">
+                  <children xmi:type="notation:Node" xmi:id="_BHRwowCyEeqiUOpqUYDaqw" type="5003">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_BHRwpACyEeqiUOpqUYDaqw" y="5"/>
+                  </children>
+                  <children xmi:type="notation:Node" xmi:id="_BHTl0wCyEeqiUOpqUYDaqw" type="3002" element="_BHImxQCyEeqiUOpqUYDaqw">
+                    <styles xmi:type="notation:ShapeStyle" xmi:id="_BHTl1ACyEeqiUOpqUYDaqw" fontName="Ubuntu"/>
+                    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHTl1QCyEeqiUOpqUYDaqw"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_BHRwoQCyEeqiUOpqUYDaqw" fontColor="7490599" fontName="Ubuntu" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHRwogCyEeqiUOpqUYDaqw" x="100" y="119" width="90" height="85"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_BHRwpQCyEeqiUOpqUYDaqw" type="3007" element="_BHImxgCyEeqiUOpqUYDaqw">
+                  <children xmi:type="notation:Node" xmi:id="_BHSXsACyEeqiUOpqUYDaqw" type="5003">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_BHSXsQCyEeqiUOpqUYDaqw" y="5"/>
+                  </children>
+                  <children xmi:type="notation:Node" xmi:id="_BHUM4ACyEeqiUOpqUYDaqw" type="3002" element="_BHImxwCyEeqiUOpqUYDaqw">
+                    <styles xmi:type="notation:ShapeStyle" xmi:id="_BHUM4QCyEeqiUOpqUYDaqw" fontName="Ubuntu"/>
+                    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHUM4gCyEeqiUOpqUYDaqw"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_BHRwpgCyEeqiUOpqUYDaqw" fontColor="7490599" fontName="Ubuntu" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHRwpwCyEeqiUOpqUYDaqw" x="110" y="249" width="85" height="95"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_BHSXsgCyEeqiUOpqUYDaqw" type="3007" element="_BHImyACyEeqiUOpqUYDaqw">
+                  <children xmi:type="notation:Node" xmi:id="_BHSXtQCyEeqiUOpqUYDaqw" type="5003">
+                    <layoutConstraint xmi:type="notation:Location" xmi:id="_BHSXtgCyEeqiUOpqUYDaqw" y="-21"/>
+                  </children>
+                  <children xmi:type="notation:Node" xmi:id="_BHUM4wCyEeqiUOpqUYDaqw" type="3005" element="_BHImyQCyEeqiUOpqUYDaqw">
+                    <styles xmi:type="notation:ShapeStyle" xmi:id="_BHUM5ACyEeqiUOpqUYDaqw" fontName="Ubuntu"/>
+                    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHUM5QCyEeqiUOpqUYDaqw"/>
+                  </children>
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_BHSXswCyEeqiUOpqUYDaqw" fontName="Ubuntu" fontHeight="8" bold="true"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHSXtACyEeqiUOpqUYDaqw" x="33" y="27" width="50" height="35"/>
+                </children>
+                <styles xmi:type="notation:SortingStyle" xmi:id="_BHLC-QCyEeqiUOpqUYDaqw"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_BHLC-gCyEeqiUOpqUYDaqw"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_BHLC9QCyEeqiUOpqUYDaqw" fontColor="1345869" fontName="Ubuntu" fontHeight="8" bold="true"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHLC9gCyEeqiUOpqUYDaqw" x="435" y="39" width="278"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_BHLC-wCyEeqiUOpqUYDaqw" type="3007" element="_BHImygCyEeqiUOpqUYDaqw">
+              <children xmi:type="notation:Node" xmi:id="_BHLqAACyEeqiUOpqUYDaqw" type="5003">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_BHLqAQCyEeqiUOpqUYDaqw" y="-21"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_BHUz8ACyEeqiUOpqUYDaqw" type="3005" element="_BHImywCyEeqiUOpqUYDaqw">
+                <styles xmi:type="notation:ShapeStyle" xmi:id="_BHUz8QCyEeqiUOpqUYDaqw" fontName="Ubuntu"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHUz8gCyEeqiUOpqUYDaqw"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_BHLC_ACyEeqiUOpqUYDaqw" fontName="Ubuntu" fontHeight="8" bold="true"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHLC_QCyEeqiUOpqUYDaqw" x="816" y="172" width="100" height="70"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_BHMREACyEeqiUOpqUYDaqw" type="3007" element="_BHImzACyEeqiUOpqUYDaqw">
+              <children xmi:type="notation:Node" xmi:id="_BHMREwCyEeqiUOpqUYDaqw" type="5003">
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_BHMRFACyEeqiUOpqUYDaqw" y="-21"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_BHUz8wCyEeqiUOpqUYDaqw" type="3005" element="_BHImzQCyEeqiUOpqUYDaqw">
+                <styles xmi:type="notation:ShapeStyle" xmi:id="_BHUz9ACyEeqiUOpqUYDaqw" fontName="Ubuntu"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHUz9QCyEeqiUOpqUYDaqw"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_BHMREQCyEeqiUOpqUYDaqw" fontName="Ubuntu" fontHeight="8" bold="true"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHMREgCyEeqiUOpqUYDaqw" x="810" y="39" width="100" height="70"/>
+            </children>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_BHKb4gCyEeqiUOpqUYDaqw"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_BHKb4wCyEeqiUOpqUYDaqw"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_BHJ01ACyEeqiUOpqUYDaqw" fontColor="7490599" fontName="Ubuntu" fontHeight="8" bold="true"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHJ01QCyEeqiUOpqUYDaqw"/>
+        </children>
+        <styles xmi:type="notation:DiagramStyle" xmi:id="_BHJ00gCyEeqiUOpqUYDaqw"/>
+        <edges xmi:type="notation:Edge" xmi:id="_BHVbAACyEeqiUOpqUYDaqw" type="4001" element="_BHImzgCyEeqiUOpqUYDaqw" source="_BHM4IACyEeqiUOpqUYDaqw" target="_BHNfMgCyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BHVbBACyEeqiUOpqUYDaqw" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHVbBQCyEeqiUOpqUYDaqw" y="-2"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BHVbBgCyEeqiUOpqUYDaqw" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHVbBwCyEeqiUOpqUYDaqw" x="-5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BHVbCACyEeqiUOpqUYDaqw" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHVbCQCyEeqiUOpqUYDaqw" x="-4" y="2"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_BHVbAQCyEeqiUOpqUYDaqw"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_BHVbAgCyEeqiUOpqUYDaqw" fontName="Ubuntu" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_BHVbAwCyEeqiUOpqUYDaqw" points="[0, 0, -15, -33]$[15, 33, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BHWCEACyEeqiUOpqUYDaqw" id="(0.5,1.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BHWCEQCyEeqiUOpqUYDaqw" id="(0.2857142857142857,0.0)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_BHWCEgCyEeqiUOpqUYDaqw" type="4001" element="_BHIm0QCyEeqiUOpqUYDaqw" source="_BHNfMgCyEeqiUOpqUYDaqw" target="_BHOGQgCyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BHWCFgCyEeqiUOpqUYDaqw" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHWCFwCyEeqiUOpqUYDaqw" x="-3" y="9"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BHWpIACyEeqiUOpqUYDaqw" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHWpIQCyEeqiUOpqUYDaqw" x="5" y="7"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BHWpIgCyEeqiUOpqUYDaqw" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHWpIwCyEeqiUOpqUYDaqw" x="4" y="-5"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_BHWCEwCyEeqiUOpqUYDaqw"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_BHWCFACyEeqiUOpqUYDaqw" fontName="Ubuntu" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_BHWCFQCyEeqiUOpqUYDaqw" points="[75, 82, 80, -188]$[95, 105, 100, -165]$[70, 146, 75, -124]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BHWpJACyEeqiUOpqUYDaqw" id="(0.2857142857142857,0.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BHWpJQCyEeqiUOpqUYDaqw" id="(0.2857142857142857,1.4150943396226414)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_BHWpJgCyEeqiUOpqUYDaqw" type="4001" element="_BHIm1ACyEeqiUOpqUYDaqw" source="_BHOGQgCyEeqiUOpqUYDaqw" target="_BHNfMgCyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BHXQMACyEeqiUOpqUYDaqw" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHXQMQCyEeqiUOpqUYDaqw" x="-17" y="22"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BHXQMgCyEeqiUOpqUYDaqw" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHXQMwCyEeqiUOpqUYDaqw" x="34" y="34"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BHXQNACyEeqiUOpqUYDaqw" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHXQNQCyEeqiUOpqUYDaqw" x="12" y="-4"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_BHWpJwCyEeqiUOpqUYDaqw"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_BHWpKACyEeqiUOpqUYDaqw" fontName="Ubuntu" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_BHWpKQCyEeqiUOpqUYDaqw" points="[32, 30, -35, 163]$[-13, -28, -80, 105]$[37, -94, -30, 39]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BHXQNgCyEeqiUOpqUYDaqw" id="(0.0761904761904762,0.5094339622641509)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BHXQNwCyEeqiUOpqUYDaqw" id="(0.2857142857142857,0.0)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_BHX3QACyEeqiUOpqUYDaqw" type="4001" element="_BHIm1wCyEeqiUOpqUYDaqw" source="_BHRJkACyEeqiUOpqUYDaqw" target="_BHRwoACyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BHYeUACyEeqiUOpqUYDaqw" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHYeUQCyEeqiUOpqUYDaqw" x="-6" y="-6"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BHZscACyEeqiUOpqUYDaqw" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHZscQCyEeqiUOpqUYDaqw" x="3" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BHaTgACyEeqiUOpqUYDaqw" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHaTgQCyEeqiUOpqUYDaqw" y="4"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_BHX3QQCyEeqiUOpqUYDaqw"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_BHX3QgCyEeqiUOpqUYDaqw" fontName="Ubuntu" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_BHX3QwCyEeqiUOpqUYDaqw" points="[0, 0, 5, -8]$[-5, 73, 0, 65]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BHaTggCyEeqiUOpqUYDaqw" id="(0.5,1.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BHaTgwCyEeqiUOpqUYDaqw" id="(0.16666666666666666,-0.7647058823529411)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_BHaThACyEeqiUOpqUYDaqw" type="4001" element="_BHIm2gCyEeqiUOpqUYDaqw" source="_BHRwoACyEeqiUOpqUYDaqw" target="_BHRwpQCyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BHa6kACyEeqiUOpqUYDaqw" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHa6kQCyEeqiUOpqUYDaqw" x="-11" y="-4"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BHa6kgCyEeqiUOpqUYDaqw" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHa6kwCyEeqiUOpqUYDaqw" x="2" y="-9"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BHbhoACyEeqiUOpqUYDaqw" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHbhoQCyEeqiUOpqUYDaqw" x="1" y="3"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_BHaThQCyEeqiUOpqUYDaqw"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_BHaThgCyEeqiUOpqUYDaqw" fontName="Ubuntu" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_BHaThwCyEeqiUOpqUYDaqw" points="[-15, 142, -13, -101]$[-50, 170, -48, -73]$[-5, 238, -3, -5]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BHbhogCyEeqiUOpqUYDaqw" id="(0.16666666666666666,-0.7647058823529411)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BHbhowCyEeqiUOpqUYDaqw" id="(0.03529411764705882,0.5052631578947369)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_BHbhpACyEeqiUOpqUYDaqw" type="4001" element="_BHIm3QCyEeqiUOpqUYDaqw" source="_BHRwpQCyEeqiUOpqUYDaqw" target="_BHRwoACyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BHcIsACyEeqiUOpqUYDaqw" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHcIsQCyEeqiUOpqUYDaqw" x="25" y="3"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BHcIsgCyEeqiUOpqUYDaqw" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHcIswCyEeqiUOpqUYDaqw" x="-13" y="8"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BHcItACyEeqiUOpqUYDaqw" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BHcItQCyEeqiUOpqUYDaqw" x="-21" y="2"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_BHbhpQCyEeqiUOpqUYDaqw"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_BHbhpgCyEeqiUOpqUYDaqw" fontName="Ubuntu" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_BHbhpwCyEeqiUOpqUYDaqw" points="[75, -61, 9, 108]$[131, -106, 65, 63]$[70, -167, 4, 2]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BHcItgCyEeqiUOpqUYDaqw" id="(0.11764705882352941,1.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BHcItwCyEeqiUOpqUYDaqw" id="(0.9555555555555556,0.6588235294117647)"/>
+        </edges>
+      </data>
+    </ownedAnnotationEntries>
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" xmi:id="_BHImtACyEeqiUOpqUYDaqw" name="PingPong">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TimedSystem" href="pingpong.tfsm#/"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TimedSystem" href="pingpong.tfsm#/"/>
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_BHImtQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="1" borderSizeComputationExpression="1" borderColor="252,233,79" foregroundColor="254,255,224">
+        <labelFormat>bold</labelFormat>
+        <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']"/>
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" xmi:id="_BHImtgCyEeqiUOpqUYDaqw" name="Ponger">
+        <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TFSM" href="pingpong.tfsm#//@tfsms.0"/>
+        <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TFSM" href="pingpong.tfsm#//@tfsms.0"/>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_BHImtwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="77,137,20" borderSize="1" borderSizeComputationExpression="1" borderColor="138,226,52" foregroundColor="204,242,166">
+          <labelFormat>bold</labelFormat>
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']"/>
+        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImuACyEeqiUOpqUYDaqw" name="initPonger" outgoingEdges="_BHImzgCyEeqiUOpqUYDaqw" width="2" height="2" resizeKind="NSEW">
+          <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.0"/>
+          <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.0"/>
+          <ownedStyle xmi:type="diagram:Dot" xmi:id="_BHImuQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="136,136,136" borderSize="3" borderSizeComputationExpression="3" backgroundColor="0,0,0">
+            <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@conditionnalStyles.0/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@subNodeMappings[name='States']"/>
+        </ownedDiagramElements>
+        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImugCyEeqiUOpqUYDaqw" name="Pong_ofPonger" outgoingEdges="_BHIm0QCyEeqiUOpqUYDaqw" incomingEdges="_BHImzgCyEeqiUOpqUYDaqw _BHIm1ACyEeqiUOpqUYDaqw" width="15" height="15" resizeKind="NSEW">
+          <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.1"/>
+          <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.1"/>
+          <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+          <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+          <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+          <ownedStyle xmi:type="diagram:Dot" xmi:id="_BHImuwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
+            <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@subNodeMappings[name='States']"/>
+        </ownedDiagramElements>
+        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImvACyEeqiUOpqUYDaqw" name="Ping_ofPonger" outgoingEdges="_BHIm1ACyEeqiUOpqUYDaqw" incomingEdges="_BHIm0QCyEeqiUOpqUYDaqw" width="15" height="15" resizeKind="NSEW">
+          <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.2"/>
+          <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.2"/>
+          <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+          <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+          <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+          <ownedStyle xmi:type="diagram:Dot" xmi:id="_BHImvQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
+            <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@subNodeMappings[name='States']"/>
+        </ownedDiagramElements>
+        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImvgCyEeqiUOpqUYDaqw" name="pongerTime" width="5" height="5" resizeKind="NSEW">
+          <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMClock" href="pingpong.tfsm#//@tfsms.0/@localClock"/>
+          <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMClock" href="pingpong.tfsm#//@tfsms.0/@localClock"/>
+          <ownedStyle xmi:type="diagram:WorkspaceImage" xmi:id="_BHImvwCyEeqiUOpqUYDaqw" showIcon="false" workspacePath="/org.gemoc.sample.tfsm.concurrent.design/icons/clock_local_small.gif">
+            <labelFormat>bold</labelFormat>
+            <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='Local%20Clock']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@subNodeMappings[name='Clocks']"/>
+        </ownedDiagramElements>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" xmi:id="_BHImwACyEeqiUOpqUYDaqw" name="Pinger">
+        <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TFSM" href="pingpong.tfsm#//@tfsms.1"/>
+        <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TFSM" href="pingpong.tfsm#//@tfsms.1"/>
+        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_BHImwQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="77,137,20" borderSize="1" borderSizeComputationExpression="1" borderColor="138,226,52" foregroundColor="204,242,166">
+          <labelFormat>bold</labelFormat>
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']"/>
+        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImwgCyEeqiUOpqUYDaqw" name="initPinger" outgoingEdges="_BHIm1wCyEeqiUOpqUYDaqw" width="2" height="2" resizeKind="NSEW">
+          <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.0"/>
+          <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.0"/>
+          <ownedStyle xmi:type="diagram:Dot" xmi:id="_BHImwwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="136,136,136" borderSize="3" borderSizeComputationExpression="3" backgroundColor="0,0,0">
+            <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@conditionnalStyles.0/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@subNodeMappings[name='States']"/>
+        </ownedDiagramElements>
+        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImxACyEeqiUOpqUYDaqw" name="Ping_ofPinger" outgoingEdges="_BHIm2gCyEeqiUOpqUYDaqw" incomingEdges="_BHIm1wCyEeqiUOpqUYDaqw _BHIm3QCyEeqiUOpqUYDaqw" width="15" height="15" resizeKind="NSEW">
+          <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.1"/>
+          <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.1"/>
+          <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+          <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+          <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+          <ownedStyle xmi:type="diagram:Dot" xmi:id="_BHImxQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
+            <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@subNodeMappings[name='States']"/>
+        </ownedDiagramElements>
+        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImxgCyEeqiUOpqUYDaqw" name="Pong_ofPinger" outgoingEdges="_BHIm3QCyEeqiUOpqUYDaqw" incomingEdges="_BHIm2gCyEeqiUOpqUYDaqw" width="15" height="15" resizeKind="NSEW">
+          <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.2"/>
+          <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.2"/>
+          <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+          <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+          <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+          <ownedStyle xmi:type="diagram:Dot" xmi:id="_BHImxwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
+            <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@subNodeMappings[name='States']"/>
+        </ownedDiagramElements>
+        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImyACyEeqiUOpqUYDaqw" name="pingerTime" width="5" height="5" resizeKind="NSEW">
+          <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMClock" href="pingpong.tfsm#//@tfsms.1/@localClock"/>
+          <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMClock" href="pingpong.tfsm#//@tfsms.1/@localClock"/>
+          <ownedStyle xmi:type="diagram:WorkspaceImage" xmi:id="_BHImyQCyEeqiUOpqUYDaqw" showIcon="false" workspacePath="/org.gemoc.sample.tfsm.concurrent.design/icons/clock_local_small.gif">
+            <labelFormat>bold</labelFormat>
+            <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='Local%20Clock']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@subNodeMappings[name='Clocks']"/>
+        </ownedDiagramElements>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImygCyEeqiUOpqUYDaqw" name="pong" width="-1" height="-1">
+        <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMEvent" href="pingpong.tfsm#//@globalEvents.0"/>
+        <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMEvent" href="pingpong.tfsm#//@globalEvents.0"/>
+        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+        <ownedStyle xmi:type="diagram:WorkspaceImage" xmi:id="_BHImywCyEeqiUOpqUYDaqw" showIcon="false" iconPath="event_small.png" borderSize="1" borderSizeComputationExpression="1" borderColor="156,12,12" workspacePath="/org.gemoc.sample.tfsm.concurrent.design/icons/event_small.gif">
+          <labelFormat>bold</labelFormat>
+          <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subNodeMappings[name='Event']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subNodeMappings[name='Event']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImzACyEeqiUOpqUYDaqw" name="ping" width="-1" height="-1">
+        <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMEvent" href="pingpong.tfsm#//@globalEvents.1"/>
+        <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMEvent" href="pingpong.tfsm#//@globalEvents.1"/>
+        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+        <ownedStyle xmi:type="diagram:WorkspaceImage" xmi:id="_BHImzQCyEeqiUOpqUYDaqw" showIcon="false" iconPath="event_small.png" borderSize="1" borderSizeComputationExpression="1" borderColor="156,12,12" workspacePath="/org.gemoc.sample.tfsm.concurrent.design/icons/event_small.gif">
+          <labelFormat>bold</labelFormat>
+          <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subNodeMappings[name='Event']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subNodeMappings[name='Event']"/>
+      </ownedDiagramElements>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_BHImzgCyEeqiUOpqUYDaqw" name="Invalid feature as name" sourceNode="_BHImuACyEeqiUOpqUYDaqw" targetNode="_BHImugCyEeqiUOpqUYDaqw">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.0"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_BHImzwCyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_BHIm0ACyEeqiUOpqUYDaqw" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@edgeMappingImports[name='Transitions']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_BHIm0QCyEeqiUOpqUYDaqw" name="Invalid feature as name" sourceNode="_BHImugCyEeqiUOpqUYDaqw" targetNode="_BHImvACyEeqiUOpqUYDaqw">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.1"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.1"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_BHIm0gCyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_BHIm0wCyEeqiUOpqUYDaqw" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@edgeMappingImports[name='Transitions']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_BHIm1ACyEeqiUOpqUYDaqw" name="Invalid feature as name" sourceNode="_BHImvACyEeqiUOpqUYDaqw" targetNode="_BHImugCyEeqiUOpqUYDaqw">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.2"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.2"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_BHIm1QCyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_BHIm1gCyEeqiUOpqUYDaqw" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@edgeMappingImports[name='Transitions']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_BHIm1wCyEeqiUOpqUYDaqw" name="Invalid feature as name" sourceNode="_BHImwgCyEeqiUOpqUYDaqw" targetNode="_BHImxACyEeqiUOpqUYDaqw">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.0"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_BHIm2ACyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_BHIm2QCyEeqiUOpqUYDaqw" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@edgeMappingImports[name='Transitions']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_BHIm2gCyEeqiUOpqUYDaqw" name="Invalid feature as name" sourceNode="_BHImxACyEeqiUOpqUYDaqw" targetNode="_BHImxgCyEeqiUOpqUYDaqw">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.1"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.1"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_BHIm2wCyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_BHIm3ACyEeqiUOpqUYDaqw" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@edgeMappingImports[name='Transitions']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_BHIm3QCyEeqiUOpqUYDaqw" name="Invalid feature as name" sourceNode="_BHImxgCyEeqiUOpqUYDaqw" targetNode="_BHImxACyEeqiUOpqUYDaqw">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.2"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.2"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_BHIm3gCyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_BHIm3wCyEeqiUOpqUYDaqw" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@edgeMappingImports[name='Transitions']"/>
+    </ownedDiagramElements>
+    <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" xmi:id="_BHIm4ACyEeqiUOpqUYDaqw"/>
+    <activatedLayers xmi:type="description_1:Layer" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer"/>
+    <activatedLayers xmi:type="description_1:AdditionalLayer" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@additionalLayers[name='Debug']"/>
+    <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TimedSystem" href="pingpong.tfsm#/"/>
+  </diagram:DSemanticDiagram>
+  <diagram:DSemanticDiagram xmi:id="_BH-UMACyEeqiUOpqUYDaqw" name="Ponger" uid="_BHdW0ACyEeqiUOpqUYDaqw">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_BH-UMQCyEeqiUOpqUYDaqw" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" xmi:id="_BH-UMgCyEeqiUOpqUYDaqw"/>
+    </ownedAnnotationEntries>
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_BIAJYACyEeqiUOpqUYDaqw" source="GMF_DIAGRAMS">
+      <data xmi:type="notation:Diagram" xmi:id="_BIAJYQCyEeqiUOpqUYDaqw" type="Sirius" element="_BH-UMACyEeqiUOpqUYDaqw" measurementUnit="Pixel">
+        <children xmi:type="notation:Node" xmi:id="_BIAJYwCyEeqiUOpqUYDaqw" type="2001" element="_BH-UNACyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BIAJZgCyEeqiUOpqUYDaqw" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_BIAJZwCyEeqiUOpqUYDaqw" y="-21"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BICloACyEeqiUOpqUYDaqw" type="3005" element="_BH-UNQCyEeqiUOpqUYDaqw">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_BICloQCyEeqiUOpqUYDaqw" fontName="Ubuntu"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIClogCyEeqiUOpqUYDaqw"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_BIAJZACyEeqiUOpqUYDaqw" fontName="Ubuntu" fontHeight="8" bold="true"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIAJZQCyEeqiUOpqUYDaqw" width="50" height="35"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_BIAwcACyEeqiUOpqUYDaqw" type="2001" element="_BH-UNgCyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BIBXgACyEeqiUOpqUYDaqw" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_BIBXgQCyEeqiUOpqUYDaqw" x="21"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIClowCyEeqiUOpqUYDaqw" type="3002" element="_BH-UNwCyEeqiUOpqUYDaqw">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_BIClpACyEeqiUOpqUYDaqw" fontName="Ubuntu"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIClpQCyEeqiUOpqUYDaqw"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_BIAwcQCyEeqiUOpqUYDaqw" fontColor="8947848" fontName="Ubuntu" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIAwcgCyEeqiUOpqUYDaqw" width="20" height="20"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_BIBXggCyEeqiUOpqUYDaqw" type="2001" element="_BH-UOACyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BIB-kACyEeqiUOpqUYDaqw" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_BIB-kQCyEeqiUOpqUYDaqw" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIDMsACyEeqiUOpqUYDaqw" type="3002" element="_BH-UOQCyEeqiUOpqUYDaqw">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_BIDMsQCyEeqiUOpqUYDaqw" fontName="Ubuntu"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIDMsgCyEeqiUOpqUYDaqw"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_BIBXgwCyEeqiUOpqUYDaqw" fontColor="7490599" fontName="Ubuntu" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIBXhACyEeqiUOpqUYDaqw" width="150" height="150"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_BIB-kgCyEeqiUOpqUYDaqw" type="2001" element="_BH-UOgCyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BIB-lQCyEeqiUOpqUYDaqw" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_BIB-lgCyEeqiUOpqUYDaqw" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIDMswCyEeqiUOpqUYDaqw" type="3002" element="_BH-UOwCyEeqiUOpqUYDaqw">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_BIDMtACyEeqiUOpqUYDaqw" fontName="Ubuntu"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIDMtQCyEeqiUOpqUYDaqw"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_BIB-kwCyEeqiUOpqUYDaqw" fontColor="7490599" fontName="Ubuntu" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIB-lACyEeqiUOpqUYDaqw" width="150" height="150"/>
+        </children>
+        <styles xmi:type="notation:DiagramStyle" xmi:id="_BIAJYgCyEeqiUOpqUYDaqw"/>
+        <edges xmi:type="notation:Edge" xmi:id="_BIDzwACyEeqiUOpqUYDaqw" type="4001" element="_BH-UPACyEeqiUOpqUYDaqw" source="_BIAwcACyEeqiUOpqUYDaqw" target="_BIBXggCyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BIDzxACyEeqiUOpqUYDaqw" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIDzxQCyEeqiUOpqUYDaqw" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIDzxgCyEeqiUOpqUYDaqw" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIDzxwCyEeqiUOpqUYDaqw" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIEa0ACyEeqiUOpqUYDaqw" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIEa0QCyEeqiUOpqUYDaqw" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_BIDzwQCyEeqiUOpqUYDaqw"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_BIDzwgCyEeqiUOpqUYDaqw" fontName="Ubuntu" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_BIDzwwCyEeqiUOpqUYDaqw" points="[0, 0, -65, -65]$[65, 65, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BIEa0gCyEeqiUOpqUYDaqw" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BIEa0wCyEeqiUOpqUYDaqw" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_BIEa1ACyEeqiUOpqUYDaqw" type="4001" element="_BH-UPwCyEeqiUOpqUYDaqw" source="_BIBXggCyEeqiUOpqUYDaqw" target="_BIB-kgCyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BIFB4ACyEeqiUOpqUYDaqw" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIFB4QCyEeqiUOpqUYDaqw" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIFB4gCyEeqiUOpqUYDaqw" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIFB4wCyEeqiUOpqUYDaqw" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIFB5ACyEeqiUOpqUYDaqw" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIFB5QCyEeqiUOpqUYDaqw" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_BIEa1QCyEeqiUOpqUYDaqw"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_BIEa1gCyEeqiUOpqUYDaqw" fontName="Ubuntu" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_BIEa1wCyEeqiUOpqUYDaqw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BIFB5gCyEeqiUOpqUYDaqw" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BIFB5wCyEeqiUOpqUYDaqw" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_BIFB6ACyEeqiUOpqUYDaqw" type="4001" element="_BH-UQgCyEeqiUOpqUYDaqw" source="_BIB-kgCyEeqiUOpqUYDaqw" target="_BIBXggCyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BIFo8ACyEeqiUOpqUYDaqw" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIFo8QCyEeqiUOpqUYDaqw" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIFo8gCyEeqiUOpqUYDaqw" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIFo8wCyEeqiUOpqUYDaqw" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIFo9ACyEeqiUOpqUYDaqw" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIFo9QCyEeqiUOpqUYDaqw" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_BIFB6QCyEeqiUOpqUYDaqw"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_BIFB6gCyEeqiUOpqUYDaqw" fontName="Ubuntu" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_BIFB6wCyEeqiUOpqUYDaqw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BIFo9gCyEeqiUOpqUYDaqw" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BIFo9wCyEeqiUOpqUYDaqw" id="(0.5,0.5)"/>
+        </edges>
+      </data>
+    </ownedAnnotationEntries>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BH-UNACyEeqiUOpqUYDaqw" name="pongerTime" width="5" height="5" resizeKind="NSEW">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMClock" href="pingpong.tfsm#//@tfsms.0/@localClock"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMClock" href="pingpong.tfsm#//@tfsms.0/@localClock"/>
+      <ownedStyle xmi:type="diagram:WorkspaceImage" xmi:id="_BH-UNQCyEeqiUOpqUYDaqw" showIcon="false" workspacePath="/org.gemoc.sample.tfsm.concurrent.design/icons/clock_local_small.gif">
+        <labelFormat>bold</labelFormat>
+        <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='Local%20Clock']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='Local%20Clock']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BH-UNgCyEeqiUOpqUYDaqw" name="initPonger" outgoingEdges="_BH-UPACyEeqiUOpqUYDaqw" width="2" height="2" resizeKind="NSEW">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.0"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.0"/>
+      <ownedStyle xmi:type="diagram:Dot" xmi:id="_BH-UNwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="136,136,136" borderSize="3" borderSizeComputationExpression="3" backgroundColor="0,0,0">
+        <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@conditionnalStyles.0/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BH-UOACyEeqiUOpqUYDaqw" name="Pong_ofPonger" outgoingEdges="_BH-UPwCyEeqiUOpqUYDaqw" incomingEdges="_BH-UPACyEeqiUOpqUYDaqw _BH-UQgCyEeqiUOpqUYDaqw" width="15" height="15" resizeKind="NSEW">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.1"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.1"/>
+      <ownedStyle xmi:type="diagram:Dot" xmi:id="_BH-UOQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
+        <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BH-UOgCyEeqiUOpqUYDaqw" name="Ping_ofPonger" outgoingEdges="_BH-UQgCyEeqiUOpqUYDaqw" incomingEdges="_BH-UPwCyEeqiUOpqUYDaqw" width="15" height="15" resizeKind="NSEW">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.2"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.2"/>
+      <ownedStyle xmi:type="diagram:Dot" xmi:id="_BH-UOwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
+        <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_BH-UPACyEeqiUOpqUYDaqw" name="Invalid feature as name" sourceNode="_BH-UNgCyEeqiUOpqUYDaqw" targetNode="_BH-UOACyEeqiUOpqUYDaqw">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.0"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_BH-UPQCyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_BH-UPgCyEeqiUOpqUYDaqw" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_BH-UPwCyEeqiUOpqUYDaqw" name="Invalid feature as name" sourceNode="_BH-UOACyEeqiUOpqUYDaqw" targetNode="_BH-UOgCyEeqiUOpqUYDaqw">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.1"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.1"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_BH-UQACyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_BH-UQQCyEeqiUOpqUYDaqw" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_BH-UQgCyEeqiUOpqUYDaqw" name="Invalid feature as name" sourceNode="_BH-UOgCyEeqiUOpqUYDaqw" targetNode="_BH-UOACyEeqiUOpqUYDaqw">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.2"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.2"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_BH-UQwCyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_BH-URACyEeqiUOpqUYDaqw" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']"/>
+    </ownedDiagramElements>
+    <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" xmi:id="_BH-URQCyEeqiUOpqUYDaqw"/>
+    <activatedLayers xmi:type="description_1:Layer" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer"/>
+    <activatedLayers xmi:type="description_1:AdditionalLayer" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@additionalLayers[name='Debug']"/>
+    <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TFSM" href="pingpong.tfsm#//@tfsms.0"/>
+  </diagram:DSemanticDiagram>
+  <diagram:DSemanticDiagram xmi:id="_BIU5gACyEeqiUOpqUYDaqw" name="Pinger" uid="_BIHeIACyEeqiUOpqUYDaqw">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_BIU5gQCyEeqiUOpqUYDaqw" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" xmi:id="_BIU5ggCyEeqiUOpqUYDaqw"/>
+    </ownedAnnotationEntries>
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_BIVgkACyEeqiUOpqUYDaqw" source="GMF_DIAGRAMS">
+      <data xmi:type="notation:Diagram" xmi:id="_BIVgkQCyEeqiUOpqUYDaqw" type="Sirius" element="_BIU5gACyEeqiUOpqUYDaqw" measurementUnit="Pixel">
+        <children xmi:type="notation:Node" xmi:id="_BIVgkwCyEeqiUOpqUYDaqw" type="2001" element="_BIU5hACyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BIWHoACyEeqiUOpqUYDaqw" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_BIWHoQCyEeqiUOpqUYDaqw" y="-21"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIYj4ACyEeqiUOpqUYDaqw" type="3005" element="_BIU5hQCyEeqiUOpqUYDaqw">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_BIYj4QCyEeqiUOpqUYDaqw" fontName="Ubuntu"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIYj4gCyEeqiUOpqUYDaqw"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_BIVglACyEeqiUOpqUYDaqw" fontName="Ubuntu" fontHeight="8" bold="true"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIVglQCyEeqiUOpqUYDaqw" width="50" height="35"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_BIWHogCyEeqiUOpqUYDaqw" type="2001" element="_BIU5hgCyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BIWusACyEeqiUOpqUYDaqw" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_BIWusQCyEeqiUOpqUYDaqw" x="21"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIZK8ACyEeqiUOpqUYDaqw" type="3002" element="_BIU5hwCyEeqiUOpqUYDaqw">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_BIZK8QCyEeqiUOpqUYDaqw" fontName="Ubuntu"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIZK8gCyEeqiUOpqUYDaqw"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_BIWHowCyEeqiUOpqUYDaqw" fontColor="8947848" fontName="Ubuntu" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIWHpACyEeqiUOpqUYDaqw" width="20" height="20"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_BIWusgCyEeqiUOpqUYDaqw" type="2001" element="_BIU5iACyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BIXVwACyEeqiUOpqUYDaqw" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_BIXVwQCyEeqiUOpqUYDaqw" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIZyAACyEeqiUOpqUYDaqw" type="3002" element="_BIU5iQCyEeqiUOpqUYDaqw">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_BIZyAQCyEeqiUOpqUYDaqw" fontName="Ubuntu"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIZyAgCyEeqiUOpqUYDaqw"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_BIWuswCyEeqiUOpqUYDaqw" fontColor="7490599" fontName="Ubuntu" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIWutACyEeqiUOpqUYDaqw" width="150" height="150"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_BIX80ACyEeqiUOpqUYDaqw" type="2001" element="_BIU5igCyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BIX80wCyEeqiUOpqUYDaqw" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_BIX81ACyEeqiUOpqUYDaqw" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIZyAwCyEeqiUOpqUYDaqw" type="3002" element="_BIU5iwCyEeqiUOpqUYDaqw">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_BIZyBACyEeqiUOpqUYDaqw" fontName="Ubuntu"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIZyBQCyEeqiUOpqUYDaqw"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_BIX80QCyEeqiUOpqUYDaqw" fontColor="7490599" fontName="Ubuntu" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIX80gCyEeqiUOpqUYDaqw" width="150" height="150"/>
+        </children>
+        <styles xmi:type="notation:DiagramStyle" xmi:id="_BIVgkgCyEeqiUOpqUYDaqw"/>
+        <edges xmi:type="notation:Edge" xmi:id="_BIaZEACyEeqiUOpqUYDaqw" type="4001" element="_BIU5jACyEeqiUOpqUYDaqw" source="_BIWHogCyEeqiUOpqUYDaqw" target="_BIWusgCyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BIaZFACyEeqiUOpqUYDaqw" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIaZFQCyEeqiUOpqUYDaqw" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIaZFgCyEeqiUOpqUYDaqw" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIaZFwCyEeqiUOpqUYDaqw" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIaZGACyEeqiUOpqUYDaqw" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIaZGQCyEeqiUOpqUYDaqw" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_BIaZEQCyEeqiUOpqUYDaqw"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_BIaZEgCyEeqiUOpqUYDaqw" fontName="Ubuntu" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_BIaZEwCyEeqiUOpqUYDaqw" points="[0, 0, -65, -65]$[65, 65, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BIbAIACyEeqiUOpqUYDaqw" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BIbAIQCyEeqiUOpqUYDaqw" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_BIbAIgCyEeqiUOpqUYDaqw" type="4001" element="_BIU5jwCyEeqiUOpqUYDaqw" source="_BIWusgCyEeqiUOpqUYDaqw" target="_BIX80ACyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BIbAJgCyEeqiUOpqUYDaqw" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIbAJwCyEeqiUOpqUYDaqw" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIbnMACyEeqiUOpqUYDaqw" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIbnMQCyEeqiUOpqUYDaqw" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIbnMgCyEeqiUOpqUYDaqw" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIbnMwCyEeqiUOpqUYDaqw" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_BIbAIwCyEeqiUOpqUYDaqw"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_BIbAJACyEeqiUOpqUYDaqw" fontName="Ubuntu" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_BIbAJQCyEeqiUOpqUYDaqw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BIbnNACyEeqiUOpqUYDaqw" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BIbnNQCyEeqiUOpqUYDaqw" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_BIbnNgCyEeqiUOpqUYDaqw" type="4001" element="_BIU5kgCyEeqiUOpqUYDaqw" source="_BIX80ACyEeqiUOpqUYDaqw" target="_BIWusgCyEeqiUOpqUYDaqw">
+          <children xmi:type="notation:Node" xmi:id="_BIbnOgCyEeqiUOpqUYDaqw" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIbnOwCyEeqiUOpqUYDaqw" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIbnPACyEeqiUOpqUYDaqw" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIbnPQCyEeqiUOpqUYDaqw" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_BIcOQACyEeqiUOpqUYDaqw" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BIcOQQCyEeqiUOpqUYDaqw" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_BIbnNwCyEeqiUOpqUYDaqw"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_BIbnOACyEeqiUOpqUYDaqw" fontName="Ubuntu" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_BIbnOQCyEeqiUOpqUYDaqw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BIcOQgCyEeqiUOpqUYDaqw" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_BIcOQwCyEeqiUOpqUYDaqw" id="(0.5,0.5)"/>
+        </edges>
+      </data>
+    </ownedAnnotationEntries>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BIU5hACyEeqiUOpqUYDaqw" name="pingerTime" width="5" height="5" resizeKind="NSEW">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMClock" href="pingpong.tfsm#//@tfsms.1/@localClock"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMClock" href="pingpong.tfsm#//@tfsms.1/@localClock"/>
+      <ownedStyle xmi:type="diagram:WorkspaceImage" xmi:id="_BIU5hQCyEeqiUOpqUYDaqw" showIcon="false" workspacePath="/org.gemoc.sample.tfsm.concurrent.design/icons/clock_local_small.gif">
+        <labelFormat>bold</labelFormat>
+        <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='Local%20Clock']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='Local%20Clock']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BIU5hgCyEeqiUOpqUYDaqw" name="initPinger" outgoingEdges="_BIU5jACyEeqiUOpqUYDaqw" width="2" height="2" resizeKind="NSEW">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.0"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.0"/>
+      <ownedStyle xmi:type="diagram:Dot" xmi:id="_BIU5hwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="136,136,136" borderSize="3" borderSizeComputationExpression="3" backgroundColor="0,0,0">
+        <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@conditionnalStyles.0/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BIU5iACyEeqiUOpqUYDaqw" name="Ping_ofPinger" outgoingEdges="_BIU5jwCyEeqiUOpqUYDaqw" incomingEdges="_BIU5jACyEeqiUOpqUYDaqw _BIU5kgCyEeqiUOpqUYDaqw" width="15" height="15" resizeKind="NSEW">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.1"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.1"/>
+      <ownedStyle xmi:type="diagram:Dot" xmi:id="_BIU5iQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
+        <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BIU5igCyEeqiUOpqUYDaqw" name="Pong_ofPinger" outgoingEdges="_BIU5kgCyEeqiUOpqUYDaqw" incomingEdges="_BIU5jwCyEeqiUOpqUYDaqw" width="15" height="15" resizeKind="NSEW">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.2"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.2"/>
+      <ownedStyle xmi:type="diagram:Dot" xmi:id="_BIU5iwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
+        <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_BIU5jACyEeqiUOpqUYDaqw" name="Invalid feature as name" sourceNode="_BIU5hgCyEeqiUOpqUYDaqw" targetNode="_BIU5iACyEeqiUOpqUYDaqw">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.0"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_BIU5jQCyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_BIU5jgCyEeqiUOpqUYDaqw" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_BIU5jwCyEeqiUOpqUYDaqw" name="Invalid feature as name" sourceNode="_BIU5iACyEeqiUOpqUYDaqw" targetNode="_BIU5igCyEeqiUOpqUYDaqw">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.1"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.1"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_BIU5kACyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_BIU5kQCyEeqiUOpqUYDaqw" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_BIU5kgCyEeqiUOpqUYDaqw" name="Invalid feature as name" sourceNode="_BIU5igCyEeqiUOpqUYDaqw" targetNode="_BIU5iACyEeqiUOpqUYDaqw">
+      <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.2"/>
+      <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.2"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_BIU5kwCyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_BIU5lACyEeqiUOpqUYDaqw" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']"/>
+    </ownedDiagramElements>
+    <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" xmi:id="_BIU5lQCyEeqiUOpqUYDaqw"/>
+    <activatedLayers xmi:type="description_1:Layer" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer"/>
+    <activatedLayers xmi:type="description_1:AdditionalLayer" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@additionalLayers[name='Debug']"/>
+    <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TFSM" href="pingpong.tfsm#//@tfsms.1"/>
+  </diagram:DSemanticDiagram>
+</xmi:XMI>
