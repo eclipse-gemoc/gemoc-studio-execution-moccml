@@ -52,11 +52,6 @@
 										dir="${sigpml_example_language_root}/org.eclipse.gemoc.example.moccmlsigpml.design/" />
 								</zip>
 								<zip
-									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccmlsigpml.dse.zip">
-									<fileset
-										dir="${sigpml_example_language_root}/org.eclipse.gemoc.example.moccmlsigpml.dse/" />
-								</zip>
-								<zip
 									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccmlsigpml.groovy.zip">
 									<fileset
 										dir="${sigpml_example_language_root}/org.eclipse.gemoc.example.moccmlsigpml.groovy" />
@@ -102,6 +97,58 @@
 									<fileset
 										dir="${sigpml_example_modeling_root}/org.eclipse.gemoc.example.moccmlsigpml.simple_example/" />
 								</zip>
+								
+								<!-- ***************************************** -->
+								
+								<!-- TFSM language -->
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccml.tfsm.zip">
+									<fileset
+										dir="${tfsm_example_language_root}/org.eclipse.gemoc.example.moccml.tfsm/" />
+								</zip>
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccml.tfsm.design.zip">
+									<fileset
+										dir="${tfsm_example_language_root}/org.eclipse.gemoc.example.moccml.tfsm.design/" />
+								</zip>
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccml.tfsm.k3dsa.zip">
+									<fileset
+										dir="${tfsm_example_language_root}/org.eclipse.gemoc.example.moccml.tfsm.k3dsa" />
+								</zip>
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccml.tfsm.moc.lib.zip">
+									<fileset
+										dir="${tfsm_example_language_root}/org.eclipse.gemoc.example.moccml.tfsm.moc.lib" />
+								</zip>
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccml.tfsm.moc.dse.zip">
+									<fileset
+										dir="${tfsm_example_language_root}/org.eclipse.gemoc.example.moccml.tfsm.moc.dse" />
+								</zip>
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccml.tfsm.model.zip">
+									<fileset
+										dir="${tfsm_example_language_root}/org.eclipse.gemoc.example.moccml.tfsmmodel" />
+								</zip>
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccml.tfsm.model.edit.zip">
+									<fileset
+										dir="${tfsm_example_language_root}/org.eclipse.gemoc.example.moccml.tfsm.model.edit" />
+								</zip>
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccml.tfsm.model.editor.zip">
+									<fileset
+										dir="${tfsm_example_language_root}/org.eclipse.gemoc.example.moccml.tfsm.model.editor" />
+								</zip>
+								<!-- TFSM models -->
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.tfsm.pingpong_example.zip">
+									<fileset
+										dir="${tfsm_example_modeling_root}/org.eclipse.gemoc.example.tfsm.pingpong_example/" />
+								</zip>
+								
+								
 							</tasks>
 						</configuration>
 					</execution>
