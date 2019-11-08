@@ -180,17 +180,6 @@
           <layoutConstraint xmi:type="notation:Bounds" xmi:id="_1-Py_QH_EeqFPNc_0eQDcQ" x="90" y="186"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_1-QaAAH_EeqFPNc_0eQDcQ" type="2003" element="_19tAYAH_EeqFPNc_0eQDcQ">
-          <children xmi:type="notation:Node" xmi:id="_AFZCEAIAEeqFPNc_0eQDcQ" type="3012" element="_AFDq4AIAEeqFPNc_0eQDcQ">
-            <children xmi:type="notation:Node" xmi:id="_AFZpIAIAEeqFPNc_0eQDcQ" type="5010">
-              <layoutConstraint xmi:type="notation:Location" xmi:id="_AFZpIQIAEeqFPNc_0eQDcQ" y="5"/>
-            </children>
-            <children xmi:type="notation:Node" xmi:id="_AFvnYAIAEeqFPNc_0eQDcQ" type="3005" element="_AFER8AIAEeqFPNc_0eQDcQ">
-              <styles xmi:type="notation:ShapeStyle" xmi:id="_AFvnYQIAEeqFPNc_0eQDcQ" fontName="Ubuntu"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_AFvnYgIAEeqFPNc_0eQDcQ"/>
-            </children>
-            <styles xmi:type="notation:ShapeStyle" xmi:id="_AFZCEQIAEeqFPNc_0eQDcQ" fontName="Ubuntu" fontHeight="8"/>
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_AFZCEgIAEeqFPNc_0eQDcQ" x="40" y="-22" width="30" height="30"/>
-          </children>
           <children xmi:type="notation:Node" xmi:id="_1-QaAwH_EeqFPNc_0eQDcQ" type="5007"/>
           <children xmi:type="notation:Node" xmi:id="_1-QaBAH_EeqFPNc_0eQDcQ" type="7004">
             <children xmi:type="notation:Node" xmi:id="_1-TdUwH_EeqFPNc_0eQDcQ" type="3010" element="_194mkQH_EeqFPNc_0eQDcQ">
@@ -792,17 +781,6 @@
     <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_19tAYAH_EeqFPNc_0eQDcQ" name="TimedSystem" tooltipText="" outgoingEdges="_1-BJcwH_EeqFPNc_0eQDcQ _1-BwgwH_EeqFPNc_0eQDcQ _1-CXkwH_EeqFPNc_0eQDcQ _1-HQEwH_EeqFPNc_0eQDcQ" width="12" height="10">
       <target xmi:type="ecore:EClass" href="tfsm.ecore#//TimedSystem"/>
       <semanticElements xmi:type="ecore:EClass" href="tfsm.ecore#//TimedSystem"/>
-      <ownedBorderedNodes xmi:type="diagram:DNode" xmi:id="_AFDq4AIAEeqFPNc_0eQDcQ" name="T" width="3" height="3" resizeKind="NSEW">
-        <target xmi:type="ecore:ETypeParameter" href="tfsm.ecore#//TimedSystem/T"/>
-        <semanticElements xmi:type="ecore:ETypeParameter" href="tfsm.ecore#//TimedSystem/T"/>
-        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
-        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
-        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-        <ownedStyle xmi:type="diagram:WorkspaceImage" xmi:id="_AFER8AIAEeqFPNc_0eQDcQ" showIcon="false" labelPosition="node" workspacePath="/org.eclipse.emf.ecoretools.design/icons/full/back/generic.svg">
-          <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@borderedNodeMappings[name='EC%20ETypeParameter']/@style"/>
-        </ownedStyle>
-        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@borderedNodeMappings[name='EC%20ETypeParameter']"/>
-      </ownedBorderedNodes>
       <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
       <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
       <arrangeConstraints>KEEP_RATIO</arrangeConstraints>

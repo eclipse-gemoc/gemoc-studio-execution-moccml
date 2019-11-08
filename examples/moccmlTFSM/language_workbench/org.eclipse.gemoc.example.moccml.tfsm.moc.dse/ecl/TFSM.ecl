@@ -5,8 +5,8 @@ import _'http://www.eclipse.org/emf/2002/Ecore'
 ECLimport "platform:/plugin/fr.inria.aoste.timesquare.ccslkernel.model/ccsllibrary/kernel.ccslLib"
 ECLimport "platform:/plugin/fr.inria.aoste.timesquare.ccslkernel.model/ccsllibrary/CCSL.ccslLib"
 --ECLimport "platform:/plugin/org.gemoc.sample.tfsm.moc.lib/ccsl/TFSMMoC.ccslLib"
-ECLimport "platform:/resource/org.eclipse.gemoc.example.moccml.tfsm.mocclib/ccsl/TFSMMoC.ccslLib"
-ECLimport "platform:/resource/org.eclipse.gemoc.example.moccml.tfsm.mocclib/ccsl/TFSMMoCC.moccml"
+ECLimport "platform:/resource/org.eclipse.gemoc.example.moccml.tfsm.moc.lib/ccsl/TFSMMoC.ccslLib"
+ECLimport "platform:/resource/org.eclipse.gemoc.example.moccml.tfsm.moc.lib/ccsl/TFSMMoCC.moccml"
 
 package tfsm 
 /** 
