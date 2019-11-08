@@ -37,7 +37,7 @@
 							<goal>run</goal>
 						</goals>
 						<configuration>
-							<tasks>
+							<target>
 								<mkdir dir="${basedir}/zips" />
 
 								<!-- sigPML language -->
@@ -129,7 +129,7 @@
 								<zip
 									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccml.tfsm.model.zip">
 									<fileset
-										dir="${tfsm_example_language_root}/org.eclipse.gemoc.example.moccml.tfsmmodel" />
+										dir="${tfsm_example_language_root}/org.eclipse.gemoc.example.moccml.tfsm.model" />
 								</zip>
 								<zip
 									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccml.tfsm.model.edit.zip">
@@ -149,7 +149,7 @@
 								</zip>
 								
 								
-							</tasks>
+							</target>
 						</configuration>
 					</execution>
 				</executions>
