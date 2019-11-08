@@ -8,6 +8,10 @@
 		<sigpml_example_root>${basedir}/../../../examples/moccmlSigPML</sigpml_example_root>
 		<sigpml_example_language_root>${sigpml_example_root}/language_workbench</sigpml_example_language_root>
 		<sigpml_example_modeling_root>${sigpml_example_root}/modeling_workbench</sigpml_example_modeling_root>
+		
+		<tfsm_example_root>${basedir}/../../../examples/moccmlTFSM</tfsm_example_root>
+		<tfsm_example_language_root>${tfsm_example_root}/language_workbench</tfsm_example_language_root>
+		<tfsm_example_modeling_root>${tfsm_example_root}/modeling_workbench</tfsm_example_modeling_root>
 	</properties>
 
 	<parent>
@@ -63,9 +67,14 @@
 										dir="${sigpml_example_language_root}/org.eclipse.gemoc.example.moccmlsigpml.k3dsa" />
 								</zip>
 								<zip
-									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccmlsigpml.lib.zip">
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccmlsigpml.moc.lib.zip">
 									<fileset
-										dir="${sigpml_example_language_root}/org.eclipse.gemoc.example.moccmlsigpml.lib" />
+										dir="${sigpml_example_language_root}/org.eclipse.gemoc.example.moccmlsigpml.moc.lib" />
+								</zip>
+								<zip
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccmlsigpml.moc.dse.zip">
+									<fileset
+										dir="${sigpml_example_language_root}/org.eclipse.gemoc.example.moccmlsigpml.moc.dse" />
 								</zip>
 								<zip
 									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccmlsigpml.model.zip">
