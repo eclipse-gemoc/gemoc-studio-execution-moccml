@@ -143,9 +143,9 @@
 								</zip>
 								<!-- TFSM models -->
 								<zip
-									destfile="${basedir}/zips/org.eclipse.gemoc.example.tfsm.pingpong_example.zip">
+									destfile="${basedir}/zips/org.eclipse.gemoc.example.moccml.tfsm.pingpong_example.zip">
 									<fileset
-										dir="${tfsm_example_modeling_root}/org.eclipse.gemoc.example.tfsm.pingpong_example/" />
+										dir="${tfsm_example_modeling_root}/org.eclipse.gemoc.example.moccml.tfsm.pingpong_example/" />
 								</zip>
 								
 								
