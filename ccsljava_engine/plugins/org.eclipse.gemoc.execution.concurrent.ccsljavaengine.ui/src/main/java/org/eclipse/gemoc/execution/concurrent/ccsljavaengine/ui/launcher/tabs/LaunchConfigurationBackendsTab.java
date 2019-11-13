@@ -11,17 +11,17 @@
  *******************************************************************************/
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.tabs;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import org.eclipse.gemoc.executionframework.engine.ui.launcher.tabs.AbstractLaunchConfigurationDataProcessingTab;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.engine_addon.EngineAddonSpecificationExtension;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.engine_addon.EngineAddonSpecificationExtensionPoint;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.engine_addon_group.EngineAddonGroupSpecificationExtension;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.engine_addon_group.EngineAddonGroupSpecificationExtensionPoint;
 
-public class LaunchConfigurationBackendsTab extends LaunchConfigurationDataProcessingTab 
+public class LaunchConfigurationBackendsTab extends AbstractLaunchConfigurationDataProcessingTab 
 {
 
 	@Override
@@ -32,10 +32,8 @@ public class LaunchConfigurationBackendsTab extends LaunchConfigurationDataProce
 	
 	@Override
 	protected Collection<EngineAddonSpecificationExtension> getExtensionSpecifications() 
-	{
-		ArrayList<EngineAddonSpecificationExtension> result = new ArrayList<EngineAddonSpecificationExtension>();		
-		result.addAll(EngineAddonSpecificationExtensionPoint.getSpecifications());
-		return result;
+	{		
+		return EngineAddonSpecificationExtensionPoint.getSpecifications();
 	}
 	
 	@Override
