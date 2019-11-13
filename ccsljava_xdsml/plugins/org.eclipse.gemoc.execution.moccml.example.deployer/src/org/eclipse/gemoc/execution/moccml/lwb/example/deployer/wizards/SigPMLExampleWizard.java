@@ -24,7 +24,8 @@ public class SigPMLExampleWizard extends AbstractExampleWizard {
 		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.example.moccmlsigpml.model.editor.zip", 	"org.eclipse.gemoc.example.moccmlsigpml.model.editor"));;
 		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.example.moccmlsigpml.groovy.zip", 	"org.eclipse.gemoc.example.moccmlsigpml.groovy"));
 		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.example.moccmlsigpml.k3dsa.zip", 	"org.eclipse.gemoc.example.moccmlsigpml.k3dsa"));;
-		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.example.moccmlsigpml.lib.zip", 	"org.eclipse.gemoc.example.moccmlsigpml.lib"));;
+		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.example.moccmlsigpml.moc.dse.zip", 	"org.eclipse.gemoc.example.moccmlsigpml.moc.dse"));;
+		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.example.moccmlsigpml.moc.lib.zip", 	"org.eclipse.gemoc.example.moccmlsigpml.moc.lib"));;
 		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.example.moccmlsigpml.design.zip", 	"org.eclipse.gemoc.example.moccmlsigpml.design"));;
 		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.example.moccmlsigpml.zip", 	"org.eclipse.gemoc.example.moccmlsigpml"));
 		projects.add(new ProjectDescriptor(Activator.PLUGIN_ID, "zips/org.eclipse.gemoc.ultimateplotter.zip", 	"org.eclipse.gemoc.example.ultimateplotter"));

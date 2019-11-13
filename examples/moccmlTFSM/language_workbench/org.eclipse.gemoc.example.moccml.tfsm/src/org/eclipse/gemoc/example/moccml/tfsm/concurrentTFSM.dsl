@@ -1,0 +1,4 @@
+name = concurrentTFSM
+ecore = platform:/resource/org.eclipse.gemoc.example.moccml.tfsm.model/model/tfsm.ecore
+k3 = org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.TimedSystemAspect,org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.StateAspect,org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.EvaluateGuardAspect,org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.TemporalGuardAspect,org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.EventGuardAspect,org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.NamedElementAspect,org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.FSMEventAspect,org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.TransitionAspect,org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.GuardAspect,org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.TFSMAspect,org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.FSMClockAspect
+ecl= org.eclipse.gemoc.example.moccml.tfsm.moc.dse/ecl/TFSM.ecl
