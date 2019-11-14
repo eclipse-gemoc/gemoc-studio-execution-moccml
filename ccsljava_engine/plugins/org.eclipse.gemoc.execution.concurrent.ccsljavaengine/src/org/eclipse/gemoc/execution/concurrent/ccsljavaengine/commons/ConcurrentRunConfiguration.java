@@ -30,6 +30,7 @@ public class ConcurrentRunConfiguration extends RunConfiguration implements ICon
 		super(launchConfiguration);
 	}
 
+	@Override
 	protected void extractInformation() throws CoreException {
 		super.extractInformation();
 

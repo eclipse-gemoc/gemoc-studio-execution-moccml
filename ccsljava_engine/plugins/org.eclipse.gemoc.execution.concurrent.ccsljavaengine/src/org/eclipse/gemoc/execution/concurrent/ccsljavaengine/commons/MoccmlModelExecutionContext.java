@@ -4,10 +4,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.deciders.LogicalStepDeciderFactory;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IMoccmlRunConfiguration;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders.DeciderSpecificationExtension;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders.DeciderSpecificationExtensionPoint;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageDefinitionExtension;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageDefinitionExtensionPoint;
 import org.eclipse.gemoc.executionframework.engine.commons.EngineContextException;
@@ -63,10 +60,8 @@ public class MoccmlModelExecutionContext extends
 	}
 
 	@Override
-	protected ILogicalStepDecider createRunDecider() throws CoreException {
-		DeciderSpecificationExtension extension = DeciderSpecificationExtensionPoint
-				.findDefinition(LogicalStepDeciderFactory.DECIDER_SOLVER);
-		return extension.instanciateDecider();
+	protected String getDefaultRunDeciderName() {
+		return LogicalStepDeciderFactory.DECIDER_SOLVER;
 	}
 
 }

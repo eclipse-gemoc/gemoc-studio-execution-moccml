@@ -19,7 +19,6 @@ import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinit
 
 public abstract class AbstractConcurrentModelExecutionContext<R extends IConcurrentRunConfiguration, P extends IExecutionPlatform, L extends LanguageDefinitionExtension>
 		extends AbstractModelExecutionContext<R, P, L> {
-
 	public AbstractConcurrentModelExecutionContext(R runConfiguration, ExecutionMode executionMode)
 			throws EngineContextException {
 		super(runConfiguration, executionMode);
@@ -29,5 +28,6 @@ public abstract class AbstractConcurrentModelExecutionContext<R extends IConcurr
 
 	public abstract ILogicalStepDecider getLogicalStepDecider();
 
+	protected abstract String getDefaultRunDeciderName();
 
 }

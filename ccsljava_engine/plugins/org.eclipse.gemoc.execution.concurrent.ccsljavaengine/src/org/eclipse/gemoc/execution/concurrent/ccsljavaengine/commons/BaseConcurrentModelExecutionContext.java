@@ -18,7 +18,8 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.deciders.LogicalSte
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentRunConfiguration;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.AbstractConcurrentLanguageExtensionPoint;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders.DeciderSpecificationExtension;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders.DeciderSpecificationExtensionPoint;
 import org.eclipse.gemoc.executionframework.engine.commons.EngineContextException;
 import org.eclipse.gemoc.trace.commons.model.trace.MSEModel;
 import org.eclipse.gemoc.xdsmlframework.api.core.ExecutionMode;
@@ -27,6 +28,7 @@ import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinit
 
 public abstract class BaseConcurrentModelExecutionContext<R extends IConcurrentRunConfiguration, P extends IExecutionPlatform, L extends LanguageDefinitionExtension>
 		extends AbstractConcurrentModelExecutionContext<R, P, L> {
+
 
 	protected ILogicalStepDecider _logicalStepDecider;
 
@@ -51,8 +53,7 @@ public abstract class BaseConcurrentModelExecutionContext<R extends IConcurrentR
 
 	}
 
-	protected abstract ILogicalStepDecider createRunDecider() throws CoreException;
-
+	
 	@Override
 	public void dispose() {
 		super.dispose();
@@ -84,5 +85,9 @@ public abstract class BaseConcurrentModelExecutionContext<R extends IConcurrentR
 		}
 	}
 
+	private ILogicalStepDecider createRunDecider() throws CoreException {
+		DeciderSpecificationExtension extension = DeciderSpecificationExtensionPoint.findDefinition(getDefaultRunDeciderName());
+		return extension.instanciateDecider();
+	}
 
 }
