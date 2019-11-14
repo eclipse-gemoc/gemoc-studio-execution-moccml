@@ -14,6 +14,7 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.tabs;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.stream.Collectors;
 
 import org.eclipse.gemoc.executionframework.engine.ui.launcher.tabs.AbstractLaunchConfigurationDataProcessingTab;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.engine_addon.EngineAddonSpecificationExtension;
@@ -33,7 +34,15 @@ public class LaunchConfigurationBackendsTab extends AbstractLaunchConfigurationD
 	@Override
 	protected Collection<EngineAddonSpecificationExtension> getExtensionSpecifications() 
 	{		
-		return EngineAddonSpecificationExtensionPoint.getSpecifications();
+		
+		return EngineAddonSpecificationExtensionPoint.getSpecifications().stream()
+				.filter(extension -> 
+					extension.getAddonGroupId() == null || 
+					extension.getAddonGroupId().equals("Sequential.AddonGroup") ||
+					extension.getAddonGroupId().equals("Concurrent.AddonGroup") ||
+					extension.getAddonGroupId().equals("General.AddonGroup")
+				)
+				.collect(Collectors.toList());
 	}
 	
 	@Override
