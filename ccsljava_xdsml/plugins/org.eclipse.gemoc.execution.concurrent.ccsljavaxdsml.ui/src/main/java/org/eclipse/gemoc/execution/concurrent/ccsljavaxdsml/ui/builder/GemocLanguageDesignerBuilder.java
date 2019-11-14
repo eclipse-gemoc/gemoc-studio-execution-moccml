@@ -190,7 +190,7 @@ public class GemocLanguageDesignerBuilder extends IncrementalProjectBuilder {
 							updateSolverClass(project, languageName, null);
 						} catch (BundleException | IOException
 								| CoreException e) {
-							e.printStackTrace();
+							Activator.error("Failing to update some utils class for "+project.getName()+" "+e.getMessage(), e);
 						}
 					}
 					
@@ -204,8 +204,7 @@ public class GemocLanguageDesignerBuilder extends IncrementalProjectBuilder {
 								createLanguageSpecificDSAHelper(anEntry.getValue(), project, languageName, manifestChanger);
 								createLanguageSpecificModelStateHelper(anEntry.getValue(), project, languageName, manifestChanger);
 							} catch (ClassNotFoundException |CoreException  | BundleException | IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+								Activator.error("Failing to generate K3 helpers for "+project.getName()+" "+e.getMessage(), e);
 							}
 					}
 					
@@ -216,7 +215,7 @@ public class GemocLanguageDesignerBuilder extends IncrementalProjectBuilder {
 					manifestChanger.addPluginDependency("org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate");
 					manifestChanger.commit();
 				} catch (BundleException | IOException | CoreException e) {
-					e.printStackTrace();
+					Activator.error("Failing to update manifest of "+project.getName()+" "+e.getMessage(), e);
 				}
 			}
 		}
@@ -367,8 +366,7 @@ public class GemocLanguageDesignerBuilder extends IncrementalProjectBuilder {
 									"	}\n");
 						
 					} catch (NoSuchFieldException | SecurityException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						Activator.error("Failing to generate K3 helpers for "+javaElem+" "+e.getMessage(), e);
 					}
 
 				}
