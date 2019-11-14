@@ -1,6 +1,7 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.deciders.LogicalStepDeciderFactory;
@@ -51,12 +52,17 @@ public class MoccmlModelExecutionContext extends
 	}
 
 	@Override
-	protected MoccmlExecutionPlatform createExecutionPlatform() throws EngineContextException, CoreException {
-		MoccmlLanguageDefinitionExtension moccmlLangDef = (MoccmlLanguageDefinitionExtension) getLanguageDefinition(
-				this._runConfiguration.getLanguageName());
-		MoccmlExecutionPlatform platform = new MoccmlExecutionPlatform(moccmlLangDef, _runConfiguration);
-		platform.setCodeExecutor(moccmlLangDef.instanciateCodeExecutor());
-		return platform;
+	protected MoccmlExecutionPlatform createExecutionPlatform() throws CoreException {
+		MoccmlLanguageDefinitionExtension moccmlLangDef;
+		try {
+			moccmlLangDef = getLanguageDefinition(this._runConfiguration.getLanguageName());
+			MoccmlExecutionPlatform platform = new MoccmlExecutionPlatform(moccmlLangDef, _runConfiguration);
+			platform.setCodeExecutor(moccmlLangDef.instanciateCodeExecutor());
+			return platform;
+		} catch (EngineContextException e) {
+			// TODO avoid runtime exception
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
