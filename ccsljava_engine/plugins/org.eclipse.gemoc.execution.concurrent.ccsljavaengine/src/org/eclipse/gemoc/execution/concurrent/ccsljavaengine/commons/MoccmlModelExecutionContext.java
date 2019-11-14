@@ -44,15 +44,14 @@ public class MoccmlModelExecutionContext extends
 		if (languageDefinition == null) {
 			String message = "Cannot find concurrent xdsml definition for the language "
 					+ _runConfiguration.getLanguageName() + ", please verify that is is correctly deployed.";
-			EngineContextException exception = new EngineContextException(message);
-			throw exception;
+			throw new EngineContextException(message);
 		}
 		return languageDefinition;
 	}
 
 	@Override
-	protected MoccmlExecutionPlatform createExecutionPlatform() throws CoreException {
-		MoccmlLanguageDefinitionExtension moccmlLangDef = (MoccmlLanguageDefinitionExtension) getLanguageDefinition();
+	protected MoccmlExecutionPlatform createExecutionPlatform() throws EngineContextException, CoreException {
+		MoccmlLanguageDefinitionExtension moccmlLangDef = (MoccmlLanguageDefinitionExtension) getLanguageDefinition(this._runConfiguration.getLanguageName());
 		MoccmlExecutionPlatform platform = new MoccmlExecutionPlatform(moccmlLangDef, _runConfiguration);
 		platform.setCodeExecutor(moccmlLangDef.instanciateCodeExecutor());
 		return platform;
