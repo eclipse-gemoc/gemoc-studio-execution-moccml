@@ -4,7 +4,7 @@
 
 <extension
 point="org.eclipse.ui.newWizards">
-      <wizard
+	<wizard
             canFinishEarly="true"
             category="org.eclipse.ui.Examples/org.eclipse.gemoc.gemoc_language_workbench.samples.category"
             class="org.eclipse.gemoc.execution.moccml.lwb.example.deployer.wizards.SigPMLExampleWizard"
@@ -17,9 +17,9 @@ point="org.eclipse.ui.newWizards">
          <description>
            SigPML language implementation using MOCCML
          </description>
-</wizard> 
+	</wizard> 
 
-      <wizard
+	<wizard
             canFinishEarly="true"
             category="org.eclipse.ui.Examples/org.eclipse.gemoc.gemoc_modeling_workbench.samples.category"
             class="org.eclipse.gemoc.execution.moccml.mwb.example.deployer.wizards.SigPMLExampleWizard"
@@ -30,9 +30,38 @@ point="org.eclipse.ui.newWizards">
             name="GEMOC models for MoccmlSigPML Language"
             preferredPerspectives="org.eclipse.gemoc.xdsmlframework.ide.ui.xdsml.perspective">
          <description>
-           SigPML model example for SigPML language implementation using MOCCML
+           This project contains some SigPML model examples that can be executed if you have installed the MoccmlSigPML language
          </description>
-</wizard> 
+	</wizard> 
+	<wizard
+            canFinishEarly="true"
+            category="org.eclipse.ui.Examples/org.eclipse.gemoc.gemoc_language_workbench.samples.category"
+            class="org.eclipse.gemoc.execution.moccml.lwb.example.deployer.wizards.TFSMExampleWizard"
+            finalPerspective="org.eclipse.gemoc.xdsmlframework.ide.ui.xdsml.perspective"
+            hasPages="false"
+            icon="icons/IconeGemocLanguage-16.png"
+            id="org.eclipse.gemoc.ale.language.wb.sample.deployer.fsm.wizard"
+            name="GEMOC MoccmlTFSM Language"
+            preferredPerspectives="org.eclipse.gemoc.xdsmlframework.ide.ui.xdsml.perspective">
+         <description>
+           TFSM (Timed Finite State Machine) language implementation using MOCCML
+         </description>
+	</wizard> 
+
+	<wizard
+            canFinishEarly="true"
+            category="org.eclipse.ui.Examples/org.eclipse.gemoc.gemoc_modeling_workbench.samples.category"
+            class="org.eclipse.gemoc.execution.moccml.mwb.example.deployer.wizards.TFSMExampleWizard"
+            finalPerspective="org.eclipse.gemoc.xdsmlframework.ide.ui.xdsml.perspective"
+            hasPages="false"
+            icon="icons/IconeGemocModel-16.png"
+            id="org.eclipse.gemoc.ale.language.wb.sample.deployer.fsm.wizard"
+            name="GEMOC models for MoccmlTFSM Language"
+            preferredPerspectives="org.eclipse.gemoc.xdsmlframework.ide.ui.xdsml.perspective">
+         <description>
+           This project contains some TFSM model examples that can be executed if you have installed the MoccmlTFSM language
+         </description>
+	</wizard> 
 </extension>
 
 </plugin>
