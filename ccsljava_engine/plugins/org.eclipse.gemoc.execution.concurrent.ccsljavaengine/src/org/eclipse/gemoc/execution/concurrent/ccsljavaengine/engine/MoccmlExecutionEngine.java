@@ -167,22 +167,19 @@ public class MoccmlExecutionEngine extends
 	}
 
 	@Override
-	protected void performInitialize(MoccmlModelExecutionContext executionContext) {
+	protected void performSpecificInitialize(MoccmlModelExecutionContext executionContext) {
 
 		MoccmlModelExecutionContext concurrentExecutionContext = getExecutionContext();
 		getSolver().setExecutableModelResource(concurrentExecutionContext.getResourceModel());
 
-		this.changeLogicalStepDecider(concurrentExecutionContext.getLogicalStepDecider());
-
 		_mseStateController = new DefaultMSEStateController();
 		concurrentExecutionContext.getExecutionPlatform().getMSEStateControllers().add(_mseStateController);
 
-		executeInitializeModelMethod((MoccmlModelExecutionContext) executionContext);
+		executeInitializeModelMethod(executionContext);
 
-		((MoccmlModelExecutionContext) executionContext).setUpMSEModel();
-		((MoccmlModelExecutionContext) executionContext).setUpFeedbackModel();
+		executionContext.setUpMSEModel();
+		executionContext.setUpFeedbackModel();
 
-		Activator.getDefault().debug("*** Engine initialization done. ***");
 	}
 
 	@Override

@@ -23,6 +23,8 @@ public abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcur
 
 	protected abstract void executeSmallStep(SmallStep<?> smallStep) throws CodeExecutionException;
 
+	protected abstract void performSpecificInitialize(C executionContext);
+
 	private ILogicalStepDecider _logicalStepDecider;
 	protected List<Step<?>> _possibleLogicalSteps = new ArrayList<>();
 	private Step<?> _selectedLogicalStep;
@@ -147,6 +149,13 @@ public abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcur
 				throw new RuntimeException(t);
 			}
 		}
+	}
+
+	@Override
+	protected final void performInitialize(C executionContext) {
+		this.changeLogicalStepDecider(executionContext.getLogicalStepDecider());
+		performSpecificInitialize(executionContext);
+		Activator.getDefault().debug("*** Engine initialization done. ***");
 	}
 
 	protected final void notifyAboutToSelectLogicalStep() {
