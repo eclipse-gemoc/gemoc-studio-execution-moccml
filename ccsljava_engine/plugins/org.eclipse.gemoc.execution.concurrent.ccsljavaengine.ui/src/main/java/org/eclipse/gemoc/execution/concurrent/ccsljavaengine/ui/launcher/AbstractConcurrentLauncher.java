@@ -47,7 +47,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 
-public abstract class AbstractConcurrentLauncher<R extends IConcurrentRunConfiguration, C extends AbstractConcurrentModelExecutionContext<R, ? extends IExecutionPlatform, ? extends LanguageDefinitionExtension, ? extends AbstractConcurrentLanguageExtensionPoint<?>>>
+public abstract class AbstractConcurrentLauncher<R extends IConcurrentRunConfiguration, C extends AbstractConcurrentModelExecutionContext<R, ? extends IExecutionPlatform, ? extends LanguageDefinitionExtension>>
 		extends AbstractGemocLauncher<C> {
 
 	public final static String TYPE_ID = Activator.PLUGIN_ID + ".launcher";

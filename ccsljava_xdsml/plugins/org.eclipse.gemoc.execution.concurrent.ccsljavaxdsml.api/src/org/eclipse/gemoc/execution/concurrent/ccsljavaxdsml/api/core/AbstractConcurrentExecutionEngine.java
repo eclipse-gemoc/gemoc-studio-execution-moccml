@@ -14,7 +14,7 @@ import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.xdsmlframework.api.core.EngineStatus;
 import org.eclipse.gemoc.xdsmlframework.api.engine_addon.IEngineAddon;
 
-public abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentModelExecutionContext<R, ?, ?, ?>, R extends IConcurrentRunConfiguration>
+public abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentModelExecutionContext<R, ?, ?>, R extends IConcurrentRunConfiguration>
 		extends AbstractExecutionEngine<C, R> {
 
 	protected abstract List<Step<?>> computePossibleLogicalSteps();

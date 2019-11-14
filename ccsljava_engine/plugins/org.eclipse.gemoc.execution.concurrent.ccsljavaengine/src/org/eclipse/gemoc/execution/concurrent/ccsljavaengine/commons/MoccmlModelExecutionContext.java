@@ -3,7 +3,11 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.deciders.LogicalStepDeciderFactory;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IMoccmlRunConfiguration;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders.DeciderSpecificationExtension;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders.DeciderSpecificationExtensionPoint;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageDefinitionExtension;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageDefinitionExtensionPoint;
 import org.eclipse.gemoc.executionframework.engine.commons.EngineContextException;
@@ -11,7 +15,7 @@ import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ActionModel;
 import org.eclipse.gemoc.xdsmlframework.api.core.ExecutionMode;
 
 public class MoccmlModelExecutionContext extends
-		BaseConcurrentModelExecutionContext<IMoccmlRunConfiguration, MoccmlExecutionPlatform, MoccmlLanguageDefinitionExtension, MoccmlLanguageDefinitionExtensionPoint> {
+		BaseConcurrentModelExecutionContext<IMoccmlRunConfiguration, MoccmlExecutionPlatform, MoccmlLanguageDefinitionExtension> {
 
 	public MoccmlModelExecutionContext(IMoccmlRunConfiguration runConfiguration, ExecutionMode executionMode)
 			throws EngineContextException {
@@ -39,7 +43,7 @@ public class MoccmlModelExecutionContext extends
 	@Override
 	protected MoccmlLanguageDefinitionExtension getLanguageDefinition(String languageName)
 			throws EngineContextException {
-		MoccmlLanguageDefinitionExtension languageDefinition = getLanguageDefinitionExtensionPoint()
+		MoccmlLanguageDefinitionExtension languageDefinition = new MoccmlLanguageDefinitionExtensionPoint()
 				.findDefinition(languageName);
 		if (languageDefinition == null) {
 			String message = "Cannot find concurrent xdsml definition for the language "
@@ -51,18 +55,18 @@ public class MoccmlModelExecutionContext extends
 
 	@Override
 	protected MoccmlExecutionPlatform createExecutionPlatform() throws EngineContextException, CoreException {
-		MoccmlLanguageDefinitionExtension moccmlLangDef = (MoccmlLanguageDefinitionExtension) getLanguageDefinition(this._runConfiguration.getLanguageName());
+		MoccmlLanguageDefinitionExtension moccmlLangDef = (MoccmlLanguageDefinitionExtension) getLanguageDefinition(
+				this._runConfiguration.getLanguageName());
 		MoccmlExecutionPlatform platform = new MoccmlExecutionPlatform(moccmlLangDef, _runConfiguration);
 		platform.setCodeExecutor(moccmlLangDef.instanciateCodeExecutor());
 		return platform;
 	}
 
-
 	@Override
-	protected MoccmlLanguageDefinitionExtensionPoint createLanguageExtensionPoint() {
-		return new MoccmlLanguageDefinitionExtensionPoint();
+	protected ILogicalStepDecider createRunDecider() throws CoreException {
+		DeciderSpecificationExtension extension = DeciderSpecificationExtensionPoint
+				.findDefinition(LogicalStepDeciderFactory.DECIDER_SOLVER);
+		return extension.instanciateDecider();
 	}
-
-
 
 }

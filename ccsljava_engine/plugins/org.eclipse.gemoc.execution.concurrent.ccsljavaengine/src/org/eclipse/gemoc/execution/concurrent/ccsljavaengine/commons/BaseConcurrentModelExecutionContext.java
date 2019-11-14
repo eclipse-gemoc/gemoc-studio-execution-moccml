@@ -25,21 +25,23 @@ import org.eclipse.gemoc.xdsmlframework.api.core.ExecutionMode;
 import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionPlatform;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinitionExtension;
 
-public abstract class BaseConcurrentModelExecutionContext<R extends IConcurrentRunConfiguration, P extends IExecutionPlatform, L extends LanguageDefinitionExtension, EP extends AbstractConcurrentLanguageExtensionPoint<L>>
-		extends AbstractConcurrentModelExecutionContext<R, P, L, EP> {
+public abstract class BaseConcurrentModelExecutionContext<R extends IConcurrentRunConfiguration, P extends IExecutionPlatform, L extends LanguageDefinitionExtension>
+		extends AbstractConcurrentModelExecutionContext<R, P, L> {
 
 	protected ILogicalStepDecider _logicalStepDecider;
 
 	protected MSEModel _mseModel;
 
-	private EP languageExtensionPoint;
-
 	public BaseConcurrentModelExecutionContext(R runConfiguration, ExecutionMode executionMode)
 			throws EngineContextException {
 		super(runConfiguration, executionMode);
 		try {
-			_logicalStepDecider = LogicalStepDeciderFactory.createDecider(runConfiguration.getDeciderName(),
-					executionMode);
+			if (executionMode.equals(ExecutionMode.Run)) {
+				_logicalStepDecider = createRunDecider();
+			} else {
+				_logicalStepDecider = LogicalStepDeciderFactory.createDecider(runConfiguration.getDeciderName(),
+						executionMode);
+			}
 
 		} catch (CoreException e) {
 			EngineContextException exception = new EngineContextException(
@@ -48,6 +50,8 @@ public abstract class BaseConcurrentModelExecutionContext<R extends IConcurrentR
 		}
 
 	}
+
+	protected abstract ILogicalStepDecider createRunDecider() throws CoreException;
 
 	@Override
 	public void dispose() {
@@ -80,11 +84,5 @@ public abstract class BaseConcurrentModelExecutionContext<R extends IConcurrentR
 		}
 	}
 
-	protected EP getLanguageDefinitionExtensionPoint() {
-		if (languageExtensionPoint == null) {
-			languageExtensionPoint = createLanguageExtensionPoint();
-		}
-		return languageExtensionPoint;
-	}
 
 }

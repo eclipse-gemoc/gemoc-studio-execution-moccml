@@ -23,7 +23,7 @@ import org.eclipse.gemoc.trace.commons.model.trace.Step;
 
 import fr.inria.diverse.k3.al.annotationprocessor.InitializeModel;
 
-public abstract class AbstractSolverCodeExecutorConcurrentEngine<C extends AbstractConcurrentModelExecutionContext<R, ? extends CodeExecutorBasedExecutionPlatform, ?, ?>, R extends IConcurrentRunConfiguration, S extends ISolver>
+public abstract class AbstractSolverCodeExecutorConcurrentEngine<C extends AbstractConcurrentModelExecutionContext<R, ? extends CodeExecutorBasedExecutionPlatform, ?>, R extends IConcurrentRunConfiguration, S extends ISolver>
 		extends AbstractConcurrentExecutionEngine<C, R> {
 
 	protected S _solver;

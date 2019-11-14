@@ -11,14 +11,13 @@
  *******************************************************************************/
 package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core;
 
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.AbstractConcurrentLanguageExtensionPoint;
 import org.eclipse.gemoc.executionframework.engine.commons.AbstractModelExecutionContext;
 import org.eclipse.gemoc.executionframework.engine.commons.EngineContextException;
 import org.eclipse.gemoc.xdsmlframework.api.core.ExecutionMode;
 import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionPlatform;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinitionExtension;
 
-public abstract class AbstractConcurrentModelExecutionContext<R extends IConcurrentRunConfiguration, P extends IExecutionPlatform, L extends LanguageDefinitionExtension, EP extends AbstractConcurrentLanguageExtensionPoint<L>>
+public abstract class AbstractConcurrentModelExecutionContext<R extends IConcurrentRunConfiguration, P extends IExecutionPlatform, L extends LanguageDefinitionExtension>
 		extends AbstractModelExecutionContext<R, P, L> {
 
 	public AbstractConcurrentModelExecutionContext(R runConfiguration, ExecutionMode executionMode)
@@ -30,6 +29,5 @@ public abstract class AbstractConcurrentModelExecutionContext<R extends IConcurr
 
 	public abstract ILogicalStepDecider getLogicalStepDecider();
 
-	protected abstract EP createLanguageExtensionPoint();
 
 }
