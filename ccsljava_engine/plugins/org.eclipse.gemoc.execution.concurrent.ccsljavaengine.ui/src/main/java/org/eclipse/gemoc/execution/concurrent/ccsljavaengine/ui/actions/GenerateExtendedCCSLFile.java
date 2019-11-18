@@ -14,8 +14,8 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.actions;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.ConcurrentLanguageDefinitionExtension;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.ConcurrentLanguageDefinitionExtensionPoint;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageDefinitionExtension;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageDefinitionExtensionPoint;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinitionExtension;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -44,15 +44,15 @@ public class GenerateExtendedCCSLFile extends GenerateExtendedCCSLFileAction {
 												modelUriString.lastIndexOf('.') + 1, 
 												modelUriString.length());
 			
-		List<ConcurrentLanguageDefinitionExtension> applicableLanguageDefinitions = new ArrayList<ConcurrentLanguageDefinitionExtension>();
-		for(ConcurrentLanguageDefinitionExtension lde : ConcurrentLanguageDefinitionExtensionPoint.getSpecifications()){
+		List<MoccmlLanguageDefinitionExtension> applicableLanguageDefinitions = new ArrayList<MoccmlLanguageDefinitionExtension>();
+		for(MoccmlLanguageDefinitionExtension lde : new MoccmlLanguageDefinitionExtensionPoint().getSpecifications()){
 			// select only applicable languages for the file extension
 			if(lde.getFileExtensions().contains(fileExtension)){
 				applicableLanguageDefinitions.add(lde);
 			}
 		}
 		
-		ConcurrentLanguageDefinitionExtension selectedLanguageDefinition= null;
+		MoccmlLanguageDefinitionExtension selectedLanguageDefinition= null;
 		if (applicableLanguageDefinitions.size() == 0)
 		{
 			MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), 
@@ -98,7 +98,7 @@ public class GenerateExtendedCCSLFile extends GenerateExtendedCCSLFileAction {
 				return null;
 			}
 			Object[] selected = ((Object[])result[0]);
-			selectedLanguageDefinition = (ConcurrentLanguageDefinitionExtension) selected[1];
+			selectedLanguageDefinition = (MoccmlLanguageDefinitionExtension) selected[1];
 		}
 		
 		String uri = selectedLanguageDefinition.getQVTOPath();

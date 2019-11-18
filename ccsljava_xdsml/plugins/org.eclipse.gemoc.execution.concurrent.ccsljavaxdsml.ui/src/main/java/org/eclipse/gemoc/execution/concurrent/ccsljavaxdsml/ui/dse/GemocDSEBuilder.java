@@ -76,6 +76,7 @@ public class GemocDSEBuilder extends IncrementalProjectBuilder {
 		 * 
 		 * @see org.eclipse.core.resources.IResourceDeltaVisitor#visit(org.eclipse.core.resources.IResourceDelta)
 		 */
+		@Override
 		public boolean visit(IResourceDelta delta) throws CoreException {
 			IResource resource = delta.getResource();
 			
@@ -98,6 +99,7 @@ public class GemocDSEBuilder extends IncrementalProjectBuilder {
 	}
 
 	class Moc2ASProjectResourceVisitor implements IResourceVisitor {
+		@Override
 		public boolean visit(IResource resource) {
 			processResource(resource);
 			//return true to continue visiting children.
@@ -125,6 +127,7 @@ public class GemocDSEBuilder extends IncrementalProjectBuilder {
 	 * @see org.eclipse.core.internal.events.InternalBuilder#build(int,
 	 *      java.util.Map, org.eclipse.core.runtime.IProgressMonitor)
 	 */
+	@Override
 	protected IProject[] build(int kind, Map args, IProgressMonitor monitor)
 			throws CoreException {
 		if (kind == FULL_BUILD) {
@@ -140,6 +143,7 @@ public class GemocDSEBuilder extends IncrementalProjectBuilder {
 		return null;
 	}
 
+	@Override
 	protected void clean(IProgressMonitor monitor) throws CoreException {
 		// delete markers set and files created
 		Marker.removeMarkers(getProject(), MARKER_TYPE);

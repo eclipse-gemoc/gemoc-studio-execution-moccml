@@ -11,17 +11,12 @@
  *******************************************************************************/
 package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse;
 
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ISolver;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 
+public interface IMoccmlFutureAction {
 
+	ModelSpecificEvent getTriggeringMSE();
 
-public interface IMSEStateController
-{
+	void perform();
 
-	void applyMSEFutureStates(ISolver solver);
-	void forcePresenceInTheFuture(ModelSpecificEvent mse);
-	void forceAbsenceTickInTheFuture(ModelSpecificEvent mse);
-	void freeInTheFuture(ModelSpecificEvent mse);
-	
 }

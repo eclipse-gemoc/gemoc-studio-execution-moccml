@@ -19,8 +19,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.ConcurrentLanguageDefinitionExtension;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.ConcurrentLanguageDefinitionExtensionPoint;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageDefinitionExtension;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageDefinitionExtensionPoint;
 
 /**
  * Property tester for context launching menu.
@@ -69,7 +69,7 @@ public class GemocConcurrentPropertyTester extends PropertyTester {
 	
 	
 	protected boolean existsDSMLWithFileExtension(String fileExtension){
-		for(ConcurrentLanguageDefinitionExtension lde : ConcurrentLanguageDefinitionExtensionPoint.getSpecifications()){
+		for(MoccmlLanguageDefinitionExtension lde : new MoccmlLanguageDefinitionExtensionPoint().getSpecifications()){
 			if( lde.getFileExtensions().contains(fileExtension)) return true;
 		}
 		

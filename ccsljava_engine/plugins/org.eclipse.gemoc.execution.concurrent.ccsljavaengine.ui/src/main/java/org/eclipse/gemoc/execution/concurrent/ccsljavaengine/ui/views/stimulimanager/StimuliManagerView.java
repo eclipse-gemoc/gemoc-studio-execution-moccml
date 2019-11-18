@@ -28,6 +28,7 @@ import org.eclipse.gemoc.commons.eclipse.ui.ViewHelper;
 import org.eclipse.gemoc.dsl.debug.ide.DSLBreakpoint;
 import org.eclipse.gemoc.dsl.debug.ide.ui.provider.DSLLabelDecorator;
 import org.eclipse.gemoc.dsl.debug.ide.ui.provider.DecoratingColumLabelProvider;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.SharedIcons;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.step.LogicalStepsView;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.actions.PlayScenarioAction;
@@ -39,7 +40,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimuliman
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.scenario.ScenarioException;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.scenario.ScenarioManager;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.scenario.ScenarioManagerState;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.executionframework.ui.IMSEPresenter;
 import org.eclipse.gemoc.executionframework.ui.views.engine.EngineSelectionDependentViewPart;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
@@ -158,8 +159,8 @@ public class StimuliManagerView extends EngineSelectionDependentViewPart impleme
 	private Color representedEventColor;
 	private TableViewer _viewer;
 	private ViewContentProvider _contentProvider;
-	private IConcurrentExecutionEngine _currentSelectedEngine;
-	private Map<IConcurrentExecutionEngine, ModelSpecificEventContext> _mseContextMap = new HashMap<IConcurrentExecutionEngine, ModelSpecificEventContext>();
+	private MoccmlExecutionEngine _currentSelectedEngine;
+	private Map<AbstractConcurrentExecutionEngine, ModelSpecificEventContext> _mseContextMap = new HashMap<AbstractConcurrentExecutionEngine, ModelSpecificEventContext>();
 	private Filter _strategyFilterSelected;
 	private ISelectionListener _decisionViewListener = new ISelectionListener() {
 		IStructuredSelection previousSelection = null;
@@ -664,9 +665,9 @@ public class StimuliManagerView extends EngineSelectionDependentViewPart impleme
 	@Override
 	public void engineSelectionChanged(IExecutionEngine<?> engine) {
 		if (engine != null
-			&& engine instanceof IConcurrentExecutionEngine) 
+			&& engine instanceof AbstractConcurrentExecutionEngine) 
 		{
-			_currentSelectedEngine = (IConcurrentExecutionEngine) engine;
+			_currentSelectedEngine = (MoccmlExecutionEngine) engine;
 			// if the selected engine is stopped we clean its cache and disable all commands
 			if (isEngineStopped())
 			{

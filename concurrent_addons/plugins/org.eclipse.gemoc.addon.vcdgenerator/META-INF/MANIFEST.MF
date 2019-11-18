@@ -19,7 +19,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.mse.model,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api,
  org.eclipse.gemoc.trace.commons;bundle-version="1.0.0",
- org.eclipse.gemoc.moccml.mapping.feedback.model
+ org.eclipse.gemoc.moccml.mapping.feedback.model,
+ org.eclipse.gemoc.execution.concurrent.ccsljavaengine,
+ org.eclipse.gemoc.executionframework.engine;bundle-version="4.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipse.gemoc.addon.vcdgenerator,

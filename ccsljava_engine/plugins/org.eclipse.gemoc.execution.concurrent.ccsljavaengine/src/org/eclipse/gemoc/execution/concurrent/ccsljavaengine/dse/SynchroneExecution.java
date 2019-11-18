@@ -13,7 +13,7 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse;
 
 import java.util.function.Consumer;
 
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
 import org.eclipse.gemoc.executionframework.engine.Activator;
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
@@ -21,13 +21,13 @@ import org.eclipse.gemoc.trace.commons.model.trace.Step;
 
 public class SynchroneExecution extends OperationExecution {
 
-	public SynchroneExecution(SmallStep<?> smallStep, IConcurrentExecutionEngine engine, Consumer<Step<?>> beforeStep,
+	public SynchroneExecution(SmallStep<?> smallStep, AbstractConcurrentExecutionEngine engine, Consumer<Step<?>> beforeStep,
 			Runnable afterStep) {
 		super(smallStep, engine, beforeStep, afterStep);
 	}
 
 	@Override
-	public void run() {
+	public void run() throws CodeExecutionException {
 
 		beforeStepCallback(getSmallStep());
 		Object res = callExecutor();
@@ -41,21 +41,16 @@ public class SynchroneExecution extends OperationExecution {
 	}
 
 	/**
-	 * Calls the {@link EventExecutor} for the given
-	 * {@link EngineEventOccurence}.
+	 * Calls the {@link EventExecutor} for the given {@link EngineEventOccurence}.
 	 * 
-	 * @param mse
-	 *            the {@link EngineEventOccurence} to execute
+	 * @param mse the {@link EngineEventOccurence} to execute
 	 * @return the {@link FeedbackData} if any, <code>null</code> other wise
+	 * @throws CodeExecutionException
 	 */
-	private Object callExecutor() {
+	private Object callExecutor() throws CodeExecutionException {
 		Object res = null;
 
-		try {
-			res = getExecutionContext().getExecutionPlatform().getCodeExecutor().execute(getSmallStep().getMseoccurrence());
-		} catch (CodeExecutionException e) {
-			Activator.getDefault().error("Exception received " + e.getMessage(), e);
-		}
+		res = getExecutionContext().getExecutionPlatform().getCodeExecutor().execute(getSmallStep().getMseoccurrence());
 
 		return res;
 	}

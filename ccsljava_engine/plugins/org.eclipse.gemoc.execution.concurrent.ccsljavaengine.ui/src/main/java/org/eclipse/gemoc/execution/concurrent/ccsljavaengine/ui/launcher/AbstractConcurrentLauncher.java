@@ -1,18 +1,8 @@
-/*******************************************************************************
- * Copyright (c) 2017 INRIA and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     INRIA - initial API and implementation
- *     I3S Laboratory - API update and bug fix
- *******************************************************************************/
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -32,16 +22,14 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gemoc.commons.eclipse.messagingsystem.api.MessagingSystem;
 import org.eclipse.gemoc.commons.eclipse.ui.ViewHelper;
 import org.eclipse.gemoc.dsl.debug.ide.adapter.IDSLCurrentInstructionListener;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ConcurrentModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ConcurrentRunConfiguration;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dsa.executors.explorer.ExhaustiveConcurrentExecutionEngine;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse.ConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.Activator;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.step.LogicalStepsView;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.StimuliManagerView;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionContext;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ISolver;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentModelExecutionContext;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentRunConfiguration;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.AbstractConcurrentLanguageExtensionPoint;
+import org.eclipse.gemoc.executionframework.engine.commons.EngineContextException;
 import org.eclipse.gemoc.executionframework.engine.core.RunConfiguration;
 import org.eclipse.gemoc.executionframework.engine.ui.launcher.AbstractGemocLauncher;
 import org.eclipse.gemoc.executionframework.extensions.sirius.services.AbstractGemocAnimatorServices;
@@ -50,37 +38,45 @@ import org.eclipse.gemoc.executionframework.ui.views.engine.EnginesStatusView;
 import org.eclipse.gemoc.xdsmlframework.api.core.EngineStatus.RunStatus;
 import org.eclipse.gemoc.xdsmlframework.api.core.ExecutionMode;
 import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionEngine;
+import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionPlatform;
 import org.eclipse.gemoc.xdsmlframework.api.engine_addon.IEngineAddon;
+import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinitionExtension;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
 
-public class Launcher extends AbstractGemocLauncher<IConcurrentExecutionContext> {
+public abstract class AbstractConcurrentLauncher<R extends IConcurrentRunConfiguration, C extends AbstractConcurrentModelExecutionContext<R, ? extends IExecutionPlatform, ? extends LanguageDefinitionExtension>>
+		extends AbstractGemocLauncher<C> {
 
 	public final static String TYPE_ID = Activator.PLUGIN_ID + ".launcher";
 
-	private ConcurrentExecutionEngine _executionEngine;
+	private AbstractConcurrentExecutionEngine<C, R> _executionEngine;
+
+	protected abstract AbstractConcurrentExecutionEngine<C, R> createEngine(R runConfiguration,
+			ExecutionMode executionMode) throws EngineContextException, CoreException;
+
+	protected abstract R createRunConfiguration(ILaunchConfiguration launchConfiguration) throws CoreException;
+
+	protected abstract Set<String> getAdditionalViewsIDs();
 
 	@Override
 	public void launch(final ILaunchConfiguration configuration, final String mode, final ILaunch launch,
 			IProgressMonitor monitor) throws CoreException {
 		try {
-			debug("About to initialize and run the GEMOC Execution Engine...");
 
 			// make sure to have the engine view when starting the engine
 			PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 				@Override
 				public void run() {
-					ViewHelper.retrieveView(StimuliManagerView.ID);
 					ViewHelper.retrieveView(EnginesStatusView.ID);
 					ViewHelper.showView(LogicalStepsView.ID);
+					for (String s : getAdditionalViewsIDs()) {
+						ViewHelper.showView(s);
+					}
 				}
 			});
-
-			// We parse the run configuration
-			final ConcurrentRunConfiguration runConfiguration = new ConcurrentRunConfiguration(configuration);
 
 			// We detect if we are running in debug mode or not
 			ExecutionMode executionMode = null;
@@ -90,29 +86,17 @@ public class Launcher extends AbstractGemocLauncher<IConcurrentExecutionContext>
 				executionMode = ExecutionMode.Run;
 			}
 
+			// We parse the run configuration
+			final R runConfiguration = createRunConfiguration(configuration);
+
 			// We stop the launch if an engine is already running for this model
 			if (isEngineAlreadyRunning(runConfiguration.getExecutedModelURI())) {
 				return;
 			}
 
-			IConcurrentExecutionContext concurrentexecutionContext = new ConcurrentModelExecutionContext(
-					runConfiguration, executionMode);
-			concurrentexecutionContext.initializeResourceModel();
-			ISolver _solver = null;
-			try {
-				_solver = concurrentexecutionContext.getLanguageDefinitionExtension().instanciateSolver();
-				_solver.prepareBeforeModelLoading(concurrentexecutionContext);
-				_solver.initialize(concurrentexecutionContext);
-			} catch (CoreException e) {
-				throw new CoreException(new Status(Status.ERROR, Activator.PLUGIN_ID,
-						"Cannot instanciate solver from language definition", e));
-			}
+			_executionEngine = createEngine(runConfiguration, executionMode);
+			debug("About to initialize and run " + _executionEngine.getName());
 
-			if (runConfiguration.getIsExhaustiveSimulation()) {
-				_executionEngine = new ExhaustiveConcurrentExecutionEngine(concurrentexecutionContext, _solver);
-			}else {
-				_executionEngine = new ConcurrentExecutionEngine(concurrentexecutionContext, _solver);
-			}
 			openViewsRecommandedByAddons(runConfiguration);
 
 			// And we start it within a dedicated job
@@ -128,7 +112,7 @@ public class Launcher extends AbstractGemocLauncher<IConcurrentExecutionContext>
 						IEngineAddon animator = AbstractGemocAnimatorServices.getAnimator();
 						_executionEngine.getExecutionContext().getExecutionPlatform().addEngineAddon(animator);
 						try {
-							Launcher.super.launch(configuration, mode, launch, monitor);
+							AbstractConcurrentLauncher.super.launch(configuration, mode, launch, monitor);
 							return new Status(IStatus.OK, getPluginID(), "Execution was launched successfully");
 						} catch (CoreException e) {
 							e.printStackTrace();
@@ -161,8 +145,8 @@ public class Launcher extends AbstractGemocLauncher<IConcurrentExecutionContext>
 		// make sure there is no other running engine on this model
 		Collection<IExecutionEngine<?>> engines = org.eclipse.gemoc.executionframework.engine.Activator
 				.getDefault().gemocRunningEngineRegistry.getRunningEngines().values();
-		for (IExecutionEngine engine : engines) {
-			IExecutionEngine observable = (IExecutionEngine) engine;
+		for (IExecutionEngine<?> engine : engines) {
+			IExecutionEngine<?> observable = (IExecutionEngine<?>) engine;
 			if (observable.getRunningStatus() != RunStatus.Stopped
 					&& observable.getExecutionContext().getResourceModel().getURI().equals(launchedModelURI)) {
 				String message = "An engine is already running on this model, please stop it first";
@@ -184,6 +168,7 @@ public class Launcher extends AbstractGemocLauncher<IConcurrentExecutionContext>
 	protected void warn(final String message) {
 		getMessagingSystem().warn(message, getPluginID());
 		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+			@Override
 			public void run() {
 				MessageDialog.openWarning(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 						"GEMOC Engine Launcher", message);
@@ -194,6 +179,7 @@ public class Launcher extends AbstractGemocLauncher<IConcurrentExecutionContext>
 	protected void error(final String message) {
 		getMessagingSystem().error(message, getPluginID());
 		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+			@Override
 			public void run() {
 				MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
 						"GEMOC Engine Launcher", message);
@@ -225,7 +211,6 @@ public class Launcher extends AbstractGemocLauncher<IConcurrentExecutionContext>
 		return EcorePackage.eINSTANCE;
 	}
 
-
 	@Override
 	protected String getDebugTargetName(ILaunchConfiguration configuration, EObject firstInstruction) {
 		return "Gemoc debug target";
@@ -250,7 +235,7 @@ public class Launcher extends AbstractGemocLauncher<IConcurrentExecutionContext>
 
 	@Override
 	public String getModelIdentifier() {
-		if (_executionEngine instanceof ConcurrentExecutionEngine)
+		if (_executionEngine instanceof AbstractConcurrentExecutionEngine)
 			return Activator.PLUGIN_ID + ".debugModel";
 		else
 			return MODEL_ID;
@@ -292,7 +277,7 @@ public class Launcher extends AbstractGemocLauncher<IConcurrentExecutionContext>
 	}
 
 	@Override
-	public IExecutionEngine getExecutionEngine() {
+	public IExecutionEngine<C> getExecutionEngine() {
 		return _executionEngine;
 	}
 

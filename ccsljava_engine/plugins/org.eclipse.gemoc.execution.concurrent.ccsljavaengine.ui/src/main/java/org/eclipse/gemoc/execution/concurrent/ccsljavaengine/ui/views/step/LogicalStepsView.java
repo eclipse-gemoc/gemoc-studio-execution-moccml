@@ -24,7 +24,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.Activator;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.SharedIcons;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.deciders.actions.PauseResumeEngineDeciderAction;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.deciders.actions.SwitchDeciderAction;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.executionframework.engine.core.GemocRunningEnginesRegistry;
 import org.eclipse.gemoc.executionframework.ui.IMSEPresenter;
 import org.eclipse.gemoc.executionframework.ui.utils.ViewUtils;
@@ -248,6 +248,7 @@ public class LogicalStepsView extends EngineSelectionDependentViewPart implement
 		_menuManager = menuManager;
 		_menuManager.setRemoveAllWhenShown(true);
 		_menuManager.addMenuListener(new IMenuListener() {
+			@Override
 			public void menuAboutToShow(IMenuManager mgr) {
 				fillContextMenu(mgr);
 			}
@@ -288,13 +289,13 @@ public class LogicalStepsView extends EngineSelectionDependentViewPart implement
 		_viewer.getControl().setFocus();
 	}
 
-	private IConcurrentExecutionEngine _currentEngine;
+	private AbstractConcurrentExecutionEngine _currentEngine;
 
 	@Override
 	public void engineSelectionChanged(IExecutionEngine<?> engine) {
-		if (engine != null && engine instanceof IConcurrentExecutionEngine
+		if (engine != null && engine instanceof AbstractConcurrentExecutionEngine
 				&& engine.getExecutionContext().getExecutionMode().equals(ExecutionMode.Animation)) {
-			_currentEngine = (IConcurrentExecutionEngine) engine;
+			_currentEngine = (AbstractConcurrentExecutionEngine) engine;
 			_viewer.setInput(_currentEngine);
 			if (_currentEngine != null && !_currentEngine.getRunningStatus().equals(RunStatus.Stopped)) {
 				TreeViewerHelper.resizeColumns(_viewer);

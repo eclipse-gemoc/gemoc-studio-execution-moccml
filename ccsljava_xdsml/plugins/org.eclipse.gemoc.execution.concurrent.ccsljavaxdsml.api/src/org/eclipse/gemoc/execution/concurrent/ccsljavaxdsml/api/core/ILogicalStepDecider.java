@@ -13,6 +13,7 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core;
 
 import java.util.List;
 
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.DeciderException;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.xdsmlframework.api.core.IDisposable;
 
@@ -28,8 +29,9 @@ public interface ILogicalStepDecider extends IDisposable
 	 * 
 	 * @param possibleLogicalSteps
 	 * @return The index of the selected logical step, -1 if no logical step selected.
+	 * @throws DeciderException 
 	 */
-	Step<?> decide(IConcurrentExecutionEngine engine, List<Step<?>> possibleLogicalSteps)  throws InterruptedException;
+	Step<?> decide(AbstractConcurrentExecutionEngine engine, List<Step<?>> possibleLogicalSteps) throws DeciderException;
 	
 	/**
 	 * Stop the decision making in progress.
