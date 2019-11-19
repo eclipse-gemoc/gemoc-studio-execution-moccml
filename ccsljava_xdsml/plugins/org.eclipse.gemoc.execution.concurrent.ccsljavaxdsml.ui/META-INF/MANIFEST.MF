@@ -60,3 +60,4 @@ Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.wizards,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.wizards.contextDSA,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.wizards.pages
+Automatic-Module-Name: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui

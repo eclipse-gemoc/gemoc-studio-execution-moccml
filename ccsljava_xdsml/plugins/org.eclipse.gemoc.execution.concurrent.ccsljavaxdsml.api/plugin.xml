@@ -15,6 +15,6 @@
 <plugin>
 
    <extension-point id="org.eclipse.gemoc.gemoc_language_workbench.deciders" name="GEMOC Decider for concurrent executable languages" schema="schema/org.eclipse.gemoc.gemoc_language_workbench.decider.exsd"/>
-   <extension-point id="org.eclipse.gemoc.gemoc_language_workbench.moccml.xdsml" name="Gemoc Moccml Language Definition" schema="schema/org.eclipse.gemoc.gemoc_language_workbench.concurrent.xdsml.exsd"/>
+   <extension-point id="org.eclipse.gemoc.gemoc_language_workbench.moccml.xdsml.addition" name="GEMOC Moccml Language Addition" schema="schema/org.eclipse.gemoc.gemoc_language_workbench.concurrent.xdsml.addition.exsd"/>
 
 </plugin>
