@@ -10,20 +10,17 @@
  *******************************************************************************/
 package org.eclipse.gemoc.example.moccml.tfsm.k3dsa;
 
-import groovy.lang.GroovyClassLoader;
-import groovy.lang.GroovyObject;
-
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
 
-import org.codehaus.groovy.runtime.InvokerInvocationException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+
+import groovy.lang.GroovyClassLoader;
+import groovy.lang.GroovyObject;
 
 
 public class GroovyRunner {
@@ -64,15 +61,11 @@ public class GroovyRunner {
 	}
 	public static Object executeScript(String expression, String absolutePathToGroovyControl){
 		if(absolutePathToGroovyControl == null) return null;
-		try {
-			GroovyObject groovyObj;
-			// use this class class loader, this isn't perfect since the script may use more classe, but this is a start ...
-			GroovyClassLoader gcl = new GroovyClassLoader(GroovyRunner.class.getClassLoader());
-			Class<?> clazz = null;
+		// use this class class loader, this isn't perfect since the script may use more classe, but this is a start ...
+		try (GroovyClassLoader gcl = new GroovyClassLoader(GroovyRunner.class.getClassLoader())){
+			Class<?> clazz =  gcl.parseClass(new File(absolutePathToGroovyControl));
 
-			clazz = gcl.parseClass(new File(absolutePathToGroovyControl));
-
-			groovyObj = (GroovyObject) clazz.newInstance();
+			GroovyObject  groovyObj = (GroovyObject) clazz.newInstance();
 			Object r = groovyObj.invokeMethod(expression, new Object[] {});
 			return r;
 		} catch (Exception e) {
