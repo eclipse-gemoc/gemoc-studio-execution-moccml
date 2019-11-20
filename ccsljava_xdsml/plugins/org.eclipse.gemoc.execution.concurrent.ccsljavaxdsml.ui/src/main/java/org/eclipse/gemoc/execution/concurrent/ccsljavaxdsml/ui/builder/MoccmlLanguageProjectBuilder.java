@@ -67,12 +67,12 @@ import com.google.common.collect.Multimap;
 //import fr.inria.diverse.melange.metamodel.melange.Language;
 //import fr.inria.diverse.melange.metamodel.melange.ModelTypingSpace;
 
-public class GemocLanguageDesignerBuilder extends IncrementalProjectBuilder {
+public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 
 	private Set<String> setAspectsWithRTDs = null;
 	Multimap<String, String> mapAspectProperties = null;
 
-	public GemocLanguageDesignerBuilder() {
+	public MoccmlLanguageProjectBuilder() {
 		return;
 	}
 
@@ -119,7 +119,7 @@ public class GemocLanguageDesignerBuilder extends IncrementalProjectBuilder {
 
 	}
 
-	public static final String BUILDER_ID = Activator.PLUGIN_ID + ".gemocLanguageDesignerBuilder";
+	public static final String BUILDER_ID = Activator.PLUGIN_ID + ".MoccmlLanguageProject";
 
 	/*
 	 * (non-Javadoc)
