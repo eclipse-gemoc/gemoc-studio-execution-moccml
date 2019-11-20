@@ -205,7 +205,7 @@
         <command
               commandId="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.addRemoveMoccmlLanguageProjectNature"
               icon="icons/IconeGemocLanguage-16.png"
-              label="Remove GEMOC Moccml Language Project Nature"
+              label="Remove GEMOC Moccml xDSML Project Nature"
               style="push">
            <visibleWhen
                  checkEnabled="false">
@@ -229,7 +229,7 @@
         <command
               commandId="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.addRemoveMoccmlLanguageProjectNature"
               icon="icons/IconeGemocLanguage-16.png"
-              label="Add GEMOC Moccml Language Project Nature"
+              label="Add GEMOC Moccml xDSML Project Nature"
               style="push">
            <visibleWhen
                  checkEnabled="false">
