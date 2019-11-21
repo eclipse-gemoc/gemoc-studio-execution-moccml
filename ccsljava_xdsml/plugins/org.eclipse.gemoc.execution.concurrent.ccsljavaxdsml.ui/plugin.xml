@@ -25,7 +25,7 @@
     <persistent value="true"/>
   </extension>
   <extension point="org.eclipse.ui.ide.projectNatureImages">
-    <image icon="icons/IconeGemocLanguage-10.png" id="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.gemocLanguageDesignerNature.image" natureId="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.gemocLanguageDesignerNature"/>
+    <image icon="icons/IconeGemocLanguage-10.png" id="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.MoccmlLanguageProjectNature.image" natureId="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.MoccmlLanguageProjectNature"/>
     <image icon="icons/IconeGemocDSE-10.png" id="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.gemocDSENature.image" natureId="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.dse_nature"/>
   </extension>
   <!-- definitions of commands -->
@@ -116,13 +116,13 @@
   </extension>
   <extension point="org.eclipse.ui.menus">
     <menuContribution allPopups="false" locationURI="popup:org.eclipse.ui.popup.any?after=xdsmlGroup">
-      <menu icon="icons/IconeGemocLanguage-16.png" id="GemocConcurrentLanguage.menu" label="GEMOC Language">
+      <menu icon="icons/IconeGemocLanguage-16.png" id="GemocMoccmlLanguage.menu" label="GEMOC Moccml xDSML">
         <command commandId="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.commands.CreateDSAProject" icon="icons/plus-16.png" label="Create DSA Project for language" style="push">
           <visibleWhen checkEnabled="false">
             <with variable="selection">
               <count value="1"/>
               <iterate ifEmpty="false">
-                <reference definitionId="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.definitions.IsSelectionInGemocConcurrentLanguageProject"/>
+                <reference definitionId="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.definitions.IsSelectionInGemocMoccmlLanguageProject"/>
               </iterate>
             </with>
           </visibleWhen>
@@ -132,7 +132,7 @@
             <with variable="selection">
               <count value="1"/>
               <iterate ifEmpty="false">
-                <reference definitionId="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.definitions.IsSelectionInGemocConcurrentLanguageProject"/>
+                <reference definitionId="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.definitions.IsSelectionInGemocMoccmlLanguageProject"/>
               </iterate>
             </with>
           </visibleWhen>
@@ -142,7 +142,7 @@
             <with variable="selection">
               <count value="1"/>
               <iterate ifEmpty="false">
-                <reference definitionId="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.definitions.IsSelectionInGemocConcurrentLanguageProject"/>
+                <reference definitionId="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.definitions.IsSelectionInGemocMoccmlLanguageProject"/>
               </iterate>
             </with>
           </visibleWhen>
@@ -258,9 +258,9 @@
     <template class="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.templates.ConcurrentTemplate" contributingId="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.templates.template1" id="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.templates.template_simple_concurrent_language" name="Simple GEMOC concurrent project"/>
   </extension>
   <extension point="org.eclipse.core.expressions.definitions">
-    <definition id="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.definitions.IsSelectionInGemocConcurrentLanguageProject">
+    <definition id="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.definitions.IsSelectionInGemocMoccmlLanguageProject">
       <adapt type="org.eclipse.core.resources.IResource">
-        <test property="org.eclipse.core.resources.projectNature " value="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.gemocLanguageDesignerNature"/>
+        <test property="org.eclipse.core.resources.projectNature " value="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.MoccmlLanguageProjectNature"/>
       </adapt>
     </definition>
   </extension>

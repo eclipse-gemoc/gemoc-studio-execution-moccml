@@ -35,7 +35,7 @@ import org.eclipse.gemoc.commons.eclipse.pde.wizards.pages.pde.ui.BaseProjectWiz
 import org.eclipse.gemoc.commons.eclipse.pde.wizards.pages.pde.ui.templates.AbstractStringWithButtonOption;
 import org.eclipse.gemoc.commons.eclipse.pde.wizards.pages.pde.ui.templates.TemplateOption;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.Activator;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.dialogs.SelectDSAIProjectDialog;
+import org.eclipse.gemoc.xdsmlframework.commons.ui.k3.dialogs.SelectDSAIProjectDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;

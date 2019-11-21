@@ -47,10 +47,12 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt,
  org.eclipse.jdt.core.manipulation,
  org.eclipse.jdt.launching,
- org.eclipse.gemoc.execution.concurrent.ccsljavaengine;bundle-version="2.3.0"
+ org.eclipse.gemoc.execution.concurrent.ccsljavaengine;bundle-version="2.3.0",
+ org.eclipse.gemoc.xdsmlframework.commons.ui.k3
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Import-Package: org.eclipse.core.filesystem
+Import-Package: org.eclipse.core.filesystem,
+ org.eclipse.gemoc.xdsmlframework.commons.ui.k3.dialogs
 Bundle-ClassPath: .
 Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.builder,
@@ -58,6 +60,5 @@ Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.dialogs,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.dse,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.wizards,
- org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.wizards.contextDSA,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.wizards.pages
 Automatic-Module-Name: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui
