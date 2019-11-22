@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 INRIA and others.
+ * Copyright (c) 2017, 2019 INRIA and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,17 +16,18 @@ import java.util.Collection;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IMoccmlExecutionPlatform;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlMSEStateController;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageDefinitionExtension;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageAdditionExtension;
 import org.eclipse.gemoc.xdsmlframework.api.core.IRunConfiguration;
+import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinitionExtension;
 
 public class MoccmlExecutionPlatform extends CodeExecutorBasedExecutionPlatform implements IMoccmlExecutionPlatform {
 
 	private Collection<IMoccmlMSEStateController> _clockControllers;
 
-	public MoccmlExecutionPlatform(MoccmlLanguageDefinitionExtension _languageDefinition,
-			IRunConfiguration runConfiguration) throws CoreException {
+	public MoccmlExecutionPlatform(MoccmlLanguageAdditionExtension _moccmlLanguageAddition,
+			LanguageDefinitionExtension _languageDefinition, IRunConfiguration runConfiguration) throws CoreException {
 		super(_languageDefinition, runConfiguration);
-		_clockControllers = _languageDefinition.instanciateMSEStateControllers();
+		_clockControllers = _moccmlLanguageAddition.instanciateMSEStateControllers();
 
 	}
 

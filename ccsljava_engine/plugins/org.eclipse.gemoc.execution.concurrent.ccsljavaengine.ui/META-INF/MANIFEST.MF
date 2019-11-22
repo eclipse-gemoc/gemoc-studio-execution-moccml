@@ -44,3 +44,4 @@ Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.filters,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.scenario,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.wizards
+Automatic-Module-Name: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui

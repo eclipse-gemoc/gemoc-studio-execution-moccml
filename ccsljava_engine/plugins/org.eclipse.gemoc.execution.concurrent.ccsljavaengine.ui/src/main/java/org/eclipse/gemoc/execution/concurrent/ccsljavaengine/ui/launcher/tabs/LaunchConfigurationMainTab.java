@@ -35,8 +35,8 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.MoccmlL
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.ICodeExecutor;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders.DeciderSpecificationExtension;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders.DeciderSpecificationExtensionPoint;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageDefinitionExtension;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageDefinitionExtensionPoint;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageAdditionExtension;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageAdditionExtensionPoint;
 import org.eclipse.gemoc.executionframework.engine.commons.DslHelper;
 import org.eclipse.gemoc.executionframework.engine.core.RunConfiguration;
 import org.eclipse.gemoc.xdsmlframework.ui.utils.dialogs.SelectAIRDIFileDialog;
@@ -319,8 +319,8 @@ public class LaunchConfigurationMainTab extends LaunchConfigurationTab {
 		super.updateLaunchConfigurationDialog();
 		// modelInitializationMethod must come from the xdsml, maybe later we would
 		// allows an "expert mode" where we will allow to change it there
-		MoccmlLanguageDefinitionExtension languageDefinitionExtPoint = new MoccmlLanguageDefinitionExtensionPoint()
-				.findDefinition(_languageCombo.getText());
+		MoccmlLanguageAdditionExtension languageDefinitionExtPoint = MoccmlLanguageAdditionExtensionPoint
+				.findMoccmlLanguageAdditionForLanguage(_languageCombo.getText());
 
 		if (languageDefinitionExtPoint != null) {
 			_modelInitializationMethodText.setText(getModelInitializationMethodName(languageDefinitionExtPoint));
@@ -331,7 +331,7 @@ public class LaunchConfigurationMainTab extends LaunchConfigurationTab {
 
 	}
 
-	protected String getModelInitializationMethodName(MoccmlLanguageDefinitionExtension languageDefinitionExtension) {
+	protected String getModelInitializationMethodName(MoccmlLanguageAdditionExtension languageDefinitionExtension) {
 
 		ICodeExecutor codeExecutor;
 		try {

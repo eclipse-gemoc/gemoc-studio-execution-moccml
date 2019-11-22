@@ -384,7 +384,7 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 		{
 			mustGenerate = true;
 		}
-		String transformationPath = context.getLanguageDefinitionExtension().getQVTOPath();
+		String transformationPath = context.getMoccmlLanguageAdditionExtension().getQVTOPath();
 		if(transformationPath != null && transformationPath.length()!=0){
 			final int bundleNameEnd=transformationPath.indexOf('/', 1);
 		    final String bundleName=transformationPath.substring(1,bundleNameEnd);

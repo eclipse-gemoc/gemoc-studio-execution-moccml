@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 INRIA and others.
+ * Copyright (c) 2017, 2019 INRIA and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,8 +19,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageDefinitionExtension;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageDefinitionExtensionPoint;
+import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinitionExtension;
+import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinitionExtensionPoint;
 
 /**
  * Property tester for context launching menu.
@@ -69,7 +69,7 @@ public class GemocConcurrentPropertyTester extends PropertyTester {
 	
 	
 	protected boolean existsDSMLWithFileExtension(String fileExtension){
-		for(MoccmlLanguageDefinitionExtension lde : new MoccmlLanguageDefinitionExtensionPoint().getSpecifications()){
+		for(LanguageDefinitionExtension lde : LanguageDefinitionExtensionPoint.getSpecifications()){
 			if( lde.getFileExtensions().contains(fileExtension)) return true;
 		}
 		
