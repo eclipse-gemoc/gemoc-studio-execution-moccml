@@ -42,7 +42,7 @@
       <Addon
             AddonGroupId="Concurrent.AddonGroup"
             Class="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.eventscheduling.trace.EventSchedulingModelExecutionTracingAddon"
-            Default="true"
+            Default="false"
             Name="MultiBranch Reflective Trace"
             ShortDescription="Trace the execution events. It is able to trace LogicalStep decisions of concurrent engine."
             id="EventSchedulingExecutionTracing.Addon">
