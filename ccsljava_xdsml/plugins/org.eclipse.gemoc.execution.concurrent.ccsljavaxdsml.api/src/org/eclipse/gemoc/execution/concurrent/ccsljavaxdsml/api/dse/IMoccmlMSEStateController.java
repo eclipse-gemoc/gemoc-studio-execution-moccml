@@ -9,14 +9,19 @@
  *     INRIA - initial API and implementation
  *     I3S Laboratory - API update and bug fix
  *******************************************************************************/
-package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core;
+package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse;
 
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ISolver;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 
-public interface IFutureAction {
 
-	ModelSpecificEvent getTriggeringMSE();
 
-	void perform();
+public interface IMoccmlMSEStateController
+{
 
+	void applyMSEFutureStates(ISolver solver);
+	void forcePresenceInTheFuture(ModelSpecificEvent mse);
+	void forceAbsenceTickInTheFuture(ModelSpecificEvent mse);
+	void freeInTheFuture(ModelSpecificEvent mse);
+	
 }

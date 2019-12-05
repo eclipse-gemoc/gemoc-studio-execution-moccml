@@ -7,18 +7,16 @@
  *
  * Contributors:
  *     INRIA - initial API and implementation
+ *     I3S Laboratory - API update and bug fix
  *******************************************************************************/
-package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.dialogs;
+package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse;
 
-import java.util.Arrays;
+import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 
-import org.eclipse.gemoc.commons.eclipse.ui.dialogs.SelectPluginIProjectWithFileExtensionDialog;
-import org.eclipse.swt.widgets.Shell;
+public interface IMoccmlFutureAction {
 
-public class SelectDSAIProjectDialog extends SelectPluginIProjectWithFileExtensionDialog {
+	ModelSpecificEvent getTriggeringMSE();
 
-	public SelectDSAIProjectDialog(Shell parentShell) {
-		super(parentShell, Arrays.asList("kp","xtend","k3sle"));
-	}
+	void perform();
 
 }

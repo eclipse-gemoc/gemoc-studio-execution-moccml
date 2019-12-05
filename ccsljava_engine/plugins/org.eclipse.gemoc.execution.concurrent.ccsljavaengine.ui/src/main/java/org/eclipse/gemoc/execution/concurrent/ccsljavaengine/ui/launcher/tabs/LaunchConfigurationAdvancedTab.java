@@ -20,7 +20,9 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.gemoc.commons.eclipse.ui.dialogs.SelectAnyIFileDialog;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ConcurrentRunConfiguration;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlRunConfiguration;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.Activator;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IMoccmlRunConfiguration;
 import org.eclipse.gemoc.executionframework.engine.core.RunConfiguration;
 import org.eclipse.gemoc.executionframework.engine.ui.launcher.tabs.AbstractLaunchConfigurationTab;
 import org.eclipse.jface.dialogs.Dialog;
@@ -89,7 +91,7 @@ public class LaunchConfigurationAdvancedTab extends AbstractLaunchConfigurationT
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		try {
-			ConcurrentRunConfiguration runConfiguration = new ConcurrentRunConfiguration(configuration);
+			IMoccmlRunConfiguration runConfiguration = new MoccmlRunConfiguration(configuration);
 			_timemodelLocationText.setText(runConfiguration.getExecutionModelPath());
 			_isExhaustive.setSelection(runConfiguration.getIsExhaustiveSimulation());
 		} catch (CoreException e) {
@@ -99,8 +101,8 @@ public class LaunchConfigurationAdvancedTab extends AbstractLaunchConfigurationT
 
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		configuration.setAttribute(ConcurrentRunConfiguration.EXTRA_TIMEMODEL_PATH, _timemodelLocationText.getText());
-		configuration.setAttribute(ConcurrentRunConfiguration.EXHAUSTIVE_MODE, _isExhaustive.getSelection());
+		configuration.setAttribute(MoccmlRunConfiguration.EXTRA_TIMEMODEL_PATH, _timemodelLocationText.getText());
+		configuration.setAttribute(MoccmlRunConfiguration.EXHAUSTIVE_MODE, _isExhaustive.getSelection());
 	}
 
 	@Override

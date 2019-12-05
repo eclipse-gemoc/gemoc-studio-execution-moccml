@@ -9,7 +9,7 @@
  *     INRIA - initial API and implementation
  *     I3S Laboratory - API update and bug fix
  *******************************************************************************/
-package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui;
+package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.deciders;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;

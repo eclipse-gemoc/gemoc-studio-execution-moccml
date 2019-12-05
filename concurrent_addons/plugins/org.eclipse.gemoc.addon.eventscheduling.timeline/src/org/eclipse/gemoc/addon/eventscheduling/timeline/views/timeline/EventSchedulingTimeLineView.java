@@ -17,10 +17,11 @@ import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gemoc.commons.eclipse.ui.Activator;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.eventscheduling.trace.EventSchedulingModelExecutionTracingAddon;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.eventscheduling.trace.ModelExecutionTracingException;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.deciders.AbstractUserDecider;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.Branch;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.Choice;
 import org.eclipse.gemoc.executionframework.ui.views.engine.IEngineSelectionListener;
@@ -251,8 +252,8 @@ public class EventSchedulingTimeLineView extends AbstractTimelineView implements
 	}
 
 	private void performExecutionStep(Step<?> logicalStep) {
-		if (_currentEngine instanceof IConcurrentExecutionEngine) {
-			IConcurrentExecutionEngine engine_cast = (IConcurrentExecutionEngine) _currentEngine;
+		if (_currentEngine instanceof MoccmlExecutionEngine) {
+			MoccmlExecutionEngine engine_cast = (MoccmlExecutionEngine) _currentEngine;
 		if (engine_cast.getLogicalStepDecider() instanceof AbstractUserDecider) {
 			AbstractUserDecider decider = (AbstractUserDecider) engine_cast
 					.getLogicalStepDecider();

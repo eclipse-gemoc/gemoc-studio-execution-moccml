@@ -7,7 +7,7 @@
     <version>2.3.0-SNAPSHOT</version>
     <packaging>pom</packaging>    
     <properties>
-		<tycho-version>1.2.0</tycho-version>
+		<tycho-version>1.5.1</tycho-version>
     	<xtend.version>2.14.0</xtend.version>
 		<project.build.sourceEncoding>UTF8</project.build.sourceEncoding>
 		<tycho.scmUrl>scm:git:https://github.com/gemoc/concurrency.git</tycho.scmUrl>
@@ -93,11 +93,6 @@
             <id>AspectJ</id>
             <layout>p2</layout>
             <url>http://download.eclipse.org/tools/ajdt/46/dev/update</url>
-        </repository>
-        <repository> <!-- this repo is used to provide jdom and jaxen plugins -->
-            <id>app4mc</id>
-            <layout>p2</layout>
-            <url>http://download.eclipse.org/app4mc/updatesites/releases/0.8.0/</url>
         </repository>
     </repositories>
 

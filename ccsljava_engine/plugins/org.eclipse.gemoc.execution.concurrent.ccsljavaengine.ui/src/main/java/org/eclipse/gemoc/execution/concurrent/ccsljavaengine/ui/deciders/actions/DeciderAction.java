@@ -13,7 +13,7 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.deciders.action
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.Activator;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders.DeciderSpecificationExtension;
 import org.eclipse.jface.action.Action;
@@ -47,8 +47,8 @@ public class DeciderAction extends Action
 		}
 	}
 
-	protected IConcurrentExecutionEngine _engine;
-	public void setEngine(IConcurrentExecutionEngine engine) {
+	protected AbstractConcurrentExecutionEngine _engine;
+	public void setEngine(AbstractConcurrentExecutionEngine engine) {
 		_engine = engine;
 	}
 	

@@ -15,7 +15,7 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.Activator;
 import org.eclipse.osgi.util.NLS;
 
-public class LauncherMessages extends NLS {
+public class MoccmlLauncherMessages extends NLS {
 	private static final String BUNDLE_NAME = Activator.PLUGIN_ID+".launcher.LauncherMessages";//$NON-NLS-1$
 
 	
@@ -35,7 +35,7 @@ public class LauncherMessages extends NLS {
 
 	static {
 		// load message values from bundle file
-		NLS.initializeMessages(BUNDLE_NAME, LauncherMessages.class);
+		NLS.initializeMessages(BUNDLE_NAME, MoccmlLauncherMessages.class);
 	}
 
 

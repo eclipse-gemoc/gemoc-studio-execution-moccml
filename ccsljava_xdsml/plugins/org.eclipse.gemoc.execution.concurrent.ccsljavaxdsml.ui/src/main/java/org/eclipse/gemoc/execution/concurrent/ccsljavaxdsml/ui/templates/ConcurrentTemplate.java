@@ -35,7 +35,7 @@ import org.eclipse.gemoc.commons.eclipse.pde.wizards.pages.pde.ui.BaseProjectWiz
 import org.eclipse.gemoc.commons.eclipse.pde.wizards.pages.pde.ui.templates.AbstractStringWithButtonOption;
 import org.eclipse.gemoc.commons.eclipse.pde.wizards.pages.pde.ui.templates.TemplateOption;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.Activator;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.dialogs.SelectDSAIProjectDialog;
+import org.eclipse.gemoc.xdsmlframework.commons.ui.k3.dialogs.SelectDSAIProjectDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
@@ -49,7 +49,7 @@ import org.osgi.framework.BundleException;
 import fr.inria.diverse.melange.ui.wizards.pages.NewMelangeProjectWizardFields;
 
 public class ConcurrentTemplate extends JavaxdsmlTemplateSection {
-	public static final String KEY_MELANGE_FILE_NAME = "melangeFileName"; //$NON-NLS-1$
+	public static final String KEY_DSL_FILE_NAME = "dslFileName"; //$NON-NLS-1$
 	public static final String KEY_ASPECTCLASS_POSTFIX = "aspectClassPostfix"; //$NON-NLS-1$
 	public static final String KEY_LANGUAGE_NAME = "languageName"; //$NON-NLS-1$
 	public static final String METAMODEL_NAME = "MyLanguage"; //$NON-NLS-1$
@@ -92,7 +92,7 @@ public class ConcurrentTemplate extends JavaxdsmlTemplateSection {
 		
 
 		addBlankField(0);
-		addOption(KEY_MELANGE_FILE_NAME, WizardTemplateMessages.ConcurrentLanguageTemplate_melangeFileName, 
+		addOption(KEY_DSL_FILE_NAME, WizardTemplateMessages.ConcurrentLanguageTemplate_melangeFileName, 
 				WizardTemplateMessages.ConcurrentLanguageTemplate_melangeFileNameTooltip, 
 				WizardTemplateMessages.ConcurrentLanguageTemplate_melangeDefaultFileName, 0);
 
@@ -226,6 +226,7 @@ public class ConcurrentTemplate extends JavaxdsmlTemplateSection {
 		
 	}
 	
+	@Override
 	public void addPages(Wizard wizard) {
 		WizardPage page = createPage(0, IHelpContextIds.TEMPLATE_CONCURRENT_SINGLE_LANGUAGE);
 		page.setTitle(WizardTemplateMessages.ConcurrentLanguageTemplate_title);
@@ -234,6 +235,7 @@ public class ConcurrentTemplate extends JavaxdsmlTemplateSection {
 		markPagesAdded();
 	}
 
+	@Override
 	public boolean isDependentOnParentWizard() {
 		return true;
 	}
@@ -247,12 +249,13 @@ public class ConcurrentTemplate extends JavaxdsmlTemplateSection {
 			else if(option.getName().equals(KEY_LANGUAGE_NAME) && languageName != null){
 				option.setValue(languageName);
 			}
-			else if(option.getName().equals(KEY_MELANGE_FILE_NAME) && fileName != null){
+			else if(option.getName().equals(KEY_DSL_FILE_NAME) && fileName != null){
 				option.setValue(fileName);
 			}
 		}
 	}
 	
+	@Override
 	protected void initializeFields(BaseProjectWizardFields data) {
 		final String projectName = ((NewMelangeProjectWizardFields)data).projectName;
 		String packageName = inferPackageNameFromProjectName(projectName);
@@ -305,6 +308,7 @@ public class ConcurrentTemplate extends JavaxdsmlTemplateSection {
 		}
 	}
 
+	@Override
 	public String getUsedExtensionPoint() {
 		return "org.eclipse.ui.actionSets"; //$NON-NLS-1$
 	}

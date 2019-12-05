@@ -17,7 +17,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,17 +39,15 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.emf.transaction.impl.InternalTransactionalEditingDomain;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.ConcurrentModelExecutionContext;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.concurrentmse.FeedbackMSE;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare.Activator;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionContext;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils.ccsl.QvtoTransformationPerformer;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ActionModel;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericSmallStep;
-import org.eclipse.gemoc.trace.commons.model.generictrace.GenericStep;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenerictraceFactory;
 import org.eclipse.gemoc.trace.commons.model.trace.MSE;
 import org.eclipse.gemoc.trace.commons.model.trace.MSEModel;
@@ -68,7 +65,6 @@ import fr.inria.aoste.timesquare.ccslkernel.runtime.exceptions.NoBooleanSolution
 import fr.inria.aoste.timesquare.ccslkernel.runtime.exceptions.SimulationException;
 import fr.inria.aoste.timesquare.ccslkernel.solver.exception.SolverException;
 import fr.inria.aoste.timesquare.ccslkernel.solver.launch.CCSLKernelSolverWrapper;
-import fr.inria.aoste.timesquare.ccslkernel.solver.priorities.PrioritySolver;
 import fr.inria.aoste.timesquare.instantrelation.CCSLRelationModel.OccurrenceRelation;
 import fr.inria.aoste.timesquare.instantrelation.listener.RelationModelListener;
 import fr.inria.aoste.timesquare.simulationpolicy.maxcardpolicy.MaxCardSimulationPolicy;
@@ -83,7 +79,7 @@ import fr.inria.aoste.trace.relation.IDescription;
  * Implementation of the ISolver dedicated to CCSL.
  * 
  */
-public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ISolver {
+public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver {
 
 	protected CCSLKernelSolverWrapper solverWrapper = null;
 	protected URI solverInputURI = null;
@@ -357,20 +353,20 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 	
 	
 	@Override
-	public void initialize(IConcurrentExecutionContext context) 
+	public void initialize(AbstractConcurrentModelExecutionContext context) 
 	{
-		if (context instanceof ConcurrentModelExecutionContext){
-			_alternativeExecutionModelPath = ((ConcurrentModelExecutionContext)context).alternativeExecutionModelPath;
+		if (context instanceof MoccmlModelExecutionContext){
+			_alternativeExecutionModelPath = ((MoccmlModelExecutionContext)context).alternativeExecutionModelPath;
 		}
 		createSolver(context);
 	}
 	
 	@Override
-	public void prepareBeforeModelLoading(IConcurrentExecutionContext context) 
+	public void prepareBeforeModelLoading(AbstractConcurrentModelExecutionContext context) 
 	{
-		generateMoC(context);
+		generateMoC((MoccmlModelExecutionContext)context);
 	}
-	private void generateMoC(IConcurrentExecutionContext context) 
+	private void generateMoC(MoccmlModelExecutionContext context) 
 	{
 		IExecutionWorkspace workspace = context.getWorkspace();
 		boolean mustGenerate = false;
@@ -388,7 +384,7 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 		{
 			mustGenerate = true;
 		}
-		String transformationPath = context.getLanguageDefinitionExtension().getQVTOPath();
+		String transformationPath = context.getMoccmlLanguageAdditionExtension().getQVTOPath();
 		if(transformationPath != null && transformationPath.length()!=0){
 			final int bundleNameEnd=transformationPath.indexOf('/', 1);
 		    final String bundleName=transformationPath.substring(1,bundleNameEnd);
@@ -446,7 +442,7 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 	/**
 	 * generates a MSEModel that wraps the FeedbackModel used by Timesquare
 	 */
-	private void generateMSEModel(final IConcurrentExecutionContext context){
+	private void generateMSEModel(final AbstractConcurrentModelExecutionContext context){
 		final URI feedbackURI = URI.createPlatformResourceURI(getFeedbackPathFromMSEModelPath(context.getWorkspace().getMSEModelPath()).toString(), true);
 		final URI mseModelURI = URI.createPlatformResourceURI(context.getWorkspace().getMSEModelPath().toString(), true);
 		

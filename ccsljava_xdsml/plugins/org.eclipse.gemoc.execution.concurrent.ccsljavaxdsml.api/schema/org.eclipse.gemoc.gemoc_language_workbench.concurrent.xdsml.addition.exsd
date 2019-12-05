@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.gemoc.executionengine.ccsljava.api" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="org.eclipse.gemoc.executionengine.ccsljava.api" id="org.eclipse.gemoc.gemoc_language_workbench.concurrent.xdsml" name="Gemoc Concurrent Language Definition"/>
+         <meta.schema plugin="org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api" id="org.eclipse.gemoc.gemoc_language_workbench.moccml.xdsml.addition" name="GEMOC Moccml Language Definition"/>
       </appinfo>
       <documentation>
-         Extension for Gemoc concurrent executable language. It is designed to be compatible with the &quot;org.eclipse.gemoc.gemoc_language_workbench.xdsml&quot; extension point and reproduce all its contents + concurrent specific fields.
+         Extension addition for GEMOC Moccml executable language. It adds new moccml specific fields to the &quot;org.eclipse.gemoc.gemoc_language_workbench.xdsml&quot; extension point.
       </documentation>
    </annotation>
 
@@ -18,7 +18,7 @@
       </annotation>
       <complexType>
          <choice>
-            <element ref="XDSML_Definition"/>
+            <element ref="MOCCML_XDSML_Addition"/>
          </choice>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -47,28 +47,29 @@
       </complexType>
    </element>
 
-   <element name="XDSML_Definition">
+   <element name="MOCCML_XDSML_Addition">
+      <annotation>
+         <documentation>
+            This Extension points complements a XDSML defintion with informations useful for MOCCML.
+         </documentation>
+      </annotation>
       <complexType>
          <sequence minOccurs="0" maxOccurs="1">
             <sequence minOccurs="0" maxOccurs="unbounded">
-               <element ref="EngineAddon_Definition"/>
-            </sequence>
-            <sequence minOccurs="0" maxOccurs="unbounded">
                <element ref="MSE_State_Controller_Definition"/>
             </sequence>
-            <element ref="XDSML_Definition_Customization" minOccurs="0" maxOccurs="1"/>
          </sequence>
          <attribute name="name" type="string" use="required">
             <annotation>
                <documentation>
-                  Name of the XDSML language
+                  Name of the addtion ( most of the time this should be the same as the referencedXDSML
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="xdsmlFilePath" type="string" use="required">
+         <attribute name="referencedXDSMLName" type="string" use="required">
             <annotation>
                <documentation>
-                  Path to the xdsml configuration file. (Usually in a plugin, so it should be prefixed by platform:/plugin to load the resource)
+                  Name of the XDSML language that is extended with this extension point addition
                </documentation>
             </annotation>
          </attribute>
@@ -88,17 +89,7 @@
                   A Solver implementation, which has a facility to &quot;compile&quot; the Domain-Specific Events specification file into its own input file format. It should be able to produce a scheduling trace conforming to the RT-Simex Trace Metamodel (fr.inria.aoste.trace).
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.gemoc.gemoc_language_workbench.api.moc.ISolver"/>
-               </appinfo>
-            </annotation>
-         </attribute>
-         <attribute name="modelLoader_class" type="string">
-            <annotation>
-               <documentation>
-                  Optional ModelLoader, in case the user does not want to use XMI-compliant formats for their model...
-               </documentation>
-               <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.gemoc.gemoc_language_workbench.api.core.IModelLoader"/>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ISolver"/>
                </appinfo>
             </annotation>
          </attribute>
@@ -112,24 +103,6 @@
       </complexType>
    </element>
 
-   <element name="EngineAddon_Definition">
-      <complexType>
-         <attribute name="engineAddon_class" type="string">
-            <annotation>
-               <documentation>
-                  This class allows to hook some code to some phase of the Gemoc engine.
-The hooked code will be run at the appropriate time by the engine.
-This can be used for example to initialize some dsl specific GUI or to monitor the engine.
-This is optional, if not set, the engine will ignore it.
-               </documentation>
-               <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.gemoc.gemoc_language_workbench.api.engine_addon.IEngineAddon"/>
-               </appinfo>
-            </annotation>
-         </attribute>
-      </complexType>
-   </element>
-
    <element name="MSE_State_Controller_Definition">
       <complexType>
          <attribute name="MSE_State_Controller_Class" type="string">
@@ -138,26 +111,8 @@ This is optional, if not set, the engine will ignore it.
                   
                </documentation>
                <appinfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.gemoc.gemoc_language_workbench.api.dse.IMSEStateController"/>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlMSEStateController"/>
                </appinfo>
-            </annotation>
-         </attribute>
-      </complexType>
-   </element>
-
-   <element name="XDSML_Definition_Customization">
-      <annotation>
-         <documentation>
-            This optional enty allow to define custumization elemnet for th XDSML definition
-If some element are redefined here, they overide the value that is in the main XSDML_Definition
-         </documentation>
-      </annotation>
-      <complexType>
-         <attribute name="fileExtensions" type="string">
-            <annotation>
-               <documentation>
-                  coma separated list of file extensions supported for this xDSML (ie. file extensions with a editor) they will be used to enable the &quot;Debug as&quot; popup on files with this extension.
-               </documentation>
             </annotation>
          </attribute>
       </complexType>

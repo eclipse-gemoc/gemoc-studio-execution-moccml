@@ -13,20 +13,21 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse;
 
 import java.util.function.Consumer;
 
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionContext;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 
 public abstract class OperationExecution {
 
 	private SmallStep<?> smallStep;
-	private IConcurrentExecutionEngine _engine;
+	private AbstractConcurrentExecutionEngine _engine;
 	private Object _result;
 	private Consumer<Step<?>> beforeStepCallback;
 	private Runnable afterStepCallback;
 
-	protected OperationExecution(SmallStep<?> smallStep, IConcurrentExecutionEngine engine,
+	protected OperationExecution(SmallStep<?> smallStep, AbstractConcurrentExecutionEngine engine,
 			Consumer<Step<?>> beforeStepCallback, Runnable afterStepCallback) {
 		this.smallStep = smallStep;
 		_engine = engine;
@@ -42,13 +43,13 @@ public abstract class OperationExecution {
 		afterStepCallback.run();
 	}
 
-	abstract public void run();
+	abstract public void run() throws CodeExecutionException;
 
-	protected IConcurrentExecutionContext getExecutionContext() {
-		return _engine.getConcurrentExecutionContext();
+	protected MoccmlModelExecutionContext getExecutionContext() {
+		return (MoccmlModelExecutionContext) _engine.getExecutionContext();
 	}
 
-	protected IConcurrentExecutionEngine getEngine() {
+	protected AbstractConcurrentExecutionEngine getEngine() {
 		return _engine;
 	}
 

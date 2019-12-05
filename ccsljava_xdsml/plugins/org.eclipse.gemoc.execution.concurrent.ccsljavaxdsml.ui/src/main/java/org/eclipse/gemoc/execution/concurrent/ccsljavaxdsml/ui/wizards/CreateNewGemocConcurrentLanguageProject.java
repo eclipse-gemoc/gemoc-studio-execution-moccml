@@ -11,10 +11,13 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.wizards;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.gemoc.commons.eclipse.core.resources.IProjectUtils;
 import org.eclipse.gemoc.commons.eclipse.pde.wizards.pages.pde.TemplateListSelectionPage;
 import org.eclipse.gemoc.commons.eclipse.pde.wizards.pages.pde.WizardElement;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.builder.ToggleNatureAction;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.Activator;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.builder.MoccmlLanguageProjectNature;
 import org.eclipse.pde.internal.ui.elements.ElementList;
 import org.eclipse.swt.widgets.Composite;
 
@@ -41,7 +44,11 @@ public class CreateNewGemocConcurrentLanguageProject extends NewMelangeProjectWi
 	@Override
 	public void configureProject(IProject project, IProgressMonitor monitor) {
 		super.configureProject(project, monitor);
-		new ToggleNatureAction().toggleNature(project);
+		try {
+			IProjectUtils.addNature(project, MoccmlLanguageProjectNature.NATURE_ID);
+		} catch (CoreException e) {
+			Activator.error(e.getMessage(), e);
+		}
 	}
 	
 	/**

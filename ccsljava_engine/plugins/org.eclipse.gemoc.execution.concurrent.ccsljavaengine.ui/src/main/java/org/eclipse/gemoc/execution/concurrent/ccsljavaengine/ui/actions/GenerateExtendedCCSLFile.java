@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 INRIA and others.
+ * Copyright (c) 2017, 2019 INRIA and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,10 +13,12 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.actions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.ConcurrentLanguageDefinitionExtension;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.ConcurrentLanguageDefinitionExtensionPoint;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageAdditionExtension;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageAdditionExtensionPoint;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinitionExtension;
+import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinitionExtensionPoint;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -31,77 +33,64 @@ public class GenerateExtendedCCSLFile extends GenerateExtendedCCSLFileAction {
 	/**
 	 * Constructor for Action1.
 	 */
-	public GenerateExtendedCCSLFile() 
-	{
+	public GenerateExtendedCCSLFile() {
 		super();
 	}
-	
+
 	@Override
-	protected String getTransformationURI() 
-	{
-		//use the extension of the model file
-		String fileExtension = modelUriString.substring(
-												modelUriString.lastIndexOf('.') + 1, 
-												modelUriString.length());
-			
-		List<ConcurrentLanguageDefinitionExtension> applicableLanguageDefinitions = new ArrayList<ConcurrentLanguageDefinitionExtension>();
-		for(ConcurrentLanguageDefinitionExtension lde : ConcurrentLanguageDefinitionExtensionPoint.getSpecifications()){
-			// select only applicable languages for the file extension
-			if(lde.getFileExtensions().contains(fileExtension)){
-				applicableLanguageDefinitions.add(lde);
-			}
-		}
-		
-		ConcurrentLanguageDefinitionExtension selectedLanguageDefinition= null;
-		if (applicableLanguageDefinitions.size() == 0)
-		{
-			MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), 
-													"No applicable language found",
-													null,
-													"No applicable language found for file extension " + fileExtension + ".",
-													MessageDialog.ERROR,
-													new String[0],
-													-1);
+	protected String getTransformationURI() {
+		// use the extension of the model file
+		String fileExtension = modelUriString.substring(modelUriString.lastIndexOf('.') + 1, modelUriString.length());
+		// find languages that also have a moccml addition
+		List<LanguageDefinitionExtension> applicableLanguageDefinitions = LanguageDefinitionExtensionPoint
+				.getSpecifications().stream().filter(lde -> lde.getFileExtensions().contains(fileExtension))
+				.filter(lde -> MoccmlLanguageAdditionExtensionPoint
+						.findMoccmlLanguageAdditionForLanguage(lde.getName()) != null)
+				.collect(Collectors.toList());
+
+		LanguageDefinitionExtension selectedLanguageDefinition = null;
+		if (applicableLanguageDefinitions.size() == 0) {
+			MessageDialog dialog = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+					"No applicable language found", null,
+					"No applicable language found for file extension " + fileExtension + ".", MessageDialog.ERROR,
+					new String[0], -1);
 			dialog.open();
 			return null;
-		}
-		else if(applicableLanguageDefinitions.size() == 1){
+		} else if (applicableLanguageDefinitions.size() == 1) {
 			selectedLanguageDefinition = applicableLanguageDefinitions.get(0);
 		} else {
-			
-			
-			ListDialog dialog = new ListDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell()); 
-			
+
+			ListDialog dialog = new ListDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
+
 			dialog.setContentProvider(new ArrayContentProvider());
 			dialog.setTitle("Language selection");
 			dialog.setMessage("Which language do you want to use");
 			dialog.setLabelProvider(new ArrayLabelProvider());
 			List<Object[]> input = new ArrayList<Object[]>();
-			for(LanguageDefinitionExtension lde :applicableLanguageDefinitions){
-				input.add(new Object[]{lde.getName(),lde});
+			for (LanguageDefinitionExtension lde : applicableLanguageDefinitions) {
+				input.add(new Object[] { lde.getName(), lde });
 			}
 			dialog.setInput(input);
 			// user pressed cancel
 			if (dialog.open() != Window.OK) {
-			    return null;
+				return null;
 			}
 			Object[] result = dialog.getResult();
-			if(result.length == 0){
-				MessageDialog dialog2 = new MessageDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), 
-						"Please select a language",
-						null,
-						"Please select a language for file extension " + fileExtension + ".",
-						MessageDialog.ERROR,
-						new String[0],
-						-1);
+			if (result.length == 0) {
+				MessageDialog dialog2 = new MessageDialog(
+						PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Please select a language",
+						null, "Please select a language for file extension " + fileExtension + ".", MessageDialog.ERROR,
+						new String[0], -1);
 				dialog2.open();
 				return null;
 			}
-			Object[] selected = ((Object[])result[0]);
-			selectedLanguageDefinition = (ConcurrentLanguageDefinitionExtension) selected[1];
+			Object[] selected = ((Object[]) result[0]);
+			selectedLanguageDefinition = (LanguageDefinitionExtension) selected[1];
 		}
-		
-		String uri = selectedLanguageDefinition.getQVTOPath();
+
+		MoccmlLanguageAdditionExtension moccmlAddition = MoccmlLanguageAdditionExtensionPoint
+				.findMoccmlLanguageAdditionForLanguage(selectedLanguageDefinition.getName());
+		String uri = moccmlAddition.getQVTOPath();
 		if (!uri.startsWith("platform:/plugin"))
 			uri = "platform:/plugin" + uri;
 		return uri;
@@ -111,25 +100,23 @@ public class GenerateExtendedCCSLFile extends GenerateExtendedCCSLFileAction {
 	protected String getMoCFileExtension() {
 		return "extendedCCSL";
 	}
-	
-	
-	static class ArrayLabelProvider extends LabelProvider implements ITableLabelProvider{
+
+	static class ArrayLabelProvider extends LabelProvider implements ITableLabelProvider {
 		public String getText(Object element) {
-		return ((Object[]) element)[0].toString();
+			return ((Object[]) element)[0].toString();
 		}
-		
+
 		@Override
 		public Image getColumnImage(Object element, int columnIndex) {
-		return null;
+			return null;
 		}
-		 
+
 		@Override
 		public String getColumnText(Object element, int columnIndex) {
 			Object[] ss = (Object[]) element;
-		return ss[columnIndex].toString();
+			return ss[columnIndex].toString();
 		}
-		 
-		}
-	
+
+	}
 
 }
