@@ -15,14 +15,14 @@
 
    <extension
          point="org.eclipse.gemoc.gemoc_language_workbench.engine_addon">
-      <Addon
-            AddonGroupId="Concurrent.AddonGroup"
-            Class="org.eclipse.gemoc.addon.papyrusmodelanimator.PapyrusAnimatorBehaviorManager"
-            Default="false"
-            Name="Papyrus Model Animator"
-            ShortDescription="Crude animation of papyrus models when the DSL is based on UML"
+      <addon
+            addonGroupId="Concurrent.AddonGroup"
+            class="org.eclipse.gemoc.addon.papyrusmodelanimator.PapyrusAnimatorBehaviorManager"
+            default="false"
+            name="Papyrus Model Animator"
+            shortDescription="Crude animation of papyrus models when the DSL is based on UML"
             id="papyrus_animator">
-      </Addon>
+      </addon>
    </extension>
 
 </plugin>
