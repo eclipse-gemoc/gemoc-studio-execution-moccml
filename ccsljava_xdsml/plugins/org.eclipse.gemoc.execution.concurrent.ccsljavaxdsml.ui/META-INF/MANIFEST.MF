@@ -59,6 +59,8 @@ Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.commands,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.dialogs,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.dse,
+ org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.editor,
+ org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.templates,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.wizards,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.wizards.pages
 Automatic-Module-Name: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui
