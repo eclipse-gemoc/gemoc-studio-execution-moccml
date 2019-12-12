@@ -49,8 +49,8 @@
         <repository>
             <id>timesquare</id>
             <layout>p2</layout>
-            <url>http://www.i3s.unice.fr/~deantoni/photon/</url>
-<!--             <url>http://timesquare.inria.fr/update_site/photon</url> -->
+            <!-- <url>http://www.i3s.unice.fr/~deantoni/photon/</url> -->
+            <url>http://timesquare.inria.fr/update_site/photon</url>
         </repository>
 		<repository>
             <id>kermeta-3</id>
@@ -65,7 +65,7 @@
         <repository>
             <id>Sirius</id>
             <layout>p2</layout>
-            <url>http://download.eclipse.org/sirius/updates/releases/6.0.2/photon</url>
+            <url>http://download.eclipse.org/sirius/updates/releases/6.1.3/photon</url>
         </repository>
         <repository>
             <id>nebula</id>
