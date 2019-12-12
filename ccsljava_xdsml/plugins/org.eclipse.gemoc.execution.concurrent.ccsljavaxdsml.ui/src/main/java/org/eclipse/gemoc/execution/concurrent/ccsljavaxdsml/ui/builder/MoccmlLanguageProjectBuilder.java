@@ -491,7 +491,7 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 		helper.saveDocument(pluginfile);
 	}
 
-	protected void setPluginLanguageNameAndFilePath(IProject project, final IFile melangeFile, String languageName) {
+	protected void setPluginLanguageNameAndFilePath(IProject project, final IFile dslFile, String languageName) {
 		IFile pluginfile = project.getFile(PluginXMLHelper.PLUGIN_FILENAME);
 		PluginXMLHelper.createEmptyTemplateFile(pluginfile, false);
 		PluginXMLHelper helper = new PluginXMLHelper();
@@ -503,7 +503,7 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 		helper.updateXDSMLDefinitionInExtensionPoint(gemocLangExtensionPoint, languageName);
 		helper.updateXDSMLDefinitionAttributeInExtensionPoint(gemocLangExtensionPoint,
 				LanguageDefinitionExtensionPoint.GEMOC_LANGUAGE_EXTENSION_POINT_XDSML_DEF_XDSML_FILE_PATH_ATT,
-				project.getFullPath().toString() + "/" + melangeFile.getProjectRelativePath());
+				dslFile.getFullPath().toString());
 
 		// update moccml addition
 		Element moccmlAdditionExtensionPoint = helper.getOrCreateExtensionPoint(
