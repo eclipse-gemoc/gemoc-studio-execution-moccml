@@ -119,7 +119,7 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 
 	}
 
-	public static final String BUILDER_ID = Activator.PLUGIN_ID + ".MoccmlLanguageProject";
+	public static final String BUILDER_ID = Activator.PLUGIN_ID + ".MoccmlLanguageProjectBuilder";
 
 	/*
 	 * (non-Javadoc)
