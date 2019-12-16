@@ -25,26 +25,6 @@
 
 ---
 
-## v3.2.0-20191213 (01/01/1970)
-
-#### Enhancements:
-
-- [**enhancement**] Make EventSchedulingModelExecutionTracingAddon not default [#28](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/28)
-- [**enhancement**] Clarifies Eclipse consoles used by the engines [#17](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/17)
-
-#### Refactorings
-
-- [**refactoring**] Add DefaultConcurrentModelExecutionContext [#27](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/27)
-- [**refactoring**] Use general extension point + nature and builder refactoring [#25](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/25)
-- [**refactoring**] Simplify concurrent API [#20](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/20)
-
-#### Release Engineering
-
-- [**releng**] Tycho 1.5 and p2 dependencies optimisation [#29](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/29)
-- [**releng**] Remove deprecated update site [#23](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/23)
-
----
-
 ## v3.1.0 (29/07/2019)
 *No changelog for this release.*
 
