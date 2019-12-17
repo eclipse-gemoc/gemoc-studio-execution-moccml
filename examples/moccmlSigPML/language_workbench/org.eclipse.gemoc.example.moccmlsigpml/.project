@@ -31,7 +31,7 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.MoccmlLanguageProject</name>
+			<name>org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.MoccmlLanguageProjectBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
