@@ -39,6 +39,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.langu
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageAdditionExtensionPoint;
 import org.eclipse.gemoc.executionframework.engine.commons.DslHelper;
 import org.eclipse.gemoc.executionframework.engine.core.RunConfiguration;
+import org.eclipse.gemoc.executionframework.engine.ui.launcher.tabs.AbstractLaunchConfigurationTab;
 import org.eclipse.gemoc.xdsmlframework.ui.utils.dialogs.SelectAIRDIFileDialog;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.osgi.util.NLS;
@@ -57,7 +58,7 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-public class LaunchConfigurationMainTab extends LaunchConfigurationTab {
+public class LaunchConfigurationMainTab extends AbstractLaunchConfigurationTab {
 
 	protected Composite _parent;
 

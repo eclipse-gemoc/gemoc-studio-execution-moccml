@@ -27,25 +27,25 @@
       </DeciderSpecification>
    </extension>
    <extension
-         point="org.eclipse.gemoc.gemoc_language_workbench.engine_addon">
-      <AddonGroup
-            Name="General"
+         point="org.eclipse.gemoc.gemoc_language_workbench.engine_addon_group">
+      <addonGroup
+            name="General"
             id="General.AddonGroup">
-      </AddonGroup>
-      <AddonGroup
-            Name="Concurrent"
+      </addonGroup>
+      <addonGroup
+            name="Concurrent"
             id="Concurrent.AddonGroup">
-      </AddonGroup>
+      </addonGroup>
    </extension>
    <extension
          point="org.eclipse.gemoc.gemoc_language_workbench.engine_addon">
-      <Addon
-            AddonGroupId="Concurrent.AddonGroup"
-            Class="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.eventscheduling.trace.EventSchedulingModelExecutionTracingAddon"
-            Default="false"
-            Name="MultiBranch Reflective Trace"
-            ShortDescription="Trace the execution events. It is able to trace LogicalStep decisions of concurrent engine."
+      <addon
+            addonGroupId="Concurrent.AddonGroup"
+            class="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.eventscheduling.trace.EventSchedulingModelExecutionTracingAddon"
+            default="false"
+            name="MultiBranch Reflective Trace"
+            shortDescription="Trace the execution events. It is able to trace LogicalStep decisions of concurrent engine."
             id="EventSchedulingExecutionTracing.Addon">
-      </Addon>
+      </addon>
    </extension>
 </plugin>

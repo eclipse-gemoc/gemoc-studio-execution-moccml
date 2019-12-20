@@ -15,14 +15,14 @@
 
    <extension
          point="org.eclipse.gemoc.gemoc_language_workbench.engine_addon">
-      <Addon
-            AddonGroupId="Concurrent.AddonGroup"
-            Class="org.eclipse.gemoc.addon.vcdgenerator.manager.VCDGeneratorManager"
-            Default="false"
-            Name="VCD visualization"
-            ShortDescription="Open a Value Change Dump view that displays when the MSE are triggered."
+      <addon
+            addonGroupId="Concurrent.AddonGroup"
+            class="org.eclipse.gemoc.addon.vcdgenerator.manager.VCDGeneratorManager"
+            default="false"
+            name="VCD visualization"
+            shortDescription="Open a Value Change Dump view that displays when the MSE are triggered."
             id="VCD_Visualization">
-      </Addon>
+      </addon>
    </extension>
 
 </plugin>
