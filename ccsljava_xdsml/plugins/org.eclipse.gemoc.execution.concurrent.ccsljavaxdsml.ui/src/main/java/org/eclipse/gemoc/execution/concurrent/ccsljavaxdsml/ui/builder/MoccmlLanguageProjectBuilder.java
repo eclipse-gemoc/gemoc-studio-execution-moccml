@@ -11,10 +11,14 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.builder;
 
 import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +74,7 @@ import com.google.common.collect.Multimap;
 public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 
 	private Set<String> setAspectsWithRTDs = null;
+	HashMap<String, String> mapAspectizedClass = new HashMap<String, String>(); // key the aspectClass name, value the aspectized class 
 	Multimap<String, String> mapAspectProperties = null;
 
 	public MoccmlLanguageProjectBuilder() {
@@ -249,7 +254,7 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 			int i = 0;
 			for (String property : mapAspectProperties.get(aspect)) {
 				sbContent.append("\t\t\t\tAttributeNameToValue n2v" + i + " = new AttributeNameToValue(\"" + property
-						+ "\", " + languageToUpperFirst + "RTDAccessor.get" + property + "(elem));\n"
+						+ "\", " + languageToUpperFirst + "RTDAccessor.get" + toUpperFirst(property) + "(("+ mapAspectizedClass.get(aspect)+")elem));\n"
 						+ "\t\t\t\telemState.getSavedRTDs().add(n2v" + i + ");\n");
 				i++;
 			}
@@ -303,13 +308,14 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 			}
 			char[][] typeNames = new char[][] { simpleName.toCharArray() };
 
-			IType aspectIType = findAnyTypeInWorkspace(qualifications, typeNames);
-			if (aspectIType == null) {
+			IType aspectPropertiesIType = findAnyTypeInWorkspace(qualifications, typeNames);
+			if (aspectPropertiesIType == null) {
 				System.err.println("type \"" + simpleName + "\" not found");
 				continue;
 			}
+			
 
-			IJavaProject aspectProject = aspectIType.getJavaProject();
+			IJavaProject aspectProject = aspectPropertiesIType.getJavaProject();
 			String[] classPathEntries = JavaRuntime.computeDefaultRuntimeClassPath(aspectProject);
 
 			List<URL> urlList = new ArrayList<URL>();
@@ -323,9 +329,32 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 			ClassLoader parentClassLoader = aspectProject.getClass().getClassLoader();
 			URL[] urls = (URL[]) urlList.toArray(new URL[urlList.size()]);
 			URLClassLoader classLoader = new URLClassLoader(urls, parentClassLoader);
-			Class<?> aspectClass = classLoader.loadClass(aspectIType.getFullyQualifiedName());
-
-			IJavaElement[] allChildren = aspectIType.getChildren();
+			Class<?> aspectPropertiesClass = classLoader.loadClass(aspectPropertiesIType.getFullyQualifiedName());
+			
+			String aspectizedClassName = "";
+			Class<?> aspectClass = classLoader.loadClass(originalAspectClassName);
+			// we are working in a separate classloader so a simple
+			// Class<?> aspectizedClass = aspectClass.getAnnotation(fr.inria.diverse.k3.al.annotationprocessor.Aspect.class).className();
+			// will not work
+			// use reflexivity instead in order to get the values
+			for( Annotation annot : aspectClass.getAnnotations()) {
+				if(annot.annotationType().getCanonicalName().equals("fr.inria.diverse.k3.al.annotationprocessor.Aspect")) {
+					
+					try {
+						Method methodClassName = annot.getClass().getMethod("className");
+						Object o = methodClassName.invoke(annot);
+						Method methodGetCanonicalName = o.getClass().getMethod("getCanonicalName");
+						aspectizedClassName = (String)methodGetCanonicalName.invoke(o);
+						mapAspectizedClass.put(originalAspectClassName, aspectizedClassName);
+						break;
+					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
+				}
+			}
+			
+			IJavaElement[] allChildren = aspectPropertiesIType.getChildren();
 			for (int i = 0; i < allChildren.length; i++) {
 				IJavaElement javaElem = allChildren[i];
 				if (javaElem instanceof SourceField) {
@@ -335,7 +364,7 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 
 					try {
 						String fieldName = f.getElementName();
-						Type fieldType = aspectClass.getField(fieldName).getType();
+						Type fieldType = aspectPropertiesClass.getField(fieldName).getType();
 						String fieldTypeName = fieldType.getTypeName();
 
 						// if(fieldType != null) {
@@ -343,12 +372,12 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 						// !fieldName.equals("String")) {
 						// sbExtraImport.append("import "+fieldTypeName+";\n");
 						// }
-						sbContent.append("  public static " + fieldTypeName + " get" + f.getElementName()
-								+ "(EObject eObject) {\n" + "		return (" + fieldTypeName
+						sbContent.append("\tpublic static " + fieldTypeName + " get" + toUpperFirst(f.getElementName())
+								+ "(" + aspectizedClassName + " eObject) {\n" + "		return (" + fieldTypeName
 								+ ")  getAspectProperty(eObject, \"" + fullLanguageName + "\", \""
 								+ originalAspectClassName + "\", \"" + f.getElementName() + "\");\n" + "	}\n");
 
-						sbContent.append("	public static boolean set" + f.getElementName() + "(EObject eObject, "
+						sbContent.append("\tpublic static boolean set" + toUpperFirst(f.getElementName()) + "(" + aspectizedClassName + " eObject, "
 								+ fieldTypeName + " newValue) {\n" + "		return setAspectProperty(eObject, \""
 								+ fullLanguageName + "\", \"" + originalAspectClassName + "\", \"" + f.getElementName()
 								+ "\", newValue);\n" + "	}\n");
@@ -381,6 +410,9 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 		manifestChanger.addExportPackage(packageName);
 	}
 
+	public static String toUpperFirst(String str) {
+		return str.substring(0, 1).toUpperCase() + str.substring(1);
+	}
 	private static IType findAnyTypeInWorkspace(char[][] qualifications, char[][] typeNames) throws JavaModelException {
 		class ResultException extends RuntimeException {
 			private static final long serialVersionUID = 1L;

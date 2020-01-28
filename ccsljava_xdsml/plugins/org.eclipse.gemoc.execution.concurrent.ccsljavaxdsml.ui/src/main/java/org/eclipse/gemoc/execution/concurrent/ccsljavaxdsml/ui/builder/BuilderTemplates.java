@@ -96,36 +96,36 @@ public class BuilderTemplates {
 "\n"+
 "public class ${language.name.toupperfirst}RTDAccessor {\n"+
 "${allGettersAndSetters}\n"+
-"public static Object getAspectProperty(EObject eObject, String languageName, String aspectName, String propertyName) {\n" + 
-"			List<Class<?>> aspects = K3DslHelper.getAspectsOn(languageName, eObject.getClass());\n" + 
-"			Class<?> aspect = null;\n" + 
-"			for (Class<?> a : aspects) {\n" + 
-"				try {\n" + 
-"					if (Class.forName(aspectName).isAssignableFrom(a)) {\n" + 
-"						aspect = a;\n" + 
-"					}\n" + 
-"				} catch (ClassNotFoundException e) {\n" + 
-"					e.printStackTrace();\n" + 
+"	public static Object getAspectProperty(EObject eObject, String languageName, String aspectName, String propertyName) {\n" + 
+"		List<Class<?>> aspects = K3DslHelper.getAspectsOn(languageName, eObject.getClass());\n" + 
+"		Class<?> aspect = null;\n" + 
+"		for (Class<?> a : aspects) {\n" + 
+"			try {\n" + 
+"				if (Class.forName(aspectName).isAssignableFrom(a)) {\n" + 
+"					aspect = a;\n" + 
 "				}\n" + 
-"			}\n" + 
-"			if (aspect == null) {\n" + 
-"				return null;\n" + 
-"			}\n" + 
-"			Object res = null;\n" + 
-"			 try {\n" + 
-"				res = aspect.getDeclaredMethod(propertyName, ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).className()).invoke(eObject, eObject);\n" + 
-"				if (res != null) {\n" + 
-"				return res;\n" + 
-"				}else {\n" + 
-"					return null;\n" + 
-"				}\n" + 
-"			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException\n" + 
-"					| NoSuchMethodException | SecurityException e) {\n" + 
+"			} catch (ClassNotFoundException e) {\n" + 
 "				e.printStackTrace();\n" + 
 "			}\n" + 
-"			\n" + 
-"			 return null;\n" + 
 "		}\n" + 
+"		if (aspect == null) {\n" + 
+"			return null;\n" + 
+"		}\n" + 
+"		Object res = null;\n" + 
+"		 try {\n" + 
+"			res = aspect.getDeclaredMethod(propertyName, ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).className()).invoke(eObject, eObject);\n" + 
+"			if (res != null) {\n" + 
+"				return res;\n" + 
+"			}else {\n" + 
+"				return null;\n" + 
+"			}\n" + 
+"		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException\n" + 
+"					| NoSuchMethodException | SecurityException e) {\n" + 
+"			e.printStackTrace();\n" + 
+"		}\n" + 
+"\n" + 
+"		return null;\n" + 
+"	}\n" + 
 "	\n" + 
 "	\n" + 
 "	public static boolean setAspectProperty(EObject eObject, String languageName, String aspectName, String propertyName, Object newValue) {\n" + 
