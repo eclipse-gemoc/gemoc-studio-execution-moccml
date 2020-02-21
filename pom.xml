@@ -10,7 +10,9 @@
 		<tycho-version>1.5.1</tycho-version>
     	<xtend.version>2.14.0</xtend.version>
 		<project.build.sourceEncoding>UTF8</project.build.sourceEncoding>
-		<tycho.scmUrl>scm:git:https://github.com/gemoc/concurrency.git</tycho.scmUrl>
+		<tycho.scmUrl>scm:git:https://github.com/eclipse/gemoc-studio-execution-moccml.git</tycho.scmUrl>
+		
+		<maven.deploy.skip>true</maven.deploy.skip>
 	</properties>
     <modules>
     
