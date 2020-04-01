@@ -91,8 +91,9 @@ public class DefaultMSEStateController implements IMoccmlMSEStateController
 
 	@Override
 	public void applyMSEFutureStates(ISolver solver) {
-		// TODO Auto-generated method stub
-		
+		if(solver instanceof ICCSLSolver) {
+			applyMSEFutureStates((ICCSLSolver)solver);
+		}
 	}
 	
 }
