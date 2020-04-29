@@ -8,8 +8,6 @@ import org.eclipse.gemoc.example.moccml.tfsm.tfsm.State;
 public class K3RuntimeDataHelper {
 	
 	public State getCurrentState(EObject eObject) {
-		System.out.println("getCurrentState(): "+eObject);
-		System.out.println(OncurrentTFSMRTDAccessor.getcurrentState(eObject));
 		return OncurrentTFSMRTDAccessor.getcurrentState(eObject);
 	}
 	
