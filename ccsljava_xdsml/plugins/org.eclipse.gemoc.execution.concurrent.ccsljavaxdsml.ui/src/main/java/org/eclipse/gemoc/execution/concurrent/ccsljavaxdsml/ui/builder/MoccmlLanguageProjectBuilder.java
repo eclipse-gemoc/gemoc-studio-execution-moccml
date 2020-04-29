@@ -294,6 +294,7 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 		mapAspectProperties = ArrayListMultimap.create();
 
 		for (String a : allAspects.trim().split(",")) {
+			a = a.trim();
 			String originalAspectClassName = a;
 			int dot = a.lastIndexOf('.');
 			a = a + a.substring(dot + 1) + "Properties";
