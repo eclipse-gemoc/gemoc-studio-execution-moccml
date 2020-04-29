@@ -54,11 +54,11 @@ public class SigPMLModelStateHelper implements IK3ModelStateHelper{
 				ElementState elemState = theFactory.createElementState();
 				elemState.setModelElement(elem);
 				res.getOwnedElementstates().add(elemState);
-				AttributeNameToValue n2v0 = new AttributeNameToValue("fifo", SigPMLRTDAccessor.getfifo(elem));
+				AttributeNameToValue n2v0 = new AttributeNameToValue("fifo", SigPMLRTDAccessor.getFifo((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place)elem));
 				elemState.getSavedRTDs().add(n2v0);
-				AttributeNameToValue n2v1 = new AttributeNameToValue("currentSize", SigPMLRTDAccessor.getcurrentSize(elem));
+				AttributeNameToValue n2v1 = new AttributeNameToValue("currentSize", SigPMLRTDAccessor.getCurrentSize((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place)elem));
 				elemState.getSavedRTDs().add(n2v1);
-				AttributeNameToValue n2v2 = new AttributeNameToValue("isInitialized", SigPMLRTDAccessor.getisInitialized(elem));
+				AttributeNameToValue n2v2 = new AttributeNameToValue("isInitialized", SigPMLRTDAccessor.getIsInitialized((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place)elem));
 				elemState.getSavedRTDs().add(n2v2);
 			}
 			clazz = K3DslHelper.getTarget(org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SystemAspect.class);
@@ -66,7 +66,7 @@ public class SigPMLModelStateHelper implements IK3ModelStateHelper{
 				ElementState elemState = theFactory.createElementState();
 				elemState.setModelElement(elem);
 				res.getOwnedElementstates().add(elemState);
-				AttributeNameToValue n2v0 = new AttributeNameToValue("sharedMemory", SigPMLRTDAccessor.getsharedMemory(elem));
+				AttributeNameToValue n2v0 = new AttributeNameToValue("sharedMemory", SigPMLRTDAccessor.getSharedMemory((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.System)elem));
 				elemState.getSavedRTDs().add(n2v0);
 			}
 			clazz = K3DslHelper.getTarget(org.eclipse.gemoc.example.moccmlsigpml.k3dsa.OutputPortAspect.class);
@@ -74,7 +74,7 @@ public class SigPMLModelStateHelper implements IK3ModelStateHelper{
 				ElementState elemState = theFactory.createElementState();
 				elemState.setModelElement(elem);
 				res.getOwnedElementstates().add(elemState);
-				AttributeNameToValue n2v0 = new AttributeNameToValue("sizeWritten", SigPMLRTDAccessor.getsizeWritten(elem));
+				AttributeNameToValue n2v0 = new AttributeNameToValue("sizeWritten", SigPMLRTDAccessor.getSizeWritten((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.OutputPort)elem));
 				elemState.getSavedRTDs().add(n2v0);
 			}
 			clazz = K3DslHelper.getTarget(org.eclipse.gemoc.example.moccmlsigpml.k3dsa.AgentAspect.class);
@@ -82,17 +82,17 @@ public class SigPMLModelStateHelper implements IK3ModelStateHelper{
 				ElementState elemState = theFactory.createElementState();
 				elemState.setModelElement(elem);
 				res.getOwnedElementstates().add(elemState);
-				AttributeNameToValue n2v0 = new AttributeNameToValue("plotter", SigPMLRTDAccessor.getplotter(elem));
+				AttributeNameToValue n2v0 = new AttributeNameToValue("plotter", SigPMLRTDAccessor.getPlotter((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent)elem));
 				elemState.getSavedRTDs().add(n2v0);
-				AttributeNameToValue n2v1 = new AttributeNameToValue("frame", SigPMLRTDAccessor.getframe(elem));
+				AttributeNameToValue n2v1 = new AttributeNameToValue("frame", SigPMLRTDAccessor.getFrame((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent)elem));
 				elemState.getSavedRTDs().add(n2v1);
-				AttributeNameToValue n2v2 = new AttributeNameToValue("figure", SigPMLRTDAccessor.getfigure(elem));
+				AttributeNameToValue n2v2 = new AttributeNameToValue("figure", SigPMLRTDAccessor.getFigure((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent)elem));
 				elemState.getSavedRTDs().add(n2v2);
-				AttributeNameToValue n2v3 = new AttributeNameToValue("hasBeenStopped", SigPMLRTDAccessor.gethasBeenStopped(elem));
+				AttributeNameToValue n2v3 = new AttributeNameToValue("hasBeenStopped", SigPMLRTDAccessor.getHasBeenStopped((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent)elem));
 				elemState.getSavedRTDs().add(n2v3);
-				AttributeNameToValue n2v4 = new AttributeNameToValue("currentExecCycle", SigPMLRTDAccessor.getcurrentExecCycle(elem));
+				AttributeNameToValue n2v4 = new AttributeNameToValue("currentExecCycle", SigPMLRTDAccessor.getCurrentExecCycle((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent)elem));
 				elemState.getSavedRTDs().add(n2v4);
-				AttributeNameToValue n2v5 = new AttributeNameToValue("isCurrentlyExecuting", SigPMLRTDAccessor.getisCurrentlyExecuting(elem));
+				AttributeNameToValue n2v5 = new AttributeNameToValue("isCurrentlyExecuting", SigPMLRTDAccessor.getIsCurrentlyExecuting((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent)elem));
 				elemState.getSavedRTDs().add(n2v5);
 			}
 			clazz = K3DslHelper.getTarget(org.eclipse.gemoc.example.moccmlsigpml.k3dsa.InputPortAspect.class);
@@ -100,7 +100,7 @@ public class SigPMLModelStateHelper implements IK3ModelStateHelper{
 				ElementState elemState = theFactory.createElementState();
 				elemState.setModelElement(elem);
 				res.getOwnedElementstates().add(elemState);
-				AttributeNameToValue n2v0 = new AttributeNameToValue("sizeToread", SigPMLRTDAccessor.getsizeToread(elem));
+				AttributeNameToValue n2v0 = new AttributeNameToValue("sizeToread", SigPMLRTDAccessor.getSizeToread((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.InputPort)elem));
 				elemState.getSavedRTDs().add(n2v0);
 			}
 			clazz = K3DslHelper.getTarget(org.eclipse.gemoc.example.moccmlsigpml.k3dsa.HWComputationalResourceAspect.class);
@@ -108,7 +108,7 @@ public class SigPMLModelStateHelper implements IK3ModelStateHelper{
 				ElementState elemState = theFactory.createElementState();
 				elemState.setModelElement(elem);
 				res.getOwnedElementstates().add(elemState);
-				AttributeNameToValue n2v0 = new AttributeNameToValue("executionCycle", SigPMLRTDAccessor.getexecutionCycle(elem));
+				AttributeNameToValue n2v0 = new AttributeNameToValue("executionCycle", SigPMLRTDAccessor.getExecutionCycle((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWComputationalResource)elem));
 				elemState.getSavedRTDs().add(n2v0);
 			}
 		}
