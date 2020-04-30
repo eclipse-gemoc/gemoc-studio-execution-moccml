@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
+Automatic-Module-Name: org.eclipse.gemoc.example.moccml.tfsm.k3dsa
 Bundle-SymbolicName: org.eclipse.gemoc.example.moccml.tfsm.k3dsa;singleton:=true
 Export-Package: org.eclipse.gemoc.example.moccml.tfsm.k3dsa,
  org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect
@@ -20,4 +21,3 @@ Bundle-ManifestVersion: 2
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Activator: org.eclipse.gemoc.example.moccml.tfsm.k3dsa.Activator
-Automatic-Module-Name: org.eclipse.gemoc.example.moccml.tfsm.k3dsa

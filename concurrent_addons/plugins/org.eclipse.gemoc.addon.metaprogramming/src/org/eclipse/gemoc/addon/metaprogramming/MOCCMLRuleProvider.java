@@ -1,3 +1,5 @@
+package org.eclipse.gemoc.addon.metaprogramming;
+
 import java.util.ArrayList;
 import java.util.Collection;
 

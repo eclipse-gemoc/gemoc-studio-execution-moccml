@@ -5,7 +5,7 @@
          point="org.eclipse.gemoc.gemoc_language_workbench.metaprog">
       <approach
             name="moccml"
-            validator="MOCCMLRuleProvider">
+            validator="org.eclipse.gemoc.addon.metaprogramming.MOCCMLRuleProvider">
       </approach>
    </extension>
 
