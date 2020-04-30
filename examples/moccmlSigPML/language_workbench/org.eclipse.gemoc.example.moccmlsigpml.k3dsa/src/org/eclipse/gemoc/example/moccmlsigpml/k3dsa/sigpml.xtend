@@ -27,6 +27,10 @@ import static extension org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SystemAspec
 import groovy.lang.Binding
 import groovy.lang.GroovyShell
 import cnrs.luchogie.up.data.rendering.figure.ConnectedLineFigureRenderer
+import fr.inria.diverse.k3.al.annotationprocessor.coordination.Exposed
+import fr.inria.diverse.k3.al.annotationprocessor.coordination.Input
+import fr.inria.diverse.k3.al.annotationprocessor.coordination.Output
+import fr.inria.diverse.k3.al.annotationprocessor.Step
 
 @Aspect(className = HWComputationalResource)
 class HWComputationalResourceAspect {
@@ -169,16 +173,21 @@ class OutputPortAspect extends NamedElementAspect {
 	public Integer sizeWritten = 0
 
 	def void write() {
-		_self.sizeWritten = _self.sizeWritten + 1
+//		_self.sizeWritten = _self.sizeWritten + 1
 	}
 }
 
 @Aspect(className = Place)
 class PlaceAspect extends NamedElementAspect {
+	
+	@Exposed
+	@Input(cond="true")
+	@Output(cond="true")
 	public EList<Object> fifo = new BasicEList()
 	public Integer currentSize = 0
 	public Boolean isInitialized = false
 
+	@Step
 	def void initialize() {
 		if (SystemAspect.DEBUG) println("place " + _self.name + "is initializing")
 		_self.fifo.clear
@@ -190,7 +199,11 @@ class PlaceAspect extends NamedElementAspect {
 		_self.currentSize = _self.fifo.size
 	}
 
+	@Step
 	def void push() {
+		//write move here to avoid k3 call order dependence
+		_self.itsOutputPort.sizeWritten = _self.itsOutputPort.sizeWritten + 1 
+		
 		if (!_self.isInitialized) {
 			_self.initialize()
 			_self.isInitialized = true
@@ -205,9 +218,9 @@ class PlaceAspect extends NamedElementAspect {
 		val objTowrite = _self.system.sharedMemory.get(_self.itsOutputPort.name).get(0)
 
 		_self.system.sharedMemory.remove(_self.itsOutputPort.name, objTowrite)
-		_self.fifo.add(objTowrite)
+		fifo_view.add(objTowrite)
 		_self.currentSize = _self.fifo.size
-		fifo_view = _self.fifo
+		_self.fifo = fifo_view
 
 		if (SystemAspect.DEBUG) println(fifo_view)
 		if (SystemAspect.DEBUG) println("sharedMemory: " + _self.system.sharedMemory)
