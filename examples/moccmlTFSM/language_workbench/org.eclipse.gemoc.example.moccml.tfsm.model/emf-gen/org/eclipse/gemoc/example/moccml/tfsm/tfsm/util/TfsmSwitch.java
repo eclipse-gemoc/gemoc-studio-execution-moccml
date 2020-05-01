@@ -145,6 +145,103 @@ public class TfsmSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case TfsmPackage.VARIABLE: {
+				Variable variable = (Variable)theEObject;
+				T result = caseVariable(variable);
+				if (result == null) result = caseNamedElement(variable);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TfsmPackage.INTEGER_VARIABLE: {
+				IntegerVariable integerVariable = (IntegerVariable)theEObject;
+				T result = caseIntegerVariable(integerVariable);
+				if (result == null) result = caseVariable(integerVariable);
+				if (result == null) result = caseNamedElement(integerVariable);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TfsmPackage.BOOLEAN_VARIABLE: {
+				BooleanVariable booleanVariable = (BooleanVariable)theEObject;
+				T result = caseBooleanVariable(booleanVariable);
+				if (result == null) result = caseVariable(booleanVariable);
+				if (result == null) result = caseNamedElement(booleanVariable);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TfsmPackage.VALUE: {
+				Value value = (Value)theEObject;
+				T result = caseValue(value);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TfsmPackage.EXPRESSION: {
+				Expression expression = (Expression)theEObject;
+				T result = caseExpression(expression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TfsmPackage.OPAQUE_BOOLEAN_EXPRESSION: {
+				OpaqueBooleanExpression opaqueBooleanExpression = (OpaqueBooleanExpression)theEObject;
+				T result = caseOpaqueBooleanExpression(opaqueBooleanExpression);
+				if (result == null) result = caseBooleanExpression(opaqueBooleanExpression);
+				if (result == null) result = caseExpression(opaqueBooleanExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TfsmPackage.OPAQUE_INTEGER_EXPRESSION: {
+				OpaqueIntegerExpression opaqueIntegerExpression = (OpaqueIntegerExpression)theEObject;
+				T result = caseOpaqueIntegerExpression(opaqueIntegerExpression);
+				if (result == null) result = caseIntegerExpression(opaqueIntegerExpression);
+				if (result == null) result = caseExpression(opaqueIntegerExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TfsmPackage.INTEGER_EXPRESSION: {
+				IntegerExpression integerExpression = (IntegerExpression)theEObject;
+				T result = caseIntegerExpression(integerExpression);
+				if (result == null) result = caseExpression(integerExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TfsmPackage.BOOLEAN_EXPRESSION: {
+				BooleanExpression booleanExpression = (BooleanExpression)theEObject;
+				T result = caseBooleanExpression(booleanExpression);
+				if (result == null) result = caseExpression(booleanExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TfsmPackage.INTEGER_CALCULATION_EXPRESSION: {
+				IntegerCalculationExpression integerCalculationExpression = (IntegerCalculationExpression)theEObject;
+				T result = caseIntegerCalculationExpression(integerCalculationExpression);
+				if (result == null) result = caseIntegerExpression(integerCalculationExpression);
+				if (result == null) result = caseExpression(integerCalculationExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TfsmPackage.INTEGER_COMPARISON_EXPRESSION: {
+				IntegerComparisonExpression integerComparisonExpression = (IntegerComparisonExpression)theEObject;
+				T result = caseIntegerComparisonExpression(integerComparisonExpression);
+				if (result == null) result = caseBooleanExpression(integerComparisonExpression);
+				if (result == null) result = caseExpression(integerComparisonExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TfsmPackage.BOOLEAN_UNARY_EXPRESSION: {
+				BooleanUnaryExpression booleanUnaryExpression = (BooleanUnaryExpression)theEObject;
+				T result = caseBooleanUnaryExpression(booleanUnaryExpression);
+				if (result == null) result = caseBooleanExpression(booleanUnaryExpression);
+				if (result == null) result = caseExpression(booleanUnaryExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case TfsmPackage.BOOLEAN_BINARY_EXPRESSION: {
+				BooleanBinaryExpression booleanBinaryExpression = (BooleanBinaryExpression)theEObject;
+				T result = caseBooleanBinaryExpression(booleanBinaryExpression);
+				if (result == null) result = caseBooleanExpression(booleanBinaryExpression);
+				if (result == null) result = caseExpression(booleanBinaryExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -311,6 +408,201 @@ public class TfsmSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseEvaluateGuard(EvaluateGuard object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Variable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Variable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseVariable(Variable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Integer Variable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Integer Variable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIntegerVariable(IntegerVariable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Boolean Variable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Boolean Variable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBooleanVariable(BooleanVariable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Value</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Value</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseValue(Value object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExpression(Expression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Opaque Boolean Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Opaque Boolean Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOpaqueBooleanExpression(OpaqueBooleanExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Opaque Integer Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Opaque Integer Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOpaqueIntegerExpression(OpaqueIntegerExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Integer Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Integer Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIntegerExpression(IntegerExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Boolean Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Boolean Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBooleanExpression(BooleanExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Integer Calculation Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Integer Calculation Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIntegerCalculationExpression(IntegerCalculationExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Integer Comparison Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Integer Comparison Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseIntegerComparisonExpression(IntegerComparisonExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Boolean Unary Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Boolean Unary Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBooleanUnaryExpression(BooleanUnaryExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Boolean Binary Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Boolean Binary Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBooleanBinaryExpression(BooleanBinaryExpression object) {
 		return null;
 	}
 

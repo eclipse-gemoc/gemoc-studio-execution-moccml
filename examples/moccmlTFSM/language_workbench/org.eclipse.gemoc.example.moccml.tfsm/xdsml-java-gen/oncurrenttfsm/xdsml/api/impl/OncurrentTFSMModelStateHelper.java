@@ -49,12 +49,28 @@ public class OncurrentTFSMModelStateHelper implements IK3ModelStateHelper{
 			EObject elem = allContentIt.next();
 
 			Class<?> clazz =null;
+			clazz = K3DslHelper.getTarget(org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.IntegerVariableAspect.class);
+			if (clazz.isInstance(elem)) {
+				ElementState elemState = theFactory.createElementState();
+				elemState.setModelElement(elem);
+				res.getOwnedElementstates().add(elemState);
+				AttributeNameToValue n2v0 = new AttributeNameToValue("currentValue", OncurrentTFSMRTDAccessor.getCurrentValue((org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerVariable)elem));
+				elemState.getSavedRTDs().add(n2v0);
+			}
+			clazz = K3DslHelper.getTarget(org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.BooleanVariableAspect.class);
+			if (clazz.isInstance(elem)) {
+				ElementState elemState = theFactory.createElementState();
+				elemState.setModelElement(elem);
+				res.getOwnedElementstates().add(elemState);
+				AttributeNameToValue n2v0 = new AttributeNameToValue("currentValue", OncurrentTFSMRTDAccessor.getCurrentValue((org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanVariable)elem));
+				elemState.getSavedRTDs().add(n2v0);
+			}
 			clazz = K3DslHelper.getTarget(org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.FSMClockAspect.class);
 			if (clazz.isInstance(elem)) {
 				ElementState elemState = theFactory.createElementState();
 				elemState.setModelElement(elem);
 				res.getOwnedElementstates().add(elemState);
-				AttributeNameToValue n2v0 = new AttributeNameToValue("numberOfTicks", OncurrentTFSMRTDAccessor.getnumberOfTicks(elem));
+				AttributeNameToValue n2v0 = new AttributeNameToValue("numberOfTicks", OncurrentTFSMRTDAccessor.getNumberOfTicks((org.eclipse.gemoc.example.moccml.tfsm.tfsm.FSMClock)elem));
 				elemState.getSavedRTDs().add(n2v0);
 			}
 			clazz = K3DslHelper.getTarget(org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.TFSMAspect.class);
@@ -62,7 +78,7 @@ public class OncurrentTFSMModelStateHelper implements IK3ModelStateHelper{
 				ElementState elemState = theFactory.createElementState();
 				elemState.setModelElement(elem);
 				res.getOwnedElementstates().add(elemState);
-				AttributeNameToValue n2v0 = new AttributeNameToValue("currentState", OncurrentTFSMRTDAccessor.getcurrentState(elem));
+				AttributeNameToValue n2v0 = new AttributeNameToValue("currentState", OncurrentTFSMRTDAccessor.getCurrentState((org.eclipse.gemoc.example.moccml.tfsm.tfsm.TFSM)elem));
 				elemState.getSavedRTDs().add(n2v0);
 			}
 		}

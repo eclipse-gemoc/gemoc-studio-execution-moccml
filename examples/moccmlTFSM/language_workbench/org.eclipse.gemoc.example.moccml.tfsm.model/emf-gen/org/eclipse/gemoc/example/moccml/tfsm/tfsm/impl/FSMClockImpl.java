@@ -2,6 +2,10 @@
  */
 package org.eclipse.gemoc.example.moccml.tfsm.tfsm.impl;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.FSMClock;
@@ -43,6 +47,21 @@ public class FSMClockImpl extends NamedElementImpl implements FSMClock {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
+		switch (operationID) {
+			case TfsmPackage.FSM_CLOCK___TICKS:
+				ticks();
+				return null;
+		}
+		return super.eInvoke(operationID, arguments);
 	}
 
 } //FSMClockImpl

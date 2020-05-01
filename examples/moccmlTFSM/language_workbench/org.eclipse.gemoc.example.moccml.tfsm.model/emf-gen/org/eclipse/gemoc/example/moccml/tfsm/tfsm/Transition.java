@@ -92,7 +92,7 @@ public interface Transition extends NamedElement {
 	 * @return the value of the '<em>Owned Guard</em>' containment reference.
 	 * @see #setOwnedGuard(Guard)
 	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.TfsmPackage#getTransition_OwnedGuard()
-	 * @model containment="true" resolveProxies="true" required="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Guard getOwnedGuard();
@@ -124,30 +124,20 @@ public interface Transition extends NamedElement {
 	EList<FSMEvent> getGeneratedEvents();
 
 	/**
-	 * Returns the value of the '<em><b>Action</b></em>' attribute.
+	 * Returns the value of the '<em><b>Action</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerCalculationExpression}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Action</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Action</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Action</em>' attribute.
-	 * @see #setAction(String)
+	 * @return the value of the '<em>Action</em>' containment reference list.
 	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.TfsmPackage#getTransition_Action()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
-	String getAction();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.Transition#getAction <em>Action</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Action</em>' attribute.
-	 * @see #getAction()
-	 * @generated
-	 */
-	void setAction(String value);
+	EList<IntegerCalculationExpression> getAction();
 
 	/**
 	 * <!-- begin-user-doc -->

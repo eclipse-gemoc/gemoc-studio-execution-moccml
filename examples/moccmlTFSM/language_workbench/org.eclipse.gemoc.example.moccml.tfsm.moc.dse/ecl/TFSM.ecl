@@ -114,6 +114,11 @@ package tfsm
 			(self.ownedGuard <> null and self.ownedGuard.oclIsKindOf(EvaluateGuard)) implies
 			(Relation Coincides(self.ownedGuard.oclAsType(EvaluateGuard).evaluate, self.source.entering)) 
 			
+		inv evalGuardAnswerInNoTime:
+			(self.ownedGuard <> null and self.ownedGuard.oclIsKindOf(EvaluateGuard)) implies
+			let trueOrFalse : Event = Expression Union(self.ownedGuard.oclAsType(EvaluateGuard).evaluatedTrue, self.ownedGuard.oclAsType(EvaluateGuard).evaluatedFalse) in
+			Relation MicroStepEnforcement(self.ownedGuard.oclAsType(EvaluateGuard).evaluate,self.source.owningFSM.localClock.ticks, trueOrFalse)
+			
 		inv TransientInitTransition:
 			(self.source = self.source.owningFSM.initialState) implies
 			(Relation Coincides(self.source.entering, self.source.leaving))
@@ -137,7 +142,7 @@ package tfsm
 			
 		--no time elapsed between the fire and the entering (micro step) (also no other events, kind of RTC)
 		inv stateEntering2:
-			(not (self = self.owningFSM.initialState)) and (self.owningFSM.localClock = null) implies --case of no local time
+			((self <> self.owningFSM.initialState) and (self.owningFSM.localClock <> null)) implies --case of no local time
 			let allInputTransition2 : Event = Expression Union(self.incomingTransitions.fire) in
 			let allEvents : Event = Expression Union(self.owningFSM.oclAsType(ecore::EObject).eContainer().oclAsType(TimedSystem).globalEvents.occurs ) in
 			let eventsOrLocalTime : Event = Expression Union(self.owningFSM.localClock.ticks, allEvents) in

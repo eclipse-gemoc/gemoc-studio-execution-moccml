@@ -38,7 +38,7 @@ public interface TFSM extends NamedElement {
 	 * @return the value of the '<em>Owned States</em>' containment reference list.
 	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.TfsmPackage#getTFSM_OwnedStates()
 	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.State#getOwningFSM
-	 * @model opposite="owningFSM" containment="true" resolveProxies="true"
+	 * @model opposite="owningFSM" containment="true"
 	 * @generated
 	 */
 	EList<State> getOwnedStates();
@@ -80,7 +80,7 @@ public interface TFSM extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Local Events</em>' containment reference list.
 	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.TfsmPackage#getTFSM_LocalEvents()
-	 * @model containment="true" resolveProxies="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<FSMEvent> getLocalEvents();
@@ -96,7 +96,7 @@ public interface TFSM extends NamedElement {
 	 * @return the value of the '<em>Local Clock</em>' containment reference.
 	 * @see #setLocalClock(FSMClock)
 	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.TfsmPackage#getTFSM_LocalClock()
-	 * @model containment="true" resolveProxies="true" required="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	FSMClock getLocalClock();
@@ -122,7 +122,7 @@ public interface TFSM extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Transitions</em>' containment reference list.
 	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.TfsmPackage#getTFSM_OwnedTransitions()
-	 * @model containment="true" resolveProxies="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Transition> getOwnedTransitions();

@@ -2,6 +2,8 @@
  */
 package org.eclipse.gemoc.example.moccml.tfsm.tfsm.impl;
 
+import java.lang.reflect.InvocationTargetException;
+
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -119,7 +121,7 @@ public class TFSMImpl extends NamedElementImpl implements TFSM {
 	 */
 	public EList<State> getOwnedStates() {
 		if (ownedStates == null) {
-			ownedStates = new EObjectContainmentWithInverseEList.Resolving<State>(State.class, this, TfsmPackage.TFSM__OWNED_STATES, TfsmPackage.STATE__OWNING_FSM);
+			ownedStates = new EObjectContainmentWithInverseEList<State>(State.class, this, TfsmPackage.TFSM__OWNED_STATES, TfsmPackage.STATE__OWNING_FSM);
 		}
 		return ownedStates;
 	}
@@ -169,7 +171,7 @@ public class TFSMImpl extends NamedElementImpl implements TFSM {
 	 */
 	public EList<FSMEvent> getLocalEvents() {
 		if (localEvents == null) {
-			localEvents = new EObjectContainmentEList.Resolving<FSMEvent>(FSMEvent.class, this, TfsmPackage.TFSM__LOCAL_EVENTS);
+			localEvents = new EObjectContainmentEList<FSMEvent>(FSMEvent.class, this, TfsmPackage.TFSM__LOCAL_EVENTS);
 		}
 		return localEvents;
 	}
@@ -180,29 +182,6 @@ public class TFSMImpl extends NamedElementImpl implements TFSM {
 	 * @generated
 	 */
 	public FSMClock getLocalClock() {
-		if (localClock != null && localClock.eIsProxy()) {
-			InternalEObject oldLocalClock = (InternalEObject)localClock;
-			localClock = (FSMClock)eResolveProxy(oldLocalClock);
-			if (localClock != oldLocalClock) {
-				InternalEObject newLocalClock = (InternalEObject)localClock;
-				NotificationChain msgs = oldLocalClock.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TfsmPackage.TFSM__LOCAL_CLOCK, null, null);
-				if (newLocalClock.eInternalContainer() == null) {
-					msgs = newLocalClock.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TfsmPackage.TFSM__LOCAL_CLOCK, null, msgs);
-				}
-				if (msgs != null) msgs.dispatch();
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TfsmPackage.TFSM__LOCAL_CLOCK, oldLocalClock, localClock));
-			}
-		}
-		return localClock;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FSMClock basicGetLocalClock() {
 		return localClock;
 	}
 
@@ -247,7 +226,7 @@ public class TFSMImpl extends NamedElementImpl implements TFSM {
 	 */
 	public EList<Transition> getOwnedTransitions() {
 		if (ownedTransitions == null) {
-			ownedTransitions = new EObjectContainmentEList.Resolving<Transition>(Transition.class, this, TfsmPackage.TFSM__OWNED_TRANSITIONS);
+			ownedTransitions = new EObjectContainmentEList<Transition>(Transition.class, this, TfsmPackage.TFSM__OWNED_TRANSITIONS);
 		}
 		return ownedTransitions;
 	}
@@ -314,8 +293,7 @@ public class TFSMImpl extends NamedElementImpl implements TFSM {
 			case TfsmPackage.TFSM__LOCAL_EVENTS:
 				return getLocalEvents();
 			case TfsmPackage.TFSM__LOCAL_CLOCK:
-				if (resolve) return getLocalClock();
-				return basicGetLocalClock();
+				return getLocalClock();
 			case TfsmPackage.TFSM__OWNED_TRANSITIONS:
 				return getOwnedTransitions();
 		}
@@ -400,6 +378,21 @@ public class TFSMImpl extends NamedElementImpl implements TFSM {
 				return ownedTransitions != null && !ownedTransitions.isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
+		switch (operationID) {
+			case TfsmPackage.TFSM___INITIALIZE:
+				initialize();
+				return null;
+		}
+		return super.eInvoke(operationID, arguments);
 	}
 
 } //TFSMImpl

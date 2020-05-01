@@ -4,23 +4,42 @@ package org.eclipse.gemoc.example.moccml.tfsm.tfsm.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanBinaryExpression;
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanBinaryOperator;
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanExpression;
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanUnaryExpression;
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanUnaryOperator;
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanVariable;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.EvaluateGuard;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.EventGuard;
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.Expression;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.FSMClock;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.FSMEvent;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.Guard;
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerCalculationExpression;
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerCalculationOperator;
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerComparisonExpression;
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerComparisonOperator;
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerExpression;
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerVariable;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.NamedElement;
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.OpaqueBooleanExpression;
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.OpaqueIntegerExpression;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.State;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.TemporalGuard;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.TfsmFactory;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.TfsmPackage;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.TimedSystem;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.Transition;
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.Value;
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.Variable;
 
 /**
  * <!-- begin-user-doc -->
@@ -105,6 +124,125 @@ public class TfsmPackageImpl extends EPackageImpl implements TfsmPackage {
 	 * @generated
 	 */
 	private EClass evaluateGuardEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass variableEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass integerVariableEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass booleanVariableEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass valueEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass expressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass opaqueBooleanExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass opaqueIntegerExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass integerExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass booleanExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass integerCalculationExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass integerComparisonExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass booleanUnaryExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass booleanBinaryExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum integerCalculationOperatorEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum integerComparisonOperatorEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum booleanUnaryOperatorEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum booleanBinaryOperatorEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -226,6 +364,15 @@ public class TfsmPackageImpl extends EPackageImpl implements TfsmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EOperation getTFSM__Initialize() {
+		return tfsmEClass.getEOperations().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getState() {
 		return stateEClass;
 	}
@@ -255,6 +402,24 @@ public class TfsmPackageImpl extends EPackageImpl implements TfsmPackage {
 	 */
 	public EReference getState_IncomingTransitions() {
 		return (EReference)stateEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EOperation getState__OnEnter() {
+		return stateEClass.getEOperations().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EOperation getState__OnLeave() {
+		return stateEClass.getEOperations().get(1);
 	}
 
 	/**
@@ -307,8 +472,17 @@ public class TfsmPackageImpl extends EPackageImpl implements TfsmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTransition_Action() {
-		return (EAttribute)transitionEClass.getEStructuralFeatures().get(4);
+	public EReference getTransition_Action() {
+		return (EReference)transitionEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EOperation getTransition__Fire() {
+		return transitionEClass.getEOperations().get(0);
 	}
 
 	/**
@@ -406,8 +580,26 @@ public class TfsmPackageImpl extends EPackageImpl implements TfsmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EOperation getFSMEvent__Occurs() {
+		return fsmEventEClass.getEOperations().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFSMClock() {
 		return fsmClockEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EOperation getFSMClock__Ticks() {
+		return fsmClockEClass.getEOperations().get(0);
 	}
 
 	/**
@@ -451,6 +643,24 @@ public class TfsmPackageImpl extends EPackageImpl implements TfsmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getTimedSystem_OwnedVars() {
+		return (EReference)timedSystemEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EOperation getTimedSystem__Initialize() {
+		return timedSystemEClass.getEOperations().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getEvaluateGuard() {
 		return evaluateGuardEClass;
 	}
@@ -460,8 +670,305 @@ public class TfsmPackageImpl extends EPackageImpl implements TfsmPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEvaluateGuard_Condition() {
-		return (EAttribute)evaluateGuardEClass.getEStructuralFeatures().get(0);
+	public EReference getEvaluateGuard_Condition() {
+		return (EReference)evaluateGuardEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EOperation getEvaluateGuard__Evaluate() {
+		return evaluateGuardEClass.getEOperations().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getVariable() {
+		return variableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIntegerVariable() {
+		return integerVariableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getIntegerVariable_InitialValue() {
+		return (EAttribute)integerVariableEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getBooleanVariable() {
+		return booleanVariableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBooleanVariable_InitialValue() {
+		return (EAttribute)booleanVariableEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getValue() {
+		return valueEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getExpression() {
+		return expressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getOpaqueBooleanExpression() {
+		return opaqueBooleanExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getOpaqueBooleanExpression_Value() {
+		return (EAttribute)opaqueBooleanExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getOpaqueIntegerExpression() {
+		return opaqueIntegerExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getOpaqueIntegerExpression_Value() {
+		return (EAttribute)opaqueIntegerExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIntegerExpression() {
+		return integerExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getIntegerExpression_Operand2() {
+		return (EReference)integerExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getIntegerExpression_Operand1() {
+		return (EReference)integerExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getBooleanExpression() {
+		return booleanExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIntegerCalculationExpression() {
+		return integerCalculationExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getIntegerCalculationExpression_Operator() {
+		return (EAttribute)integerCalculationExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getIntegerComparisonExpression() {
+		return integerComparisonExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getIntegerComparisonExpression_Operator() {
+		return (EAttribute)integerComparisonExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getIntegerComparisonExpression_Operand2() {
+		return (EReference)integerComparisonExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getIntegerComparisonExpression_Operand1() {
+		return (EReference)integerComparisonExpressionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getBooleanUnaryExpression() {
+		return booleanUnaryExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBooleanUnaryExpression_Operand() {
+		return (EReference)booleanUnaryExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBooleanUnaryExpression_Operator() {
+		return (EAttribute)booleanUnaryExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getBooleanBinaryExpression() {
+		return booleanBinaryExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBooleanBinaryExpression_Operand1() {
+		return (EReference)booleanBinaryExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBooleanBinaryExpression_Operand2() {
+		return (EReference)booleanBinaryExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBooleanBinaryExpression_Operator() {
+		return (EAttribute)booleanBinaryExpressionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getIntegerCalculationOperator() {
+		return integerCalculationOperatorEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getIntegerComparisonOperator() {
+		return integerComparisonOperatorEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getBooleanUnaryOperator() {
+		return booleanUnaryOperatorEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getBooleanBinaryOperator() {
+		return booleanBinaryOperatorEEnum;
 	}
 
 	/**
@@ -498,18 +1005,22 @@ public class TfsmPackageImpl extends EPackageImpl implements TfsmPackage {
 		createEReference(tfsmEClass, TFSM__LOCAL_EVENTS);
 		createEReference(tfsmEClass, TFSM__LOCAL_CLOCK);
 		createEReference(tfsmEClass, TFSM__OWNED_TRANSITIONS);
+		createEOperation(tfsmEClass, TFSM___INITIALIZE);
 
 		stateEClass = createEClass(STATE);
 		createEReference(stateEClass, STATE__OWNING_FSM);
 		createEReference(stateEClass, STATE__OUTGOING_TRANSITIONS);
 		createEReference(stateEClass, STATE__INCOMING_TRANSITIONS);
+		createEOperation(stateEClass, STATE___ON_ENTER);
+		createEOperation(stateEClass, STATE___ON_LEAVE);
 
 		transitionEClass = createEClass(TRANSITION);
 		createEReference(transitionEClass, TRANSITION__SOURCE);
 		createEReference(transitionEClass, TRANSITION__TARGET);
 		createEReference(transitionEClass, TRANSITION__OWNED_GUARD);
 		createEReference(transitionEClass, TRANSITION__GENERATED_EVENTS);
-		createEAttribute(transitionEClass, TRANSITION__ACTION);
+		createEReference(transitionEClass, TRANSITION__ACTION);
+		createEOperation(transitionEClass, TRANSITION___FIRE);
 
 		namedElementEClass = createEClass(NAMED_ELEMENT);
 		createEAttribute(namedElementEClass, NAMED_ELEMENT__NAME);
@@ -525,16 +1036,68 @@ public class TfsmPackageImpl extends EPackageImpl implements TfsmPackage {
 
 		fsmEventEClass = createEClass(FSM_EVENT);
 		createEReference(fsmEventEClass, FSM_EVENT__SOLLICITING_TRANSITIONS);
+		createEOperation(fsmEventEClass, FSM_EVENT___OCCURS);
 
 		fsmClockEClass = createEClass(FSM_CLOCK);
+		createEOperation(fsmClockEClass, FSM_CLOCK___TICKS);
 
 		timedSystemEClass = createEClass(TIMED_SYSTEM);
 		createEReference(timedSystemEClass, TIMED_SYSTEM__TFSMS);
 		createEReference(timedSystemEClass, TIMED_SYSTEM__GLOBAL_CLOCKS);
 		createEReference(timedSystemEClass, TIMED_SYSTEM__GLOBAL_EVENTS);
+		createEReference(timedSystemEClass, TIMED_SYSTEM__OWNED_VARS);
+		createEOperation(timedSystemEClass, TIMED_SYSTEM___INITIALIZE);
 
 		evaluateGuardEClass = createEClass(EVALUATE_GUARD);
-		createEAttribute(evaluateGuardEClass, EVALUATE_GUARD__CONDITION);
+		createEReference(evaluateGuardEClass, EVALUATE_GUARD__CONDITION);
+		createEOperation(evaluateGuardEClass, EVALUATE_GUARD___EVALUATE);
+
+		variableEClass = createEClass(VARIABLE);
+
+		integerVariableEClass = createEClass(INTEGER_VARIABLE);
+		createEAttribute(integerVariableEClass, INTEGER_VARIABLE__INITIAL_VALUE);
+
+		booleanVariableEClass = createEClass(BOOLEAN_VARIABLE);
+		createEAttribute(booleanVariableEClass, BOOLEAN_VARIABLE__INITIAL_VALUE);
+
+		valueEClass = createEClass(VALUE);
+
+		expressionEClass = createEClass(EXPRESSION);
+
+		opaqueBooleanExpressionEClass = createEClass(OPAQUE_BOOLEAN_EXPRESSION);
+		createEAttribute(opaqueBooleanExpressionEClass, OPAQUE_BOOLEAN_EXPRESSION__VALUE);
+
+		opaqueIntegerExpressionEClass = createEClass(OPAQUE_INTEGER_EXPRESSION);
+		createEAttribute(opaqueIntegerExpressionEClass, OPAQUE_INTEGER_EXPRESSION__VALUE);
+
+		integerExpressionEClass = createEClass(INTEGER_EXPRESSION);
+		createEReference(integerExpressionEClass, INTEGER_EXPRESSION__OPERAND2);
+		createEReference(integerExpressionEClass, INTEGER_EXPRESSION__OPERAND1);
+
+		booleanExpressionEClass = createEClass(BOOLEAN_EXPRESSION);
+
+		integerCalculationExpressionEClass = createEClass(INTEGER_CALCULATION_EXPRESSION);
+		createEAttribute(integerCalculationExpressionEClass, INTEGER_CALCULATION_EXPRESSION__OPERATOR);
+
+		integerComparisonExpressionEClass = createEClass(INTEGER_COMPARISON_EXPRESSION);
+		createEAttribute(integerComparisonExpressionEClass, INTEGER_COMPARISON_EXPRESSION__OPERATOR);
+		createEReference(integerComparisonExpressionEClass, INTEGER_COMPARISON_EXPRESSION__OPERAND2);
+		createEReference(integerComparisonExpressionEClass, INTEGER_COMPARISON_EXPRESSION__OPERAND1);
+
+		booleanUnaryExpressionEClass = createEClass(BOOLEAN_UNARY_EXPRESSION);
+		createEReference(booleanUnaryExpressionEClass, BOOLEAN_UNARY_EXPRESSION__OPERAND);
+		createEAttribute(booleanUnaryExpressionEClass, BOOLEAN_UNARY_EXPRESSION__OPERATOR);
+
+		booleanBinaryExpressionEClass = createEClass(BOOLEAN_BINARY_EXPRESSION);
+		createEReference(booleanBinaryExpressionEClass, BOOLEAN_BINARY_EXPRESSION__OPERAND1);
+		createEReference(booleanBinaryExpressionEClass, BOOLEAN_BINARY_EXPRESSION__OPERAND2);
+		createEAttribute(booleanBinaryExpressionEClass, BOOLEAN_BINARY_EXPRESSION__OPERATOR);
+
+		// Create enums
+		integerCalculationOperatorEEnum = createEEnum(INTEGER_CALCULATION_OPERATOR);
+		integerComparisonOperatorEEnum = createEEnum(INTEGER_COMPARISON_OPERATOR);
+		booleanUnaryOperatorEEnum = createEEnum(BOOLEAN_UNARY_OPERATOR);
+		booleanBinaryOperatorEEnum = createEEnum(BOOLEAN_BINARY_OPERATOR);
 	}
 
 	/**
@@ -575,34 +1138,45 @@ public class TfsmPackageImpl extends EPackageImpl implements TfsmPackage {
 		fsmClockEClass.getESuperTypes().add(this.getNamedElement());
 		timedSystemEClass.getESuperTypes().add(this.getNamedElement());
 		evaluateGuardEClass.getESuperTypes().add(this.getGuard());
+		variableEClass.getESuperTypes().add(this.getNamedElement());
+		integerVariableEClass.getESuperTypes().add(this.getVariable());
+		booleanVariableEClass.getESuperTypes().add(this.getVariable());
+		opaqueBooleanExpressionEClass.getESuperTypes().add(this.getBooleanExpression());
+		opaqueIntegerExpressionEClass.getESuperTypes().add(this.getIntegerExpression());
+		integerExpressionEClass.getESuperTypes().add(this.getExpression());
+		booleanExpressionEClass.getESuperTypes().add(this.getExpression());
+		integerCalculationExpressionEClass.getESuperTypes().add(this.getIntegerExpression());
+		integerComparisonExpressionEClass.getESuperTypes().add(this.getBooleanExpression());
+		booleanUnaryExpressionEClass.getESuperTypes().add(this.getBooleanExpression());
+		booleanBinaryExpressionEClass.getESuperTypes().add(this.getBooleanExpression());
 
-		// Initialize classes and features; add operations and parameters
+		// Initialize classes, features, and operations; add parameters
 		initEClass(tfsmEClass, org.eclipse.gemoc.example.moccml.tfsm.tfsm.TFSM.class, "TFSM", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTFSM_OwnedStates(), this.getState(), this.getState_OwningFSM(), "ownedStates", null, 0, -1, org.eclipse.gemoc.example.moccml.tfsm.tfsm.TFSM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTFSM_OwnedStates(), this.getState(), this.getState_OwningFSM(), "ownedStates", null, 0, -1, org.eclipse.gemoc.example.moccml.tfsm.tfsm.TFSM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTFSM_InitialState(), this.getState(), null, "initialState", null, 1, 1, org.eclipse.gemoc.example.moccml.tfsm.tfsm.TFSM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTFSM_LocalEvents(), this.getFSMEvent(), null, "localEvents", null, 0, -1, org.eclipse.gemoc.example.moccml.tfsm.tfsm.TFSM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTFSM_LocalClock(), this.getFSMClock(), null, "localClock", null, 1, 1, org.eclipse.gemoc.example.moccml.tfsm.tfsm.TFSM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTFSM_OwnedTransitions(), this.getTransition(), null, "ownedTransitions", null, 0, -1, org.eclipse.gemoc.example.moccml.tfsm.tfsm.TFSM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTFSM_LocalEvents(), this.getFSMEvent(), null, "localEvents", null, 0, -1, org.eclipse.gemoc.example.moccml.tfsm.tfsm.TFSM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTFSM_LocalClock(), this.getFSMClock(), null, "localClock", null, 1, 1, org.eclipse.gemoc.example.moccml.tfsm.tfsm.TFSM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTFSM_OwnedTransitions(), this.getTransition(), null, "ownedTransitions", null, 0, -1, org.eclipse.gemoc.example.moccml.tfsm.tfsm.TFSM.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(tfsmEClass, null, "initialize", 0, 1, IS_UNIQUE, IS_ORDERED);
+		initEOperation(getTFSM__Initialize(), null, "initialize", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(stateEClass, State.class, "State", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getState_OwningFSM(), this.getTFSM(), this.getTFSM_OwnedStates(), "owningFSM", null, 1, 1, State.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getState_OwningFSM(), this.getTFSM(), this.getTFSM_OwnedStates(), "owningFSM", null, 1, 1, State.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getState_OutgoingTransitions(), this.getTransition(), this.getTransition_Source(), "outgoingTransitions", null, 0, -1, State.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getState_IncomingTransitions(), this.getTransition(), this.getTransition_Target(), "incomingTransitions", null, 0, -1, State.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(stateEClass, null, "onEnter", 0, 1, IS_UNIQUE, IS_ORDERED);
+		initEOperation(getState__OnEnter(), null, "onEnter", 0, 1, IS_UNIQUE, IS_ORDERED);
 
-		addEOperation(stateEClass, null, "onLeave", 0, 1, IS_UNIQUE, IS_ORDERED);
+		initEOperation(getState__OnLeave(), null, "onLeave", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(transitionEClass, Transition.class, "Transition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTransition_Source(), this.getState(), this.getState_OutgoingTransitions(), "source", null, 1, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTransition_Target(), this.getState(), this.getState_IncomingTransitions(), "target", null, 1, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTransition_OwnedGuard(), this.getGuard(), null, "ownedGuard", null, 1, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTransition_OwnedGuard(), this.getGuard(), null, "ownedGuard", null, 1, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTransition_GeneratedEvents(), this.getFSMEvent(), null, "generatedEvents", null, 0, -1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTransition_Action(), ecorePackage.getEString(), "action", null, 0, 1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTransition_Action(), this.getIntegerCalculationExpression(), null, "action", null, 0, -1, Transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(transitionEClass, null, "fire", 0, 1, IS_UNIQUE, IS_ORDERED);
+		initEOperation(getTransition__Fire(), null, "fire", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(namedElementEClass, NamedElement.class, "NamedElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNamedElement_Name(), ecorePackage.getEString(), "name", null, 1, 1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -619,23 +1193,84 @@ public class TfsmPackageImpl extends EPackageImpl implements TfsmPackage {
 		initEClass(fsmEventEClass, FSMEvent.class, "FSMEvent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFSMEvent_SollicitingTransitions(), this.getTransition(), null, "sollicitingTransitions", null, 0, -1, FSMEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(fsmEventEClass, null, "occurs", 0, 1, IS_UNIQUE, IS_ORDERED);
+		initEOperation(getFSMEvent__Occurs(), null, "occurs", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(fsmClockEClass, FSMClock.class, "FSMClock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		addEOperation(fsmClockEClass, null, "ticks", 0, 1, IS_UNIQUE, IS_ORDERED);
+		initEOperation(getFSMClock__Ticks(), null, "ticks", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(timedSystemEClass, TimedSystem.class, "TimedSystem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTimedSystem_Tfsms(), this.getTFSM(), null, "tfsms", null, 0, -1, TimedSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTimedSystem_GlobalClocks(), this.getFSMClock(), null, "globalClocks", null, 0, -1, TimedSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTimedSystem_GlobalEvents(), this.getFSMEvent(), null, "globalEvents", null, 0, -1, TimedSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTimedSystem_Tfsms(), this.getTFSM(), null, "tfsms", null, 0, -1, TimedSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTimedSystem_GlobalClocks(), this.getFSMClock(), null, "globalClocks", null, 0, -1, TimedSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTimedSystem_GlobalEvents(), this.getFSMEvent(), null, "globalEvents", null, 0, -1, TimedSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTimedSystem_OwnedVars(), this.getVariable(), null, "ownedVars", null, 0, -1, TimedSystem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(timedSystemEClass, null, "initialize", 0, 1, IS_UNIQUE, IS_ORDERED);
+		initEOperation(getTimedSystem__Initialize(), null, "initialize", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(evaluateGuardEClass, EvaluateGuard.class, "EvaluateGuard", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getEvaluateGuard_Condition(), ecorePackage.getEString(), "condition", null, 0, 1, EvaluateGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEvaluateGuard_Condition(), this.getBooleanExpression(), null, "condition", null, 1, 1, EvaluateGuard.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(evaluateGuardEClass, ecorePackage.getEBoolean(), "evaluate", 0, 1, IS_UNIQUE, IS_ORDERED);
+		initEOperation(getEvaluateGuard__Evaluate(), ecorePackage.getEBoolean(), "evaluate", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEClass(variableEClass, Variable.class, "Variable", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(integerVariableEClass, IntegerVariable.class, "IntegerVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getIntegerVariable_InitialValue(), ecorePackage.getEInt(), "initialValue", null, 0, 1, IntegerVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(booleanVariableEClass, BooleanVariable.class, "BooleanVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBooleanVariable_InitialValue(), ecorePackage.getEBoolean(), "initialValue", null, 0, 1, BooleanVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(valueEClass, Value.class, "Value", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(expressionEClass, Expression.class, "Expression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(opaqueBooleanExpressionEClass, OpaqueBooleanExpression.class, "OpaqueBooleanExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getOpaqueBooleanExpression_Value(), ecorePackage.getEString(), "value", null, 0, 1, OpaqueBooleanExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(opaqueIntegerExpressionEClass, OpaqueIntegerExpression.class, "OpaqueIntegerExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getOpaqueIntegerExpression_Value(), ecorePackage.getEString(), "value", null, 0, 1, OpaqueIntegerExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(integerExpressionEClass, IntegerExpression.class, "IntegerExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getIntegerExpression_Operand2(), this.getIntegerVariable(), null, "operand2", null, 0, 1, IntegerExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIntegerExpression_Operand1(), this.getIntegerVariable(), null, "operand1", null, 0, 1, IntegerExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(booleanExpressionEClass, BooleanExpression.class, "BooleanExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(integerCalculationExpressionEClass, IntegerCalculationExpression.class, "IntegerCalculationExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getIntegerCalculationExpression_Operator(), this.getIntegerCalculationOperator(), "operator", null, 1, 1, IntegerCalculationExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(integerComparisonExpressionEClass, IntegerComparisonExpression.class, "IntegerComparisonExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getIntegerComparisonExpression_Operator(), this.getIntegerComparisonOperator(), "operator", null, 1, 1, IntegerComparisonExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIntegerComparisonExpression_Operand2(), this.getIntegerVariable(), null, "operand2", null, 0, 1, IntegerComparisonExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIntegerComparisonExpression_Operand1(), this.getIntegerVariable(), null, "operand1", null, 0, 1, IntegerComparisonExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(booleanUnaryExpressionEClass, BooleanUnaryExpression.class, "BooleanUnaryExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBooleanUnaryExpression_Operand(), this.getBooleanVariable(), null, "operand", null, 1, 1, BooleanUnaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBooleanUnaryExpression_Operator(), this.getBooleanUnaryOperator(), "operator", null, 1, 1, BooleanUnaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(booleanBinaryExpressionEClass, BooleanBinaryExpression.class, "BooleanBinaryExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBooleanBinaryExpression_Operand1(), this.getBooleanVariable(), null, "operand1", null, 1, 1, BooleanBinaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBooleanBinaryExpression_Operand2(), this.getBooleanVariable(), null, "operand2", null, 1, 1, BooleanBinaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBooleanBinaryExpression_Operator(), this.getBooleanBinaryOperator(), "operator", null, 1, 1, BooleanBinaryExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		// Initialize enums and add enum literals
+		initEEnum(integerCalculationOperatorEEnum, IntegerCalculationOperator.class, "IntegerCalculationOperator");
+		addEEnumLiteral(integerCalculationOperatorEEnum, IntegerCalculationOperator.ADD);
+		addEEnumLiteral(integerCalculationOperatorEEnum, IntegerCalculationOperator.SUBRACT);
+
+		initEEnum(integerComparisonOperatorEEnum, IntegerComparisonOperator.class, "IntegerComparisonOperator");
+		addEEnumLiteral(integerComparisonOperatorEEnum, IntegerComparisonOperator.SMALLER);
+		addEEnumLiteral(integerComparisonOperatorEEnum, IntegerComparisonOperator.SMALLER_EQUALS);
+		addEEnumLiteral(integerComparisonOperatorEEnum, IntegerComparisonOperator.EQUALS);
+		addEEnumLiteral(integerComparisonOperatorEEnum, IntegerComparisonOperator.GREATER_EQUALS);
+		addEEnumLiteral(integerComparisonOperatorEEnum, IntegerComparisonOperator.GREATER);
+
+		initEEnum(booleanUnaryOperatorEEnum, BooleanUnaryOperator.class, "BooleanUnaryOperator");
+		addEEnumLiteral(booleanUnaryOperatorEEnum, BooleanUnaryOperator.NOT);
+
+		initEEnum(booleanBinaryOperatorEEnum, BooleanBinaryOperator.class, "BooleanBinaryOperator");
+		addEEnumLiteral(booleanBinaryOperatorEEnum, BooleanBinaryOperator.AND);
+		addEEnumLiteral(booleanBinaryOperatorEEnum, BooleanBinaryOperator.OR);
 
 		// Create resource
 		createResource(eNS_URI);
