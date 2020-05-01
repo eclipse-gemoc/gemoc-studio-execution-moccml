@@ -103,6 +103,78 @@ public interface TfsmFactory extends EFactory {
 	EvaluateGuard createEvaluateGuard();
 
 	/**
+	 * Returns a new object of class '<em>Integer Variable</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Integer Variable</em>'.
+	 * @generated
+	 */
+	IntegerVariable createIntegerVariable();
+
+	/**
+	 * Returns a new object of class '<em>Boolean Variable</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Boolean Variable</em>'.
+	 * @generated
+	 */
+	BooleanVariable createBooleanVariable();
+
+	/**
+	 * Returns a new object of class '<em>Opaque Boolean Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Opaque Boolean Expression</em>'.
+	 * @generated
+	 */
+	OpaqueBooleanExpression createOpaqueBooleanExpression();
+
+	/**
+	 * Returns a new object of class '<em>Opaque Integer Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Opaque Integer Expression</em>'.
+	 * @generated
+	 */
+	OpaqueIntegerExpression createOpaqueIntegerExpression();
+
+	/**
+	 * Returns a new object of class '<em>Integer Calculation Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Integer Calculation Expression</em>'.
+	 * @generated
+	 */
+	IntegerCalculationExpression createIntegerCalculationExpression();
+
+	/**
+	 * Returns a new object of class '<em>Integer Comparison Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Integer Comparison Expression</em>'.
+	 * @generated
+	 */
+	IntegerComparisonExpression createIntegerComparisonExpression();
+
+	/**
+	 * Returns a new object of class '<em>Boolean Unary Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Boolean Unary Expression</em>'.
+	 * @generated
+	 */
+	BooleanUnaryExpression createBooleanUnaryExpression();
+
+	/**
+	 * Returns a new object of class '<em>Boolean Binary Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Boolean Binary Expression</em>'.
+	 * @generated
+	 */
+	BooleanBinaryExpression createBooleanBinaryExpression();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

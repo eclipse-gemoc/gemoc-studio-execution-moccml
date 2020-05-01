@@ -7,7 +7,7 @@ public class OncurrentTFSMCodeExecutor extends CodeExecutorDispatcher
 	public OncurrentTFSMCodeExecutor(){
 	    // add Melange or K3 DSA specific executors
 		addExecutor(new org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.impl.K3DSLCodeExecutor(this,
-			"concurrentTFSM"));
+			"ConcurrentTFSM"));
 		// fall back executor : search classic java method
 		addExecutor(new org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dsa.executors.JavaCodeExecutor());
 	}

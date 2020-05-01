@@ -2,6 +2,8 @@
  */
 package org.eclipse.gemoc.example.moccml.tfsm.tfsm.impl;
 
+import java.lang.reflect.InvocationTargetException;
+
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -84,16 +86,6 @@ public class StateImpl extends NamedElementImpl implements State {
 	 * @generated
 	 */
 	public TFSM getOwningFSM() {
-		if (eContainerFeatureID() != TfsmPackage.STATE__OWNING_FSM) return null;
-		return (TFSM)eContainer();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TFSM basicGetOwningFSM() {
 		if (eContainerFeatureID() != TfsmPackage.STATE__OWNING_FSM) return null;
 		return (TFSM)eInternalContainer();
 	}
@@ -237,8 +229,7 @@ public class StateImpl extends NamedElementImpl implements State {
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case TfsmPackage.STATE__OWNING_FSM:
-				if (resolve) return getOwningFSM();
-				return basicGetOwningFSM();
+				return getOwningFSM();
 			case TfsmPackage.STATE__OUTGOING_TRANSITIONS:
 				return getOutgoingTransitions();
 			case TfsmPackage.STATE__INCOMING_TRANSITIONS:
@@ -301,13 +292,31 @@ public class StateImpl extends NamedElementImpl implements State {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case TfsmPackage.STATE__OWNING_FSM:
-				return basicGetOwningFSM() != null;
+				return getOwningFSM() != null;
 			case TfsmPackage.STATE__OUTGOING_TRANSITIONS:
 				return outgoingTransitions != null && !outgoingTransitions.isEmpty();
 			case TfsmPackage.STATE__INCOMING_TRANSITIONS:
 				return incomingTransitions != null && !incomingTransitions.isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
+		switch (operationID) {
+			case TfsmPackage.STATE___ON_ENTER:
+				onEnter();
+				return null;
+			case TfsmPackage.STATE___ON_LEAVE:
+				onLeave();
+				return null;
+		}
+		return super.eInvoke(operationID, arguments);
 	}
 
 } //StateImpl

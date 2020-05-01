@@ -162,6 +162,13 @@
             </style>
           </conditionnalStyles>
         </nodeMappings>
+        <nodeMappings name="Variable" domainClass="Variable">
+          <style xsi:type="style:DotDescription" labelSize="12" showIcon="false" labelExpression="[(if(self.oclIsKindOf(IntegerVariable)) then 'int ' else 'bool ' endif) +self.name/]" sizeComputationExpression="2">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_orange']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_blue']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_yellow']"/>
+          </style>
+        </nodeMappings>
         <edgeMappings name="EventTransition" labelDirectEdit="//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@toolSections.1/@ownedTools[name='editEventTransition']" sourceMapping="//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']" targetMapping="//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']" targetFinderExpression="[self.target/]" sourceFinderExpression="[self.source/]" domainClass="Transition" useDomainElement="true">
           <style targetArrow="InputFillClosedArrow" sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
@@ -277,6 +284,7 @@
           </vsmElementCustomizations>
           <vsmElementCustomizations xsi:type="description:VSMElementCustomization">
             <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subNodeMappings[name='GlobalClock']/@style //@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='Local%20Clock']/@style" attributeName="labelExpression" value="[self.oclAsType(FSMClock).name+':'+self.oclAsType(FSMClock).getNumberOfTicks()/]"/>
+            <featureCustomizations xsi:type="description:EAttributeCustomization" appliedOn="//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='Variable']/@style" attributeName="labelExpression" value="[(if(self.oclIsKindOf(tfsm::IntegerVariable)) then 'int ' else 'bool ' endif) +self.oclAsType(tfsm::Variable).name+' = '+self.oclAsType(tfsm::Variable).getCurrentValue()/]"/>
           </vsmElementCustomizations>
         </customization>
       </additionalLayers>

@@ -2,6 +2,8 @@
  */
 package org.eclipse.gemoc.example.moccml.tfsm.tfsm.impl;
 
+import java.lang.reflect.InvocationTargetException;
+
 import java.util.Collection;
 
 import org.eclipse.emf.common.util.EList;
@@ -138,6 +140,21 @@ public class FSMEventImpl extends NamedElementImpl implements FSMEvent {
 				return sollicitingTransitions != null && !sollicitingTransitions.isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
+		switch (operationID) {
+			case TfsmPackage.FSM_EVENT___OCCURS:
+				occurs();
+				return null;
+		}
+		return super.eInvoke(operationID, arguments);
 	}
 
 } //FSMEventImpl

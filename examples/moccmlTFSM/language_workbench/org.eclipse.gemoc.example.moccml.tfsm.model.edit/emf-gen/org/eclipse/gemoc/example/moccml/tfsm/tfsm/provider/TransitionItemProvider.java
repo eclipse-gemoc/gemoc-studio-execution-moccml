@@ -13,7 +13,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.TfsmFactory;
@@ -48,11 +47,33 @@ public class TransitionItemProvider extends NamedElementItemProvider {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addSourcePropertyDescriptor(object);
 			addTargetPropertyDescriptor(object);
 			addGeneratedEventsPropertyDescriptor(object);
-			addActionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Source feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSourcePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Transition_source_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Transition_source_feature", "_UI_Transition_type"),
+				 TfsmPackage.Literals.TRANSITION__SOURCE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -100,28 +121,6 @@ public class TransitionItemProvider extends NamedElementItemProvider {
 	}
 
 	/**
-	 * This adds a property descriptor for the Action feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addActionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Transition_action_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Transition_action_feature", "_UI_Transition_type"),
-				 TfsmPackage.Literals.TRANSITION__ACTION,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -134,6 +133,7 @@ public class TransitionItemProvider extends NamedElementItemProvider {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(TfsmPackage.Literals.TRANSITION__OWNED_GUARD);
+			childrenFeatures.add(TfsmPackage.Literals.TRANSITION__ACTION);
 		}
 		return childrenFeatures;
 	}
@@ -189,10 +189,8 @@ public class TransitionItemProvider extends NamedElementItemProvider {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Transition.class)) {
-			case TfsmPackage.TRANSITION__ACTION:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
 			case TfsmPackage.TRANSITION__OWNED_GUARD:
+			case TfsmPackage.TRANSITION__ACTION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -224,6 +222,11 @@ public class TransitionItemProvider extends NamedElementItemProvider {
 			(createChildParameter
 				(TfsmPackage.Literals.TRANSITION__OWNED_GUARD,
 				 TfsmFactory.eINSTANCE.createEvaluateGuard()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(TfsmPackage.Literals.TRANSITION__ACTION,
+				 TfsmFactory.eINSTANCE.createIntegerCalculationExpression()));
 	}
 
 }

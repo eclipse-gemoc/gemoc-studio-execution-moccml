@@ -80,7 +80,34 @@ AutomataConstraintLibrary TFSMMoCC{
 			TGT_readyToFireTowaitingEntry, TGT_readyToFireTowaitingEntry2,
 			TGT_waitTimeToFireToTGT_waitTimeToFire )
 		}
+
+		AutomataRelationDefinition MicroStepEnforcementDef [ MicroStepEnforcement ] {
+
+			init:  S7
+
+			from MSED_S3 to MSED_S4 : MSED_S3ToMSED_S4
+			-> ( when MSE_start, MSE_time )
+
+			from MSED_S3 to MSED_S4 : MSED_S3ToMSED_S42
+			-> ( when MSE_start )
+
+			from MSED_S3 to MSED_S3 : MSED_S3ToMSED_S3
+			-> ( when MSE_time)
+
+			from MSED_S4 to MSED_S3 : MSED_S4ToMSED_S3
+			-> ( when MSE_stop )
+
+			from S7 to MSED_S3 : S7ToMSED_S3
+			-> ( )
+
+			State S7 ( out : S7ToMSED_S3 )
+
+			State MSED_S3 ( in : MSED_S3ToMSED_S3, MSED_S4ToMSED_S3, S7ToMSED_S3 out : MSED_S3ToMSED_S4, MSED_S3ToMSED_S42, MSED_S3ToMSED_S3 )
+
+			State MSED_S4 ( in : MSED_S3ToMSED_S4, MSED_S3ToMSED_S42 out : MSED_S4ToMSED_S3 )
+		}
 		RelationDeclaration EventGuardedTransition(EGT_stateEntry:clock, EGT_trigger:clock, EGT_reset:clock, EGT_fire:clock)
 		RelationDeclaration TemporalGuardedTransition(TGT_stateEntry:clock, TGT_timeRef:clock, TGT_reset:clock, TGT_duration:int, TGT_fire:clock)
+		RelationDeclaration MicroStepEnforcement(MSE_start:clock, MSE_time:clock, MSE_stop:clock)
 	}
 }

@@ -10,9 +10,11 @@
  *******************************************************************************/
 package org.eclipse.gemoc.example.moccml.tfsm.design.services;
 
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanExpression;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.EvaluateGuard;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.EventGuard;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.FSMEvent;
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerComparisonExpression;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.TemporalGuard;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.Transition;
 
@@ -46,17 +48,26 @@ public class TFSMServices {
 					.getOnClock().getName());
 		} else if (transition.getOwnedGuard() instanceof EvaluateGuard) {
 			res.append("if ");
-			res.append(((EvaluateGuard) transition.getOwnedGuard())
-					.getCondition());
+			EvaluateGuard g = ((EvaluateGuard) transition.getOwnedGuard());
+			BooleanExpression c = g.getCondition();
+			if (c instanceof IntegerComparisonExpression) {
+				IntegerComparisonExpression ice = (IntegerComparisonExpression) c;
+			res.append("("+ice.getOperand1().getName() + " "+ice.getOperator()+" "+ice.getOperand2().getName()+")");
+			}
 		}
-		res.append("\n / \n");
-		res.append(transition.getAction());
-		res.append("\n");
-		for (FSMEvent event : transition.getGeneratedEvents()) {
-			res.append("  !");
-			res.append(event.getName());
-			res.append(";");
+		if (transition.getGeneratedEvents().size() > 0 || transition.getAction().size() > 0) {
+			res.append("\n / \n");
+			if (transition.getAction().size() > 0) {
+				res.append(transition.getAction());
+				res.append("\n");
+			}
+			for (FSMEvent event : transition.getGeneratedEvents()) {
+				res.append("  !");
+				res.append(event.getName());
+				res.append(";");
+			}
 		}
+		
 
 		return res.toString();
 	}

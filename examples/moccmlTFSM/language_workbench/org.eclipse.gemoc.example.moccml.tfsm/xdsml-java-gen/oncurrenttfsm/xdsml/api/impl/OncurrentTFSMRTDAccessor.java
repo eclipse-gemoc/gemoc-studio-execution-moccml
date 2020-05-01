@@ -9,49 +9,61 @@ import org.eclipse.gemoc.executionframework.engine.commons.K3DslHelper;
 
 
 public class OncurrentTFSMRTDAccessor {
-  public static org.eclipse.gemoc.example.moccml.tfsm.tfsm.State getcurrentState(EObject eObject) {
-		return (org.eclipse.gemoc.example.moccml.tfsm.tfsm.State)  getAspectProperty(eObject, "concurrentTFSM", "org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.TFSMAspect", "currentState");
+	public static java.lang.Integer getNumberOfTicks(org.eclipse.gemoc.example.moccml.tfsm.tfsm.FSMClock eObject) {
+		return (java.lang.Integer)  getAspectProperty(eObject, "ConcurrentTFSM", "org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.FSMClockAspect", "numberOfTicks");
 	}
-	public static boolean setcurrentState(EObject eObject, org.eclipse.gemoc.example.moccml.tfsm.tfsm.State newValue) {
-		return setAspectProperty(eObject, "concurrentTFSM", "org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.TFSMAspect", "currentState", newValue);
+	public static boolean setNumberOfTicks(org.eclipse.gemoc.example.moccml.tfsm.tfsm.FSMClock eObject, java.lang.Integer newValue) {
+		return setAspectProperty(eObject, "ConcurrentTFSM", "org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.FSMClockAspect", "numberOfTicks", newValue);
 	}
-  public static int getnumberOfTicks(EObject eObject) {
-		return (int)  getAspectProperty(eObject, "concurrentTFSM", "org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.FSMClockAspect", "numberOfTicks");
+	public static org.eclipse.gemoc.example.moccml.tfsm.tfsm.State getCurrentState(org.eclipse.gemoc.example.moccml.tfsm.tfsm.TFSM eObject) {
+		return (org.eclipse.gemoc.example.moccml.tfsm.tfsm.State)  getAspectProperty(eObject, "ConcurrentTFSM", "org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.TFSMAspect", "currentState");
 	}
-	public static boolean setnumberOfTicks(EObject eObject, int newValue) {
-		return setAspectProperty(eObject, "concurrentTFSM", "org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.FSMClockAspect", "numberOfTicks", newValue);
+	public static boolean setCurrentState(org.eclipse.gemoc.example.moccml.tfsm.tfsm.TFSM eObject, org.eclipse.gemoc.example.moccml.tfsm.tfsm.State newValue) {
+		return setAspectProperty(eObject, "ConcurrentTFSM", "org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.TFSMAspect", "currentState", newValue);
+	}
+	public static java.lang.Boolean getCurrentValue(org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanVariable eObject) {
+		return (java.lang.Boolean)  getAspectProperty(eObject, "ConcurrentTFSM", "org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.BooleanVariableAspect", "currentValue");
+	}
+	public static boolean setCurrentValue(org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanVariable eObject, java.lang.Boolean newValue) {
+		return setAspectProperty(eObject, "ConcurrentTFSM", "org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.BooleanVariableAspect", "currentValue", newValue);
+	}
+	public static java.lang.Integer getCurrentValue(org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerVariable eObject) {
+		return (java.lang.Integer)  getAspectProperty(eObject, "ConcurrentTFSM", "org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.IntegerVariableAspect", "currentValue");
+	}
+	public static boolean setCurrentValue(org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerVariable eObject, java.lang.Integer newValue) {
+		return setAspectProperty(eObject, "ConcurrentTFSM", "org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.IntegerVariableAspect", "currentValue", newValue);
 	}
 
-public static Object getAspectProperty(EObject eObject, String languageName, String aspectName, String propertyName) {
-			List<Class<?>> aspects = K3DslHelper.getAspectsOn(languageName, eObject.getClass());
-			Class<?> aspect = null;
-			for (Class<?> a : aspects) {
-				try {
-					if (Class.forName(aspectName).isAssignableFrom(a)) {
-						aspect = a;
-					}
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
+	public static Object getAspectProperty(EObject eObject, String languageName, String aspectName, String propertyName) {
+		List<Class<?>> aspects = K3DslHelper.getAspectsOn(languageName, eObject.getClass());
+		Class<?> aspect = null;
+		for (Class<?> a : aspects) {
+			try {
+				if (Class.forName(aspectName).isAssignableFrom(a)) {
+					aspect = a;
 				}
-			}
-			if (aspect == null) {
-				return null;
-			}
-			Object res = null;
-			 try {
-				res = aspect.getDeclaredMethod(propertyName, ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).className()).invoke(eObject, eObject);
-				if (res != null) {
-				return res;
-				}else {
-					return null;
-				}
-			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
-					| NoSuchMethodException | SecurityException e) {
+			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-			
-			 return null;
 		}
+		if (aspect == null) {
+			return null;
+		}
+		Object res = null;
+		 try {
+			res = aspect.getDeclaredMethod(propertyName, ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).className()).invoke(eObject, eObject);
+			if (res != null) {
+				return res;
+			}else {
+				return null;
+			}
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
+					| NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 	
 	
 	public static boolean setAspectProperty(EObject eObject, String languageName, String aspectName, String propertyName, Object newValue) {

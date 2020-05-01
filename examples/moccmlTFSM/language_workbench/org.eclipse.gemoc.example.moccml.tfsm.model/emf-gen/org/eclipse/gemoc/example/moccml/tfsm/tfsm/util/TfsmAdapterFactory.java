@@ -112,6 +112,58 @@ public class TfsmAdapterFactory extends AdapterFactoryImpl {
 				return createEvaluateGuardAdapter();
 			}
 			@Override
+			public Adapter caseVariable(Variable object) {
+				return createVariableAdapter();
+			}
+			@Override
+			public Adapter caseIntegerVariable(IntegerVariable object) {
+				return createIntegerVariableAdapter();
+			}
+			@Override
+			public Adapter caseBooleanVariable(BooleanVariable object) {
+				return createBooleanVariableAdapter();
+			}
+			@Override
+			public Adapter caseValue(Value object) {
+				return createValueAdapter();
+			}
+			@Override
+			public Adapter caseExpression(Expression object) {
+				return createExpressionAdapter();
+			}
+			@Override
+			public Adapter caseOpaqueBooleanExpression(OpaqueBooleanExpression object) {
+				return createOpaqueBooleanExpressionAdapter();
+			}
+			@Override
+			public Adapter caseOpaqueIntegerExpression(OpaqueIntegerExpression object) {
+				return createOpaqueIntegerExpressionAdapter();
+			}
+			@Override
+			public Adapter caseIntegerExpression(IntegerExpression object) {
+				return createIntegerExpressionAdapter();
+			}
+			@Override
+			public Adapter caseBooleanExpression(BooleanExpression object) {
+				return createBooleanExpressionAdapter();
+			}
+			@Override
+			public Adapter caseIntegerCalculationExpression(IntegerCalculationExpression object) {
+				return createIntegerCalculationExpressionAdapter();
+			}
+			@Override
+			public Adapter caseIntegerComparisonExpression(IntegerComparisonExpression object) {
+				return createIntegerComparisonExpressionAdapter();
+			}
+			@Override
+			public Adapter caseBooleanUnaryExpression(BooleanUnaryExpression object) {
+				return createBooleanUnaryExpressionAdapter();
+			}
+			@Override
+			public Adapter caseBooleanBinaryExpression(BooleanBinaryExpression object) {
+				return createBooleanBinaryExpressionAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -282,6 +334,188 @@ public class TfsmAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createEvaluateGuardAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.Variable <em>Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.Variable
+	 * @generated
+	 */
+	public Adapter createVariableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerVariable <em>Integer Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerVariable
+	 * @generated
+	 */
+	public Adapter createIntegerVariableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanVariable <em>Boolean Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanVariable
+	 * @generated
+	 */
+	public Adapter createBooleanVariableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.Value <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.Value
+	 * @generated
+	 */
+	public Adapter createValueAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.Expression <em>Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.Expression
+	 * @generated
+	 */
+	public Adapter createExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.OpaqueBooleanExpression <em>Opaque Boolean Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.OpaqueBooleanExpression
+	 * @generated
+	 */
+	public Adapter createOpaqueBooleanExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.OpaqueIntegerExpression <em>Opaque Integer Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.OpaqueIntegerExpression
+	 * @generated
+	 */
+	public Adapter createOpaqueIntegerExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerExpression <em>Integer Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerExpression
+	 * @generated
+	 */
+	public Adapter createIntegerExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanExpression <em>Boolean Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanExpression
+	 * @generated
+	 */
+	public Adapter createBooleanExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerCalculationExpression <em>Integer Calculation Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerCalculationExpression
+	 * @generated
+	 */
+	public Adapter createIntegerCalculationExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerComparisonExpression <em>Integer Comparison Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerComparisonExpression
+	 * @generated
+	 */
+	public Adapter createIntegerComparisonExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanUnaryExpression <em>Boolean Unary Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanUnaryExpression
+	 * @generated
+	 */
+	public Adapter createBooleanUnaryExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanBinaryExpression <em>Boolean Binary Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanBinaryExpression
+	 * @generated
+	 */
+	public Adapter createBooleanBinaryExpressionAdapter() {
 		return null;
 	}
 

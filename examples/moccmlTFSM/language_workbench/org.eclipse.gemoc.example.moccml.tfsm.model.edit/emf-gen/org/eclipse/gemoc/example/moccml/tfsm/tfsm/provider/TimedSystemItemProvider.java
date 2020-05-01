@@ -65,6 +65,7 @@ public class TimedSystemItemProvider extends NamedElementItemProvider {
 			childrenFeatures.add(TfsmPackage.Literals.TIMED_SYSTEM__TFSMS);
 			childrenFeatures.add(TfsmPackage.Literals.TIMED_SYSTEM__GLOBAL_CLOCKS);
 			childrenFeatures.add(TfsmPackage.Literals.TIMED_SYSTEM__GLOBAL_EVENTS);
+			childrenFeatures.add(TfsmPackage.Literals.TIMED_SYSTEM__OWNED_VARS);
 		}
 		return childrenFeatures;
 	}
@@ -123,6 +124,7 @@ public class TimedSystemItemProvider extends NamedElementItemProvider {
 			case TfsmPackage.TIMED_SYSTEM__TFSMS:
 			case TfsmPackage.TIMED_SYSTEM__GLOBAL_CLOCKS:
 			case TfsmPackage.TIMED_SYSTEM__GLOBAL_EVENTS:
+			case TfsmPackage.TIMED_SYSTEM__OWNED_VARS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -154,6 +156,16 @@ public class TimedSystemItemProvider extends NamedElementItemProvider {
 			(createChildParameter
 				(TfsmPackage.Literals.TIMED_SYSTEM__GLOBAL_EVENTS,
 				 TfsmFactory.eINSTANCE.createFSMEvent()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(TfsmPackage.Literals.TIMED_SYSTEM__OWNED_VARS,
+				 TfsmFactory.eINSTANCE.createIntegerVariable()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(TfsmPackage.Literals.TIMED_SYSTEM__OWNED_VARS,
+				 TfsmFactory.eINSTANCE.createBooleanVariable()));
 	}
 
 }

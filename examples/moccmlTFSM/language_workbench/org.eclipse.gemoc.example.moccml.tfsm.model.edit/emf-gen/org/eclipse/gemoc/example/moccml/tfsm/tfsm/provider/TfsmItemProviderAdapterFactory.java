@@ -279,6 +279,190 @@ public class TfsmItemProviderAdapterFactory extends TfsmAdapterFactory implement
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerVariable} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected IntegerVariableItemProvider integerVariableItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerVariable}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createIntegerVariableAdapter() {
+		if (integerVariableItemProvider == null) {
+			integerVariableItemProvider = new IntegerVariableItemProvider(this);
+		}
+
+		return integerVariableItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanVariable} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BooleanVariableItemProvider booleanVariableItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanVariable}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createBooleanVariableAdapter() {
+		if (booleanVariableItemProvider == null) {
+			booleanVariableItemProvider = new BooleanVariableItemProvider(this);
+		}
+
+		return booleanVariableItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.OpaqueBooleanExpression} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected OpaqueBooleanExpressionItemProvider opaqueBooleanExpressionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.OpaqueBooleanExpression}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createOpaqueBooleanExpressionAdapter() {
+		if (opaqueBooleanExpressionItemProvider == null) {
+			opaqueBooleanExpressionItemProvider = new OpaqueBooleanExpressionItemProvider(this);
+		}
+
+		return opaqueBooleanExpressionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.OpaqueIntegerExpression} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected OpaqueIntegerExpressionItemProvider opaqueIntegerExpressionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.OpaqueIntegerExpression}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createOpaqueIntegerExpressionAdapter() {
+		if (opaqueIntegerExpressionItemProvider == null) {
+			opaqueIntegerExpressionItemProvider = new OpaqueIntegerExpressionItemProvider(this);
+		}
+
+		return opaqueIntegerExpressionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerCalculationExpression} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected IntegerCalculationExpressionItemProvider integerCalculationExpressionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerCalculationExpression}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createIntegerCalculationExpressionAdapter() {
+		if (integerCalculationExpressionItemProvider == null) {
+			integerCalculationExpressionItemProvider = new IntegerCalculationExpressionItemProvider(this);
+		}
+
+		return integerCalculationExpressionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerComparisonExpression} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected IntegerComparisonExpressionItemProvider integerComparisonExpressionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerComparisonExpression}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createIntegerComparisonExpressionAdapter() {
+		if (integerComparisonExpressionItemProvider == null) {
+			integerComparisonExpressionItemProvider = new IntegerComparisonExpressionItemProvider(this);
+		}
+
+		return integerComparisonExpressionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanUnaryExpression} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BooleanUnaryExpressionItemProvider booleanUnaryExpressionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanUnaryExpression}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createBooleanUnaryExpressionAdapter() {
+		if (booleanUnaryExpressionItemProvider == null) {
+			booleanUnaryExpressionItemProvider = new BooleanUnaryExpressionItemProvider(this);
+		}
+
+		return booleanUnaryExpressionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanBinaryExpression} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BooleanBinaryExpressionItemProvider booleanBinaryExpressionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gemoc.example.moccml.tfsm.tfsm.BooleanBinaryExpression}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createBooleanBinaryExpressionAdapter() {
+		if (booleanBinaryExpressionItemProvider == null) {
+			booleanBinaryExpressionItemProvider = new BooleanBinaryExpressionItemProvider(this);
+		}
+
+		return booleanBinaryExpressionItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -386,6 +570,14 @@ public class TfsmItemProviderAdapterFactory extends TfsmAdapterFactory implement
 		if (fsmClockItemProvider != null) fsmClockItemProvider.dispose();
 		if (timedSystemItemProvider != null) timedSystemItemProvider.dispose();
 		if (evaluateGuardItemProvider != null) evaluateGuardItemProvider.dispose();
+		if (integerVariableItemProvider != null) integerVariableItemProvider.dispose();
+		if (booleanVariableItemProvider != null) booleanVariableItemProvider.dispose();
+		if (opaqueBooleanExpressionItemProvider != null) opaqueBooleanExpressionItemProvider.dispose();
+		if (opaqueIntegerExpressionItemProvider != null) opaqueIntegerExpressionItemProvider.dispose();
+		if (integerCalculationExpressionItemProvider != null) integerCalculationExpressionItemProvider.dispose();
+		if (integerComparisonExpressionItemProvider != null) integerComparisonExpressionItemProvider.dispose();
+		if (booleanUnaryExpressionItemProvider != null) booleanUnaryExpressionItemProvider.dispose();
+		if (booleanBinaryExpressionItemProvider != null) booleanBinaryExpressionItemProvider.dispose();
 	}
 
 }

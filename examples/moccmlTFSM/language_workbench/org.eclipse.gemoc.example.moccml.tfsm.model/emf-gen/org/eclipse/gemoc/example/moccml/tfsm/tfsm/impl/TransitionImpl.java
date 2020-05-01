@@ -2,6 +2,8 @@
  */
 package org.eclipse.gemoc.example.moccml.tfsm.tfsm.impl;
 
+import java.lang.reflect.InvocationTargetException;
+
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -14,10 +16,13 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.FSMEvent;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.Guard;
+import org.eclipse.gemoc.example.moccml.tfsm.tfsm.IntegerCalculationExpression;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.State;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.TfsmPackage;
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.Transition;
@@ -81,24 +86,14 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	protected EList<FSMEvent> generatedEvents;
 
 	/**
-	 * The default value of the '{@link #getAction() <em>Action</em>}' attribute.
+	 * The cached value of the '{@link #getAction() <em>Action</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getAction()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String ACTION_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getAction() <em>Action</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAction()
-	 * @generated
-	 * @ordered
-	 */
-	protected String action = ACTION_EDEFAULT;
+	protected EList<IntegerCalculationExpression> action;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -245,29 +240,6 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * @generated
 	 */
 	public Guard getOwnedGuard() {
-		if (ownedGuard != null && ownedGuard.eIsProxy()) {
-			InternalEObject oldOwnedGuard = (InternalEObject)ownedGuard;
-			ownedGuard = (Guard)eResolveProxy(oldOwnedGuard);
-			if (ownedGuard != oldOwnedGuard) {
-				InternalEObject newOwnedGuard = (InternalEObject)ownedGuard;
-				NotificationChain msgs = oldOwnedGuard.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TfsmPackage.TRANSITION__OWNED_GUARD, null, null);
-				if (newOwnedGuard.eInternalContainer() == null) {
-					msgs = newOwnedGuard.eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TfsmPackage.TRANSITION__OWNED_GUARD, null, msgs);
-				}
-				if (msgs != null) msgs.dispatch();
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TfsmPackage.TRANSITION__OWNED_GUARD, oldOwnedGuard, ownedGuard));
-			}
-		}
-		return ownedGuard;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Guard basicGetOwnedGuard() {
 		return ownedGuard;
 	}
 
@@ -322,20 +294,11 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getAction() {
+	public EList<IntegerCalculationExpression> getAction() {
+		if (action == null) {
+			action = new EObjectContainmentEList<IntegerCalculationExpression>(IntegerCalculationExpression.class, this, TfsmPackage.TRANSITION__ACTION);
+		}
 		return action;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setAction(String newAction) {
-		String oldAction = action;
-		action = newAction;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, TfsmPackage.TRANSITION__ACTION, oldAction, action));
 	}
 
 	/**
@@ -383,6 +346,8 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 				return basicSetTarget(null, msgs);
 			case TfsmPackage.TRANSITION__OWNED_GUARD:
 				return basicSetOwnedGuard(null, msgs);
+			case TfsmPackage.TRANSITION__ACTION:
+				return ((InternalEList<?>)getAction()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -402,8 +367,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 				if (resolve) return getTarget();
 				return basicGetTarget();
 			case TfsmPackage.TRANSITION__OWNED_GUARD:
-				if (resolve) return getOwnedGuard();
-				return basicGetOwnedGuard();
+				return getOwnedGuard();
 			case TfsmPackage.TRANSITION__GENERATED_EVENTS:
 				return getGeneratedEvents();
 			case TfsmPackage.TRANSITION__ACTION:
@@ -435,7 +399,8 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 				getGeneratedEvents().addAll((Collection<? extends FSMEvent>)newValue);
 				return;
 			case TfsmPackage.TRANSITION__ACTION:
-				setAction((String)newValue);
+				getAction().clear();
+				getAction().addAll((Collection<? extends IntegerCalculationExpression>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -462,7 +427,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 				getGeneratedEvents().clear();
 				return;
 			case TfsmPackage.TRANSITION__ACTION:
-				setAction(ACTION_EDEFAULT);
+				getAction().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -485,7 +450,7 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 			case TfsmPackage.TRANSITION__GENERATED_EVENTS:
 				return generatedEvents != null && !generatedEvents.isEmpty();
 			case TfsmPackage.TRANSITION__ACTION:
-				return ACTION_EDEFAULT == null ? action != null : !ACTION_EDEFAULT.equals(action);
+				return action != null && !action.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -496,14 +461,13 @@ public class TransitionImpl extends NamedElementImpl implements Transition {
 	 * @generated
 	 */
 	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuilder result = new StringBuilder(super.toString());
-		result.append(" (action: ");
-		result.append(action);
-		result.append(')');
-		return result.toString();
+	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
+		switch (operationID) {
+			case TfsmPackage.TRANSITION___FIRE:
+				fire();
+				return null;
+		}
+		return super.eInvoke(operationID, arguments);
 	}
 
 } //TransitionImpl
