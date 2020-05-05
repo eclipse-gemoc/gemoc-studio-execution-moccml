@@ -293,7 +293,8 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 		setAspectsWithRTDs = new HashSet<String>();
 		mapAspectProperties = ArrayListMultimap.create();
 
-		for (String a : allAspects.trim().split(",")) {
+		for (String a : allAspects.split(",")) {
+			a = a.trim();
 			String originalAspectClassName = a;
 			int dot = a.lastIndexOf('.');
 			a = a + a.substring(dot + 1) + "Properties";
@@ -302,7 +303,7 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 			if (dot != -1) {
 				qualifications = new char[][] { a.substring(0, dot).toCharArray() };
 				simpleName = a.substring(dot + 1);
-			} else {
+			} else { // Is this case really managed ?
 				qualifications = null;
 				simpleName = a;
 			}
