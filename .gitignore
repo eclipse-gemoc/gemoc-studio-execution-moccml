@@ -9,4 +9,3 @@ node_modules
 /package-lock.json
 **/.polyglot.build.properties
 *.class
-.settings/
