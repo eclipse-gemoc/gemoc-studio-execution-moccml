@@ -293,7 +293,7 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 		setAspectsWithRTDs = new HashSet<String>();
 		mapAspectProperties = ArrayListMultimap.create();
 
-		for (String a : allAspects.trim().split(",")) {
+		for (String a : allAspects.split(",")) {
 			a = a.trim();
 			String originalAspectClassName = a;
 			int dot = a.lastIndexOf('.');
