@@ -123,34 +123,6 @@ public class MOCCMLRule implements IRule{
 			}
 		}
 		
-		if("k3".matches(entry.getKey())) {
-			String aspectsFields = entry.getValue();
-			
-			IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-			IFile file = root.getFile(new Path(entry.eResource().getURI().toPlatformString(true)));
-			
-			IProject proj = file.getProject();
-			IJavaProject jProj = JavaCore.create(proj);
-			
-			if(jProj == null) {
-				return (new Message("No project dsa in the workspace", Severity.ERROR));
-			}
-			
-			ArrayList<String> aspectsName = new ArrayList<>();
-			
-			for(String s : aspectsFields.split(",")) {
-				aspectsName.add(s);
-			}
-			
-			for(String asp : aspectsName) {
-				try {
-					jProj.findType(asp);
-				} catch (Exception e) {
-					return (new Message("No aspect matching \""+asp+ "\" in the project", Severity.ERROR));
-				}
-			}
-			
-		}
 		return (new Message("", Severity.DEFAULT));
 	}
 
