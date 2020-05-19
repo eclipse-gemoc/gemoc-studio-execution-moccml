@@ -7,8 +7,8 @@
     <version>2.3.0-SNAPSHOT</version>
     <packaging>pom</packaging>    
     <properties>
-		<tycho-version>1.5.1</tycho-version>
-    	<xtend.version>2.14.0</xtend.version>
+		<tycho-version>1.7.0</tycho-version>
+    	<xtend.version>2.21.0</xtend.version>
 		<project.build.sourceEncoding>UTF8</project.build.sourceEncoding>
 		<tycho.scmUrl>scm:git:https://github.com/eclipse/gemoc-studio-execution-moccml.git</tycho.scmUrl>
 		
@@ -47,7 +47,7 @@
         <repository>
             <id>Photon release</id>
             <layout>p2</layout>
-            <url>http://download.eclipse.org/releases/photon/</url>
+            <url>http://download.eclipse.org/releases/2020-03</url>
         </repository>
         <repository>
             <id>timesquare</id>
