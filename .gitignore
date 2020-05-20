@@ -7,5 +7,5 @@ build.acceleo
 **/xtend-gen/*
 node_modules
 /package-lock.json
-**/.polyglot.build.properties
+**/.polyglot.*
 *.class
