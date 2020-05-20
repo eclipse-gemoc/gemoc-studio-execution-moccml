@@ -56,12 +56,12 @@
             <url>http://timesquare.inria.fr/update_site/photon</url>
         </repository>
 		<repository>
-            <id>kermeta-3</id>
+            <id>K3</id>
             <layout>p2</layout>
             <url>http://www.kermeta.org/k3/update_2018-09-05</url>
         </repository>
         <repository>
-            <id>melange</id>
+            <id>Melange</id>
             <layout>p2</layout>
             <url>http://melange.inria.fr/updatesite/nightly/update_2020-05-20</url>
         </repository>
