@@ -1,0 +1,41 @@
+package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies
+
+import java.util.HashMap
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.concurrency.FullyOverlapStrategyDefinition
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.concurrency.OverlapStrategyDefinition
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.concurrency.SetOfRulesStrategyDefinition
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filters.MaxNumberOfStepsStrategyDefinition
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filters.NonIdentityElementsStrategyDefinition
+
+/**
+ * Registry of strategy descriptions. Eventually to be filled from an extension point.
+ * 
+ */
+class StrategyRegistry {
+
+	public static val INSTANCE = new StrategyRegistry
+
+	public static val STRATEGIES_CONFIG_KEY = "uk.ac.kcl.inf.xdsml.strategies"
+	
+	private new() {
+		add(new OverlapStrategyDefinition)
+		add(new FullyOverlapStrategyDefinition)
+		add(new SetOfRulesStrategyDefinition)
+		add(new NonIdentityElementsStrategyDefinition)
+		add(new MaxNumberOfStepsStrategyDefinition)
+	}
+
+	val registry = new HashMap<String, StrategyDefinition>()
+
+	def add(StrategyDefinition strategy) {
+		registry.put(strategy.getStrategyID, strategy)
+	}
+
+	def getStrategies() {
+		registry.values
+	}
+
+	def get(String ID) {
+		registry.get(ID)
+	}
+}
