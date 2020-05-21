@@ -20,8 +20,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.step.Logic
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.DeciderException;
-import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
-import org.eclipse.gemoc.trace.commons.model.trace.Step;
+import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener2;
 import org.eclipse.jface.action.IMenuManager;
@@ -36,12 +35,12 @@ public abstract class AbstractUserDecider implements ILogicalStepDecider
 		super();
 	}
 	
-	private GenericParallelStep _selectedLogicalStep;
+	private ParallelStep<?,?> _selectedLogicalStep;
 
 	private Semaphore _semaphore = null;
 
 	@Override
-	public GenericParallelStep decide(final AbstractConcurrentExecutionEngine engine, final List<GenericParallelStep> possibleLogicalSteps) throws DeciderException
+	public ParallelStep<?,?> decide(final AbstractConcurrentExecutionEngine engine, final List<ParallelStep<?,?>> possibleLogicalSteps) throws DeciderException
 			 {
 		_preemptionHappened = false;
 		_semaphore = new Semaphore(0);
@@ -154,7 +153,7 @@ public abstract class AbstractUserDecider implements ILogicalStepDecider
 
 	public abstract boolean isStepByStep();
 
-	public void decideFromTimeLine(GenericParallelStep logicalStep)
+	public void decideFromTimeLine(ParallelStep<?,?> logicalStep)
 	{
 		_selectedLogicalStep = logicalStep;
 		if (_semaphore != null)

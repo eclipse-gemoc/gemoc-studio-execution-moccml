@@ -6,7 +6,7 @@ import java.util.List
 import java.util.Set
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.FilteringStrategy
-import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep
+import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep
 import org.eclipse.xtend.lib.annotations.Accessors
 
 /**
@@ -31,7 +31,7 @@ class NonIdentityElementsStrategy  implements FilteringStrategy {
 		this.nonIdentityTypes = nonIdentityTypes
 	}
 
-	override filter(Set<GenericParallelStep> steps) {
+	override filter(Set<ParallelStep<?,?>> steps) {
 	
 	}
 

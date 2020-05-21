@@ -16,6 +16,7 @@ import java.util.Set;
 
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentModelExecutionContext;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
+import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 import org.eclipse.gemoc.xdsmlframework.api.core.IDisposable;
 
 /**
@@ -32,14 +33,14 @@ public interface ISolver extends IDisposable {
 	 * 
 	 * @return a list of LogicalSteps
 	 */
-	public Set<GenericParallelStep> computeAndGetPossibleLogicalSteps();
+	public Set<ParallelStep<?,?>> computeAndGetPossibleLogicalSteps();
 
 	/**
 	 * Returns the currently possible LogicalSteps
 	 * 
 	 * @return a list of LogicalSteps
 	 */
-	public Set<GenericParallelStep> updatePossibleLogicalSteps();
+	public Set<ParallelStep<?,?>> updatePossibleLogicalSteps();
 
 	/**
 	 * among the currently possible LogicalStep (see {@link getPossibleLogicalSteps}
@@ -47,14 +48,14 @@ public interface ISolver extends IDisposable {
 	 * 
 	 * @return the logical step proposed from possible LogicalSteps
 	 */
-	public GenericParallelStep proposeLogicalStep();
+	public ParallelStep<?,?> proposeLogicalStep();
 
 	/**
 	 * ask the solver to apply the given LogicalStep and thus compute next step
 	 * 
 	 * @param the LogicalStep to apply
 	 */
-	public void applyLogicalStep(GenericParallelStep logicalStep);
+	public void applyLogicalStep(ParallelStep<?,?> logicalStep);
 
 	/**
 	 * Actions that could be done to prepare the workspace before any model is

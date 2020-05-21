@@ -17,6 +17,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecut
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
+import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 
 /**
  * Decider that will delegate its choice to the solver
@@ -25,7 +26,7 @@ import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 public class CcslSolverDecider implements ILogicalStepDecider {
 
 	@Override
-	public GenericParallelStep decide(AbstractConcurrentExecutionEngine engine, List<GenericParallelStep> possibleLogicalSteps) {
+	public ParallelStep<?,?> decide(AbstractConcurrentExecutionEngine engine, List<ParallelStep<?,?>> possibleLogicalSteps) {
 		MoccmlExecutionEngine moccmlengine = (MoccmlExecutionEngine) engine;
 		return moccmlengine.getSolver().proposeLogicalStep();
 	}

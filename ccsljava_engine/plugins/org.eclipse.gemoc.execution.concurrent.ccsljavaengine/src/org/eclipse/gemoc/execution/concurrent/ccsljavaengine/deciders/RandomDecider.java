@@ -16,7 +16,7 @@ import java.util.Random;
 
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;
-import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
+import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 
 /**
  * Decider that will choose randomly
@@ -31,7 +31,7 @@ public class RandomDecider implements ILogicalStepDecider {
 	}
 
 	@Override
-	public GenericParallelStep decide(AbstractConcurrentExecutionEngine engine, List<GenericParallelStep> possibleLogicalSteps) {
+	public ParallelStep<?,?> decide(AbstractConcurrentExecutionEngine engine, List<ParallelStep<?,?>> possibleLogicalSteps) {
 		int index = -1;
 		if (possibleLogicalSteps.size() < 2)
 		{

@@ -27,6 +27,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.Co
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericStep;
+import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 
@@ -94,7 +95,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 			// 2- compute all states accessible from the currenState when using the
 			// possibleLogicalStates
 			int originalPossibleLogicalStepSize = getPossibleLogicalSteps().size();
-			for (GenericParallelStep aStep : getPossibleLogicalSteps()) {
+			for (ParallelStep<?,?> aStep : getPossibleLogicalSteps()) {
 				if (getPossibleLogicalSteps().size() != originalPossibleLogicalStepSize) {
 					System.err.println("something went wrong during mocc state save/restore");
 				}

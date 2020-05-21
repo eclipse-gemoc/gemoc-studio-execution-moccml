@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.DeciderException;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
+import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 import org.eclipse.gemoc.xdsmlframework.api.core.IDisposable;
 
 
@@ -31,7 +32,7 @@ public interface ILogicalStepDecider extends IDisposable
 	 * @return The index of the selected logical step, -1 if no logical step selected.
 	 * @throws DeciderException 
 	 */
-	GenericParallelStep decide(AbstractConcurrentExecutionEngine engine, List<GenericParallelStep> possibleLogicalSteps) throws DeciderException;
+	ParallelStep<?,?> decide(AbstractConcurrentExecutionEngine engine, List<ParallelStep<?,?>> possibleLogicalSteps) throws DeciderException;
 	
 	/**
 	 * Stop the decision making in progress.

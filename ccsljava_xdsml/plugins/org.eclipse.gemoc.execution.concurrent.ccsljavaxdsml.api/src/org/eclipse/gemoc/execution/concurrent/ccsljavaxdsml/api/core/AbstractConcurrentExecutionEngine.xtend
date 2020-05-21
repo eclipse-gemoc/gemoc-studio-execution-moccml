@@ -1,7 +1,6 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core
 
 import java.util.ArrayList
-import java.util.Collection
 import java.util.HashSet
 import java.util.List
 import java.util.Set
@@ -13,6 +12,7 @@ import org.eclipse.gemoc.executionframework.engine.Activator
 import org.eclipse.gemoc.executionframework.engine.core.AbstractExecutionEngine
 import org.eclipse.gemoc.executionframework.engine.core.EngineStoppedException
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep
+import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep
 import org.eclipse.gemoc.trace.commons.model.trace.Step
 import org.eclipse.gemoc.xdsmlframework.api.core.EngineStatus
@@ -22,24 +22,24 @@ import org.eclipse.xtend.lib.annotations.Accessors
 //TODO manage runconfiguration with strategies?
 abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentModelExecutionContext<R, ?, ?>, R extends IConcurrentRunConfiguration> extends AbstractExecutionEngine<C, R> {
 
-	def protected abstract void doAfterLogicalStepExecution(GenericParallelStep logicalStep)
+	def protected abstract void doAfterLogicalStepExecution(ParallelStep<?,?> logicalStep)
 
 	def protected abstract void executeSmallStep(SmallStep<?> smallStep) throws CodeExecutionException
 
 	def protected abstract void performSpecificInitialize(C executionContext)
 
-	def protected abstract Set<GenericParallelStep> computeInitialLogicalSteps()
+	def protected abstract Set<ParallelStep<?,?>> computeInitialLogicalSteps()
 
 	ILogicalStepDecider _logicalStepDecider
-	protected Set<GenericParallelStep> _possibleLogicalSteps = new HashSet()
-	GenericParallelStep _selectedLogicalStep
+	protected Set<ParallelStep<?,?>> _possibleLogicalSteps = new HashSet()
+	ParallelStep<?,?> _selectedLogicalStep
 
 	@Accessors
 	val List<ConcurrencyStrategy> concurrencyStrategies = new ArrayList<ConcurrencyStrategy>()
 	@Accessors
 	val List<FilteringStrategy> filteringStrategies = new ArrayList<FilteringStrategy>()
 
-	def private Set<GenericParallelStep> computePossibleLogicalSteps() {
+	def private Set<ParallelStep<?,?>> computePossibleLogicalSteps() {
 		val steps = computeInitialLogicalSteps()
 		return filterByStrategies(steps)
 	}
@@ -47,7 +47,7 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	/** 
 	 * Return a list of steps filtered by all filtering strategies
 	 */
-	private def Set<GenericParallelStep> filterByStrategies(Set<GenericParallelStep> possibleSteps) {
+	private def Set<ParallelStep<?,?>> filterByStrategies(Set<ParallelStep<?,?>> possibleSteps) {
 		return filteringStrategies.fold(possibleSteps, [steps, fh|fh.filter(steps)])
 	}
 
@@ -73,13 +73,13 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 		return _logicalStepDecider
 	}
 
-	def final GenericParallelStep getSelectedLogicalStep() {
+	def final ParallelStep<?,?> getSelectedLogicalStep() {
 		synchronized (this) {
 			return _selectedLogicalStep
 		}
 	}
 
-	def final protected void setSelectedLogicalStep(GenericParallelStep ls) {
+	def final protected void setSelectedLogicalStep(ParallelStep<?,?> ls) {
 		synchronized (this) {
 			_selectedLogicalStep = ls
 		}
@@ -131,16 +131,16 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 		}
 	}
 
-	def final List<GenericParallelStep> getPossibleLogicalSteps() {
+	def final List<ParallelStep<?,?>> getPossibleLogicalSteps() {
 		synchronized (this) {
-			return new ArrayList<GenericParallelStep>(_possibleLogicalSteps)
+			return new ArrayList<ParallelStep<?,?>>(_possibleLogicalSteps)
 		}
 	}
 
-	def final protected GenericParallelStep selectAndExecuteLogicalStep() throws CodeExecutionException, DeciderException {
+	def final protected ParallelStep<?,?> selectAndExecuteLogicalStep() throws CodeExecutionException, DeciderException {
 		setEngineStatus(EngineStatus.RunStatus::WaitingLogicalStepSelection)
 		notifyAboutToSelectLogicalStep()
-		var GenericParallelStep selectedLogicalStep = getLogicalStepDecider().decide(this, getPossibleLogicalSteps())
+		var ParallelStep<?,?> selectedLogicalStep = getLogicalStepDecider().decide(this, getPossibleLogicalSteps())
 		if (selectedLogicalStep !== null) {
 			setSelectedLogicalStep(selectedLogicalStep)
 			setEngineStatus(EngineStatus.RunStatus::Running)
@@ -160,7 +160,7 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 			stop()
 		} else {
 			try {
-				var GenericParallelStep selectedLogicalStep = selectAndExecuteLogicalStep()
+				var ParallelStep<?,?> selectedLogicalStep = selectAndExecuteLogicalStep()
 				// 3 - run the selected logical step
 				// inform the solver that we will run this step
 				if (selectedLogicalStep !== null) {

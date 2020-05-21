@@ -5,6 +5,7 @@ import java.util.Set
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericSmallStep
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenerictraceFactory
+import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep
 import org.eclipse.gemoc.trace.commons.model.trace.Step
 
@@ -17,7 +18,7 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 	override protected computeInitialLogicalSteps() {
 		extension val traceFactory = GenerictraceFactory.eINSTANCE
 
-		var Set<GenericParallelStep> possibleLogicalSteps = new HashSet<GenericParallelStep>()
+		var Set<ParallelStep<?,?>> possibleLogicalSteps = new HashSet<ParallelStep<?,?>>()
 
 		val atomicMatches = computePossibleSmallSteps
 
