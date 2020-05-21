@@ -4,6 +4,7 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filters
 
 import java.util.List
+import java.util.Set
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.LaunchConfigurationContext
@@ -28,7 +29,7 @@ class NonIdentityElementsStrategyDefinition extends FilteringStrategyDefinition 
 		control.layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false)
 
 		lcc.addMetamodelChangeListener([ evt |
-			control.updateMetamodels(evt.newValue as List<EPackage>)
+			control.updateMetamodels(evt.newValue as Set<EPackage>)
 		])
 
 		control.updateMetamodels(lcc.metamodels)
@@ -81,7 +82,7 @@ class NonIdentityElementsStrategyDefinition extends FilteringStrategyDefinition 
 		h.updateMetamodels(lcc.metamodels as List<EPackage>, configData)
 	}
 
-	def updateMetamodels(org.eclipse.swt.widgets.List control, List<EPackage> metamodels) {
+	def updateMetamodels(org.eclipse.swt.widgets.List control, Set<EPackage> metamodels) {
 		control.items = emptyList
 
 		if (metamodels !== null) {
@@ -99,4 +100,6 @@ class NonIdentityElementsStrategyDefinition extends FilteringStrategyDefinition 
 			nieh.nonIdentityTypes = metamodels.flatMap[ep | ep.eAllContents.filter(EClass).filter[ec | classNames.contains(ec.name)].toIterable].toList
 		}
 	}
+	
+	
 }

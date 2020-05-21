@@ -1,6 +1,7 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.concurrency
 
 import java.util.List
+import java.util.Set
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.LaunchConfigurationContext
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.StrategyControlUpdateListener
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.Strategy
@@ -26,7 +27,7 @@ class SetOfRulesStrategyDefinition extends ConcurrencyStrategyDefinition {
 		control.layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false)
 
 		lcc.addSemanticsChangeListener([ evt |
-			control.updateSemantics(evt.newValue as List<String>)
+			control.updateSemantics(evt.newValue as Set<String>)
 		])
 
 		control.updateSemantics(lcc.semantics)
@@ -73,13 +74,13 @@ class SetOfRulesStrategyDefinition extends ConcurrencyStrategyDefinition {
 		val h = strategy as SetOfRulesStrategy
 
 		lcc.addSemanticsChangeListener([ evt |
-			h.updateSemantics(evt.newValue as List<String>, configData)
+			h.updateSemantics(evt.newValue as Set<String>, configData)
 		])
 
 		h.updateSemantics(lcc.semantics, configData)
 	}
 
-	def updateSemantics(org.eclipse.swt.widgets.List control, List<String> semantics) {
+	def updateSemantics(org.eclipse.swt.widgets.List control, Set<String> semantics) {
 		control.items = emptyList
 
 		if (semantics !== null) {
@@ -89,7 +90,7 @@ class SetOfRulesStrategyDefinition extends ConcurrencyStrategyDefinition {
 		}
 	}
 
-	def updateSemantics(SetOfRulesStrategy sorh, List<String> semantics, String configData) {
+	def updateSemantics(SetOfRulesStrategy sorh, Set<String> semantics, String configData) {
 		sorh.rules.clear
 
 		if (semantics !== null) {

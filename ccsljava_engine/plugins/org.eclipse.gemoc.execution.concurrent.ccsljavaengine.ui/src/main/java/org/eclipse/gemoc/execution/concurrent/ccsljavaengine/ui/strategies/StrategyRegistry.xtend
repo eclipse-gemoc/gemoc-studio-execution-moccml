@@ -6,6 +6,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.concu
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.concurrency.SetOfRulesStrategyDefinition
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filters.MaxNumberOfStepsStrategyDefinition
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filters.NonIdentityElementsStrategyDefinition
+import org.eclipse.gemoc.execution.concurrent.engine.strategies.Strategy
 
 /**
  * Registry of strategy descriptions. Eventually to be filled from an extension point.
@@ -37,5 +38,9 @@ class StrategyRegistry {
 
 	def get(String ID) {
 		registry.get(ID)
+	}
+	
+	def StrategyDefinition strategyDefinitionOf(Strategy strategy) {
+		registry.filter[x, sd| sd.isStrategyInstance(strategy)].get(0)
 	}
 }

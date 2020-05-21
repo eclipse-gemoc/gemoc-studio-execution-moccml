@@ -25,6 +25,9 @@ class ConcurrentRunConfiguration extends RunConfiguration implements IConcurrent
 	String _modelInitializationMethod
 	String _modelInitializationArguments
 
+	public static val STRATEGIES_CONFIG_DATA_KEY = ".configData"
+
+
 	new(ILaunchConfiguration launchConfiguration) throws CoreException {
 		super(launchConfiguration)
 	}
@@ -53,8 +56,8 @@ class ConcurrentRunConfiguration extends RunConfiguration implements IConcurrent
 	@Accessors(PUBLIC_GETTER)
 	var List<Strategy> strategies
 	
-	def getConfigDetailFor(Strategy definition) {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
-	}
+//	def getConfigDetailFor(Strategy hd) {
+//		_launchConfiguration.getAttribute(hd.getStrategyID + HenshinConcurrentRunConfiguration.STRATEGIES_CONFIG_DATA_KEY, "")
+//	}
 	
 }

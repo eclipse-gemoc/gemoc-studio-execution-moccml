@@ -65,5 +65,9 @@ class StrategyDefinition {
 	 * Initialise this strategy definition's control from the given strategy
 	 */
 	def void initaliseControl(Control uiElement, Strategy strategy) {}
+	
+	def boolean isStrategyInstance(Strategy strategy) {
+		return strategy.class == clazz
+	}
 
 }

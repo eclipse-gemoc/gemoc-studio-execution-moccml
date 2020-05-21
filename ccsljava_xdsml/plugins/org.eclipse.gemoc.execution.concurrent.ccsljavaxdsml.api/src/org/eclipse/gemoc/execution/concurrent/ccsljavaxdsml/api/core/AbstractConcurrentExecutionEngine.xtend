@@ -4,6 +4,7 @@ import java.util.ArrayList
 import java.util.HashSet
 import java.util.List
 import java.util.Set
+import org.eclipse.emf.ecore.EPackage
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.DeciderException
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.ConcurrencyStrategy
@@ -29,6 +30,10 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	def protected abstract void performSpecificInitialize(C executionContext)
 
 	def protected abstract Set<ParallelStep<?,?>> computeInitialLogicalSteps()
+	
+	def abstract Set<String> getSemanticRules()
+	
+	def abstract Set<EPackage> getAbstractSyntax()
 
 	ILogicalStepDecider _logicalStepDecider
 	protected Set<ParallelStep<?,?>> _possibleLogicalSteps = new HashSet()
