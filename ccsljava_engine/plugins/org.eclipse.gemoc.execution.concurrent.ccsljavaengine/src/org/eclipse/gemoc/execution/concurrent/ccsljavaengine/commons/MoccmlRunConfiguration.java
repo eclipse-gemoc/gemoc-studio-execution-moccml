@@ -2,6 +2,7 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ConcurrentRunConfiguration;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IMoccmlRunConfiguration;
 
 public class MoccmlRunConfiguration  extends ConcurrentRunConfiguration implements IMoccmlRunConfiguration{

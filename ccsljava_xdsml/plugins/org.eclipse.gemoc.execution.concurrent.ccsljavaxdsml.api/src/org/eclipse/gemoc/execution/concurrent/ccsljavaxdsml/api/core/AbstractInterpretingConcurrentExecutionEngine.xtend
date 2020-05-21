@@ -5,6 +5,7 @@ import java.util.Set
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericSmallStep
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenerictraceFactory
+import org.eclipse.gemoc.trace.commons.model.trace.SmallStep
 import org.eclipse.gemoc.trace.commons.model.trace.Step
 
 abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractConcurrentModelExecutionContext<R, ?, ?>, R extends IConcurrentRunConfiguration> extends AbstractConcurrentExecutionEngine<C, R> {
@@ -84,7 +85,7 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 	 * 
 	 * @param match and a list of matches
 	 */
-	private def hasConflicts(Step<?> match, Set<GenericSmallStep> matches) {
+	private def hasConflicts(SmallStep<?> match, Set<GenericSmallStep> matches) {
 		matches.exists[m|match.cannotRunConcurrently(m)]
 	}
 
@@ -97,7 +98,7 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 	 * 
 	 * @output true if the two matches should not run in parallel
 	 */
-	private def cannotRunConcurrently(Step<?> match1, Step<?> match2) {
+	private def cannotRunConcurrently(SmallStep<?> match1, SmallStep<?> match2) {
 		!canInitiallyRunConcurrently(match1, match2) || !applyConcurrencyStrategies(match1, match2)
 
 	}

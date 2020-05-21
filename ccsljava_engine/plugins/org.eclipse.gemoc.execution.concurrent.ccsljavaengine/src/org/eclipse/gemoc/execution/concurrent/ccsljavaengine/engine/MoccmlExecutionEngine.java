@@ -26,9 +26,9 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.Co
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlFutureAction;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlMSEStateController;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
-import org.eclipse.gemoc.executionframework.engine.Activator;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ActionModel;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.When;
+import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.MSE;
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
@@ -183,7 +183,7 @@ public class MoccmlExecutionEngine extends
 	}
 
 	@Override
-	protected void doAfterLogicalStepExecution(Step<?> logicalStep) {
+	protected void doAfterLogicalStepExecution(GenericParallelStep logicalStep) {
 		getSolver().applyLogicalStep(logicalStep);
 	}
 

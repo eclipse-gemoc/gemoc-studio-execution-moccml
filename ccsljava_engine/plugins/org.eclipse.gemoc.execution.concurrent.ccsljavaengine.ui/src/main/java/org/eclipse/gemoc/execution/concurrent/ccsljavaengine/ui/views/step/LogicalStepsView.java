@@ -30,6 +30,7 @@ import org.eclipse.gemoc.executionframework.ui.IMSEPresenter;
 import org.eclipse.gemoc.executionframework.ui.utils.ViewUtils;
 import org.eclipse.gemoc.executionframework.ui.views.engine.EngineSelectionDependentViewPart;
 import org.eclipse.gemoc.executionframework.ui.views.engine.actions.StopEngineAction;
+import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 import org.eclipse.gemoc.trace.commons.model.helper.StepHelper;
 import org.eclipse.gemoc.trace.commons.model.trace.MSE;
 import org.eclipse.gemoc.trace.commons.model.trace.MSEOccurrence;
@@ -330,7 +331,7 @@ public class LogicalStepsView extends EngineSelectionDependentViewPart implement
 		_eventsToPresent.clear();
 	}
 
-	private Step<?> _lastSelectedLogicalStep;
+	private GenericParallelStep _lastSelectedLogicalStep;
 
 	private void runInDisplayThread(Runnable r) {
 		try {
@@ -340,7 +341,7 @@ public class LogicalStepsView extends EngineSelectionDependentViewPart implement
 		}
 	}
 
-	public Step<?> getSelectedLogicalStep() {
+	public GenericParallelStep getSelectedLogicalStep() {
 		Runnable r = new Runnable() {
 			@Override
 			public void run() {
@@ -349,9 +350,9 @@ public class LogicalStepsView extends EngineSelectionDependentViewPart implement
 					TreePath path = selection.getPaths()[0];
 					_lastSelectedLogicalStep = null;
 					if (path.getLastSegment() instanceof Step) {
-						_lastSelectedLogicalStep = (Step<?>) path.getLastSegment();
+						_lastSelectedLogicalStep = (GenericParallelStep) path.getLastSegment();
 					} else if (path.getLastSegment() instanceof MSEOccurrence) {
-						_lastSelectedLogicalStep = (Step<?>) path.getFirstSegment();
+						_lastSelectedLogicalStep = (GenericParallelStep) path.getFirstSegment();
 					}
 				}
 			}

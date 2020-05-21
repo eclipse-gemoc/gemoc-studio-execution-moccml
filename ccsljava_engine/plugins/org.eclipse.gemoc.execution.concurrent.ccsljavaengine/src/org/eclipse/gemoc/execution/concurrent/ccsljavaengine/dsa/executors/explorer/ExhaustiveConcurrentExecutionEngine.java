@@ -94,11 +94,10 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 			// 2- compute all states accessible from the currenState when using the
 			// possibleLogicalStates
 			int originalPossibleLogicalStepSize = getPossibleLogicalSteps().size();
-			for (int i = 0; i < getPossibleLogicalSteps().size(); i++) {
+			for (GenericParallelStep aStep : getPossibleLogicalSteps()) {
 				if (getPossibleLogicalSteps().size() != originalPossibleLogicalStepSize) {
 					System.err.println("something went wrong during mocc state save/restore");
 				}
-				Step<?> aStep = getPossibleLogicalSteps().get(i);
 				setSelectedLogicalStep(aStep);
 				try {
 					executeSelectedLogicalStep();
@@ -130,7 +129,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 				}
 				modelStateHelper.restoreModelState(currentState.modelState);
 				this._solver.setState(currentState.moCCState);
-				computePossibleLogicalSteps();
+				computeInitialLogicalSteps();
 			}
 		}
 		stop();

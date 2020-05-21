@@ -18,6 +18,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractCon
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.DeciderException;
 import org.eclipse.gemoc.executionframework.ui.views.engine.actions.AbstractEngineAction;
+import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.xdsmlframework.api.core.EngineStatus.RunStatus;
 import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionEngine;
@@ -90,10 +91,9 @@ public class PauseResumeEngineDeciderAction extends AbstractEngineAction
 			// relaunch the engine Ie. unlock possibly locked StepByStepDecider, for non "StepByStepDecider, simply let them run one more time
 			if(savedDecider instanceof AbstractUserDecider){
 				// get the equivalent decision from the new Decider
-				Step selectedlogicalStep;
 				try {
 
-					selectedlogicalStep = engine_cast.getLogicalStepDecider().decide(engine_cast, engine_cast.getPossibleLogicalSteps());
+					GenericParallelStep selectedlogicalStep = engine_cast.getLogicalStepDecider().decide(engine_cast, engine_cast.getPossibleLogicalSteps());
 					((AbstractUserDecider) savedDecider).decideFromTimeLine(selectedlogicalStep);
 				} catch (DeciderException e) {
 				}

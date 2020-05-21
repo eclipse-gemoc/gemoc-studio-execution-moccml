@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -19,7 +20,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.IC
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ISolver;
 import org.eclipse.gemoc.executionframework.engine.Activator;
 import org.eclipse.gemoc.executionframework.engine.core.CommandExecution;
-import org.eclipse.gemoc.trace.commons.model.trace.Step;
+import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 
 import fr.inria.diverse.k3.al.annotationprocessor.InitializeModel;
 
@@ -41,11 +42,11 @@ public abstract class AbstractSolverCodeExecutorConcurrentEngine<C extends Abstr
 		return getExecutionContext().getExecutionPlatform().getCodeExecutor();
 	}
 
-	protected final List<Step<?>> computeWithoutUpdatePossibleLogicalSteps() {
+	protected final Set<GenericParallelStep> computeWithoutUpdatePossibleLogicalSteps() {
 		return getSolver().computeAndGetPossibleLogicalSteps();
 	}
 
-	protected List<Step<?>> updatePossibleLogicalSteps() {
+	protected Set<GenericParallelStep> updatePossibleLogicalSteps() {
 		beforeUpdatePossibleLogicalSteps();
 		return getSolver().updatePossibleLogicalSteps();
 	}
@@ -53,12 +54,13 @@ public abstract class AbstractSolverCodeExecutorConcurrentEngine<C extends Abstr
 	protected abstract void beforeUpdatePossibleLogicalSteps();
 
 	@Override
-	protected List<Step<?>> computePossibleLogicalSteps() {
+	protected Set<GenericParallelStep> computeInitialLogicalSteps() {
 		computeWithoutUpdatePossibleLogicalSteps();
 		synchronized (this) {
 			return updatePossibleLogicalSteps();
 		}
 	}
+	
 
 	@Override
 	protected final void finishDispose() {
