@@ -11,7 +11,7 @@ import org.eclipse.gemoc.trace.commons.model.trace.Step
 
 abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractConcurrentModelExecutionContext<R, ?, ?>, R extends IConcurrentRunConfiguration> extends AbstractConcurrentExecutionEngine<C, R> {
 
-	def abstract Set<GenericSmallStep> computePossibleSmallSteps()
+	def abstract Set<? extends GenericSmallStep> computePossibleSmallSteps()
 
 	def abstract boolean canInitiallyRunConcurrently(Step<?> s1, Step<?> s2)
 
@@ -47,7 +47,7 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 	 * 
 	 * @param matchList all current atomic matches
 	 */
-	private def Set<GenericParallelStep> generateConcurrentSteps(Set<GenericSmallStep> matchList) {
+	private def Set<GenericParallelStep> generateConcurrentSteps(Set<? extends GenericSmallStep> matchList) {
 		var possibleSequences = new HashSet<GenericParallelStep>;
 
 		createAllStepSequences(matchList, possibleSequences, new HashSet<GenericSmallStep>);
@@ -60,7 +60,7 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 	 * 
 	 * @param a list of all matches, a list of lists of all possible sequences, current stack
 	 */
-	private def void createAllStepSequences(Set<GenericSmallStep> allMatches,
+	private def void createAllStepSequences(Set<? extends GenericSmallStep> allMatches,
 		Set<GenericParallelStep> possibleSequences, Set<GenericSmallStep> currentStack) {
 		var foundOne = false;
 		for (GenericSmallStep m : allMatches) {
