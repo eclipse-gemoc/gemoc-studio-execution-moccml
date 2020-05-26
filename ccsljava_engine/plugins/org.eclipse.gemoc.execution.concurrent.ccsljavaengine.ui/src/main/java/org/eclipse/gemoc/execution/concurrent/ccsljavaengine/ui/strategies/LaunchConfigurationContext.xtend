@@ -5,6 +5,17 @@ import java.util.Set
 import org.eclipse.emf.ecore.EPackage
 
 interface LaunchConfigurationContext {
+	
+	/**
+	 * Identification string for metamodels property.
+	 */
+	val METAMODELS = "metamodels"
+	
+	/**
+	 * Identification string for semantics property.
+	 */
+	val SEMANTICS = "semantics"
+	
 	/**
 	 * Return the metamodel currently specified in the launch configuration, if any. 
 	 * 
