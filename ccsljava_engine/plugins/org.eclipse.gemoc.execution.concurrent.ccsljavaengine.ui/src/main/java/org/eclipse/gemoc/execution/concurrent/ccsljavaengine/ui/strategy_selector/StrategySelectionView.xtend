@@ -31,11 +31,11 @@ class StrategySelectionView extends EngineSelectionDependentViewPart implements 
 
 	private static class EngineWrappingLaunchConfigurationContext implements LaunchConfigurationContext {
 		val pcs = new PropertyChangeSupport(this)
-		static val METAMODELS = "metamodels"
-		static val SEMANTICS = "semantics"
 
-		var Set<String> rules = null
-		var Set<EPackage> metamodels = null
+		@Accessors(PUBLIC_GETTER)
+		var Set<String> semantics = emptySet
+		@Accessors(PUBLIC_GETTER)
+		var Set<EPackage> metamodels = emptySet
 
 		@Accessors(PUBLIC_GETTER)
 		var IExecutionEngine<?> engine = null
@@ -46,16 +46,15 @@ class StrategySelectionView extends EngineSelectionDependentViewPart implements 
 				val oldSemantics = semantics
 				val oldmms = metamodels
 
-				if (engine instanceof AbstractConcurrentExecutionEngine) {
-					rules = engine.semanticRules
+				if (engine instanceof AbstractConcurrentExecutionEngine<?, ?>) {
+					semantics = engine.semanticRules
 					metamodels = engine.abstractSyntax
 				} else {
-					rules = null
-					metamodels = null
+					semantics = emptySet
+					metamodels = emptySet
 				}
 
-				pcs.firePropertyChange(SEMANTICS, if(oldSemantics !== null) oldSemantics else emptySet,
-					if(semantics !== null) semantics else emptySet)
+				pcs.firePropertyChange(SEMANTICS, oldSemantics, semantics)
 				if (oldmms !== metamodels) {
 					pcs.firePropertyChange(METAMODELS, oldmms, metamodels)
 				}
@@ -64,16 +63,8 @@ class StrategySelectionView extends EngineSelectionDependentViewPart implements 
 			}
 		}
 
-		override getMetamodels() {
-			metamodels
-		}
-
 		override addMetamodelChangeListener(PropertyChangeListener pcl) {
 			pcs.addPropertyChangeListener(METAMODELS, pcl)
-		}
-
-		override getSemantics() {
-			if(semantics !== null) semantics else emptySet
 		}
 
 		override addSemanticsChangeListener(PropertyChangeListener pcl) {

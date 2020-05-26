@@ -34,6 +34,7 @@ import org.eclipse.gemoc.commons.eclipse.messagingsystem.api.MessagingSystem;
 import org.eclipse.gemoc.commons.eclipse.ui.ViewHelper;
 import org.eclipse.gemoc.dsl.debug.ide.adapter.IDSLCurrentInstructionListener;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.Activator;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategy_selector.StrategySelectionView;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.step.LogicalStepsView;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentModelExecutionContext;
@@ -82,6 +83,7 @@ public abstract class AbstractConcurrentLauncher<R extends IConcurrentRunConfigu
 				public void run() {
 					ViewHelper.retrieveView(EnginesStatusView.ID);
 					ViewHelper.showView(LogicalStepsView.ID);
+					ViewHelper.showView(StrategySelectionView.ID);
 					for (String s : getAdditionalViewsIDs()) {
 						ViewHelper.showView(s);
 					}
