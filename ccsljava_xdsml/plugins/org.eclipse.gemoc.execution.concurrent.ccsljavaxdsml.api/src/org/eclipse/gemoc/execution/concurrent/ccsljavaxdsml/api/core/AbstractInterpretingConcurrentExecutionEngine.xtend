@@ -68,7 +68,7 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 				if (!hasConflicts(m, currentStack)) {
 					foundOne = true;
 					currentStack.add(m);
-					var clonedStack = currentStack.clone() as Set<GenericSmallStep>;
+					var clonedStack = new HashSet<GenericSmallStep>(currentStack)
 					createAllStepSequences(allMatches, possibleSequences, clonedStack);
 					currentStack.remove(m);
 				}
