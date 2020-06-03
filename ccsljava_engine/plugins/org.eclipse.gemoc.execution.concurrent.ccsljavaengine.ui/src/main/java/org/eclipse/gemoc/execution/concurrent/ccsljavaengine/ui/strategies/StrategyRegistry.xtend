@@ -3,10 +3,10 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies
 import java.util.HashMap
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.concurrency.FullyOverlapStrategyDefinition
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.concurrency.OverlapStrategyDefinition
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.concurrency.SetOfRulesStrategyDefinition
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filters.MaxNumberOfStepsStrategyDefinition
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filters.NonIdentityElementsStrategyDefinition
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.Strategy
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.concurrency.SetOfActionsStrategyDefinition
 
 /**
  * Registry of strategy descriptions. Eventually to be filled from an extension point.
@@ -21,7 +21,7 @@ class StrategyRegistry {
 	private new() {
 		add(new OverlapStrategyDefinition)
 		add(new FullyOverlapStrategyDefinition)
-		add(new SetOfRulesStrategyDefinition)
+		add(new SetOfActionsStrategyDefinition)
 		add(new NonIdentityElementsStrategyDefinition)
 		add(new MaxNumberOfStepsStrategyDefinition)
 	}

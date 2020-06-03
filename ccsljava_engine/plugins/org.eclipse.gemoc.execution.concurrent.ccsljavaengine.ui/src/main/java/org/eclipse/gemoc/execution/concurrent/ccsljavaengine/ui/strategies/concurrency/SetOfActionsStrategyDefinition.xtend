@@ -1,29 +1,26 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.concurrency
 
-import java.util.List
 import java.util.Set
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.LaunchConfigurationContext
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.StrategyControlUpdateListener
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.Strategy
-import org.eclipse.gemoc.execution.concurrent.engine.strategies.concurrency.SetOfRulesStrategy
 import org.eclipse.swt.SWT
 import org.eclipse.swt.events.SelectionEvent
 import org.eclipse.swt.events.SelectionListener
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Control
+import org.eclipse.swt.widgets.List
+import org.eclipse.gemoc.execution.concurrent.engine.strategies.concurrency.SetOfActionsStrategy
 
-class SetOfRulesStrategyDefinition extends ConcurrencyStrategyDefinition {
-	
-	val SetOfRulesStrategyDefinition thisSetOfRulesStrategyDefinition
+class SetOfActionsStrategyDefinition extends ConcurrencyStrategyDefinition {
 	
 	new() {
-		super("uk.ac.kcl.inf.xdsml.strategies.set_of_rules", "Set Of Rules Strategy", SetOfRulesStrategy)
-		thisSetOfRulesStrategyDefinition = this
+		super("uk.ac.kcl.inf.xdsml.strategies.set_of_actions", "Set Of Actions Strategy", SetOfActionsStrategy)
 	}
 
 	override getUIControl(Composite parent, LaunchConfigurationContext lcc, StrategyControlUpdateListener scul) {
-		val control = new org.eclipse.swt.widgets.List(parent, SWT.MULTI.bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.BORDER))
+		val control = new List(parent, SWT.MULTI.bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.BORDER))
 		control.layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false)
 
 		lcc.addSemanticsChangeListener([ evt |
@@ -38,7 +35,7 @@ class SetOfRulesStrategyDefinition extends ConcurrencyStrategyDefinition {
 				override widgetDefaultSelected(SelectionEvent e) {}
 
 				override widgetSelected(SelectionEvent e) {
-					scul.controlUpdated(thisSetOfRulesStrategyDefinition)
+					scul.controlUpdated(SetOfActionsStrategyDefinition.this)
 				}
 			})
 		}
@@ -47,13 +44,13 @@ class SetOfRulesStrategyDefinition extends ConcurrencyStrategyDefinition {
 	}
 
 	override encodeConfigInformation(Control uiElement) {
-		val list = uiElement as org.eclipse.swt.widgets.List
+		val list = uiElement as List
 
 		list.selectionIndices.map[i|list.items.get(i)].join("@@")
 	}
 
 	override initaliseControl(Control uiElement, String configData) {
-		val list = uiElement as org.eclipse.swt.widgets.List
+		val list = uiElement as List
 		if (list.items.size > 0) {
 			val namesToSelect = configData.split("@@")
 
@@ -62,25 +59,25 @@ class SetOfRulesStrategyDefinition extends ConcurrencyStrategyDefinition {
 	}
 
 	override void initaliseControl(Control uiElement, Strategy strategy) {
-		val list = uiElement as org.eclipse.swt.widgets.List
+		val list = uiElement as List
 		list.setSelection(#[] as int[])
 
-		if (strategy instanceof SetOfRulesStrategy) {
-			list.selection = strategy.rules.clone
+		if (strategy instanceof SetOfActionsStrategy) {
+			list.selection = strategy.allowedActions.clone
 		}
 	}
 
 	override initialise(Strategy strategy, String configData, LaunchConfigurationContext lcc) {
-		val h = strategy as SetOfRulesStrategy
-
-		lcc.addSemanticsChangeListener([ evt |
-			h.updateSemantics(evt.newValue as Set<String>, configData)
-		])
-
-		h.updateSemantics(lcc.semantics, configData)
+		if (strategy instanceof SetOfActionsStrategy) {	
+			lcc.addSemanticsChangeListener([ evt |
+				strategy.updateSemantics(evt.newValue as Set<String>, configData)
+			])
+	
+			strategy.updateSemantics(lcc.semantics, configData)
+		}
 	}
 
-	def updateSemantics(org.eclipse.swt.widgets.List control, Set<String> semantics) {
+	def updateSemantics(List control, Set<String> semantics) {
 		control.items = emptyList
 
 		if (semantics !== null) {
@@ -90,12 +87,12 @@ class SetOfRulesStrategyDefinition extends ConcurrencyStrategyDefinition {
 		}
 	}
 
-	def updateSemantics(SetOfRulesStrategy sorh, Set<String> semantics, String configData) {
-		sorh.rules.clear
+	def updateSemantics(SetOfActionsStrategy soas, Set<String> semantics, String configData) {
+		soas.allowedActions.clear
 
 		if (semantics !== null) {
-			val ruleNames = configData.split("@@").toList
-			sorh.rules = semantics.filter[r|ruleNames.contains(r)].toList
+			val actionNames = configData.split("@@").toList
+			soas.allowedActions = semantics.filter[r|actionNames.contains(r)].toList
 		}
 	}
 }
