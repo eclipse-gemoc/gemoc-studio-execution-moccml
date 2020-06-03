@@ -27,16 +27,26 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 
 	def protected abstract void executeSmallStep(SmallStep<?> smallStep) throws CodeExecutionException
 
+	/**
+	 * Create a clone of the given small step, assuming that this step has previously been created by this engine.
+	 */
+	def abstract SmallStep<?> createClonedSmallStep(SmallStep<?> ss)
+
+	/**
+	 * Return true if the two small steps are equal, assuming that the steps have previously been created by this engine.
+	 */
+	def abstract boolean isEqualSmallStepTo(SmallStep<?> step1, SmallStep<?> step2)
+
 	def protected abstract void performSpecificInitialize(C executionContext)
 
-	def protected abstract Set<ParallelStep<?,?>> computeInitialLogicalSteps()
+	def protected abstract Set<ParallelStep<? extends Step<?>,?>> computeInitialLogicalSteps()
 	
 	def abstract Set<String> getSemanticRules()
 	
 	def abstract Set<EPackage> getAbstractSyntax()
 
 	ILogicalStepDecider _logicalStepDecider
-	protected Set<ParallelStep<?,?>> _possibleLogicalSteps = new HashSet()
+	protected Set<ParallelStep<? extends Step<?>,?>> _possibleLogicalSteps = new HashSet()
 	ParallelStep<?,?> _selectedLogicalStep
 
 	@Accessors
@@ -44,7 +54,7 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	@Accessors
 	val List<FilteringStrategy> filteringStrategies = new ArrayList<FilteringStrategy>()
 
-	def private Set<ParallelStep<?,?>> computePossibleLogicalSteps() {
+	def private Set<ParallelStep<? extends Step<?>,?>> computePossibleLogicalSteps() {
 		val steps = computeInitialLogicalSteps()
 		return filterByStrategies(steps)
 	}
@@ -52,8 +62,8 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	/** 
 	 * Return a list of steps filtered by all filtering strategies
 	 */
-	private def Set<ParallelStep<?,?>> filterByStrategies(Set<ParallelStep<?,?>> possibleSteps) {
-		return filteringStrategies.fold(possibleSteps, [steps, fh|fh.filter(steps)])
+	private def Set<ParallelStep<? extends Step<?>,?>> filterByStrategies(Set<ParallelStep<? extends Step<?>,?>> possibleSteps) {
+		filteringStrategies.fold(possibleSteps, [steps, fh|fh.filter(steps, this)])
 	}
 
 	/**

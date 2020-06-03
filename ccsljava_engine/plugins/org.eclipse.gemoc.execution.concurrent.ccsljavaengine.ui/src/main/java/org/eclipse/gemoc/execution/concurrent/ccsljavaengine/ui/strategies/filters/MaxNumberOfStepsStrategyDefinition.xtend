@@ -58,14 +58,14 @@ class MaxNumberOfStepsStrategyDefinition extends FilteringStrategyDefinition {
 	}
 
 	override initialise(Strategy strategy, String configData, LaunchConfigurationContext lcc) {
-		val h = strategy as MaxNumberOfStepsStrategy
-
-		try {
-			val num = Integer.parseInt(configData)
-			h.maxNumberOfSteps = num
-		} catch (NumberFormatException nfe) {
-			System.err.println("Couldn't initalise strategy: " + nfe.message)
-			nfe.printStackTrace
+		if (strategy instanceof MaxNumberOfStepsStrategy) {
+			try {
+				val num = Integer.parseInt(configData)
+				strategy.maxNumberOfSteps = num
+			} catch (NumberFormatException nfe) {
+				System.err.println("Couldn't initalise strategy: " + nfe.message)
+				nfe.printStackTrace
+			}
 		}
 	}
 }
