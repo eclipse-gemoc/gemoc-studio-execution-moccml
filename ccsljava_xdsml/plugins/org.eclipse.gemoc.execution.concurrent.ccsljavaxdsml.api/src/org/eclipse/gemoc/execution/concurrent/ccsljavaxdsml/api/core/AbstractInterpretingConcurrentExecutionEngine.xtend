@@ -9,7 +9,6 @@ import org.eclipse.gemoc.trace.commons.model.generictrace.GenericSmallStep
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenerictraceFactory
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep
-import org.eclipse.gemoc.trace.commons.model.trace.Step
 
 abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractConcurrentModelExecutionContext<R, ?, ?>, R extends IConcurrentRunConfiguration> extends AbstractConcurrentExecutionEngine<C, R> {
 
@@ -33,9 +32,8 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 	 * 
 	 * Assumed to be computing a reflexive and symmetric relation.
 	 */
-	// TODO: Change parameter types to GenericSmallStep for clarity
 	// TODO: Cache results as this will likely be invoked multiple times for the same combination of steps 
-	def abstract boolean canInitiallyRunConcurrently(Step<?> s1, Step<?> s2)
+	def abstract boolean canInitiallyRunConcurrently(SmallStep<?> s1, SmallStep<?> s2)
 
 	extension static val GenerictraceFactory traceFactory = GenerictraceFactory.eINSTANCE
 
@@ -53,10 +51,9 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 
 		possibleLogicalSteps += atomicSteps.map [ s |
 			// Concurrent engine expects everything to be a parallel step
-			val GenericParallelStep pstep = createGenericParallelStep
-			pstep.subSteps += s
-
-			pstep
+			createGenericParallelStep => [
+				subSteps += s
+			]
 		].toSet
 
 		possibleLogicalSteps
@@ -81,18 +78,18 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 	private def void createAllStepSequences(List<? extends GenericSmallStep> allSmallSteps,
 		Set<GenericParallelStep> possibleSequences, Set<GenericSmallStep> currentStack) {
 		val foundOne = new ArrayList(#[false])
-		
-		allSmallSteps.forEach[s, idx|
+
+		allSmallSteps.forEach [ s, idx |
 			if (s.canRunConcurrentlyWith(currentStack)) {
 				foundOne.set(0, true)
-				
+
 				var clonedStack = new HashSet<GenericSmallStep>(currentStack)
 				clonedStack += s
-					allSmallSteps.subList(idx + 1, allSmallSteps.length) // Only include elements to the right of the current element
-					             .createAllStepSequences(possibleSequences, clonedStack)					
+				allSmallSteps.subList(idx + 1, allSmallSteps.length) // Only include elements to the right of the current element
+				.createAllStepSequences(possibleSequences, clonedStack)
 			}
 		]
-		
+
 		if (!foundOne.get(0)) {
 			possibleSequences.addNewParallelStep(currentStack)
 		}
@@ -100,12 +97,25 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 
 	private def addNewParallelStep(Set<GenericParallelStep> possibleSequences, Set<GenericSmallStep> currentStack) {
 		// Only add if not a sub-set of an already existing parallel step
-		if (!possibleSequences.exists[parStep | currentStack.forall[newStep | parStep.subSteps.filter(GenericSmallStep).exists[subStep | subStep.isEqualSmallStepTo (newStep)]]]) {
-			val pstep = createGenericParallelStep
-			pstep.subSteps += currentStack.map[createClonedSmallStep]
-			
-			possibleSequences += pstep			
+		if (currentStack.isNotContainedAsSubstepInAnyOf(possibleSequences)) {
+			possibleSequences += createGenericParallelStep => [
+				subSteps += currentStack.map[createClonedSmallStep]
+			]
 		}
+	}
+
+	private def isNotContainedAsSubstepInAnyOf(Set<GenericSmallStep> stepSet,
+		Set<GenericParallelStep> possiblyContainingSteps) {
+		possiblyContainingSteps.forall[parStep|stepSet.isNotContainedAsSubstepIn(parStep)]
+	}
+
+	private def isNotContainedAsSubstepIn(Set<GenericSmallStep> stepSet,
+		GenericParallelStep potentiallyContainingStep) {
+		!stepSet.forall [ step |
+			potentiallyContainingStep.subSteps.filter(GenericSmallStep).exists [ subStep |
+				subStep.isEqualSmallStepTo(step)
+			]
+		]
 	}
 
 	/**
