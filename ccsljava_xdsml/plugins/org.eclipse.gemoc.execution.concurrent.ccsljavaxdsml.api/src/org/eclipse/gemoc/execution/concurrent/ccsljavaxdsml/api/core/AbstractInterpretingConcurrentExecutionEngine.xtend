@@ -15,7 +15,7 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 	 * Compute the atomic steps currently available.
 	 */
 	def abstract Set<? extends GenericSmallStep> computePossibleSmallSteps()
-	
+
 	/**
 	 * Create a clone of the given small step, assuming that this step has previously been created by this engine.
 	 */
@@ -30,31 +30,29 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 	// TODO: Cache results as this will likely be invoked multiple times for the same combination of steps 
 	def abstract boolean canInitiallyRunConcurrently(Step<?> s1, Step<?> s2)
 
+	extension static val GenerictraceFactory traceFactory = GenerictraceFactory.eINSTANCE
+
 	override protected computeInitialLogicalSteps() {
-		extension val traceFactory = GenerictraceFactory.eINSTANCE
 
-		var Set<ParallelStep<?,?>> possibleLogicalSteps = new HashSet<ParallelStep<?,?>>()
+		var Set<ParallelStep<?, ?>> possibleLogicalSteps = new HashSet<ParallelStep<?, ?>>()
 
-		val atomicMatches = computePossibleSmallSteps
+		val atomicSteps = computePossibleSmallSteps
 
-		possibleLogicalSteps.addAll(
-			atomicMatches.generateConcurrentSteps.map [ seq |
-				if (seq.subSteps.length > 1) {
-					seq
-				}
-			].filterNull
-		)
+		possibleLogicalSteps += atomicSteps.generateConcurrentSteps.map [ seq |
+			if (seq.subSteps.length > 1) {
+				seq
+			}
+		].filterNull
 
-		val Set<GenericParallelStep> aaa = atomicMatches.map [ m |
+		possibleLogicalSteps += atomicSteps.map [ m |
 			// Concurrent engine expects everything to be a parallel step
-			val GenericParallelStep pstep = createGenericParallelStep()
-			pstep.subSteps.add(m)
+			val GenericParallelStep pstep = createGenericParallelStep
+			pstep.subSteps += m
+
 			pstep
 		].toSet
 
-		possibleLogicalSteps.addAll(aaa)
-
-		return possibleLogicalSteps
+		possibleLogicalSteps
 	}
 
 	/**
@@ -63,9 +61,9 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 	 * @param matchList all current atomic matches
 	 */
 	private def Set<GenericParallelStep> generateConcurrentSteps(Set<? extends GenericSmallStep> matchList) {
-		var possibleSequences = new HashSet<GenericParallelStep>;
+		var possibleSequences = new HashSet<GenericParallelStep>
 
-		createAllStepSequences(matchList, possibleSequences, new HashSet<GenericSmallStep>);
+		createAllStepSequences(matchList, possibleSequences, new HashSet<GenericSmallStep>)
 
 		possibleSequences
 	}
@@ -89,12 +87,12 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 				}
 			}
 		}
-		
+
 		if (!foundOne) {
-			val pstep = GenerictraceFactory.eINSTANCE.createGenericParallelStep
+			val pstep = createGenericParallelStep
 			pstep.subSteps += currentStack.map[createClonedSmallStep]
-			
-			possibleSequences+= pstep
+
+			possibleSequences += pstep
 		}
 	}
 
