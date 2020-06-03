@@ -34,7 +34,7 @@ class StrategyDefinition {
 	}
 
 	def instantiate() {
-		clazz.getConstructor(StrategyDefinition).newInstance(this)
+		clazz.getConstructor().newInstance()
 	}
 
 	/**

@@ -148,7 +148,7 @@ class StrategySelectionView extends EngineSelectionDependentViewPart implements 
 				strategies.addAll(engine.concurrencyStrategies)
 				strategies.addAll(engine.filteringStrategies)
 
-				strategies.filter[StrategyRegistry::INSTANCE.strategyDefinitionOf(it) === sd].forEach [
+				strategies.filter[sd.isStrategyInstance (it)].forEach [
 					if (it instanceof ConcurrencyStrategy) {
 						engine.concurrencyStrategies.remove(it)
 					} else {
