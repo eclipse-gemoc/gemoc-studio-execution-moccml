@@ -44,10 +44,10 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 			}
 		].filterNull
 
-		possibleLogicalSteps += atomicSteps.map [ m |
+		possibleLogicalSteps += atomicSteps.map [ s |
 			// Concurrent engine expects everything to be a parallel step
 			val GenericParallelStep pstep = createGenericParallelStep
-			pstep.subSteps += m
+			pstep.subSteps += s
 
 			pstep
 		].toSet
@@ -58,12 +58,12 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 	/**
 	 * Generate all possible maximally concurrent steps
 	 * 
-	 * @param matchList all current atomic matches
+	 * @param atomicSteps all current atomic steps
 	 */
-	private def Set<GenericParallelStep> generateConcurrentSteps(Set<? extends GenericSmallStep> matchList) {
+	private def Set<GenericParallelStep> generateConcurrentSteps(Set<? extends GenericSmallStep> atomicSteps) {
 		var possibleSequences = new HashSet<GenericParallelStep>
 
-		createAllStepSequences(matchList, possibleSequences, new HashSet<GenericSmallStep>)
+		atomicSteps.createAllStepSequences(possibleSequences, new HashSet<GenericSmallStep>)
 
 		possibleSequences
 	}
@@ -77,12 +77,12 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 		Set<GenericParallelStep> possibleSequences, Set<GenericSmallStep> currentStack) {
 		var foundOne = false
 		// TODO Change to only explore the upper hyper-triangle
-		for (GenericSmallStep m : allSmallSteps) {
-			if (!currentStack.contains(m)) {
-				if (!hasConflicts(m, currentStack)) {
+		for (GenericSmallStep s : allSmallSteps) {
+			if (!currentStack.contains(s)) {
+				if (s.canRunConcurrentlyWith(currentStack)) {
 					foundOne = true
 					var clonedStack = new HashSet<GenericSmallStep>(currentStack)
-					clonedStack += m
+					clonedStack += s
 					createAllStepSequences(allSmallSteps, possibleSequences, clonedStack)
 				}
 			}
@@ -97,26 +97,21 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 	}
 
 	/**
-	 * Check if a match has conflicts with a set of other matches
+	 * Check if a given small step can run in parallel with a given set of other small steps.
 	 * 
-	 * @param match and a list of matches
+	 * @returns true if the given step can run concurrently with all steps in otherSteps
 	 */
-	private def hasConflicts(SmallStep<?> match, Set<GenericSmallStep> matches) {
-		matches.exists[m|match.cannotRunConcurrently(m)]
+	private def canRunConcurrentlyWith(SmallStep<?> step, Set<GenericSmallStep> otherSteps) {
+		otherSteps.forall[step.canRunConcurrentlyWith(it)]
 	}
 
 	/**
-	 * Check if two matches cannot be executed in parallel. First checks if the two matches 
-	 * conflict based on the CPA analysis. Then checks if all concurrency strategies agree 
-	 * that they should be run in parallel.
+	 * Check if two small steps can be executed in parallel. First checks if the two matches can run in parallel in principle, 
+	 * using canInitiallyRunConcurrently. Then checks if all concurrency strategies agree that they should be run in parallel.
 	 * 
-	 * @param match1 and match2
-	 * 
-	 * @output true if the two matches should not run in parallel
+	 * @returns true if the two small steps can run in parallel
 	 */
-	private def cannotRunConcurrently(SmallStep<?> match1, SmallStep<?> match2) {
-		!canInitiallyRunConcurrently(match1, match2) || !applyConcurrencyStrategies(match1, match2)
-
+	private def canRunConcurrentlyWith(SmallStep<?> step1, SmallStep<?> step2) {
+		canInitiallyRunConcurrently(step1, step2) && applyConcurrencyStrategies(step1, step2)
 	}
-
 }
