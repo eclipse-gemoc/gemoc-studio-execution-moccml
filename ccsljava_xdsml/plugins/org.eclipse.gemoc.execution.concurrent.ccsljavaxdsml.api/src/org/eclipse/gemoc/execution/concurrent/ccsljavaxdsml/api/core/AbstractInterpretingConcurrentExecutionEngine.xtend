@@ -60,24 +60,26 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 	 * 
 	 * @param a list of all matches, a list of lists of all possible sequences, current stack
 	 */
-	private def void createAllStepSequences(Set<? extends GenericSmallStep> allMatches,
+	private def void createAllStepSequences(Set<? extends GenericSmallStep> allSmallSteps,
 		Set<GenericParallelStep> possibleSequences, Set<GenericSmallStep> currentStack) {
-		var foundOne = false;
-		for (GenericSmallStep m : allMatches) {
+		var foundOne = false
+		// TODO Change to only explore the upper hyper-triangle
+		for (GenericSmallStep m : allSmallSteps) {
 			if (!currentStack.contains(m)) {
 				if (!hasConflicts(m, currentStack)) {
-					foundOne = true;
-					currentStack.add(m);
+					foundOne = true
 					var clonedStack = new HashSet<GenericSmallStep>(currentStack)
-					createAllStepSequences(allMatches, possibleSequences, clonedStack);
-					currentStack.remove(m);
+					clonedStack += m
+					createAllStepSequences(allSmallSteps, possibleSequences, clonedStack)
 				}
 			}
 		}
+		
 		if (!foundOne) {
 			val pstep = GenerictraceFactory.eINSTANCE.createGenericParallelStep
 			pstep.subSteps.addAll(currentStack)
-			possibleSequences.add(pstep);
+			
+			possibleSequences+= pstep
 		}
 	}
 
