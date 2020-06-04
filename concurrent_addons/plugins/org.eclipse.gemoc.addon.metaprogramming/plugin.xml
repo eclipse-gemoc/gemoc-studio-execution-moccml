@@ -6,6 +6,11 @@
       <approach
             name="moccml"
             validator="org.eclipse.gemoc.addon.metaprogramming.MOCCMLRuleProvider">
+            <languageComponent
+               description="Entry used to define the ecl file in which the MOCCML elements are defined."
+               name="ecl"
+               optional="false">
+         </languageComponent>
       </approach>
    </extension>
 
