@@ -77,7 +77,9 @@ class NonIdentityElementsStrategy  implements FilteringStrategy {
 				((s1.mseoccurrence.mse.action.name == s2.mseoccurrence.mse.action.name) &&
 					s1.footprint.allEObjectsTouched.forall[o | 
 						o.eClass.isNonIdentityType || s2Footprint.contains(o)
-					]
+					] &&
+					s1.footprint.instantiations.forall[isNonIdentityType] &&
+					s2.footprint.instantiations.forall[isNonIdentityType]
 				)
 				
 			}
