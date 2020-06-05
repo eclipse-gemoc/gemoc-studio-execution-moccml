@@ -1,9 +1,5 @@
-
-
-
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filters
 
-import java.util.List
 import java.util.Set
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EPackage
@@ -17,6 +13,7 @@ import org.eclipse.swt.events.SelectionListener
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Control
+import org.eclipse.swt.widgets.List
 
 class NonIdentityElementsStrategyDefinition extends FilteringStrategyDefinition {
 	new() {
@@ -25,7 +22,7 @@ class NonIdentityElementsStrategyDefinition extends FilteringStrategyDefinition 
 	}
 
 	override getUIControl(Composite parent, LaunchConfigurationContext lcc, StrategyControlUpdateListener scul) {
-		val control = new org.eclipse.swt.widgets.List(parent, SWT.MULTI.bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.BORDER))
+		val control = new List(parent, SWT.MULTI.bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.BORDER))
 		control.layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false)
 
 		lcc.addMetamodelChangeListener([ evt |
@@ -49,7 +46,7 @@ class NonIdentityElementsStrategyDefinition extends FilteringStrategyDefinition 
 	}
 
 	override initaliseControl(Control uiElement, String configData) {
-		val list = uiElement as org.eclipse.swt.widgets.List
+		val list = uiElement as List
 		if (list.items.size > 0) {
 			val namesToSelect = configData.split("@@")
 
@@ -58,7 +55,7 @@ class NonIdentityElementsStrategyDefinition extends FilteringStrategyDefinition 
 	}
 
 	override void initaliseControl(Control uiElement, Strategy strategy) {
-		val list = uiElement as org.eclipse.swt.widgets.List
+		val list = uiElement as List
 		list.setSelection(#[] as int[])
 		
 		if (strategy instanceof NonIdentityElementsStrategy) {
@@ -67,22 +64,22 @@ class NonIdentityElementsStrategyDefinition extends FilteringStrategyDefinition 
 	}
 
 	override encodeConfigInformation(Control uiElement) {
-		val list = uiElement as org.eclipse.swt.widgets.List
+		val list = uiElement as List
 
 		list.selectionIndices.map[i | list.items.get(i)].join("@@")
 	}
 
 	override initialise(Strategy strategy, String configData, LaunchConfigurationContext lcc) {
-		val h = strategy as NonIdentityElementsStrategy
-
-		lcc.addMetamodelChangeListener([ evt |
-			h.updateMetamodels(evt.newValue as List<EPackage>, configData)
-		])
-		
-		h.updateMetamodels(lcc.metamodels as List<EPackage>, configData)
+		if (strategy instanceof NonIdentityElementsStrategy) {
+			lcc.addMetamodelChangeListener([ evt |
+				strategy.updateMetamodels(evt.newValue as Set<EPackage>, configData)
+			])
+			
+			strategy.updateMetamodels(lcc.metamodels as Set<EPackage>, configData)			
+		}
 	}
 
-	def updateMetamodels(org.eclipse.swt.widgets.List control, Set<EPackage> metamodels) {
+	def updateMetamodels(List control, Set<EPackage> metamodels) {
 		control.items = emptyList
 
 		if (metamodels !== null) {
@@ -92,7 +89,7 @@ class NonIdentityElementsStrategyDefinition extends FilteringStrategyDefinition 
 		}
 	}
 
-	def updateMetamodels(NonIdentityElementsStrategy nieh, List<EPackage> metamodels, String configData) {
+	def updateMetamodels(NonIdentityElementsStrategy nieh, Set<EPackage> metamodels, String configData) {
 		nieh.nonIdentityTypes.clear
 		
 		if (metamodels !== null) {
@@ -100,6 +97,4 @@ class NonIdentityElementsStrategyDefinition extends FilteringStrategyDefinition 
 			nieh.nonIdentityTypes = metamodels.flatMap[ep | ep.eAllContents.filter(EClass).filter[ec | classNames.contains(ec.name)].toIterable].toList
 		}
 	}
-	
-	
 }
