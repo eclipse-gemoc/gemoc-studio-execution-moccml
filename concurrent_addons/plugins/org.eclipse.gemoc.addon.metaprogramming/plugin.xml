@@ -4,6 +4,7 @@
    <extension
          point="org.eclipse.gemoc.gemoc_language_workbench.metaprog">
       <approach
+            dependencies="org.eclipse.gemoc.metaprog.ecore,org.eclipse.gemoc.metaprog.kermeta3"
             name="org.eclipse.gemoc.metaprog.moccml"
             validator="org.eclipse.gemoc.addon.metaprogramming.MOCCMLRuleProvider">
             <languageComponent
