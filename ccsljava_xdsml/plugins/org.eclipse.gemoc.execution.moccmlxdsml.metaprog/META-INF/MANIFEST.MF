@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: MOCCMLApproach
-Bundle-SymbolicName: org.eclipse.gemoc.addon.metaprogramming;singleton:=true
+Bundle-SymbolicName: org.eclipse.gemoc.execution.moccmlxdsml.metaprog;singleton:=true
 Bundle-Version: 2.3.0.qualifier
 Automatic-Module-Name: metaprogamming_moccml-appraoch
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
