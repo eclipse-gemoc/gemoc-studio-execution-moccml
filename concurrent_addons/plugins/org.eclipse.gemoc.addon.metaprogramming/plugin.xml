@@ -4,14 +4,21 @@
    <extension
          point="org.eclipse.gemoc.gemoc_language_workbench.metaprog">
       <approach
-            dependencies="org.eclipse.gemoc.metaprog.ecore,org.eclipse.gemoc.metaprog.kermeta3"
+            dependencies="org.eclipse.gemoc.metaprog.ecore"
             name="org.eclipse.gemoc.metaprog.moccml"
             validator="org.eclipse.gemoc.addon.metaprogramming.MOCCMLRuleProvider">
             <languageComponent
-               description="Entry used to define the ecl file in which the MOCCML elements are defined."
-               name="ecl"
-               optional="false">
+                  description="Entry used to define the ecl file in which the MOCCML elements are defined."
+                  name="ecl"
+                  optional="false"
+                  validationRule="org.eclipse.gemoc.addon.metaprogramming.MOCCMLRule">
          </languageComponent>
+            <languageComponent
+                  description="Entry used to define the domain specific actions. Unlike for Kermeta3, no tag Main or InitializeModel are required."
+                  name="k3"
+                  optional="false"
+                  validationRule="org.eclipse.gemoc.addon.metaprogramming.Kermeta3Rule">
+            </languageComponent>
       </approach>
    </extension>
 
