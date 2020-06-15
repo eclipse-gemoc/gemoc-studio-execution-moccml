@@ -1,4 +1,4 @@
-package org.eclipse.gemoc.addon.metaprogramming;
+package org.eclipse.gemoc.execution.moccmlxdsml.metaprog;
 
 import java.util.List;
 

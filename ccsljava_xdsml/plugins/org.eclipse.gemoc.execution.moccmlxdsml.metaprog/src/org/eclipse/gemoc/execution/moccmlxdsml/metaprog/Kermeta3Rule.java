@@ -1,4 +1,4 @@
-package org.eclipse.gemoc.addon.metaprogramming;
+package org.eclipse.gemoc.execution.moccmlxdsml.metaprog;
 
 import org.eclipse.gemoc.dsl.Entry;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.metaprog.ILanguageComponentValidator;
