@@ -72,7 +72,7 @@
             <id>timesquare</id>
             <layout>p2</layout>
             <!-- <url>http://www.i3s.unice.fr/~deantoni/photon/</url> -->
-            <url>http://timesquare.inria.fr/update_site/photon</url>
+            <url>${timesquare.p2.url}</url>
         </repository>
 		<repository>
             <id>K3</id>
