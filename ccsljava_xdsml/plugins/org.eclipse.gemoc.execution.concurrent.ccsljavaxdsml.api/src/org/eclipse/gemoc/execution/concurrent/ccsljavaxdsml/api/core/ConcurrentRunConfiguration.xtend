@@ -52,9 +52,9 @@ class ConcurrentRunConfiguration extends RunConfiguration implements IConcurrent
 	override String getModelInitializationArguments() {
 		return _modelInitializationArguments
 	}
-
-	@Accessors(PUBLIC_GETTER)
-	var List<Strategy> strategies
+//
+//	@Accessors(PUBLIC_GETTER)
+//	var List<Strategy> strategies
 	
 //	def getConfigDetailFor(Strategy hd) {
 //		_launchConfiguration.getAttribute(hd.getStrategyID + HenshinConcurrentRunConfiguration.STRATEGIES_CONFIG_DATA_KEY, "")

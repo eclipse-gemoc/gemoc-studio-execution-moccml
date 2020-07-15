@@ -21,8 +21,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -52,6 +54,7 @@ import org.eclipse.gemoc.trace.commons.model.generictrace.GenerictraceFactory;
 import org.eclipse.gemoc.trace.commons.model.trace.MSE;
 import org.eclipse.gemoc.trace.commons.model.trace.MSEModel;
 import org.eclipse.gemoc.trace.commons.model.trace.MSEOccurrence;
+import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.trace.commons.model.trace.TraceFactory;
 import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionContext;
@@ -83,7 +86,7 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 
 	protected CCSLKernelSolverWrapper solverWrapper = null;
 	protected URI solverInputURI = null;
-	protected ArrayList<Step<?>> _lastLogicalSteps = new ArrayList<Step<?>>();
+	protected List<ParallelStep<? extends Step<?>,?>> _lastLogicalSteps = new ArrayList<ParallelStep<? extends Step<?>,?>>();
 	protected ActionModel _feedbackModel;
 	protected MSEModel _MSEModel;
 	protected List<fr.inria.aoste.trace.LogicalStep> _intermediateResult;
@@ -143,7 +146,7 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 		}
 	}
 
-	private Step<?> createLogicalStep(fr.inria.aoste.trace.LogicalStep res) 
+	private ParallelStep<? extends Step<?>,?> createLogicalStep(fr.inria.aoste.trace.LogicalStep res) 
 	{
 		GenericParallelStep parStep = GenerictraceFactory.eINSTANCE.createGenericParallelStep();
 		for (Event e : LogicalStepHelper.getTickedEvents(res))
@@ -245,17 +248,17 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 	}
 
 	@Override
-	public List<Step<?>> computeAndGetPossibleLogicalSteps() {
+	public Set<ParallelStep<? extends Step<?>,?>> computeAndGetPossibleLogicalSteps() {
 		
 		try {
 			_intermediateResult = solverWrapper.computeAndGetPossibleLogicalSteps();			
 			_lastLogicalSteps.clear();
 			for (fr.inria.aoste.trace.LogicalStep lsFromTimesquare : _intermediateResult)
 			{
-				Step<?> lsFromTrace = createLogicalStep(lsFromTimesquare);
+				ParallelStep<? extends Step<?>,?> lsFromTrace = createLogicalStep(lsFromTimesquare);
 				_lastLogicalSteps.add(lsFromTrace);
 			}
-			return new ArrayList<Step<?>>(_lastLogicalSteps);
+			return new HashSet<ParallelStep<? extends Step<?>,?>>(_lastLogicalSteps);
 		} catch (NoBooleanSolution e) {
 			Activator.getDefault().error(e.getMessage(), e);
 		} catch (SolverException e) {
@@ -263,21 +266,21 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 		} catch (SimulationException e) {
 			Activator.getDefault().error(e.getMessage(), e);
 		}
-		return new ArrayList<Step<?>>();
+		return new HashSet<ParallelStep<? extends Step<?>,?>>();
 	}
 
 	@Override
-	public List<Step<?>> updatePossibleLogicalSteps() {
+	public Set<ParallelStep<? extends Step<?>,?>> updatePossibleLogicalSteps() {
 		
 		try {
 			List<fr.inria.aoste.trace.LogicalStep> intermediateResult = solverWrapper.updatePossibleLogicalSteps();			
 			_lastLogicalSteps.clear();
 			for (fr.inria.aoste.trace.LogicalStep lsFromTimesquare : intermediateResult)
 			{
-				Step<?> lsFromTrace = createLogicalStep(lsFromTimesquare);
+				ParallelStep<? extends Step<?>,?> lsFromTrace = createLogicalStep(lsFromTimesquare);
 				_lastLogicalSteps.add(lsFromTrace);
 			}
-			return new ArrayList<Step<?>>(_lastLogicalSteps);
+			return new HashSet<ParallelStep<? extends Step<?>,?>>(_lastLogicalSteps);
 		} catch (NoBooleanSolution e) {
 			Activator.getDefault().error(e.getMessage(), e);
 		} catch (SolverException e) {
@@ -285,22 +288,21 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 		} catch (SimulationException e) {
 			Activator.getDefault().error(e.getMessage(), e);
 		}
-		return new ArrayList<Step<?>>();
+		return new HashSet<ParallelStep<? extends Step<?>,?>>();
 	}
 
 	@Override
-	public Step<?> proposeLogicalStep() {
+	public ParallelStep<?,?> proposeLogicalStep() {
 		int index = solverWrapper.proposeLogicalStepByIndex();
-		Step<?> result = null;
+		ParallelStep<? extends Step<?>,?> result = null;
 		if (_lastLogicalSteps.size() > index)
 		{
 			result = _lastLogicalSteps.get(index);			
 		}
 		return result;
 	}
-
 	@Override
-	public void applyLogicalStep(Step<?> logicalStep) {
+	public void applyLogicalStep(ParallelStep<?, ?> logicalStep) {
 		try {
 			int index = _lastLogicalSteps.indexOf(logicalStep);
 			solverWrapper.applyLogicalStepByIndex(index);
@@ -621,6 +623,8 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 			}
 		});
 	}
+
+
 
 
 	

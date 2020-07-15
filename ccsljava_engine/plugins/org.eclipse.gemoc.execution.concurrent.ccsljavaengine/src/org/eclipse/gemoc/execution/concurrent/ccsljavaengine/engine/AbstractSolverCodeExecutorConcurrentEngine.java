@@ -21,6 +21,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ISolver;
 import org.eclipse.gemoc.executionframework.engine.Activator;
 import org.eclipse.gemoc.executionframework.engine.core.CommandExecution;
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
+import org.eclipse.gemoc.trace.commons.model.trace.Step;
 
 import fr.inria.diverse.k3.al.annotationprocessor.InitializeModel;
 
@@ -42,11 +43,11 @@ public abstract class AbstractSolverCodeExecutorConcurrentEngine<C extends Abstr
 		return getExecutionContext().getExecutionPlatform().getCodeExecutor();
 	}
 
-	protected final Set<ParallelStep<?,?>> computeWithoutUpdatePossibleLogicalSteps() {
+	protected final Set<ParallelStep<? extends Step<?>,?>> computeWithoutUpdatePossibleLogicalSteps() {
 		return getSolver().computeAndGetPossibleLogicalSteps();
 	}
 
-	protected Set<ParallelStep<?,?>> updatePossibleLogicalSteps() {
+	protected Set<ParallelStep<? extends Step<?>,?>> updatePossibleLogicalSteps() {
 		beforeUpdatePossibleLogicalSteps();
 		return getSolver().updatePossibleLogicalSteps();
 	}
@@ -54,7 +55,7 @@ public abstract class AbstractSolverCodeExecutorConcurrentEngine<C extends Abstr
 	protected abstract void beforeUpdatePossibleLogicalSteps();
 
 	@Override
-	protected Set<ParallelStep<?,?>> computeInitialLogicalSteps() {
+	protected Set<ParallelStep<? extends Step<?>,?>> computeInitialLogicalSteps() {
 		computeWithoutUpdatePossibleLogicalSteps();
 		synchronized (this) {
 			return updatePossibleLogicalSteps();

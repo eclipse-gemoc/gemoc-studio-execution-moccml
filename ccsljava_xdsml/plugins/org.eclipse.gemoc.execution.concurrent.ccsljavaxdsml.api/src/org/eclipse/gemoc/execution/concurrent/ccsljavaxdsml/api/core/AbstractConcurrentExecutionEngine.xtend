@@ -5,6 +5,7 @@ import java.util.HashSet
 import java.util.List
 import java.util.Set
 import org.eclipse.emf.ecore.EPackage
+import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.DeciderException
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.ConcurrencyStrategy
@@ -27,16 +28,6 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 
 	def protected abstract void executeSmallStep(SmallStep<?> smallStep) throws CodeExecutionException
 
-	/**
-	 * Create a clone of the given small step, assuming that this step has previously been created by this engine.
-	 */
-	def abstract SmallStep<?> createClonedSmallStep(SmallStep<?> ss)
-
-	/**
-	 * Return true if the two small steps are equal, assuming that the steps have previously been created by this engine.
-	 */
-	def abstract boolean isEqualSmallStepTo(SmallStep<?> step1, SmallStep<?> step2)
-
 	def protected abstract void performSpecificInitialize(C executionContext)
 
 	def protected abstract Set<ParallelStep<? extends Step<?>,?>> computeInitialLogicalSteps()
@@ -54,10 +45,31 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	@Accessors
 	val List<FilteringStrategy> filteringStrategies = new ArrayList<FilteringStrategy>()
 
+
+	/**
+	 * Create a clone of the given small step, assuming that this step has previously been created by this engine.
+	 * 
+	 * If needed, can be overridden by any engine that has its own custom class for small steps.
+	 */
+	def SmallStep<?> createClonedSmallStep(SmallStep<?> ss) {
+		return EcoreUtil::copy(ss)
+	}
+	
+	/**
+	 * Return true if the two small steps are equal, assuming that the steps have previously been created by this engine.
+	 * 
+	 * If needed, can be overridden by any engine that has its own custom class for small steps.
+	 */
+	def boolean isEqualSmallStepTo(SmallStep<?> step1, SmallStep<?> step2) {
+		return EcoreUtil::equals(step1, step2)
+	}
+	
+	
 	def private Set<ParallelStep<? extends Step<?>,?>> computePossibleLogicalSteps() {
 		val steps = computeInitialLogicalSteps()
 		return filterByStrategies(steps)
 	}
+	
 
 	/** 
 	 * Return a list of steps filtered by all filtering strategies
