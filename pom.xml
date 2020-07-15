@@ -28,9 +28,9 @@
         <module>ccsljava_xdsml/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui</module>
         <module>ccsljava_xdsml/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils</module>
         <module>ccsljava_xdsml/plugins/org.eclipse.gemoc.execution.moccml.example.deployer</module>
+        <module>ccsljava_xdsml/plugins/org.eclipse.gemoc.execution.moccmlxdsml.metaprog</module>
         <module>concurrent_addons/plugins/org.eclipse.gemoc.addon.vcdgenerator</module>
         <module>concurrent_addons/plugins/org.eclipse.gemoc.addon.eventscheduling.timeline</module>
-        <module>concurrent_addons/plugins/org.eclipse.gemoc.addon.metaprogramming</module>
         
         
         <!-- feature and update site -->

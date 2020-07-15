@@ -43,9 +43,9 @@ import static extension org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.Integ
 import static extension org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.BooleanVariableAspect.*
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.OpaqueBooleanExpression
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.OpaqueIntegerExpression
-import fr.inria.diverse.k3.al.annotationprocessor.coordination.Time
-import fr.inria.diverse.k3.al.annotationprocessor.coordination.Input
-import fr.inria.diverse.k3.al.annotationprocessor.coordination.Output
+//import fr.inria.diverse.k3.al.annotationprocessor.coordination.Time
+//import fr.inria.diverse.k3.al.annotationprocessor.coordination.Input
+//import fr.inria.diverse.k3.al.annotationprocessor.coordination.Output
 
 /*import static extension org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.StateAspect.*
 import static extension org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.TransitionAspect.*
@@ -146,7 +146,7 @@ class FSMEventAspect extends NamedElementAspect {
 @Aspect(className=FSMClock)
 class FSMClockAspect extends NamedElementAspect {
 	
-	@Time 
+	//@Time 
 	public Integer numberOfTicks = 0 //MUST be initialized for coordination
 
 	// Clock tick
@@ -212,8 +212,8 @@ class VariableAspect {
 @Aspect(className=IntegerVariable)
 class IntegerVariableAspect extends VariableAspect {
 	
-	@Input(cond="true")
-	@Output(cond="true")
+//	@Input(cond="true")
+//	@Output(cond="true")
 	public Integer currentValue = 0
 	
 	@OverrideAspectMethod
@@ -234,8 +234,8 @@ class IntegerVariableAspect extends VariableAspect {
 @Aspect(className=BooleanVariable)
 class BooleanVariableAspect extends VariableAspect {
 
-	@Input(cond="true")
-	@Output(cond="true")
+//	@Input(cond="true")
+//	@Output(cond="true")
 	public Boolean currentValue = false;
 	
 	@OverrideAspectMethod

@@ -27,9 +27,9 @@ import static extension org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SystemAspec
 import groovy.lang.Binding
 import groovy.lang.GroovyShell
 import cnrs.luchogie.up.data.rendering.figure.ConnectedLineFigureRenderer
-import fr.inria.diverse.k3.al.annotationprocessor.coordination.Exposed
-import fr.inria.diverse.k3.al.annotationprocessor.coordination.Input
-import fr.inria.diverse.k3.al.annotationprocessor.coordination.Output
+//import fr.inria.diverse.k3.al.annotationprocessor.coordination.Exposed
+//import fr.inria.diverse.k3.al.annotationprocessor.coordination.Input
+//import fr.inria.diverse.k3.al.annotationprocessor.coordination.Output
 import fr.inria.diverse.k3.al.annotationprocessor.Step
 
 @Aspect(className = HWComputationalResource)
@@ -180,9 +180,9 @@ class OutputPortAspect extends NamedElementAspect {
 @Aspect(className = Place)
 class PlaceAspect extends NamedElementAspect {
 	
-	@Exposed
-	@Input(cond="true")
-	@Output(cond="true")
+//	@Exposed
+//	@Input(cond="true")
+//	@Output(cond="true")
 	public EList<Object> fifo = new BasicEList()
 	public Integer currentSize = 0
 	public Boolean isInitialized = false
