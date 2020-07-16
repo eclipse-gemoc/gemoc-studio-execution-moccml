@@ -5,7 +5,6 @@ import java.util.HashSet
 import java.util.List
 import java.util.Set
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine
-import org.eclipse.gemoc.execution.concurrent.engine.strategies.FilteringStrategy
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenerictraceFactory
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep
@@ -15,7 +14,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 /**
  * A strategy that only allows concurrent steps with a maximum number of substeps.
  */
-class MaxNumberOfStepsStrategy implements FilteringStrategy {
+class MaxNumberOfStepsStrategy extends AbstractFilteringStrategy {
 
 	@Accessors
 	var int maxNumberOfSteps
@@ -28,7 +27,7 @@ class MaxNumberOfStepsStrategy implements FilteringStrategy {
 		this(2)
 	}
 
-	override Set<ParallelStep<? extends Step<?>, ?>> filter(Set<ParallelStep<? extends Step<?>, ?>> steps,
+	override Set<ParallelStep<? extends Step<?>, ?>> doFilter(Set<ParallelStep<? extends Step<?>, ?>> steps,
 		extension AbstractConcurrentExecutionEngine<?, ?> engine) {
 		steps.flatMap [ s |
 			if (s.subSteps.length > maxNumberOfSteps) {
