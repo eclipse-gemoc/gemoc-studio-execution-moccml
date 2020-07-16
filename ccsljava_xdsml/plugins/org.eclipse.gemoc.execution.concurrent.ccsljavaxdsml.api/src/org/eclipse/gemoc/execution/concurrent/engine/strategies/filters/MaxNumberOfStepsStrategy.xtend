@@ -4,7 +4,7 @@ import java.util.ArrayList
 import java.util.HashSet
 import java.util.List
 import java.util.Set
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine.StepFactory
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenerictraceFactory
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep
@@ -27,8 +27,7 @@ class MaxNumberOfStepsStrategy extends AbstractFilteringStrategy {
 		this(2)
 	}
 
-	override Set<ParallelStep<? extends Step<?>, ?>> doFilter(Set<ParallelStep<? extends Step<?>, ?>> steps,
-		extension AbstractConcurrentExecutionEngine<?, ?> engine) {
+	override Set<ParallelStep<? extends Step<?>, ?>> doFilter(Set<ParallelStep<? extends Step<?>, ?>> steps, extension StepFactory factory) {
 		steps.flatMap [ s |
 			if (s.subSteps.length > maxNumberOfSteps) {
 				var newSteps = new ArrayList<List<Step<?>>>
@@ -43,7 +42,7 @@ class MaxNumberOfStepsStrategy extends AbstractFilteringStrategy {
 			} else {
 				#[s as ParallelStep<? extends Step<?>, ?>]
 			}
-		].removeDuplicates(engine)
+		].removeDuplicates(factory)
 	}
 
 	/**
@@ -71,7 +70,7 @@ class MaxNumberOfStepsStrategy extends AbstractFilteringStrategy {
 	 * are multiple matches for the action name that can be run in parallel
 	 */
 	def Set<ParallelStep<? extends Step<?>, ?>> removeDuplicates(Iterable<ParallelStep<? extends Step<?>, ?>> steps,
-		extension AbstractConcurrentExecutionEngine<?, ?> engine) {
+		extension StepFactory factory) {
 		steps.fold(new HashSet<ParallelStep<? extends Step<?>, ?>>, [ set, s |
 			val sortedSSubsteps = s.subSteps.sortBy[mseoccurrence.mse.name]
 

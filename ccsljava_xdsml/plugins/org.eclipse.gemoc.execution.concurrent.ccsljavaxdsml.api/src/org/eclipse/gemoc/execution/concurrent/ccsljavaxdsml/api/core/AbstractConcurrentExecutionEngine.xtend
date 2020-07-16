@@ -45,25 +45,34 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	@Accessors
 	val List<FilteringStrategy> filteringStrategies = new ArrayList<FilteringStrategy>()
 
-
 	/**
-	 * Create a clone of the given small step, assuming that this step has previously been created by this engine.
-	 * 
-	 * If needed, can be overridden by any engine that has its own custom class for small steps.
+	 * Factory managing the steps this engine places inside the parallel steps it generates.  
 	 */
-	def SmallStep<?> createClonedSmallStep(SmallStep<?> ss) {
-		return EcoreUtil::copy(ss)
+	static class StepFactory {
+		/**
+		 * Create a clone of the given small step, assuming that this step has previously been created by this engine.
+		 * 
+		 * If needed, can be overridden by any engine that has its own custom class for small steps.
+		 */
+		def SmallStep<?> createClonedSmallStep(SmallStep<?> ss) {
+			return EcoreUtil::copy(ss)
+		}
+		
+		/**
+		 * Return true if the two small steps are equal, assuming that the steps have previously been created by this engine.
+		 * 
+		 * If needed, can be overridden by any engine that has its own custom class for small steps.
+		 */
+		def boolean isEqualSmallStepTo(SmallStep<?> step1, SmallStep<?> step2) {
+			return EcoreUtil::equals(step1, step2)
+		}
 	}
 	
-	/**
-	 * Return true if the two small steps are equal, assuming that the steps have previously been created by this engine.
-	 * 
-	 * If needed, can be overridden by any engine that has its own custom class for small steps.
-	 */
-	def boolean isEqualSmallStepTo(SmallStep<?> step1, SmallStep<?> step2) {
-		return EcoreUtil::equals(step1, step2)
-	}
+	extension protected val StepFactory stepFactory = createStepFactory
 	
+	protected def createStepFactory() {
+		new StepFactory
+	}
 	
 	def private Set<ParallelStep<? extends Step<?>,?>> computePossibleLogicalSteps() {
 		val steps = computeInitialLogicalSteps()
@@ -75,7 +84,7 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	 * Return a list of steps filtered by all filtering strategies
 	 */
 	private def Set<ParallelStep<? extends Step<?>,?>> filterByStrategies(Set<ParallelStep<? extends Step<?>,?>> possibleSteps) {
-		filteringStrategies.fold(possibleSteps, [steps, fh|fh.filter(steps, this)])
+		filteringStrategies.fold(possibleSteps, [steps, fh|fh.filter(steps, stepFactory)])
 	}
 
 	/**

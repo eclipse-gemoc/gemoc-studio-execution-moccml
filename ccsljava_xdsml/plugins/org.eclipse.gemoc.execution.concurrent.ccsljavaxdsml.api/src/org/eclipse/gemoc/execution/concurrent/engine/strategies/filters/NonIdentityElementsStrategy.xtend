@@ -4,7 +4,7 @@ import java.util.HashSet
 import java.util.List
 import java.util.Set
 import org.eclipse.emf.ecore.EClass
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine.StepFactory
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep
 import org.eclipse.gemoc.trace.commons.model.trace.Step
@@ -37,7 +37,7 @@ class NonIdentityElementsStrategy  extends AbstractFilteringStrategy {
 	}
 
 	override Set<ParallelStep<? extends Step<?>, ?>> doFilter(Set<ParallelStep<? extends Step<?>, ?>> steps,
-		extension AbstractConcurrentExecutionEngine<?, ?> engine) {
+		extension StepFactory factory) {
 		val filteredStepsHolder = #[new HashSet<ParallelStep<? extends Step<?>, ?>>]
 
 		val stepsList = steps.toList
