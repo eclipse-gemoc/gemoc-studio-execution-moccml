@@ -5,9 +5,9 @@ import java.util.HashSet
 import java.util.List
 import java.util.Set
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine.StepFactory
+import org.eclipse.gemoc.trace.commons.model.generictrace.GenericStep
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenerictraceFactory
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep
-import org.eclipse.gemoc.trace.commons.model.trace.SmallStep
 import org.eclipse.gemoc.trace.commons.model.trace.Step
 import org.eclipse.xtend.lib.annotations.Accessors
 
@@ -36,7 +36,7 @@ class MaxNumberOfStepsStrategy extends AbstractFilteringStrategy {
 
 				newSteps.map [ stepList |
 					(GenerictraceFactory.eINSTANCE.createGenericParallelStep => [
-						subSteps += stepList.map[(it as SmallStep<?>).createClonedSmallStep]
+						subSteps += stepList.map[createClonedInnerStep as GenericStep]
 					]) as ParallelStep<? extends Step<?>, ?>
 				]
 			} else {
@@ -84,7 +84,7 @@ class MaxNumberOfStepsStrategy extends AbstractFilteringStrategy {
 						result.set(
 							0,
 							result.get(0) &&
-								(step as SmallStep<?>).isEqualSmallStepTo(sortedS2SubSteps.get(idx) as SmallStep<?>)
+								step.isEqualInnerStepTo(sortedS2SubSteps.get(idx))
 						)
 					]
 

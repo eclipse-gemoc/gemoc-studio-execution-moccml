@@ -50,20 +50,20 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	 */
 	static class StepFactory {
 		/**
-		 * Create a clone of the given small step, assuming that this step has previously been created by this engine.
+		 * Create a clone of the given inner step, assuming that this step has previously been created by this engine.
 		 * 
-		 * If needed, can be overridden by any engine that has its own custom class for small steps.
+		 * If needed, can be overridden by any engine that has its own custom class for inner steps.
 		 */
-		def SmallStep<?> createClonedSmallStep(SmallStep<?> ss) {
+		def Step<?> createClonedInnerStep(Step<?> ss) {
 			return EcoreUtil::copy(ss)
 		}
 		
 		/**
-		 * Return true if the two small steps are equal, assuming that the steps have previously been created by this engine.
+		 * Return true if the two inner steps are equal, assuming that the steps have previously been created by this engine.
 		 * 
-		 * If needed, can be overridden by any engine that has its own custom class for small steps.
+		 * If needed, can be overridden by any engine that has its own custom class for inner steps.
 		 */
-		def boolean isEqualSmallStepTo(SmallStep<?> step1, SmallStep<?> step2) {
+		def boolean isEqualInnerStepTo(Step<?> step1, Step<?> step2) {
 			return EcoreUtil::equals(step1, step2)
 		}
 	}

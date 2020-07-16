@@ -4,7 +4,6 @@ import java.util.Set
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine.StepFactory
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.FilteringStrategy
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep
-import org.eclipse.gemoc.trace.commons.model.trace.SmallStep
 import org.eclipse.gemoc.trace.commons.model.trace.Step
 
 /**
@@ -49,7 +48,7 @@ abstract class AbstractFilteringStrategy implements FilteringStrategy {
 
 	private def superStepOf(ParallelStep<? extends Step<?>, ?> _super, ParallelStep<? extends Step<?>, ?> _sub, extension StepFactory factory) {
 		_super.subSteps.length >= _sub.subSteps.length &&
-		_sub.subSteps.forall[ss1 | _super.subSteps.exists[(it as SmallStep<?>).isEqualSmallStepTo(ss1 as SmallStep<?>)]]
+		_sub.subSteps.forall[ss1 | _super.subSteps.exists[isEqualInnerStepTo(ss1)]]
 	}
 
 	abstract protected def Set<ParallelStep<? extends Step<?>, ?>> doFilter(Set<ParallelStep<? extends Step<?>, ?>> steps, StepFactory factory)

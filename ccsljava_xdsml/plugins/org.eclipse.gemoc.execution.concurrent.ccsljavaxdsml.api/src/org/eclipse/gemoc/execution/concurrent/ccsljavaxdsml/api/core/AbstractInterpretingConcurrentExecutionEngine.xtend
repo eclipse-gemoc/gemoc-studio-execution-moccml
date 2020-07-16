@@ -90,7 +90,7 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 		// Only add if not a sub-set of an already existing parallel step
 		if (currentStack.isNotContainedAsSubstepInAnyOf(possibleSequences)) {
 			possibleSequences += createGenericParallelStep => [
-				subSteps += currentStack.map[createClonedSmallStep as GenericSmallStep]
+				subSteps += currentStack.map[createClonedInnerStep as GenericSmallStep]
 			]
 		}
 	}
@@ -104,7 +104,7 @@ abstract class AbstractInterpretingConcurrentExecutionEngine<C extends AbstractC
 		GenericParallelStep potentiallyContainingStep) {
 		!stepSet.forall [ step |
 			potentiallyContainingStep.subSteps.filter(GenericSmallStep).exists [ subStep |
-				subStep.isEqualSmallStepTo(step)
+				subStep.isEqualInnerStepTo(step)
 			]
 		]
 	}
