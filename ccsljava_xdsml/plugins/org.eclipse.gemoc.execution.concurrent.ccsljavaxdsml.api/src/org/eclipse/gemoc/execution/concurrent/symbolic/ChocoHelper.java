@@ -9,14 +9,12 @@ import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.variables.BoolVar;
 import org.chocosolver.solver.variables.Variable;
 import org.chocosolver.util.ESat;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine.StepFactory;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
-import org.eclipse.gemoc.trace.commons.model.generictrace.GenericSmallStep;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericStep;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenerictraceFactory;
-import org.eclipse.gemoc.trace.commons.model.trace.MSEOccurrence;
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
-import org.eclipse.gemoc.trace.commons.model.trace.TraceFactory;
 
 
 public class ChocoHelper {
@@ -27,7 +25,7 @@ public class ChocoHelper {
 	 */
 public static Set<ParallelStep<? extends Step<?>,?>>  lastChocoLogicalSteps= null;
 	
-public static Set<ParallelStep<? extends Step<?>,?>> computePossibleStepInExtension(Model symbolicPossibleSteps) {
+public static Set<ParallelStep<? extends Step<?>,?>> computePossibleStepInExtension(Model symbolicPossibleSteps, StepFactory stepFactory) {
 
 	Solver solver = symbolicPossibleSteps.getSolver();
 	int nbSmallSteps = 0;
@@ -73,11 +71,13 @@ public static Set<ParallelStep<? extends Step<?>,?>> computePossibleStepInExtens
 			for(ChocoSolutionValue sv : s) {
 				if(sv.var instanceof SmallStepVariable){
 					if(sv.value == ESat.TRUE) {
-						GenericSmallStep smallStep = GenerictraceFactory.eINSTANCE.createGenericSmallStep();
-						MSEOccurrence mseOccurrence = TraceFactory.eINSTANCE.createMSEOccurrence();
-						mseOccurrence.setMse(((GenericStep) ((SmallStepVariable)sv.var).associatedSmallStep).getMseoccurrence().getMse());
-						smallStep.setMseoccurrence(mseOccurrence);
-						parStep.getSubSteps().add(smallStep);
+						parStep.getSubSteps().add((GenericStep) stepFactory.createClonedInnerStep(((SmallStepVariable)sv.var).associatedSmallStep));
+												
+//						GenericSmallStep smallStep = GenerictraceFactory.eINSTANCE.createGenericSmallStep();
+//						MSEOccurrence mseOccurrence = TraceFactory.eINSTANCE.createMSEOccurrence();
+//						mseOccurrence.setMse(((GenericStep) ((SmallStepVariable)sv.var).associatedSmallStep).getMseoccurrence().getMse());
+//						smallStep.setMseoccurrence(mseOccurrence);
+//						parStep.getSubSteps().add(smallStep);
 					}
 				}
 			}

@@ -89,8 +89,8 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	 * Return a list of steps filtered by all filtering strategies
 	 */
 	private def Set<ParallelStep<? extends Step<?>,?>> filterByStrategies(Model symbolicPossibleSteps) {
-		val possibleSteps =ChocoHelper.computePossibleStepInExtension(symbolicPossibleSteps)
-		filteringStrategies.fold(possibleSteps, [steps, fh|fh.filter(steps, stepFactory)])
+		val possibleSteps =ChocoHelper.computePossibleStepInExtension(symbolicPossibleSteps, stepFactory)
+		filteringStrategies.fold(possibleSteps, [steps, fh|fh.filter(steps)])
 	}
 
 	/**
