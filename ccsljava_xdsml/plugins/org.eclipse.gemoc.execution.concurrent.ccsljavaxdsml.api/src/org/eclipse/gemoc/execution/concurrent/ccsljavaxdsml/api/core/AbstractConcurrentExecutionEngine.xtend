@@ -21,7 +21,8 @@ import org.eclipse.gemoc.xdsmlframework.api.core.EngineStatus
 import org.eclipse.gemoc.xdsmlframework.api.engine_addon.IEngineAddon
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.chocosolver.solver.Model
-import org.eclipse.gemoc.execution.concurrent.symbolic.ChocoHelper
+
+import static extension org.eclipse.gemoc.execution.concurrent.symbolic.ChocoHelper.*
 
 //TODO manage runconfiguration with strategies?
 abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentModelExecutionContext<R, ?, ?>, R extends IConcurrentRunConfiguration> extends AbstractExecutionEngine<C, R> {
@@ -80,7 +81,16 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	}
 	
 	def private Set<ParallelStep<? extends Step<?>,?>> computePossibleLogicalSteps() {
-		val model = computeInitialLogicalSteps()
+		extension val model = computeInitialLogicalSteps()
+		
+		val steps = model.atomicSteps.toList
+		
+		steps.forEach[s1, idx | steps.subList(idx, steps.size).forEach[s2 | 
+			if (!applyConcurrencyStrategies(s1, s2)) {
+				model.addExclusionConstraint(s1, s2)
+			}
+		]]
+		
 		return filterByStrategies(model)
 	}
 	
@@ -89,7 +99,7 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	 * Return a list of steps filtered by all filtering strategies
 	 */
 	private def Set<ParallelStep<? extends Step<?>,?>> filterByStrategies(Model symbolicPossibleSteps) {
-		val possibleSteps =ChocoHelper.computePossibleStepInExtension(symbolicPossibleSteps, stepFactory)
+		val possibleSteps = symbolicPossibleSteps.computePossibleStepInExtension(stepFactory)
 		filteringStrategies.fold(possibleSteps, [steps, fh|fh.filter(steps)])
 	}
 
@@ -101,7 +111,7 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	 * @return true if the concurrency strategies allow both steps to run concurrently.  
 	 */
 	protected final def boolean applyConcurrencyStrategies(SmallStep<?> step1, SmallStep<?> step2) {
-		return concurrencyStrategies.forall[ch|ch.canBeConcurrent(step1, step2)]
+		concurrencyStrategies.forall[ch|ch.canBeConcurrent(step1, step2)]
 	}
 
 	override protected void beforeStart() {
