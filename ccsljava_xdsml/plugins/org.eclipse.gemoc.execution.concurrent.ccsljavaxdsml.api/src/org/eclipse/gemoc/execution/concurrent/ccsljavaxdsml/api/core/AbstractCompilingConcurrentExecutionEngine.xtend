@@ -9,16 +9,16 @@ abstract class AbstractCompilingConcurrentExecutionEngine <C extends AbstractCon
 	
 	abstract def Set<ParallelStep<? extends Step<?>,?>> computeRawLogicalSteps()
 	
-	override protected computeInitialLogicalSteps() {
-		val steps = computeRawLogicalSteps()
-		return steps.filter[s1|s1.subSteps.forall[ss1|
-			steps.filter[s2|s2!==s1].forall[ss2|
-				applyConcurrencyStrategies(ss1 as SmallStep<?>,ss2 as SmallStep<?>)
-			]
-		]]//.map[ps|ps as ParallelStep<?,?>]
-		.toSet()
-
-	}
+//	override protected computeInitialLogicalSteps() {
+//		val steps = computeRawLogicalSteps()
+//		return steps.filter[s1|s1.subSteps.forall[ss1|
+//			steps.filter[s2|s2!==s1].forall[ss2|
+//				applyConcurrencyStrategies(ss1 as SmallStep<?>,ss2 as SmallStep<?>)
+//			]
+//		]]//.map[ps|ps as ParallelStep<?,?>]
+//		.toSet()
+//
+//	}
 	
 	
 }

@@ -20,6 +20,8 @@ import org.eclipse.gemoc.trace.commons.model.trace.Step
 import org.eclipse.gemoc.xdsmlframework.api.core.EngineStatus
 import org.eclipse.gemoc.xdsmlframework.api.engine_addon.IEngineAddon
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.chocosolver.solver.Model
+import org.eclipse.gemoc.execution.concurrent.symbolic.ChocoHelper
 
 //TODO manage runconfiguration with strategies?
 abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentModelExecutionContext<R, ?, ?>, R extends IConcurrentRunConfiguration> extends AbstractExecutionEngine<C, R> {
@@ -30,13 +32,16 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 
 	def protected abstract void performSpecificInitialize(C executionContext)
 
-	def protected abstract Set<ParallelStep<? extends Step<?>,?>> computeInitialLogicalSteps()
+	def protected abstract Model computeInitialLogicalSteps()
 	
 	def abstract Set<String> getSemanticRules()
 	
 	def abstract Set<EPackage> getAbstractSyntax()
 
 	ILogicalStepDecider _logicalStepDecider
+	
+	protected Model symbolicLogicalSteps
+	
 	protected Set<ParallelStep<? extends Step<?>,?>> _possibleLogicalSteps = new HashSet()
 	ParallelStep<?,?> _selectedLogicalStep
 
@@ -75,15 +80,16 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	}
 	
 	def private Set<ParallelStep<? extends Step<?>,?>> computePossibleLogicalSteps() {
-		val steps = computeInitialLogicalSteps()
-		return filterByStrategies(steps)
+		val model = computeInitialLogicalSteps()
+		return filterByStrategies(model)
 	}
 	
 
 	/** 
 	 * Return a list of steps filtered by all filtering strategies
 	 */
-	private def Set<ParallelStep<? extends Step<?>,?>> filterByStrategies(Set<ParallelStep<? extends Step<?>,?>> possibleSteps) {
+	private def Set<ParallelStep<? extends Step<?>,?>> filterByStrategies(Model symbolicPossibleSteps) {
+		val possibleSteps =ChocoHelper.computePossibleStepInExtension(symbolicPossibleSteps)
 		filteringStrategies.fold(possibleSteps, [steps, fh|fh.filter(steps, stepFactory)])
 	}
 

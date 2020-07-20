@@ -6,6 +6,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import org.chocosolver.solver.Model;
+
+
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.RecordingCommand;
@@ -43,11 +46,11 @@ public abstract class AbstractSolverCodeExecutorConcurrentEngine<C extends Abstr
 		return getExecutionContext().getExecutionPlatform().getCodeExecutor();
 	}
 
-	protected final Set<ParallelStep<? extends Step<?>,?>> computeWithoutUpdatePossibleLogicalSteps() {
+	protected final Model computeWithoutUpdatePossibleLogicalSteps() {
 		return getSolver().computeAndGetPossibleLogicalSteps();
 	}
 
-	protected Set<ParallelStep<? extends Step<?>,?>> updatePossibleLogicalSteps() {
+	protected Model updatePossibleLogicalSteps() {
 		beforeUpdatePossibleLogicalSteps();
 		return getSolver().updatePossibleLogicalSteps();
 	}
@@ -55,7 +58,8 @@ public abstract class AbstractSolverCodeExecutorConcurrentEngine<C extends Abstr
 	protected abstract void beforeUpdatePossibleLogicalSteps();
 
 	@Override
-	protected Set<ParallelStep<? extends Step<?>,?>> computeInitialLogicalSteps() {
+	//here, should be symbolic
+	protected Model computeInitialLogicalSteps() {
 		computeWithoutUpdatePossibleLogicalSteps();
 		synchronized (this) {
 			return updatePossibleLogicalSteps();
