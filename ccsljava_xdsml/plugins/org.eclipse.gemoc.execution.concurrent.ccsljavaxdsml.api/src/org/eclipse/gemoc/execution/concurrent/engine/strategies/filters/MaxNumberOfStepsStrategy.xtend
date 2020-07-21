@@ -1,11 +1,11 @@
 package org.eclipse.gemoc.execution.concurrent.engine.strategies.filters
 
-import java.util.ArrayList
 import org.chocosolver.solver.Model
 import org.chocosolver.solver.expression.discrete.arithmetic.ArExpression
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.SymbolicFilteringStrategy
-import org.eclipse.gemoc.execution.concurrent.symbolic.SmallStepVariable
 import org.eclipse.xtend.lib.annotations.Accessors
+
+import static extension org.eclipse.gemoc.execution.concurrent.symbolic.ChocoHelper.*
 
 class MaxNumberOfStepsStrategy implements SymbolicFilteringStrategy {
 	
@@ -21,17 +21,10 @@ class MaxNumberOfStepsStrategy implements SymbolicFilteringStrategy {
 	}
 	
 	override filterSymbolically(Model symbolicPossibleSteps) {
-		var allVars = new ArrayList()
-		for(v : symbolicPossibleSteps.vars){
-			if (v instanceof SmallStepVariable){
-				allVars.add(v)
-			}
+		val variables = symbolicPossibleSteps.smallStepVariables
+		
+		if (variables.size > maxNumberOfSteps) {
+			variables.tail.fold(variables.head as ArExpression)[expr, v | expr.add(v)].le(maxNumberOfSteps).post()		
 		}
-		//x.add(y.add(z)).lt(2).post();
-		var ArExpression expr = allVars.get(0);
-		for(var i = 1; i < allVars.size; i++){
-			expr = expr.add(allVars.get(i));
-		}
-		expr.le(maxNumberOfSteps).post()		
 	}
 }
