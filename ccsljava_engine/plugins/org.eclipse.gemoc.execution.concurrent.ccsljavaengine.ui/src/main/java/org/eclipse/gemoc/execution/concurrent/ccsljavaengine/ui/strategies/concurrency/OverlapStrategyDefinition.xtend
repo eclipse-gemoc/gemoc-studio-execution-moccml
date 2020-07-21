@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Group
 
 class OverlapStrategyDefinition extends ConcurrencyStrategyDefinition {
 	new() {
-		super("uk.ac.kcl.inf.xdsml.strategies.overlap", "Overlap Strategy", OverlapStrategy)
+		super("uk.ac.kcl.inf.xdsml.strategies.overlap", "Overlap", OverlapStrategy)
 	}
 	
 	override getUIControl(Composite parent, LaunchConfigurationContext lcc, StrategyControlUpdateListener scul) {

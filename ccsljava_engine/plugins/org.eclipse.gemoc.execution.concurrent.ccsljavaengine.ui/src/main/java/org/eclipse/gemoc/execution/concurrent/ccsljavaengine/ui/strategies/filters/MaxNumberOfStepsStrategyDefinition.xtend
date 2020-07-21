@@ -12,7 +12,7 @@ import org.eclipse.gemoc.execution.concurrent.engine.strategies.filters.MaxNumbe
 
 class MaxNumberOfStepsStrategyDefinition extends FilteringStrategyDefinition {
 	new() {
-		super("uk.ac.kcl.inf.xdsml.strategies.num_steps", "Max Number of Steps Strategy", MaxNumberOfStepsStrategy)
+		super("uk.ac.kcl.inf.xdsml.strategies.num_steps", "Max number of steps", MaxNumberOfStepsStrategy)
 	}
 
 	override getUIControl(Composite parent, LaunchConfigurationContext lcc, StrategyControlUpdateListener scul) {

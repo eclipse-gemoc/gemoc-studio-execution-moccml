@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.List
 
 class NonIdentityElementsStrategyDefinition extends FilteringStrategyDefinition {
 	new() {
-		super("uk.ac.kcl.inf.xdsml.strategies.non_identity_elements", "Non Identity Elements Strategy",
+		super("uk.ac.kcl.inf.xdsml.strategies.non_identity_elements", "Token elements",
 			NonIdentityElementsStrategy)
 	}
 
