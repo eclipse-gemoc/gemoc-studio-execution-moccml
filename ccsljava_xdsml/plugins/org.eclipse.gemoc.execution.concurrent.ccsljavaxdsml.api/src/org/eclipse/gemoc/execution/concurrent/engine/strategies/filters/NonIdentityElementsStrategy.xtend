@@ -1,5 +1,6 @@
 package org.eclipse.gemoc.execution.concurrent.engine.strategies.filters
 
+import java.util.Comparator
 import java.util.HashSet
 import java.util.List
 import java.util.Set
@@ -36,7 +37,7 @@ class NonIdentityElementsStrategy  implements EnumeratingFilteringStrategy {
 		this(emptyList)
 	}
 
-	override Set<ParallelStep<? extends Step<?>, ?>> filter(Set<ParallelStep<? extends Step<?>, ?>> steps) {
+	override Set<ParallelStep<? extends Step<?>, ?>> filter(Set<ParallelStep<? extends Step<?>, ?>> steps, Comparator<Step<?>> stepComparator) {
 		steps.fold(new HashSet<ParallelStep<? extends Step<?>, ?>>)[acc, step |
 			if (!acc.exists[s2|equivalentSteps(step, s2)]) {
 				acc += step

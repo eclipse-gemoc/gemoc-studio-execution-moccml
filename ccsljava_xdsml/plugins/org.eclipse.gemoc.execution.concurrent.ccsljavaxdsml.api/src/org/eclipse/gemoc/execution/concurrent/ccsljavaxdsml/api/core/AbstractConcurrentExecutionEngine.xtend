@@ -1,6 +1,7 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core
 
 import java.util.ArrayList
+import java.util.Comparator
 import java.util.HashSet
 import java.util.List
 import java.util.Set
@@ -57,7 +58,7 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	/**
 	 * Factory managing the steps this engine places inside the parallel steps it generates.  
 	 */
-	static class StepFactory {
+	static class StepFactory implements Comparator<Step<?>> {
 		/**
 		 * Create a clone of the given inner step, assuming that this step has previously been created by this engine.
 		 * 
@@ -68,12 +69,12 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 		}
 		
 		/**
-		 * Return true if the two inner steps are equal, assuming that the steps have previously been created by this engine.
+		 * Return 0 if the two inner steps are equal, assuming that the steps have previously been created by this engine.
 		 * 
 		 * If needed, can be overridden by any engine that has its own custom class for inner steps.
 		 */
-		def boolean isEqualInnerStepTo(Step<?> step1, Step<?> step2) {
-			return EcoreUtil::equals(step1, step2)
+		override compare(Step<?> step1, Step<?> step2) {
+			if (EcoreUtil::equals(step1, step2)) 0 else -1
 		}
 	}
 	
@@ -105,7 +106,7 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 		
 		val possibleSteps = symbolicPossibleSteps.computePossibleStepInExtension(stepFactory)
 		
-		filteringStrategies.filter(EnumeratingFilteringStrategy).fold(possibleSteps, [steps, fh| fh.filter(steps)])
+		filteringStrategies.filter(EnumeratingFilteringStrategy).fold(possibleSteps, [steps, fh| fh.filter(steps, stepFactory)])
 	}
 
 	/**

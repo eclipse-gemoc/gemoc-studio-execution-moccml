@@ -6,6 +6,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.concu
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filters.MaxNumberOfStepsStrategyDefinition
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filters.NonIdentityElementsStrategyDefinition
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.Strategy
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filters.MaximalConcurrencyStrategyDefinition
 
 /**
  * Registry of strategy descriptions. Eventually to be filled from an extension point.
@@ -22,6 +23,7 @@ class StrategyRegistry {
 		add(new SetOfActionsStrategyDefinition)
 		add(new NonIdentityElementsStrategyDefinition)
 		add(new MaxNumberOfStepsStrategyDefinition)
+		add(new MaximalConcurrencyStrategyDefinition)
 	}
 
 	val registry = new HashMap<String, StrategyDefinition>()
