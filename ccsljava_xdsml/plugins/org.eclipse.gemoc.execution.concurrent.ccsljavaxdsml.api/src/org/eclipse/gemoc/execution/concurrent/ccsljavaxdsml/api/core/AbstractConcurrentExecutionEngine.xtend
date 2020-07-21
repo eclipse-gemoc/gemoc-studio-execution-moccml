@@ -86,7 +86,7 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	def private Set<ParallelStep<? extends Step<?>,?>> computePossibleLogicalSteps() {
 		val model = computeInitialLogicalSteps()
 		
-		val steps = model.atomicSteps.toList
+		val steps = model.smallSteps.toList
 		
 		steps.forEach[s1, idx | steps.subList(idx, steps.size).forEach[s2 | 
 			if (!applyConcurrencyStrategies(s1, s2)) {
