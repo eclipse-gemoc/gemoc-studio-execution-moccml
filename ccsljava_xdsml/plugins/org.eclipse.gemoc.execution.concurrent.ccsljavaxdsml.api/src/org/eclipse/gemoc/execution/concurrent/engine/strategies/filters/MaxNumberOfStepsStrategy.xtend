@@ -1,7 +1,7 @@
 package org.eclipse.gemoc.execution.concurrent.engine.strategies.filters
 
 import java.util.Set
-import org.eclipse.gemoc.execution.concurrent.engine.strategies.FilteringStrategy
+import org.eclipse.gemoc.execution.concurrent.engine.strategies.EnumeratingFilteringStrategy
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep
 import org.eclipse.gemoc.trace.commons.model.trace.Step
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -9,7 +9,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 /**
  * A strategy that only allows concurrent steps with a maximum number of substeps.
  */
-class MaxNumberOfStepsStrategy implements FilteringStrategy {
+class MaxNumberOfStepsStrategy implements EnumeratingFilteringStrategy {
 
 	@Accessors
 	var int maxNumberOfSteps

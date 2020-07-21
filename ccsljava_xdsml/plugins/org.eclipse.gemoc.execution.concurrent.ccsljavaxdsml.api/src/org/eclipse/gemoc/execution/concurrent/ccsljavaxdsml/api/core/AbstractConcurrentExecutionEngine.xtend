@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.DeciderException
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.ConcurrencyStrategy
+import org.eclipse.gemoc.execution.concurrent.engine.strategies.EnumeratingFilteringStrategy
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.FilteringStrategy
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.Strategy
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.SymbolicFilteringStrategy
@@ -101,9 +102,9 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	 * Return a list of steps filtered by all filtering strategies
 	 */
 	private def Set<ParallelStep<? extends Step<?>,?>> filterByStrategies(Model symbolicPossibleSteps) {
-		filteringStrategies.fold(symbolicPossibleSteps, [model, sfs | if(sfs instanceof SymbolicFilteringStrategy){sfs.doSymbolicFilter(model)}])
+		filteringStrategies.fold(symbolicPossibleSteps, [model, sfs | if (sfs instanceof SymbolicFilteringStrategy) { sfs.filterSymbolically(model) }])
 		val possibleSteps = symbolicPossibleSteps.computePossibleStepInExtension(stepFactory)
-		filteringStrategies.fold(possibleSteps, [steps, fh|if(fh instanceof FilteringStrategy){fh.filter(steps)}])
+		filteringStrategies.fold(possibleSteps, [steps, fh| if (fh instanceof EnumeratingFilteringStrategy) { fh.filter(steps) }])
 		possibleSteps
 	}
 

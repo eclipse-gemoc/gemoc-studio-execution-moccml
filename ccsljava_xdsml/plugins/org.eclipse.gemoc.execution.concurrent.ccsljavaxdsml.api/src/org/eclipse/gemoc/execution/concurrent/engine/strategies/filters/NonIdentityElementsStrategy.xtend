@@ -4,7 +4,7 @@ import java.util.HashSet
 import java.util.List
 import java.util.Set
 import org.eclipse.emf.ecore.EClass
-import org.eclipse.gemoc.execution.concurrent.engine.strategies.FilteringStrategy
+import org.eclipse.gemoc.execution.concurrent.engine.strategies.EnumeratingFilteringStrategy
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep
 import org.eclipse.gemoc.trace.commons.model.trace.Step
@@ -19,7 +19,7 @@ import static extension org.eclipse.gemoc.execution.concurrent.engine.strategies
  * of assemble (in the PLS case), for example. It's just not meaningful to have four ``different'' atomic assemble steps where there is only one machine. Hence, this is a filtering
  * strategy that needs to be applied after all possible concurrent executions have been computed.
  */
-class NonIdentityElementsStrategy  implements FilteringStrategy {
+class NonIdentityElementsStrategy  implements EnumeratingFilteringStrategy {
 
 	/**
 	 * Objects of these types should not be considered to have independent identity. So, while we can require to match multiple, distinct objects in one rule match, two rule matches 

@@ -3,7 +3,6 @@ package org.eclipse.gemoc.execution.concurrent.engine.strategies.filters
 import java.util.ArrayList
 import org.chocosolver.solver.Model
 import org.chocosolver.solver.expression.discrete.arithmetic.ArExpression
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine.StepFactory
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.SymbolicFilteringStrategy
 import org.eclipse.gemoc.execution.concurrent.symbolic.SmallStepVariable
 import org.eclipse.xtend.lib.annotations.Accessors
@@ -21,7 +20,7 @@ class SymbolicMaxNumberOfStepsStrategy implements SymbolicFilteringStrategy {
 		this(2)
 	}
 	
-	override Model doSymbolicFilter(Model symbolicPossibleSteps) {
+	override Model filterSymbolically(Model symbolicPossibleSteps) {
 //		println("before: "+ChocoHelper.computePossibleStepInExtension(symbolicPossibleSteps))
 		var allVars = new ArrayList()
 		for(v : symbolicPossibleSteps.vars){
