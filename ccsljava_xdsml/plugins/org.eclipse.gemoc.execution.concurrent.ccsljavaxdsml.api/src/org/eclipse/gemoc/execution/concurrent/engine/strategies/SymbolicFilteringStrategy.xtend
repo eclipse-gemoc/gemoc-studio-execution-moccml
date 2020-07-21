@@ -5,6 +5,6 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractCon
 
 interface SymbolicFilteringStrategy extends Strategy{
 
-	def Model doSymbolicFilter(Model symbolicPossibleSteps, StepFactory factory) {
+	def Model doSymbolicFilter(Model symbolicPossibleSteps) {
 	}
 }

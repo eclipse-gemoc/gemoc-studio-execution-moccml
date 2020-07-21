@@ -4,12 +4,15 @@ import java.util.ArrayList
 import java.util.HashSet
 import java.util.List
 import java.util.Set
+import org.chocosolver.solver.Model
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.DeciderException
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.ConcurrencyStrategy
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.FilteringStrategy
+import org.eclipse.gemoc.execution.concurrent.engine.strategies.Strategy
+import org.eclipse.gemoc.execution.concurrent.engine.strategies.SymbolicFilteringStrategy
 import org.eclipse.gemoc.executionframework.engine.Activator
 import org.eclipse.gemoc.executionframework.engine.core.AbstractExecutionEngine
 import org.eclipse.gemoc.executionframework.engine.core.EngineStoppedException
@@ -20,7 +23,6 @@ import org.eclipse.gemoc.trace.commons.model.trace.Step
 import org.eclipse.gemoc.xdsmlframework.api.core.EngineStatus
 import org.eclipse.gemoc.xdsmlframework.api.engine_addon.IEngineAddon
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.chocosolver.solver.Model
 
 import static extension org.eclipse.gemoc.execution.concurrent.symbolic.ChocoHelper.*
 
@@ -49,7 +51,7 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	@Accessors
 	val List<ConcurrencyStrategy> concurrencyStrategies = new ArrayList<ConcurrencyStrategy>()
 	@Accessors
-	val List<FilteringStrategy> filteringStrategies = new ArrayList<FilteringStrategy>()
+	val List<Strategy> filteringStrategies = new ArrayList<Strategy>()
 
 	/**
 	 * Factory managing the steps this engine places inside the parallel steps it generates.  
@@ -82,6 +84,15 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	
 	def private Set<ParallelStep<? extends Step<?>,?>> computePossibleLogicalSteps() {
 		val model = computeInitialLogicalSteps()
+		
+		val steps = model.atomicSteps.toList
+		
+		steps.forEach[s1, idx | steps.subList(idx, steps.size).forEach[s2 | 
+			if (!applyConcurrencyStrategies(s1, s2)) {
+				model.addExclusionConstraint(s1, s2)
+			}
+		]]
+		
 		return filterByStrategies(model)
 	}
 	
@@ -90,12 +101,10 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	 * Return a list of steps filtered by all filtering strategies
 	 */
 	private def Set<ParallelStep<? extends Step<?>,?>> filterByStrategies(Model symbolicPossibleSteps) {
+		filteringStrategies.fold(symbolicPossibleSteps, [model, sfs | if(sfs instanceof SymbolicFilteringStrategy){sfs.doSymbolicFilter(model)}])
 		val possibleSteps = symbolicPossibleSteps.computePossibleStepInExtension(stepFactory)
-		filteringStrategies.fold(possibleSteps, [steps, fh|fh.filter(steps)])
-		val possibleSteps =ChocoHelper.computePossibleStepInExtension(symbolicPossibleSteps)
-		filteringStrategies.fold(possibleSteps, [steps, fh|if(fh instanceof FilteringStrategy){fh.filter(steps, stepFactory)}])
+		filteringStrategies.fold(possibleSteps, [steps, fh|if(fh instanceof FilteringStrategy){fh.filter(steps)}])
 		possibleSteps
-		filteringStrategies.fold(symbolicPossibleSteps, [model, sfs | if(sfs instanceof SymbolicFilteringStrategy){sfs.doSymbolicFilter(model, stepFactory)}])
 	}
 
 	/**

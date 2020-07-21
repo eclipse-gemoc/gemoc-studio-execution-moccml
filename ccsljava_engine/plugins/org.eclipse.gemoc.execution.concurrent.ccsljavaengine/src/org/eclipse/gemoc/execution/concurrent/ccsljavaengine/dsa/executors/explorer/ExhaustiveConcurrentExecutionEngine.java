@@ -25,6 +25,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecut
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper.IK3ModelStateHelper;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
+import org.eclipse.gemoc.execution.concurrent.symbolic.ChocoHelper;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericStep;
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
@@ -91,7 +92,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 			modelStateHelper.restoreModelState(currentState.modelState);
 			this._solver.setState(currentState.moCCState);
 			// set the possibleLogicalSteps for this state
-			_possibleLogicalSteps = computeWithoutUpdatePossibleLogicalSteps();
+			_possibleLogicalSteps = ChocoHelper.computePossibleStepInExtension(computeWithoutUpdatePossibleLogicalSteps(), stepFactory);
 			// 2- compute all states accessible from the currenState when using the
 			// possibleLogicalStates
 			int originalPossibleLogicalStepSize = getPossibleLogicalSteps().size();

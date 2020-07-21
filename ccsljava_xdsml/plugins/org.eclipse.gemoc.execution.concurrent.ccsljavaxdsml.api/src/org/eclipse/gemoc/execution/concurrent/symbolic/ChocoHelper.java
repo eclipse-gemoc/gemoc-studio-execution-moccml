@@ -9,7 +9,7 @@ import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.variables.BoolVar;
 import org.chocosolver.solver.variables.Variable;
 import org.chocosolver.util.ESat;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine.StepFactory;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericStep;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenerictraceFactory;
@@ -24,8 +24,8 @@ public class ChocoHelper {
 	 */
 	public static Set<ParallelStep<? extends Step<?>, ?>> lastChocoLogicalSteps = null;
 
-	public static Set<ParallelStep<? extends Step<?>, ?>> computePossibleStepInExtension(Model symbolicPossibleSteps,
-			StepFactory stepFactory) {
+	public static Set<ParallelStep<? extends Step<?>, ?>> computePossibleStepInExtension(Model symbolicPossibleSteps, AbstractConcurrentExecutionEngine.StepFactory stepFactory) {
+
 
 		Solver solver = symbolicPossibleSteps.getSolver();
 		int nbSmallSteps = 0;
@@ -154,4 +154,6 @@ public class ChocoHelper {
 			.extension()
 			.post();
 	}
+
+
 }
