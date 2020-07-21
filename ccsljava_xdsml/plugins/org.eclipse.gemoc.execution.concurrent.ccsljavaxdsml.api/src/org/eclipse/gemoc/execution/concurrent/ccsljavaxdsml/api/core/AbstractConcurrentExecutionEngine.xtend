@@ -21,9 +21,8 @@ import org.eclipse.gemoc.xdsmlframework.api.core.EngineStatus
 import org.eclipse.gemoc.xdsmlframework.api.engine_addon.IEngineAddon
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.chocosolver.solver.Model
-import org.eclipse.gemoc.execution.concurrent.symbolic.ChocoHelper
-import org.eclipse.gemoc.execution.concurrent.engine.strategies.Strategy
-import org.eclipse.gemoc.execution.concurrent.engine.strategies.SymbolicFilteringStrategy
+
+import static extension org.eclipse.gemoc.execution.concurrent.symbolic.ChocoHelper.*
 
 //TODO manage runconfiguration with strategies?
 abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentModelExecutionContext<R, ?, ?>, R extends IConcurrentRunConfiguration> extends AbstractExecutionEngine<C, R> {
@@ -50,7 +49,7 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	@Accessors
 	val List<ConcurrencyStrategy> concurrencyStrategies = new ArrayList<ConcurrencyStrategy>()
 	@Accessors
-	val List<Strategy> filteringStrategies = new ArrayList<Strategy>()
+	val List<FilteringStrategy> filteringStrategies = new ArrayList<FilteringStrategy>()
 
 	/**
 	 * Factory managing the steps this engine places inside the parallel steps it generates.  
@@ -91,10 +90,12 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	 * Return a list of steps filtered by all filtering strategies
 	 */
 	private def Set<ParallelStep<? extends Step<?>,?>> filterByStrategies(Model symbolicPossibleSteps) {
-		filteringStrategies.fold(symbolicPossibleSteps, [model, sfs | if(sfs instanceof SymbolicFilteringStrategy){sfs.doSymbolicFilter(model, stepFactory)}])
+		val possibleSteps = symbolicPossibleSteps.computePossibleStepInExtension(stepFactory)
+		filteringStrategies.fold(possibleSteps, [steps, fh|fh.filter(steps)])
 		val possibleSteps =ChocoHelper.computePossibleStepInExtension(symbolicPossibleSteps)
 		filteringStrategies.fold(possibleSteps, [steps, fh|if(fh instanceof FilteringStrategy){fh.filter(steps, stepFactory)}])
 		possibleSteps
+		filteringStrategies.fold(symbolicPossibleSteps, [model, sfs | if(sfs instanceof SymbolicFilteringStrategy){sfs.doSymbolicFilter(model, stepFactory)}])
 	}
 
 	/**
@@ -105,7 +106,7 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	 * @return true if the concurrency strategies allow both steps to run concurrently.  
 	 */
 	protected final def boolean applyConcurrencyStrategies(SmallStep<?> step1, SmallStep<?> step2) {
-		return concurrencyStrategies.forall[ch|ch.canBeConcurrent(step1, step2)]
+		concurrencyStrategies.forall[ch|ch.canBeConcurrent(step1, step2)]
 	}
 
 	override protected void beforeStart() {

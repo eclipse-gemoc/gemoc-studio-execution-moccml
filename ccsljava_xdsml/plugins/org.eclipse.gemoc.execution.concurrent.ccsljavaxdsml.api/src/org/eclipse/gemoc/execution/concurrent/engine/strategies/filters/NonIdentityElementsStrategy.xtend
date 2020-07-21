@@ -4,7 +4,7 @@ import java.util.HashSet
 import java.util.List
 import java.util.Set
 import org.eclipse.emf.ecore.EClass
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine.StepFactory
+import org.eclipse.gemoc.execution.concurrent.engine.strategies.FilteringStrategy
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep
 import org.eclipse.gemoc.trace.commons.model.trace.Step
@@ -19,7 +19,7 @@ import static extension org.eclipse.gemoc.execution.concurrent.engine.strategies
  * of assemble (in the PLS case), for example. It's just not meaningful to have four ``different'' atomic assemble steps where there is only one machine. Hence, this is a filtering
  * strategy that needs to be applied after all possible concurrent executions have been computed.
  */
-class NonIdentityElementsStrategy  extends AbstractFilteringStrategy {
+class NonIdentityElementsStrategy  implements FilteringStrategy {
 
 	/**
 	 * Objects of these types should not be considered to have independent identity. So, while we can require to match multiple, distinct objects in one rule match, two rule matches 
@@ -36,24 +36,29 @@ class NonIdentityElementsStrategy  extends AbstractFilteringStrategy {
 		this(emptyList)
 	}
 
-	override Set<ParallelStep<? extends Step<?>, ?>> doFilter(Set<ParallelStep<? extends Step<?>, ?>> steps,
-		extension StepFactory factory) {
-		val filteredStepsHolder = #[new HashSet<ParallelStep<? extends Step<?>, ?>>]
-
-		val stepsList = steps.toList
-
-		stepsList.forEach [ s, idx |
-			if (s.isUniqueIn(stepsList.subList(idx + 1, steps.size))) {
-				// Keep the step
-				filteredStepsHolder.get(0).add(s)
-			}
-		]
-
-		filteredStepsHolder.get(0)
-	}
-	
-	private def isUniqueIn(ParallelStep<? extends Step<?>, ?> s, List<ParallelStep<? extends Step<?>, ?>> steps) {
-		!steps.exists[s2|equivalentSteps(s, s2)]
+	override Set<ParallelStep<? extends Step<?>, ?>> filter(Set<ParallelStep<? extends Step<?>, ?>> steps) {
+		steps.fold(new HashSet<ParallelStep<? extends Step<?>, ?>>)[acc, step |
+			if (!acc.exists[s2|equivalentSteps(step, s2)]) {
+				acc += step
+			} 
+			
+			acc
+		] 
+//		
+//		
+//		
+//		val filteredStepsHolder = #[new HashSet<ParallelStep<? extends Step<?>, ?>>]
+//
+//		val stepsList = steps.toList
+//
+//		stepsList.forEach [ s, idx |
+//			if (s.isUniqueIn(stepsList.subList(idx + 1, steps.size))) {
+//				// Keep the step
+//				filteredStepsHolder.get(0).add(s)
+//			}
+//		]
+//
+//		filteredStepsHolder.get(0)
 	}
 	
 	private def equivalentSteps(ParallelStep<? extends Step<?>,?> s1, ParallelStep<? extends Step<?>,?> s2) {
