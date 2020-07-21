@@ -37,28 +37,28 @@ class NonIdentityElementsStrategy  implements EnumeratingFilteringStrategy {
 	}
 
 	override Set<ParallelStep<? extends Step<?>, ?>> filter(Set<ParallelStep<? extends Step<?>, ?>> steps) {
-		steps.fold(new HashSet<ParallelStep<? extends Step<?>, ?>>)[acc, step |
-			if (!acc.exists[s2|equivalentSteps(step, s2)]) {
-				acc += step
-			} 
-			
-			acc
-		] 
-//		
-//		
-//		
-//		val filteredStepsHolder = #[new HashSet<ParallelStep<? extends Step<?>, ?>>]
-//
-//		val stepsList = steps.toList
-//
-//		stepsList.forEach [ s, idx |
-//			if (s.isUniqueIn(stepsList.subList(idx + 1, steps.size))) {
-//				// Keep the step
-//				filteredStepsHolder.get(0).add(s)
-//			}
-//		]
-//
-//		filteredStepsHolder.get(0)
+//		steps.fold(new HashSet<ParallelStep<? extends Step<?>, ?>>)[acc, step |
+//			if (!acc.exists[s2|equivalentSteps(step, s2)]) {
+//				acc += step
+//			} 
+//			
+//			acc
+//		] 
+		
+		
+		
+		val filteredStepsHolder = #[new HashSet<ParallelStep<? extends Step<?>, ?>>]
+
+		val stepsList = steps.toList
+
+		stepsList.forEach [ s, idx |
+			if (!stepsList.subList(idx + 1, steps.size).exists[s2 | equivalentSteps(s, s2)]) {
+				// Keep the step
+				filteredStepsHolder.get(0).add(s)
+			}
+		]
+
+		filteredStepsHolder.get(0)
 	}
 	
 	private def equivalentSteps(ParallelStep<? extends Step<?>,?> s1, ParallelStep<? extends Step<?>,?> s2) {

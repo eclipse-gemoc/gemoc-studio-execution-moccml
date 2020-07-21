@@ -20,8 +20,7 @@ class MaxNumberOfStepsStrategy implements SymbolicFilteringStrategy {
 		this(2)
 	}
 	
-	override Model filterSymbolically(Model symbolicPossibleSteps) {
-//		println("before: "+ChocoHelper.computePossibleStepInExtension(symbolicPossibleSteps))
+	override filterSymbolically(Model symbolicPossibleSteps) {
 		var allVars = new ArrayList()
 		for(v : symbolicPossibleSteps.vars){
 			if (v instanceof SmallStepVariable){
@@ -33,8 +32,6 @@ class MaxNumberOfStepsStrategy implements SymbolicFilteringStrategy {
 		for(var i = 1; i < allVars.size; i++){
 			expr = expr.add(allVars.get(i));
 		}
-		expr.le(maxNumberOfSteps).post()
-		return symbolicPossibleSteps
-		
+		expr.le(maxNumberOfSteps).post()		
 	}
 }

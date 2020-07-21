@@ -10,5 +10,8 @@ import org.chocosolver.solver.Model
  */
 interface SymbolicFilteringStrategy extends Strategy{
 
-	def Model filterSymbolically(Model symbolicPossibleSteps)
+	/**
+	 * Add extra constraints to the given symbolic representation.
+	 */
+	def void filterSymbolically(Model symbolicPossibleSteps)
 }

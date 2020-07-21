@@ -97,15 +97,15 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 		return filterByStrategies(model)
 	}
 	
-
 	/** 
 	 * Return a list of steps filtered by all filtering strategies
 	 */
 	private def Set<ParallelStep<? extends Step<?>,?>> filterByStrategies(Model symbolicPossibleSteps) {
-		filteringStrategies.fold(symbolicPossibleSteps, [model, sfs | if (sfs instanceof SymbolicFilteringStrategy) { sfs.filterSymbolically(model) }])
+		filteringStrategies.filter(SymbolicFilteringStrategy).forEach[filterSymbolically(symbolicPossibleSteps)]
+		
 		val possibleSteps = symbolicPossibleSteps.computePossibleStepInExtension(stepFactory)
-		filteringStrategies.fold(possibleSteps, [steps, fh| if (fh instanceof EnumeratingFilteringStrategy) { fh.filter(steps) }])
-		possibleSteps
+		
+		filteringStrategies.filter(EnumeratingFilteringStrategy).fold(possibleSteps, [steps, fh| fh.filter(steps)])
 	}
 
 	/**
