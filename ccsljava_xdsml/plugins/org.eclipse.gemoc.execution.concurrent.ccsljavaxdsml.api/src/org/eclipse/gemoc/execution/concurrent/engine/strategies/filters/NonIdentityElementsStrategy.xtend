@@ -74,12 +74,12 @@ class NonIdentityElementsStrategy  implements EnumeratingFilteringStrategy {
 	private def equivalentFootprints(Step<?> s1, Step<?> s2) {
 		if (s1 instanceof SmallStep<?>) {
 			if (s2 instanceof SmallStep<?>) {
-				val s2Footprint = s2.footprint.allEObjectsTouched;
+				val s2Footprint = s2.footprint.accesses;
 				
 				(s1 === s2) || 
 				(s1.footprint.equalTo(s2.footprint)) ||
 				((s1.mseoccurrence.mse.action.name == s2.mseoccurrence.mse.action.name) &&
-					s1.footprint.allEObjectsTouched.forall[o | 
+					s1.footprint.accesses.forall[o | 
 						o.eClass.isNonIdentityType || s2Footprint.contains(o)
 					] &&
 					s1.footprint.instantiations.forall[isNonIdentityType] &&

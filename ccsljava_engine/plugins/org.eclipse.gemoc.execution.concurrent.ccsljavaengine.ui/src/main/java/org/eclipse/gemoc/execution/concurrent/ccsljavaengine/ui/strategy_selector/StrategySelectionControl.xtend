@@ -66,7 +66,7 @@ class StrategySelectionControl extends Composite {
 		)
 	}
 
-	def updateSelectionsFrom(AbstractConcurrentExecutionEngine engine) {
+	def updateSelectionsFrom(AbstractConcurrentExecutionEngine<?,?> engine) {
 		val List<Strategy> strategies = new ArrayList
 		strategies.addAll(engine.concurrencyStrategies)
 		strategies.addAll(engine.filteringStrategies) 
