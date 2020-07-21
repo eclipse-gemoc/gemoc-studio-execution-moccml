@@ -3,16 +3,16 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filt
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.LaunchConfigurationContext
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.StrategyControlUpdateListener
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.Strategy
-import org.eclipse.gemoc.execution.concurrent.engine.strategies.filters.SymbolicMaxNumberOfStepsStrategy
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Control
 import org.eclipse.swt.widgets.Text
+import org.eclipse.gemoc.execution.concurrent.engine.strategies.filters.MaxNumberOfStepsStrategy
 
-class SymbolicMaxNumberOfStepsStrategyDefinition extends FilteringStrategyDefinition {
+class MaxNumberOfStepsStrategyDefinition extends FilteringStrategyDefinition {
 	new() {
-		super("uk.ac.kcl.inf.xdsml.strategies.symb_num_steps", "Symbolic Max Number of Steps Strategy", SymbolicMaxNumberOfStepsStrategy)
+		super("uk.ac.kcl.inf.xdsml.strategies.num_steps", "Max Number of Steps Strategy", MaxNumberOfStepsStrategy)
 	}
 
 	override getUIControl(Composite parent, LaunchConfigurationContext lcc, StrategyControlUpdateListener scul) {
@@ -41,7 +41,7 @@ class SymbolicMaxNumberOfStepsStrategyDefinition extends FilteringStrategyDefini
 		val txt = uiElement as Text
 		txt.text = ""
 
-		if (strategy instanceof SymbolicMaxNumberOfStepsStrategy) {
+		if (strategy instanceof MaxNumberOfStepsStrategy) {
 			txt.text = strategy.maxNumberOfSteps.toString
 		}
 	}
@@ -58,7 +58,7 @@ class SymbolicMaxNumberOfStepsStrategyDefinition extends FilteringStrategyDefini
 	}
 
 	override initialise(Strategy strategy, String configData, LaunchConfigurationContext lcc) {
-		if (strategy instanceof SymbolicMaxNumberOfStepsStrategy) {
+		if (strategy instanceof MaxNumberOfStepsStrategy) {
 			try {
 				val num = Integer.parseInt(configData)
 				strategy.maxNumberOfSteps = num

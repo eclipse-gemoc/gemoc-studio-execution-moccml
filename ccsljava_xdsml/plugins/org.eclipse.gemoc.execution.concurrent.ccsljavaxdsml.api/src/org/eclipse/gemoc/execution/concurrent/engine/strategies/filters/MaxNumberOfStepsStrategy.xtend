@@ -7,7 +7,7 @@ import org.eclipse.gemoc.execution.concurrent.engine.strategies.SymbolicFilterin
 import org.eclipse.gemoc.execution.concurrent.symbolic.SmallStepVariable
 import org.eclipse.xtend.lib.annotations.Accessors
 
-class SymbolicMaxNumberOfStepsStrategy implements SymbolicFilteringStrategy {
+class MaxNumberOfStepsStrategy implements SymbolicFilteringStrategy {
 	
 	@Accessors
 	var int maxNumberOfSteps
