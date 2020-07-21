@@ -164,7 +164,7 @@ class StrategySelectionView extends EngineSelectionDependentViewPart implements 
 					if (strategy instanceof ConcurrencyStrategy) {
 						engine.concurrencyStrategies += strategy
 					} else {
-						engine.filteringStrategies += strategy as FilteringStrategy
+						engine.filteringStrategies += strategy
 					}
 				}
 			}

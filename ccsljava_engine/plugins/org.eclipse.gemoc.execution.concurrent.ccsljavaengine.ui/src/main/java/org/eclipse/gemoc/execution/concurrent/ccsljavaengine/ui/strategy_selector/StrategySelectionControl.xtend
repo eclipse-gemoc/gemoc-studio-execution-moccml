@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Control
 import org.eclipse.swt.widgets.Group
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure2
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.tabs.LaunchConfigurationStrategiesTab
 
 /**
  * Control for selecting and configuring strategies.
@@ -44,6 +45,8 @@ class StrategySelectionControl extends Composite {
 
 		this.configContext = configContext
 
+		updateListener = new LaunchConfigurationStrategiesTab(configContext)
+		
 		StrategyRegistry.INSTANCE.strategies.forEach [ sd |
 			strategySelections.put(sd, false)
 		]

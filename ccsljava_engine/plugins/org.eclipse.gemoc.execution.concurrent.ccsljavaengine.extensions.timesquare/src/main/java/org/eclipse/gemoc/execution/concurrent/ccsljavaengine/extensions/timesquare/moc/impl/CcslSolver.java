@@ -383,9 +383,10 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 	}
 	@Override
 	public void applyLogicalStep(ParallelStep<?, ?> logicalStep) {
-		_lastLogicalSteps = new ArrayList<>(ChocoHelper.lastChocoLogicalSteps);
+		//_lastLogicalSteps = new ArrayList<>(ChocoHelper.lastChocoLogicalSteps);
 		try {
-			int index = _lastLogicalSteps.indexOf(logicalStep);
+			
+			int index = getIndexOf(logicalStep);
 			solverWrapper.applyLogicalStepByIndex(index);
 			resolveOccurrenceRelations(_intermediateResult.get(index));
 		} catch (SolverException e) {
@@ -393,6 +394,27 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 		} catch (SimulationException e) {
 			Activator.getDefault().error(e.getMessage(), e);
 		}
+	}
+
+	private int getIndexOf(ParallelStep<?, ?> logicalStep) {
+		parLoop: for(ParallelStep ps : _lastLogicalSteps) {
+			subLoop: for(Step s : logicalStep.getSubSteps()) {
+				if (!stepExists(s, ps)) {
+					continue parLoop;
+				}
+			}
+			return _lastLogicalSteps.indexOf(ps);
+		}
+		return 0;
+	}
+
+	private boolean stepExists(Step s, ParallelStep<? extends Step<?>, ?> ps) {
+		for(Step ss: ps.getSubSteps()) {
+			if (s.getMseoccurrence().getMse().equals(ss.getMseoccurrence().getMse())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
