@@ -135,7 +135,8 @@ public class ChocoHelper {
 		SmallStepVariable vs1 = null;
 		SmallStepVariable vs2 = null;
 		
-		for (Variable v : symboligPossibleSteps.getVars()) {
+		Model symbolicPossibleSteps2 = symboligPossibleSteps;
+		for (Variable v : symbolicPossibleSteps2.getVars()) {
 			if (v instanceof SmallStepVariable) {
 				if (((SmallStepVariable) v).associatedSmallStep == s1) {
 					vs1 = (SmallStepVariable) v;
@@ -149,10 +150,9 @@ public class ChocoHelper {
 			}
 		}
 		
-		vs1.eq(1).imp(vs2.eq(0))
-			.and(vs2.eq(1).imp(vs1.eq(0)))
-			.extension()
-			.post();
+		if ((vs1 != null) && (vs2 != null)) {
+			symbolicPossibleSteps2.addClausesAtMostOne(new BoolVar[] {vs1, vs2});
+		}		
 	}
 
 
