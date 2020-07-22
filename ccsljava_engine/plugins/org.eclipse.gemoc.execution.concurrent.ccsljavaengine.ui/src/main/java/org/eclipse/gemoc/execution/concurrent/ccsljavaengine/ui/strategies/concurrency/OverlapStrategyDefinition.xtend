@@ -72,8 +72,13 @@ class OverlapStrategyDefinition extends ConcurrencyStrategyDefinition {
 		val onlyStatic = group.children.get(1) as Button
 
 		val data = configData.split("@@")
-		fullOverlap.selection = (data.get(0) == "Full:true")
-		onlyStatic.selection = (data.get(1) == "Static:true")
+		if (data.size === 2) {
+			fullOverlap.selection = (data.get(0) == "Full:true")
+			onlyStatic.selection = (data.get(1) == "Static:true")		
+		} else {
+			fullOverlap.selection = false 
+			onlyStatic.selection = false
+		}
 	}
 
 	override void initaliseControl(Control uiElement, Strategy strategy) {
@@ -91,8 +96,14 @@ class OverlapStrategyDefinition extends ConcurrencyStrategyDefinition {
 	override initialise(Strategy strategy, String configData, LaunchConfigurationContext lcc) {
 		if (strategy instanceof OverlapStrategy) {	
 			val data = configData.split("@@")
-			strategy.requireFullOverlap = (data.get(0) == "Full:true")
-			strategy.requireOnlyStaticOverlap = (data.get(1) == "Static:true")
+			
+			if (data.size === 2) {
+				strategy.requireFullOverlap = (data.get(0) == "Full:true")
+				strategy.requireOnlyStaticOverlap = (data.get(1) == "Static:true")			
+			} else {
+				strategy.requireFullOverlap = false
+				strategy.requireOnlyStaticOverlap = false				
+			}
 		}
 	}
 }
