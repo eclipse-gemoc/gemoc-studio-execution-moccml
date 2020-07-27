@@ -16,7 +16,7 @@ import org.eclipse.gemoc.execution.concurrent.engine.strategies.concurrency.SetO
 class SetOfActionsStrategyDefinition extends ConcurrencyStrategyDefinition {
 	
 	new() {
-		super("uk.ac.kcl.inf.xdsml.strategies.set_of_actions", "Set Of Actions", SetOfActionsStrategy)
+		super("uk.ac.kcl.inf.xdsml.strategies.set_of_actions", "Set Of Events", SetOfActionsStrategy)
 	}
 
 	override getUIControl(Composite parent, LaunchConfigurationContext lcc, StrategyControlUpdateListener scul) {

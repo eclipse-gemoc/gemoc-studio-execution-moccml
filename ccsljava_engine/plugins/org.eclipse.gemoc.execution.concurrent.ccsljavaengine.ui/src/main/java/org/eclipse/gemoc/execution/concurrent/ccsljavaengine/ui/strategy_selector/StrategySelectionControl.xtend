@@ -1,6 +1,3 @@
-
-
-
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategy_selector
 
 import java.util.ArrayList
@@ -27,6 +24,7 @@ import org.eclipse.swt.widgets.Group
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure2
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.tabs.LaunchConfigurationStrategiesTab
+import org.eclipse.swt.layout.GridData
 
 /**
  * Control for selecting and configuring strategies.
@@ -45,6 +43,7 @@ class StrategySelectionControl extends Composite {
 
 		this.configContext = configContext
 
+		// FIXME: This seems wrong: the control will be used without a launch tab, too...
 		updateListener = new LaunchConfigurationStrategiesTab(configContext)
 		
 		StrategyRegistry.INSTANCE.strategies.forEach [ sd |
@@ -55,9 +54,10 @@ class StrategySelectionControl extends Composite {
 
 		gl.marginHeight = 0
 		setLayout(gl)
-		layout()
 
 		createLayout
+
+		layout()
 	}
 
 	def initialiseFrom(ILaunchConfiguration configuration) {
@@ -134,8 +134,9 @@ class StrategySelectionControl extends Composite {
 		val group = new Group(parent, SWT.NULL)
 		group.setText(text)
 
-		val locationLayout = new GridLayout()
-		locationLayout.numColumns = 5
+		group.layoutData = new GridData(SWT.FILL, SWT.FILL, true, true)
+
+		val locationLayout = new GridLayout(6, false)
 		locationLayout.marginHeight = 10
 		locationLayout.marginWidth = 10
 		group.setLayout(locationLayout)
