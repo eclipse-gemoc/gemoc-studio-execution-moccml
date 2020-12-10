@@ -252,8 +252,8 @@ public class EventSchedulingTimeLineView extends AbstractTimelineView implements
 	}
 
 	private void performExecutionStep(Step<?> logicalStep) {
-		if (_currentEngine instanceof MoccmlExecutionEngine) {
-			MoccmlExecutionEngine engine_cast = (MoccmlExecutionEngine) _currentEngine;
+		if (_currentEngine instanceof AbstractConcurrentExecutionEngine) {
+			AbstractConcurrentExecutionEngine engine_cast = (AbstractConcurrentExecutionEngine) _currentEngine;
 		if (engine_cast.getLogicalStepDecider() instanceof AbstractUserDecider) {
 			AbstractUserDecider decider = (AbstractUserDecider) engine_cast
 					.getLogicalStepDecider();
