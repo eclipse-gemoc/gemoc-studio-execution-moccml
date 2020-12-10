@@ -106,14 +106,15 @@ class StrategySelectionView extends EngineSelectionDependentViewPart implements 
 	val configContext = new EngineWrappingLaunchConfigurationContext
 
 	override createPartControl(Composite parent) {
-		val content = new Composite(parent, SWT.NULL)
+//		val content = new Composite(parent, SWT.NULL)
 		val gl = new GridLayout(1, false)
 
 		gl.marginHeight = 0
-		content.setLayout(gl)
-		content.layout()
+		parent.setLayout(gl)
 
-		createLayout(content)
+		createLayout(parent)
+
+		parent.layout()
 	}
 
 	private def createLayout(Composite parent) {
@@ -164,7 +165,7 @@ class StrategySelectionView extends EngineSelectionDependentViewPart implements 
 					if (strategy instanceof ConcurrencyStrategy) {
 						engine.concurrencyStrategies += strategy
 					} else {
-						engine.filteringStrategies += strategy as FilteringStrategy
+						engine.filteringStrategies += strategy
 					}
 				}
 			}

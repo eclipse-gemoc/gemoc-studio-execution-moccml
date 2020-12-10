@@ -13,6 +13,7 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc;
 
 import java.util.Set;
 
+import org.chocosolver.solver.Model;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentModelExecutionContext;
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
@@ -32,14 +33,14 @@ public interface ISolver extends IDisposable {
 	 * 
 	 * @return a list of LogicalSteps
 	 */
-	public Set<ParallelStep<? extends Step<?>,?>> computeAndGetPossibleLogicalSteps();
+	public Model computeAndGetPossibleLogicalSteps();
 
 	/**
 	 * Returns the currently possible LogicalSteps
 	 * 
 	 * @return a list of LogicalSteps
 	 */
-	public Set<ParallelStep<? extends Step<?>,?>> updatePossibleLogicalSteps();
+	public Model updatePossibleLogicalSteps();
 
 	/**
 	 * among the currently possible LogicalStep (see {@link getPossibleLogicalSteps}

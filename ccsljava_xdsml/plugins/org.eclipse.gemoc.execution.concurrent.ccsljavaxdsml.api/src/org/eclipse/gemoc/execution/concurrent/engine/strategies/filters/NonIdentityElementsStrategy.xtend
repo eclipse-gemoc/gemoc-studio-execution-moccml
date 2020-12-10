@@ -1,11 +1,11 @@
 package org.eclipse.gemoc.execution.concurrent.engine.strategies.filters
 
+import java.util.Comparator
 import java.util.HashSet
 import java.util.List
 import java.util.Set
 import org.eclipse.emf.ecore.EClass
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine
-import org.eclipse.gemoc.execution.concurrent.engine.strategies.FilteringStrategy
+import org.eclipse.gemoc.execution.concurrent.engine.strategies.EnumeratingFilteringStrategy
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep
 import org.eclipse.gemoc.trace.commons.model.trace.Step
@@ -20,7 +20,7 @@ import static extension org.eclipse.gemoc.execution.concurrent.engine.strategies
  * of assemble (in the PLS case), for example. It's just not meaningful to have four ``different'' atomic assemble steps where there is only one machine. Hence, this is a filtering
  * strategy that needs to be applied after all possible concurrent executions have been computed.
  */
-class NonIdentityElementsStrategy  implements FilteringStrategy {
+class NonIdentityElementsStrategy  implements EnumeratingFilteringStrategy {
 
 	/**
 	 * Objects of these types should not be considered to have independent identity. So, while we can require to match multiple, distinct objects in one rule match, two rule matches 
@@ -37,24 +37,14 @@ class NonIdentityElementsStrategy  implements FilteringStrategy {
 		this(emptyList)
 	}
 
-	override Set<ParallelStep<? extends Step<?>, ?>> filter(Set<ParallelStep<? extends Step<?>, ?>> steps,
-		extension AbstractConcurrentExecutionEngine<?, ?> engine) {
-		val filteredStepsHolder = #[new HashSet<ParallelStep<? extends Step<?>, ?>>]
-
-		val stepsList = steps.toList
-
-		stepsList.forEach [ s, idx |
-			if (s.isUniqueIn(stepsList.subList(idx + 1, steps.size))) {
-				// Keep the step
-				filteredStepsHolder.get(0).add(s)
-			}
-		]
-
-		filteredStepsHolder.get(0)
-	}
-	
-	private def isUniqueIn(ParallelStep<? extends Step<?>, ?> s, List<ParallelStep<? extends Step<?>, ?>> steps) {
-		!steps.exists[s2|equivalentSteps(s, s2)]
+	override Set<ParallelStep<? extends Step<?>, ?>> filter(Set<ParallelStep<? extends Step<?>, ?>> steps, Comparator<Step<?>> stepComparator) {
+		steps.fold(new HashSet<ParallelStep<? extends Step<?>, ?>>)[acc, step |
+			if (!acc.exists[s2|equivalentSteps(step, s2)]) {
+				acc += step
+			} 
+			
+			acc
+		] 
 	}
 	
 	private def equivalentSteps(ParallelStep<? extends Step<?>,?> s1, ParallelStep<? extends Step<?>,?> s2) {
@@ -70,12 +60,12 @@ class NonIdentityElementsStrategy  implements FilteringStrategy {
 	private def equivalentFootprints(Step<?> s1, Step<?> s2) {
 		if (s1 instanceof SmallStep<?>) {
 			if (s2 instanceof SmallStep<?>) {
-				val s2Footprint = s2.footprint.allEObjectsTouched;
+				val s2Footprint = s2.footprint.accesses;
 				
 				(s1 === s2) || 
 				(s1.footprint.equalTo(s2.footprint)) ||
 				((s1.mseoccurrence.mse.action.name == s2.mseoccurrence.mse.action.name) &&
-					s1.footprint.allEObjectsTouched.forall[o | 
+					s1.footprint.accesses.forall[o | 
 						o.eClass.isNonIdentityType || s2Footprint.contains(o)
 					] &&
 					s1.footprint.instantiations.forall[isNonIdentityType] &&

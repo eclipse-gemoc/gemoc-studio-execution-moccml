@@ -12,7 +12,7 @@ abstract class FootprintUtil {
 		(f1.instantiations == f2.instantiations)
 	}
 
-	static def getAllEObjectsTouched(Footprint footprint) {
-		(footprint.accesses + footprint.changes).toSet
+	static def getAllUnchangedEObjects(Footprint footprint) {
+		footprint.accesses.reject[footprint.changes.contains(it)].toSet
 	}
 }

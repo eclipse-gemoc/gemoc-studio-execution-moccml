@@ -3,16 +3,16 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filt
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.LaunchConfigurationContext
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.StrategyControlUpdateListener
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.Strategy
-import org.eclipse.gemoc.execution.concurrent.engine.strategies.filters.MaxNumberOfStepsStrategy
 import org.eclipse.swt.SWT
 import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Control
 import org.eclipse.swt.widgets.Text
+import org.eclipse.gemoc.execution.concurrent.engine.strategies.filters.MaxNumberOfStepsStrategy
 
 class MaxNumberOfStepsStrategyDefinition extends FilteringStrategyDefinition {
 	new() {
-		super("uk.ac.kcl.inf.xdsml.strategies.num_steps", "Max Number of Steps Strategy", MaxNumberOfStepsStrategy)
+		super("uk.ac.kcl.inf.xdsml.strategies.num_steps", "Concurrency limit", MaxNumberOfStepsStrategy)
 	}
 
 	override getUIControl(Composite parent, LaunchConfigurationContext lcc, StrategyControlUpdateListener scul) {

@@ -1,15 +1,20 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core
 
 import java.util.ArrayList
+import java.util.Comparator
 import java.util.HashSet
 import java.util.List
 import java.util.Set
+import org.chocosolver.solver.Model
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.DeciderException
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.ConcurrencyStrategy
+import org.eclipse.gemoc.execution.concurrent.engine.strategies.EnumeratingFilteringStrategy
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.FilteringStrategy
+import org.eclipse.gemoc.execution.concurrent.engine.strategies.Strategy
+import org.eclipse.gemoc.execution.concurrent.engine.strategies.SymbolicFilteringStrategy
 import org.eclipse.gemoc.executionframework.engine.Activator
 import org.eclipse.gemoc.executionframework.engine.core.AbstractExecutionEngine
 import org.eclipse.gemoc.executionframework.engine.core.EngineStoppedException
@@ -21,6 +26,8 @@ import org.eclipse.gemoc.xdsmlframework.api.core.EngineStatus
 import org.eclipse.gemoc.xdsmlframework.api.engine_addon.IEngineAddon
 import org.eclipse.xtend.lib.annotations.Accessors
 
+import static extension org.eclipse.gemoc.execution.concurrent.symbolic.ChocoHelper.*
+
 //TODO manage runconfiguration with strategies?
 abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentModelExecutionContext<R, ?, ?>, R extends IConcurrentRunConfiguration> extends AbstractExecutionEngine<C, R> {
 
@@ -30,52 +37,76 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 
 	def protected abstract void performSpecificInitialize(C executionContext)
 
-	def protected abstract Set<ParallelStep<? extends Step<?>,?>> computeInitialLogicalSteps()
+	def protected abstract Model computeInitialLogicalSteps()
 	
 	def abstract Set<String> getSemanticRules()
 	
 	def abstract Set<EPackage> getAbstractSyntax()
 
 	ILogicalStepDecider _logicalStepDecider
+	
+	protected Model symbolicLogicalSteps
+	
 	protected Set<ParallelStep<? extends Step<?>,?>> _possibleLogicalSteps = new HashSet()
 	ParallelStep<?,?> _selectedLogicalStep
 
 	@Accessors
 	val List<ConcurrencyStrategy> concurrencyStrategies = new ArrayList<ConcurrencyStrategy>()
 	@Accessors
-	val List<FilteringStrategy> filteringStrategies = new ArrayList<FilteringStrategy>()
-
+	val List<Strategy> filteringStrategies = new ArrayList<Strategy>()
 
 	/**
-	 * Create a clone of the given small step, assuming that this step has previously been created by this engine.
-	 * 
-	 * If needed, can be overridden by any engine that has its own custom class for small steps.
+	 * Factory managing the steps this engine places inside the parallel steps it generates.  
 	 */
-	def SmallStep<?> createClonedSmallStep(SmallStep<?> ss) {
-		return EcoreUtil::copy(ss)
+	static class StepFactory implements Comparator<Step<?>> {
+		/**
+		 * Create a clone of the given inner step, assuming that this step has previously been created by this engine.
+		 * 
+		 * If needed, can be overridden by any engine that has its own custom class for inner steps.
+		 */
+		def Step<?> createClonedInnerStep(Step<?> ss) {
+			return EcoreUtil::copy(ss)
+		}
+		
+		/**
+		 * Return 0 if the two inner steps are equal, assuming that the steps have previously been created by this engine.
+		 * 
+		 * If needed, can be overridden by any engine that has its own custom class for inner steps.
+		 */
+		override compare(Step<?> step1, Step<?> step2) {
+			if (EcoreUtil::equals(step1, step2)) 0 else -1
+		}
 	}
 	
-	/**
-	 * Return true if the two small steps are equal, assuming that the steps have previously been created by this engine.
-	 * 
-	 * If needed, can be overridden by any engine that has its own custom class for small steps.
-	 */
-	def boolean isEqualSmallStepTo(SmallStep<?> step1, SmallStep<?> step2) {
-		return EcoreUtil::equals(step1, step2)
-	}
+	extension protected val StepFactory stepFactory = createStepFactory
 	
+	protected def createStepFactory() {
+		new StepFactory
+	}
 	
 	def private Set<ParallelStep<? extends Step<?>,?>> computePossibleLogicalSteps() {
-		val steps = computeInitialLogicalSteps()
-		return filterByStrategies(steps)
+		val model = computeInitialLogicalSteps()
+		
+		val steps = model.smallSteps.toList
+		
+		steps.forEach[s1, idx | steps.subList(idx, steps.size).forEach[s2 | 
+			if (!applyConcurrencyStrategies(s1, s2)) {
+				model.addExclusionConstraint(s1, s2)
+			}
+		]]
+		
+		return filterByStrategies(model)
 	}
 	
-
 	/** 
 	 * Return a list of steps filtered by all filtering strategies
 	 */
-	private def Set<ParallelStep<? extends Step<?>,?>> filterByStrategies(Set<ParallelStep<? extends Step<?>,?>> possibleSteps) {
-		filteringStrategies.fold(possibleSteps, [steps, fh|fh.filter(steps, this)])
+	private def Set<ParallelStep<? extends Step<?>,?>> filterByStrategies(Model symbolicPossibleSteps) {
+		filteringStrategies.filter(SymbolicFilteringStrategy).forEach[filterSymbolically(symbolicPossibleSteps)]
+		
+		val possibleSteps = symbolicPossibleSteps.computePossibleStepInExtension(stepFactory)
+		
+		filteringStrategies.filter(EnumeratingFilteringStrategy).fold(possibleSteps, [steps, fh| fh.filter(steps, stepFactory)])
 	}
 
 	/**
@@ -86,7 +117,7 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	 * @return true if the concurrency strategies allow both steps to run concurrently.  
 	 */
 	protected final def boolean applyConcurrencyStrategies(SmallStep<?> step1, SmallStep<?> step2) {
-		return concurrencyStrategies.forall[ch|ch.canBeConcurrent(step1, step2)]
+		concurrencyStrategies.forall[ch|ch.canBeConcurrent(step1, step2)]
 	}
 
 	override protected void beforeStart() {
