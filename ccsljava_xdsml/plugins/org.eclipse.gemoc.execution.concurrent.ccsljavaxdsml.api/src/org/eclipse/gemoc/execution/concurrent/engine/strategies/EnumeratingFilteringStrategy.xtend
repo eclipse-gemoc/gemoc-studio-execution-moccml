@@ -9,6 +9,6 @@ interface EnumeratingFilteringStrategy extends FilteringStrategy {
 	/** 
 	 * Produce a filtered version of the set of steps provided.
 	 */
-	def Set<ParallelStep<? extends Step<?>, ?>> filter(Set<ParallelStep<? extends Step<?>, ?>> steps, Comparator<Step<?>> stepComparator) {
-	}
+	def Set<ParallelStep<? extends Step<?>, ?>> filter(Set<ParallelStep<? extends Step<?>, ?>> steps, Comparator<Step<?>> stepComparator) 
+	
 }
