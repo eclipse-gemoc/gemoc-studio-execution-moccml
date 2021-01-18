@@ -10,12 +10,9 @@
  */
 package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core
 
-import java.util.List
 import org.eclipse.core.runtime.CoreException
 import org.eclipse.debug.core.ILaunchConfiguration
-import org.eclipse.gemoc.execution.concurrent.engine.strategies.Strategy
 import org.eclipse.gemoc.executionframework.engine.core.RunConfiguration
-import org.eclipse.xtend.lib.annotations.Accessors
 
 //import org.eclipse.gemoc.executionframework.engine.ui.commons.RunConfiguration;
 class ConcurrentRunConfiguration extends RunConfiguration implements IConcurrentRunConfiguration {
