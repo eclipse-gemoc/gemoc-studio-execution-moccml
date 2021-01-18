@@ -32,7 +32,7 @@ public interface ILogicalStepDecider extends IDisposable
 	 * @return The index of the selected logical step, -1 if no logical step selected.
 	 * @throws DeciderException 
 	 */
-	ParallelStep<?,?> decide(AbstractConcurrentExecutionEngine engine, List<ParallelStep<?,?>> possibleLogicalSteps) throws DeciderException;
+	ParallelStep<?,?> decide(AbstractConcurrentExecutionEngine<?, ?> engine, List<ParallelStep<?,?>> possibleLogicalSteps) throws DeciderException;
 	
 	/**
 	 * Stop the decision making in progress.
