@@ -40,7 +40,7 @@ public abstract class AbstractUserDecider implements ILogicalStepDecider
 	private Semaphore _semaphore = null;
 
 	@Override
-	public ParallelStep<?,?> decide(final AbstractConcurrentExecutionEngine engine, final List<ParallelStep<?,?>> possibleLogicalSteps) throws DeciderException
+	public ParallelStep<?,?> decide(final AbstractConcurrentExecutionEngine<?,?> engine, final List<ParallelStep<?,?>> possibleLogicalSteps) throws DeciderException
 			 {
 		_preemptionHappened = false;
 		_semaphore = new Semaphore(0);

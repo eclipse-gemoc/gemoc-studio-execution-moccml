@@ -31,7 +31,7 @@ public class RandomDecider implements ILogicalStepDecider {
 	}
 
 	@Override
-	public ParallelStep<?,?> decide(AbstractConcurrentExecutionEngine engine, List<ParallelStep<?,?>> possibleLogicalSteps) {
+	public ParallelStep<?,?> decide(AbstractConcurrentExecutionEngine<?,?> engine, List<ParallelStep<?,?>> possibleLogicalSteps) {
 		int index = -1;
 		if (possibleLogicalSteps.size() < 2)
 		{
