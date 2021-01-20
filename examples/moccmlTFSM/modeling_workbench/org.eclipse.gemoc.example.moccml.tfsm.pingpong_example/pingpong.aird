@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:diagram="http://www.eclipse.org/sirius/diagram/1.1.0" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:org.eclipse.gemoc.example.moccml.tfsm="http://www.gemoc.org/example/moccml/tfsm" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xsi:schemaLocation="http://www.eclipse.org/sirius/description/1.1.0 http://www.eclipse.org/sirius/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/style/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description/style">
-  <viewpoint:DAnalysis xmi:id="_ApBHUACyEeqiUOpqUYDaqw" selectedViews="_BFfA4ACyEeqiUOpqUYDaqw" version="13.0.0.201804031646">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:diagram="http://www.eclipse.org/sirius/diagram/1.1.0" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:org.eclipse.gemoc.example.moccml.tfsm="http://www.gemoc.org/example/moccml/tfsm" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xsi:schemaLocation="http://www.eclipse.org/sirius/description/1.1.0 http://www.eclipse.org/sirius/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/style/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description/style">
+  <viewpoint:DAnalysis uid="_ApBHUACyEeqiUOpqUYDaqw" selectedViews="_BFfA4ACyEeqiUOpqUYDaqw" version="14.3.1.202003261200">
     <semanticResources>pingpong.tfsm</semanticResources>
-    <ownedViews xmi:type="viewpoint:DView" xmi:id="_BFfA4ACyEeqiUOpqUYDaqw">
+    <ownedViews xmi:type="viewpoint:DView" uid="_BFfA4ACyEeqiUOpqUYDaqw">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_BHJNwACyEeqiUOpqUYDaqw" name="PingPong" repPath="#_BFfn8ACyEeqiUOpqUYDaqw">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_BHJNwACyEeqiUOpqUYDaqw" name="PingPong" repPath="#_BHImsACyEeqiUOpqUYDaqw" changeId="5b6b2731-2fbf-4ec7-a116-f20c8c6aa31a">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']"/>
         <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TimedSystem" href="pingpong.tfsm#/"/>
       </ownedRepresentationDescriptors>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_BH-7QACyEeqiUOpqUYDaqw" name="Ponger" repPath="#_BHdW0ACyEeqiUOpqUYDaqw">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_BH-7QACyEeqiUOpqUYDaqw" name="Ponger" repPath="#_BH-UMACyEeqiUOpqUYDaqw" changeId="4231b3d1-d501-4bc8-bf40-3a8f79c099aa">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']"/>
         <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TFSM" href="pingpong.tfsm#//@tfsms.0"/>
       </ownedRepresentationDescriptors>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_BIU5lgCyEeqiUOpqUYDaqw" name="Pinger" repPath="#_BIHeIACyEeqiUOpqUYDaqw">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_BIU5lgCyEeqiUOpqUYDaqw" name="Pinger" repPath="#_BIU5gACyEeqiUOpqUYDaqw" changeId="89791ddc-31c9-42ea-be72-9990df8964d3">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']"/>
         <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TFSM" href="pingpong.tfsm#//@tfsms.1"/>
       </ownedRepresentationDescriptors>
     </ownedViews>
   </viewpoint:DAnalysis>
-  <diagram:DSemanticDiagram xmi:id="_BHImsACyEeqiUOpqUYDaqw" name="PingPong" uid="_BFfn8ACyEeqiUOpqUYDaqw">
-    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_BHImsQCyEeqiUOpqUYDaqw" source="DANNOTATION_CUSTOMIZATION_KEY">
-      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" xmi:id="_BHImsgCyEeqiUOpqUYDaqw"/>
+  <diagram:DSemanticDiagram uid="_BHImsACyEeqiUOpqUYDaqw">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_BHImsQCyEeqiUOpqUYDaqw" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" uid="_BHImsgCyEeqiUOpqUYDaqw"/>
     </ownedAnnotationEntries>
-    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_BHJ00ACyEeqiUOpqUYDaqw" source="GMF_DIAGRAMS">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_BHJ00ACyEeqiUOpqUYDaqw" source="GMF_DIAGRAMS">
       <data xmi:type="notation:Diagram" xmi:id="_BHJ00QCyEeqiUOpqUYDaqw" type="Sirius" element="_BHImsACyEeqiUOpqUYDaqw" measurementUnit="Pixel">
         <children xmi:type="notation:Node" xmi:id="_BHJ00wCyEeqiUOpqUYDaqw" type="2002" element="_BHImtACyEeqiUOpqUYDaqw">
           <children xmi:type="notation:Node" xmi:id="_BHKb4ACyEeqiUOpqUYDaqw" type="5006"/>
@@ -259,203 +259,203 @@
         </edges>
       </data>
     </ownedAnnotationEntries>
-    <ownedDiagramElements xmi:type="diagram:DNodeContainer" xmi:id="_BHImtACyEeqiUOpqUYDaqw" name="PingPong">
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_BHImtACyEeqiUOpqUYDaqw" name="PingPong">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TimedSystem" href="pingpong.tfsm#/"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TimedSystem" href="pingpong.tfsm#/"/>
-      <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_BHImtQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="1" borderSizeComputationExpression="1" borderColor="252,233,79" foregroundColor="254,255,224">
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_BHImtQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="1" borderSizeComputationExpression="1" borderColor="252,233,79" foregroundColor="254,255,224">
         <labelFormat>bold</labelFormat>
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']"/>
-      <ownedDiagramElements xmi:type="diagram:DNodeContainer" xmi:id="_BHImtgCyEeqiUOpqUYDaqw" name="Ponger">
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_BHImtgCyEeqiUOpqUYDaqw" name="Ponger">
         <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TFSM" href="pingpong.tfsm#//@tfsms.0"/>
         <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TFSM" href="pingpong.tfsm#//@tfsms.0"/>
-        <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_BHImtwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="77,137,20" borderSize="1" borderSizeComputationExpression="1" borderColor="138,226,52" foregroundColor="204,242,166">
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_BHImtwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="77,137,20" borderSize="1" borderSizeComputationExpression="1" borderColor="138,226,52" foregroundColor="204,242,166">
           <labelFormat>bold</labelFormat>
           <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']"/>
-        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImuACyEeqiUOpqUYDaqw" name="initPonger" outgoingEdges="_07e_kAFpEeq4i6qZPrTy-Q" width="2" height="2" resizeKind="NSEW">
+        <ownedDiagramElements xmi:type="diagram:DNode" uid="_BHImuACyEeqiUOpqUYDaqw" name="initPonger" outgoingEdges="_07e_kAFpEeq4i6qZPrTy-Q" width="2" height="2" resizeKind="NSEW">
           <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.0"/>
           <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.0"/>
-          <ownedStyle xmi:type="diagram:Dot" xmi:id="_BHImuQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="136,136,136" borderSize="3" borderSizeComputationExpression="3" backgroundColor="0,0,0">
+          <ownedStyle xmi:type="diagram:Dot" uid="_BHImuQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="136,136,136" borderSize="3" borderSizeComputationExpression="3" backgroundColor="0,0,0">
             <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@conditionnalStyles.0/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@subNodeMappings[name='States']"/>
         </ownedDiagramElements>
-        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImugCyEeqiUOpqUYDaqw" name="Pong_ofPonger" outgoingEdges="_07iC4AFpEeq4i6qZPrTy-Q" incomingEdges="_07e_kAFpEeq4i6qZPrTy-Q _07ip8gFpEeq4i6qZPrTy-Q" width="15" height="15" resizeKind="NSEW">
+        <ownedDiagramElements xmi:type="diagram:DNode" uid="_BHImugCyEeqiUOpqUYDaqw" name="Pong_ofPonger" outgoingEdges="_07iC4AFpEeq4i6qZPrTy-Q" incomingEdges="_07e_kAFpEeq4i6qZPrTy-Q _07ip8gFpEeq4i6qZPrTy-Q" width="15" height="15" resizeKind="NSEW">
           <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.1"/>
           <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.1"/>
           <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
           <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
           <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-          <ownedStyle xmi:type="diagram:Dot" xmi:id="_BHImuwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
+          <ownedStyle xmi:type="diagram:Dot" uid="_BHImuwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
             <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@subNodeMappings[name='States']"/>
         </ownedDiagramElements>
-        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImvACyEeqiUOpqUYDaqw" name="Ping_ofPonger" outgoingEdges="_07ip8gFpEeq4i6qZPrTy-Q" incomingEdges="_07iC4AFpEeq4i6qZPrTy-Q" width="15" height="15" resizeKind="NSEW">
+        <ownedDiagramElements xmi:type="diagram:DNode" uid="_BHImvACyEeqiUOpqUYDaqw" name="Ping_ofPonger" outgoingEdges="_07ip8gFpEeq4i6qZPrTy-Q" incomingEdges="_07iC4AFpEeq4i6qZPrTy-Q" width="15" height="15" resizeKind="NSEW">
           <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.2"/>
           <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.2"/>
           <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
           <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
           <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-          <ownedStyle xmi:type="diagram:Dot" xmi:id="_BHImvQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
+          <ownedStyle xmi:type="diagram:Dot" uid="_BHImvQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
             <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@subNodeMappings[name='States']"/>
         </ownedDiagramElements>
-        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImvgCyEeqiUOpqUYDaqw" name="pongerTime" width="5" height="5" resizeKind="NSEW">
+        <ownedDiagramElements xmi:type="diagram:DNode" uid="_BHImvgCyEeqiUOpqUYDaqw" name="pongerTime" width="5" height="5" resizeKind="NSEW">
           <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMClock" href="pingpong.tfsm#//@tfsms.0/@localClock"/>
           <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMClock" href="pingpong.tfsm#//@tfsms.0/@localClock"/>
-          <ownedStyle xmi:type="diagram:WorkspaceImage" xmi:id="_PQfRkACzEeqRW8GktD8qSg" showIcon="false" workspacePath="/org.eclipse.gemoc.example.moccml.tfsm.design/icons/clock_local_small.gif">
+          <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_PQfRkACzEeqRW8GktD8qSg" showIcon="false" workspacePath="/org.eclipse.gemoc.example.moccml.tfsm.design/icons/clock_local_small.gif">
             <labelFormat>bold</labelFormat>
             <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='Local%20Clock']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@subNodeMappings[name='Clocks']"/>
         </ownedDiagramElements>
       </ownedDiagramElements>
-      <ownedDiagramElements xmi:type="diagram:DNodeContainer" xmi:id="_BHImwACyEeqiUOpqUYDaqw" name="Pinger">
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_BHImwACyEeqiUOpqUYDaqw" name="Pinger">
         <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TFSM" href="pingpong.tfsm#//@tfsms.1"/>
         <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TFSM" href="pingpong.tfsm#//@tfsms.1"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
         <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
         <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-        <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_BHImwQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="77,137,20" borderSize="1" borderSizeComputationExpression="1" borderColor="138,226,52" foregroundColor="204,242,166">
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_BHImwQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="77,137,20" borderSize="1" borderSizeComputationExpression="1" borderColor="138,226,52" foregroundColor="204,242,166">
           <labelFormat>bold</labelFormat>
           <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']"/>
-        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImwgCyEeqiUOpqUYDaqw" name="initPinger" outgoingEdges="_07jRAgFpEeq4i6qZPrTy-Q" width="2" height="2" resizeKind="NSEW">
+        <ownedDiagramElements xmi:type="diagram:DNode" uid="_BHImwgCyEeqiUOpqUYDaqw" name="initPinger" outgoingEdges="_07jRAgFpEeq4i6qZPrTy-Q" width="2" height="2" resizeKind="NSEW">
           <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.0"/>
           <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.0"/>
-          <ownedStyle xmi:type="diagram:Dot" xmi:id="_BHImwwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="136,136,136" borderSize="3" borderSizeComputationExpression="3" backgroundColor="0,0,0">
+          <ownedStyle xmi:type="diagram:Dot" uid="_BHImwwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="136,136,136" borderSize="3" borderSizeComputationExpression="3" backgroundColor="0,0,0">
             <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@conditionnalStyles.0/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@subNodeMappings[name='States']"/>
         </ownedDiagramElements>
-        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImxACyEeqiUOpqUYDaqw" name="Ping_ofPinger" outgoingEdges="_07kfIAFpEeq4i6qZPrTy-Q" incomingEdges="_07jRAgFpEeq4i6qZPrTy-Q _07ltQAFpEeq4i6qZPrTy-Q" width="15" height="15" resizeKind="NSEW">
+        <ownedDiagramElements xmi:type="diagram:DNode" uid="_BHImxACyEeqiUOpqUYDaqw" name="Ping_ofPinger" outgoingEdges="_07kfIAFpEeq4i6qZPrTy-Q" incomingEdges="_07jRAgFpEeq4i6qZPrTy-Q _07ltQAFpEeq4i6qZPrTy-Q" width="15" height="15" resizeKind="NSEW">
           <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.1"/>
           <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.1"/>
           <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
           <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
           <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-          <ownedStyle xmi:type="diagram:Dot" xmi:id="_BHImxQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
+          <ownedStyle xmi:type="diagram:Dot" uid="_BHImxQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
             <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@subNodeMappings[name='States']"/>
         </ownedDiagramElements>
-        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImxgCyEeqiUOpqUYDaqw" name="Pong_ofPinger" outgoingEdges="_07ltQAFpEeq4i6qZPrTy-Q" incomingEdges="_07kfIAFpEeq4i6qZPrTy-Q" width="15" height="15" resizeKind="NSEW">
+        <ownedDiagramElements xmi:type="diagram:DNode" uid="_BHImxgCyEeqiUOpqUYDaqw" name="Pong_ofPinger" outgoingEdges="_07ltQAFpEeq4i6qZPrTy-Q" incomingEdges="_07kfIAFpEeq4i6qZPrTy-Q" width="15" height="15" resizeKind="NSEW">
           <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.2"/>
           <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.2"/>
           <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
           <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
           <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-          <ownedStyle xmi:type="diagram:Dot" xmi:id="_BHImxwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
+          <ownedStyle xmi:type="diagram:Dot" uid="_BHImxwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
             <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@subNodeMappings[name='States']"/>
         </ownedDiagramElements>
-        <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImyACyEeqiUOpqUYDaqw" name="pingerTime" width="5" height="5" resizeKind="NSEW">
+        <ownedDiagramElements xmi:type="diagram:DNode" uid="_BHImyACyEeqiUOpqUYDaqw" name="pingerTime" width="5" height="5" resizeKind="NSEW">
           <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMClock" href="pingpong.tfsm#//@tfsms.1/@localClock"/>
           <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMClock" href="pingpong.tfsm#//@tfsms.1/@localClock"/>
-          <ownedStyle xmi:type="diagram:WorkspaceImage" xmi:id="_PQl_QACzEeqRW8GktD8qSg" showIcon="false" workspacePath="/org.eclipse.gemoc.example.moccml.tfsm.design/icons/clock_local_small.gif">
+          <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_PQl_QACzEeqRW8GktD8qSg" showIcon="false" workspacePath="/org.eclipse.gemoc.example.moccml.tfsm.design/icons/clock_local_small.gif">
             <labelFormat>bold</labelFormat>
             <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='Local%20Clock']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subContainerMappings[name='TFSM']/@subNodeMappings[name='Clocks']"/>
         </ownedDiagramElements>
       </ownedDiagramElements>
-      <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImygCyEeqiUOpqUYDaqw" name="pong" width="-1" height="-1">
+      <ownedDiagramElements xmi:type="diagram:DNode" uid="_BHImygCyEeqiUOpqUYDaqw" name="pong" width="-1" height="-1">
         <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMEvent" href="pingpong.tfsm#//@globalEvents.0"/>
         <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMEvent" href="pingpong.tfsm#//@globalEvents.0"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
         <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
         <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-        <ownedStyle xmi:type="diagram:WorkspaceImage" xmi:id="_BHImywCyEeqiUOpqUYDaqw" showIcon="false" iconPath="event_small.png" borderSize="1" borderSizeComputationExpression="1" borderColor="156,12,12" workspacePath="/org.eclipse.gemoc.example.moccml.tfsm.design/icons/event_small.gif">
+        <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_BHImywCyEeqiUOpqUYDaqw" showIcon="false" iconPath="event_small.png" borderSize="1" borderSizeComputationExpression="1" borderColor="156,12,12" workspacePath="/org.eclipse.gemoc.example.moccml.tfsm.design/icons/event_small.gif">
           <labelFormat>bold</labelFormat>
           <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subNodeMappings[name='Event']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subNodeMappings[name='Event']"/>
       </ownedDiagramElements>
-      <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BHImzACyEeqiUOpqUYDaqw" name="ping" width="-1" height="-1">
+      <ownedDiagramElements xmi:type="diagram:DNode" uid="_BHImzACyEeqiUOpqUYDaqw" name="ping" width="-1" height="-1">
         <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMEvent" href="pingpong.tfsm#//@globalEvents.1"/>
         <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMEvent" href="pingpong.tfsm#//@globalEvents.1"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
         <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
         <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-        <ownedStyle xmi:type="diagram:WorkspaceImage" xmi:id="_BHImzQCyEeqiUOpqUYDaqw" showIcon="false" iconPath="event_small.png" borderSize="1" borderSizeComputationExpression="1" borderColor="156,12,12" workspacePath="/org.eclipse.gemoc.example.moccml.tfsm.design/icons/event_small.gif">
+        <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_BHImzQCyEeqiUOpqUYDaqw" showIcon="false" iconPath="event_small.png" borderSize="1" borderSizeComputationExpression="1" borderColor="156,12,12" workspacePath="/org.eclipse.gemoc.example.moccml.tfsm.design/icons/event_small.gif">
           <labelFormat>bold</labelFormat>
           <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subNodeMappings[name='Event']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@containerMappings[name='TimedSystem']/@subNodeMappings[name='Event']"/>
       </ownedDiagramElements>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_07e_kAFpEeq4i6qZPrTy-Q" name="after 0 on pongerTime&#xA; / &#xA;&#xA;" sourceNode="_BHImuACyEeqiUOpqUYDaqw" targetNode="_BHImugCyEeqiUOpqUYDaqw">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_07e_kAFpEeq4i6qZPrTy-Q" sourceNode="_BHImuACyEeqiUOpqUYDaqw" targetNode="_BHImugCyEeqiUOpqUYDaqw">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.0"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.0"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_07g0wAFpEeq4i6qZPrTy-Q" targetArrow="InputFillClosedArrow" size="2">
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_07g0wAFpEeq4i6qZPrTy-Q" targetArrow="InputFillClosedArrow" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_07g0wQFpEeq4i6qZPrTy-Q" showIcon="false"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_07g0wQFpEeq4i6qZPrTy-Q" showIcon="false"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@edgeMappingImports[name='Transitions']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_07iC4AFpEeq4i6qZPrTy-Q" name="when ping&#xA; / &#xA;&#xA;" sourceNode="_BHImugCyEeqiUOpqUYDaqw" targetNode="_BHImvACyEeqiUOpqUYDaqw">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_07iC4AFpEeq4i6qZPrTy-Q" name="when ping" sourceNode="_BHImugCyEeqiUOpqUYDaqw" targetNode="_BHImvACyEeqiUOpqUYDaqw">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.1"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.1"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_07ip8AFpEeq4i6qZPrTy-Q" targetArrow="InputFillClosedArrow" size="2">
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_07ip8AFpEeq4i6qZPrTy-Q" targetArrow="InputFillClosedArrow" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_07ip8QFpEeq4i6qZPrTy-Q" showIcon="false"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_07ip8QFpEeq4i6qZPrTy-Q" showIcon="false"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@edgeMappingImports[name='Transitions']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_07ip8gFpEeq4i6qZPrTy-Q" name="after 3 on pongerTime&#xA; / &#xA;&#xA;  !pong;" sourceNode="_BHImvACyEeqiUOpqUYDaqw" targetNode="_BHImugCyEeqiUOpqUYDaqw">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_07ip8gFpEeq4i6qZPrTy-Q" name="after 3 on pongerTime&#xA; / &#xA;  !pong;" sourceNode="_BHImvACyEeqiUOpqUYDaqw" targetNode="_BHImugCyEeqiUOpqUYDaqw">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.2"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.2"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_07jRAAFpEeq4i6qZPrTy-Q" targetArrow="InputFillClosedArrow" size="2">
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_07jRAAFpEeq4i6qZPrTy-Q" targetArrow="InputFillClosedArrow" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_07jRAQFpEeq4i6qZPrTy-Q" showIcon="false"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_07jRAQFpEeq4i6qZPrTy-Q" showIcon="false"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@edgeMappingImports[name='Transitions']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_07jRAgFpEeq4i6qZPrTy-Q" name="after 0 on pingerTime&#xA; / &#xA;&#xA;" sourceNode="_BHImwgCyEeqiUOpqUYDaqw" targetNode="_BHImxACyEeqiUOpqUYDaqw">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_07jRAgFpEeq4i6qZPrTy-Q" sourceNode="_BHImwgCyEeqiUOpqUYDaqw" targetNode="_BHImxACyEeqiUOpqUYDaqw">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.0"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.0"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_07j4EAFpEeq4i6qZPrTy-Q" targetArrow="InputFillClosedArrow" size="2">
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_07j4EAFpEeq4i6qZPrTy-Q" targetArrow="InputFillClosedArrow" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_07j4EQFpEeq4i6qZPrTy-Q" showIcon="false"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_07j4EQFpEeq4i6qZPrTy-Q" showIcon="false"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@edgeMappingImports[name='Transitions']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_07kfIAFpEeq4i6qZPrTy-Q" name="after 3 on pingerTime&#xA; / &#xA;&#xA;  !ping;" sourceNode="_BHImxACyEeqiUOpqUYDaqw" targetNode="_BHImxgCyEeqiUOpqUYDaqw">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_07kfIAFpEeq4i6qZPrTy-Q" name="after 3 on pingerTime&#xA; / &#xA;  !ping;" sourceNode="_BHImxACyEeqiUOpqUYDaqw" targetNode="_BHImxgCyEeqiUOpqUYDaqw">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.1"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.1"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_07lGMAFpEeq4i6qZPrTy-Q" targetArrow="InputFillClosedArrow" size="2">
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_07lGMAFpEeq4i6qZPrTy-Q" targetArrow="InputFillClosedArrow" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_07lGMQFpEeq4i6qZPrTy-Q" showIcon="false"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_07lGMQFpEeq4i6qZPrTy-Q" showIcon="false"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@edgeMappingImports[name='Transitions']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_07ltQAFpEeq4i6qZPrTy-Q" name="when pong&#xA; / &#xA;&#xA;" sourceNode="_BHImxgCyEeqiUOpqUYDaqw" targetNode="_BHImxACyEeqiUOpqUYDaqw">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_07ltQAFpEeq4i6qZPrTy-Q" name="when pong" sourceNode="_BHImxgCyEeqiUOpqUYDaqw" targetNode="_BHImxACyEeqiUOpqUYDaqw">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.2"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.2"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_07ltQQFpEeq4i6qZPrTy-Q" targetArrow="InputFillClosedArrow" size="2">
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_07ltQQFpEeq4i6qZPrTy-Q" targetArrow="InputFillClosedArrow" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_07ltQgFpEeq4i6qZPrTy-Q" showIcon="false"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_07ltQgFpEeq4i6qZPrTy-Q" showIcon="false"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMappingImport" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer/@edgeMappingImports[name='Transitions']"/>
     </ownedDiagramElements>
     <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']"/>
-    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" xmi:id="_BHIm4ACyEeqiUOpqUYDaqw"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="_BHIm4ACyEeqiUOpqUYDaqw"/>
     <activatedLayers xmi:type="description_1:Layer" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@defaultLayer"/>
     <activatedLayers xmi:type="description_1:AdditionalLayer" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TimedSystem']/@additionalLayers[name='Debug']"/>
     <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TimedSystem" href="pingpong.tfsm#/"/>
   </diagram:DSemanticDiagram>
-  <diagram:DSemanticDiagram xmi:id="_BH-UMACyEeqiUOpqUYDaqw" name="Ponger" uid="_BHdW0ACyEeqiUOpqUYDaqw">
-    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_BH-UMQCyEeqiUOpqUYDaqw" source="DANNOTATION_CUSTOMIZATION_KEY">
-      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" xmi:id="_BH-UMgCyEeqiUOpqUYDaqw"/>
+  <diagram:DSemanticDiagram uid="_BH-UMACyEeqiUOpqUYDaqw">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_BH-UMQCyEeqiUOpqUYDaqw" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" uid="_BH-UMgCyEeqiUOpqUYDaqw"/>
     </ownedAnnotationEntries>
-    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_BIAJYACyEeqiUOpqUYDaqw" source="GMF_DIAGRAMS">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_BIAJYACyEeqiUOpqUYDaqw" source="GMF_DIAGRAMS">
       <data xmi:type="notation:Diagram" xmi:id="_BIAJYQCyEeqiUOpqUYDaqw" type="Sirius" element="_BH-UMACyEeqiUOpqUYDaqw" measurementUnit="Pixel">
         <children xmi:type="notation:Node" xmi:id="_BIAJYwCyEeqiUOpqUYDaqw" type="2001" element="_BH-UNACyEeqiUOpqUYDaqw">
           <children xmi:type="notation:Node" xmi:id="_BIAJZgCyEeqiUOpqUYDaqw" type="5002">
@@ -552,83 +552,83 @@
         </edges>
       </data>
     </ownedAnnotationEntries>
-    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BH-UNACyEeqiUOpqUYDaqw" name="pongerTime" width="5" height="5" resizeKind="NSEW">
+    <ownedDiagramElements xmi:type="diagram:DNode" uid="_BH-UNACyEeqiUOpqUYDaqw" name="pongerTime" width="5" height="5" resizeKind="NSEW">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMClock" href="pingpong.tfsm#//@tfsms.0/@localClock"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMClock" href="pingpong.tfsm#//@tfsms.0/@localClock"/>
-      <ownedStyle xmi:type="diagram:WorkspaceImage" xmi:id="_BH-UNQCyEeqiUOpqUYDaqw" showIcon="false" workspacePath="/org.eclipse.gemoc.example.moccml.tfsm.design/icons/clock_local_small.gif">
+      <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_BH-UNQCyEeqiUOpqUYDaqw" showIcon="false" workspacePath="/org.eclipse.gemoc.example.moccml.tfsm.design/icons/clock_local_small.gif">
         <labelFormat>bold</labelFormat>
         <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='Local%20Clock']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='Local%20Clock']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BH-UNgCyEeqiUOpqUYDaqw" name="initPonger" outgoingEdges="_BH-UPACyEeqiUOpqUYDaqw" width="2" height="2" resizeKind="NSEW">
+    <ownedDiagramElements xmi:type="diagram:DNode" uid="_BH-UNgCyEeqiUOpqUYDaqw" name="initPonger" outgoingEdges="_BH-UPACyEeqiUOpqUYDaqw" width="2" height="2" resizeKind="NSEW">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.0"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.0"/>
-      <ownedStyle xmi:type="diagram:Dot" xmi:id="_BH-UNwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="136,136,136" borderSize="3" borderSizeComputationExpression="3" backgroundColor="0,0,0">
+      <ownedStyle xmi:type="diagram:Dot" uid="_BH-UNwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="136,136,136" borderSize="3" borderSizeComputationExpression="3" backgroundColor="0,0,0">
         <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@conditionnalStyles.0/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BH-UOACyEeqiUOpqUYDaqw" name="Pong_ofPonger" outgoingEdges="_BH-UPwCyEeqiUOpqUYDaqw" incomingEdges="_BH-UPACyEeqiUOpqUYDaqw _BH-UQgCyEeqiUOpqUYDaqw" width="15" height="15" resizeKind="NSEW">
+    <ownedDiagramElements xmi:type="diagram:DNode" uid="_BH-UOACyEeqiUOpqUYDaqw" name="Pong_ofPonger" outgoingEdges="_BH-UPwCyEeqiUOpqUYDaqw" incomingEdges="_BH-UPACyEeqiUOpqUYDaqw _BH-UQgCyEeqiUOpqUYDaqw" width="15" height="15" resizeKind="NSEW">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.1"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.1"/>
       <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
       <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
       <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-      <ownedStyle xmi:type="diagram:Dot" xmi:id="_BH-UOQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
+      <ownedStyle xmi:type="diagram:Dot" uid="_BH-UOQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
         <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BH-UOgCyEeqiUOpqUYDaqw" name="Ping_ofPonger" outgoingEdges="_BH-UQgCyEeqiUOpqUYDaqw" incomingEdges="_BH-UPwCyEeqiUOpqUYDaqw" width="15" height="15" resizeKind="NSEW">
+    <ownedDiagramElements xmi:type="diagram:DNode" uid="_BH-UOgCyEeqiUOpqUYDaqw" name="Ping_ofPonger" outgoingEdges="_BH-UQgCyEeqiUOpqUYDaqw" incomingEdges="_BH-UPwCyEeqiUOpqUYDaqw" width="15" height="15" resizeKind="NSEW">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.2"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.0/@ownedStates.2"/>
       <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
       <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
       <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-      <ownedStyle xmi:type="diagram:Dot" xmi:id="_BH-UOwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
+      <ownedStyle xmi:type="diagram:Dot" uid="_BH-UOwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
         <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_BH-UPACyEeqiUOpqUYDaqw" name="after 0 on pongerTime&#xA; / &#xA;&#xA;" sourceNode="_BH-UNgCyEeqiUOpqUYDaqw" targetNode="_BH-UOACyEeqiUOpqUYDaqw">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_BH-UPACyEeqiUOpqUYDaqw" sourceNode="_BH-UNgCyEeqiUOpqUYDaqw" targetNode="_BH-UOACyEeqiUOpqUYDaqw">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.0"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.0"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_BH-UPQCyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_BH-UPQCyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_BH-UPgCyEeqiUOpqUYDaqw" showIcon="false"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_BH-UPgCyEeqiUOpqUYDaqw" showIcon="false"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_BH-UPwCyEeqiUOpqUYDaqw" name="when ping&#xA; / &#xA;&#xA;" sourceNode="_BH-UOACyEeqiUOpqUYDaqw" targetNode="_BH-UOgCyEeqiUOpqUYDaqw">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_BH-UPwCyEeqiUOpqUYDaqw" name="when ping" sourceNode="_BH-UOACyEeqiUOpqUYDaqw" targetNode="_BH-UOgCyEeqiUOpqUYDaqw">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.1"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.1"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_BH-UQACyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_BH-UQACyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_BH-UQQCyEeqiUOpqUYDaqw" showIcon="false"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_BH-UQQCyEeqiUOpqUYDaqw" showIcon="false"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_BH-UQgCyEeqiUOpqUYDaqw" name="after 3 on pongerTime&#xA; / &#xA;&#xA;  !pong;" sourceNode="_BH-UOgCyEeqiUOpqUYDaqw" targetNode="_BH-UOACyEeqiUOpqUYDaqw">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_BH-UQgCyEeqiUOpqUYDaqw" name="after 3 on pongerTime&#xA; / &#xA;  !pong;" sourceNode="_BH-UOgCyEeqiUOpqUYDaqw" targetNode="_BH-UOACyEeqiUOpqUYDaqw">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.2"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.0/@ownedTransitions.2"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_BH-UQwCyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_BH-UQwCyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_BH-URACyEeqiUOpqUYDaqw" showIcon="false"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_BH-URACyEeqiUOpqUYDaqw" showIcon="false"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']"/>
     </ownedDiagramElements>
     <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']"/>
-    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" xmi:id="_BH-URQCyEeqiUOpqUYDaqw"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="_BH-URQCyEeqiUOpqUYDaqw"/>
     <activatedLayers xmi:type="description_1:Layer" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer"/>
     <activatedLayers xmi:type="description_1:AdditionalLayer" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@additionalLayers[name='Debug']"/>
     <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TFSM" href="pingpong.tfsm#//@tfsms.0"/>
   </diagram:DSemanticDiagram>
-  <diagram:DSemanticDiagram xmi:id="_BIU5gACyEeqiUOpqUYDaqw" name="Pinger" uid="_BIHeIACyEeqiUOpqUYDaqw">
-    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_BIU5gQCyEeqiUOpqUYDaqw" source="DANNOTATION_CUSTOMIZATION_KEY">
-      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" xmi:id="_BIU5ggCyEeqiUOpqUYDaqw"/>
+  <diagram:DSemanticDiagram uid="_BIU5gACyEeqiUOpqUYDaqw">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_BIU5gQCyEeqiUOpqUYDaqw" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" uid="_BIU5ggCyEeqiUOpqUYDaqw"/>
     </ownedAnnotationEntries>
-    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_BIVgkACyEeqiUOpqUYDaqw" source="GMF_DIAGRAMS">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_BIVgkACyEeqiUOpqUYDaqw" source="GMF_DIAGRAMS">
       <data xmi:type="notation:Diagram" xmi:id="_BIVgkQCyEeqiUOpqUYDaqw" type="Sirius" element="_BIU5gACyEeqiUOpqUYDaqw" measurementUnit="Pixel">
         <children xmi:type="notation:Node" xmi:id="_BIVgkwCyEeqiUOpqUYDaqw" type="2001" element="_BIU5hACyEeqiUOpqUYDaqw">
           <children xmi:type="notation:Node" xmi:id="_BIWHoACyEeqiUOpqUYDaqw" type="5002">
@@ -725,74 +725,74 @@
         </edges>
       </data>
     </ownedAnnotationEntries>
-    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BIU5hACyEeqiUOpqUYDaqw" name="pingerTime" width="5" height="5" resizeKind="NSEW">
+    <ownedDiagramElements xmi:type="diagram:DNode" uid="_BIU5hACyEeqiUOpqUYDaqw" name="pingerTime" width="5" height="5" resizeKind="NSEW">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMClock" href="pingpong.tfsm#//@tfsms.1/@localClock"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:FSMClock" href="pingpong.tfsm#//@tfsms.1/@localClock"/>
-      <ownedStyle xmi:type="diagram:WorkspaceImage" xmi:id="_BIU5hQCyEeqiUOpqUYDaqw" showIcon="false" workspacePath="/org.eclipse.gemoc.example.moccml.tfsm.design/icons/clock_local_small.gif">
+      <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_BIU5hQCyEeqiUOpqUYDaqw" showIcon="false" workspacePath="/org.eclipse.gemoc.example.moccml.tfsm.design/icons/clock_local_small.gif">
         <labelFormat>bold</labelFormat>
         <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='Local%20Clock']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='Local%20Clock']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BIU5hgCyEeqiUOpqUYDaqw" name="initPinger" outgoingEdges="_BIU5jACyEeqiUOpqUYDaqw" width="2" height="2" resizeKind="NSEW">
+    <ownedDiagramElements xmi:type="diagram:DNode" uid="_BIU5hgCyEeqiUOpqUYDaqw" name="initPinger" outgoingEdges="_BIU5jACyEeqiUOpqUYDaqw" width="2" height="2" resizeKind="NSEW">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.0"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.0"/>
-      <ownedStyle xmi:type="diagram:Dot" xmi:id="_BIU5hwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="136,136,136" borderSize="3" borderSizeComputationExpression="3" backgroundColor="0,0,0">
+      <ownedStyle xmi:type="diagram:Dot" uid="_BIU5hwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="136,136,136" borderSize="3" borderSizeComputationExpression="3" backgroundColor="0,0,0">
         <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@conditionnalStyles.0/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BIU5iACyEeqiUOpqUYDaqw" name="Ping_ofPinger" outgoingEdges="_BIU5jwCyEeqiUOpqUYDaqw" incomingEdges="_BIU5jACyEeqiUOpqUYDaqw _BIU5kgCyEeqiUOpqUYDaqw" width="15" height="15" resizeKind="NSEW">
+    <ownedDiagramElements xmi:type="diagram:DNode" uid="_BIU5iACyEeqiUOpqUYDaqw" name="Ping_ofPinger" outgoingEdges="_BIU5jwCyEeqiUOpqUYDaqw" incomingEdges="_BIU5jACyEeqiUOpqUYDaqw _BIU5kgCyEeqiUOpqUYDaqw" width="15" height="15" resizeKind="NSEW">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.1"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.1"/>
       <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
       <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
       <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-      <ownedStyle xmi:type="diagram:Dot" xmi:id="_BIU5iQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
+      <ownedStyle xmi:type="diagram:Dot" uid="_BIU5iQCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
         <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_BIU5igCyEeqiUOpqUYDaqw" name="Pong_ofPinger" outgoingEdges="_BIU5kgCyEeqiUOpqUYDaqw" incomingEdges="_BIU5jwCyEeqiUOpqUYDaqw" width="15" height="15" resizeKind="NSEW">
+    <ownedDiagramElements xmi:type="diagram:DNode" uid="_BIU5igCyEeqiUOpqUYDaqw" name="Pong_ofPinger" outgoingEdges="_BIU5kgCyEeqiUOpqUYDaqw" incomingEdges="_BIU5jwCyEeqiUOpqUYDaqw" width="15" height="15" resizeKind="NSEW">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.2"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:State" href="pingpong.tfsm#//@tfsms.1/@ownedStates.2"/>
       <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
       <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
       <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-      <ownedStyle xmi:type="diagram:Dot" xmi:id="_BIU5iwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
+      <ownedStyle xmi:type="diagram:Dot" uid="_BIU5iwCyEeqiUOpqUYDaqw" showIcon="false" labelColor="39,76,114" borderSize="3" borderSizeComputationExpression="3" borderColor="39,76,114" labelPosition="node" backgroundColor="255,255,255">
         <description xmi:type="style:DotDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@nodeMappings[name='State']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_BIU5jACyEeqiUOpqUYDaqw" name="after 0 on pingerTime&#xA; / &#xA;&#xA;" sourceNode="_BIU5hgCyEeqiUOpqUYDaqw" targetNode="_BIU5iACyEeqiUOpqUYDaqw">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_BIU5jACyEeqiUOpqUYDaqw" sourceNode="_BIU5hgCyEeqiUOpqUYDaqw" targetNode="_BIU5iACyEeqiUOpqUYDaqw">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.0"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.0"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_BIU5jQCyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_BIU5jQCyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_BIU5jgCyEeqiUOpqUYDaqw" showIcon="false"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_BIU5jgCyEeqiUOpqUYDaqw" showIcon="false"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_BIU5jwCyEeqiUOpqUYDaqw" name="after 3 on pingerTime&#xA; / &#xA;&#xA;  !ping;" sourceNode="_BIU5iACyEeqiUOpqUYDaqw" targetNode="_BIU5igCyEeqiUOpqUYDaqw">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_BIU5jwCyEeqiUOpqUYDaqw" name="after 3 on pingerTime&#xA; / &#xA;  !ping;" sourceNode="_BIU5iACyEeqiUOpqUYDaqw" targetNode="_BIU5igCyEeqiUOpqUYDaqw">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.1"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.1"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_BIU5kACyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_BIU5kACyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_BIU5kQCyEeqiUOpqUYDaqw" showIcon="false"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_BIU5kQCyEeqiUOpqUYDaqw" showIcon="false"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_BIU5kgCyEeqiUOpqUYDaqw" name="when pong&#xA; / &#xA;&#xA;" sourceNode="_BIU5igCyEeqiUOpqUYDaqw" targetNode="_BIU5iACyEeqiUOpqUYDaqw">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_BIU5kgCyEeqiUOpqUYDaqw" name="when pong" sourceNode="_BIU5igCyEeqiUOpqUYDaqw" targetNode="_BIU5iACyEeqiUOpqUYDaqw">
       <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.2"/>
       <semanticElements xmi:type="org.eclipse.gemoc.example.moccml.tfsm:Transition" href="pingpong.tfsm#//@tfsms.1/@ownedTransitions.2"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_BIU5kwCyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_BIU5kwCyEeqiUOpqUYDaqw" targetArrow="InputFillClosedArrow" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']/@style"/>
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_BIU5lACyEeqiUOpqUYDaqw" showIcon="false"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_BIU5lACyEeqiUOpqUYDaqw" showIcon="false"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer/@edgeMappings[name='EventTransition']"/>
     </ownedDiagramElements>
     <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']"/>
-    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" xmi:id="_BIU5lQCyEeqiUOpqUYDaqw"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="_BIU5lQCyEeqiUOpqUYDaqw"/>
     <activatedLayers xmi:type="description_1:Layer" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@defaultLayer"/>
     <activatedLayers xmi:type="description_1:AdditionalLayer" href="platform:/plugin/org.eclipse.gemoc.example.moccml.tfsm.design/description/TFSM.odesign#//@ownedViewpoints[name='TFSM_ViewPoint']/@ownedRepresentations[name='TFSM']/@additionalLayers[name='Debug']"/>
     <target xmi:type="org.eclipse.gemoc.example.moccml.tfsm:TFSM" href="pingpong.tfsm#//@tfsms.1"/>
