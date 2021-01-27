@@ -24,6 +24,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModel
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper.IK3ModelStateHelper;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLExplorer;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericStep;
@@ -39,7 +40,7 @@ import grph.Grph;
  * 
  * @see MoccmlExecutionEngine
  * 
- * @author julien.deantoni@polytech.unice.fr
+ * @author julien.deantoni@univ-cotedazur.fr
  * @param <T>
  * 
  */
@@ -76,7 +77,10 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 			e.printStackTrace();
 		}
 		EObject model = this._executionContext.getResourceModel().getContents().get(0);
-		System.out.println(model);
+//		System.out.println(model);
+		
+		((ICCSLExplorer)this._solver).initSolverForExploration();
+		
 		ControlAndRTDState initialState = new ControlAndRTDState(modelStateHelper.getK3ModelState(model),
 				this._solver.getState());
 		stateSpace.initialState = initialState;
@@ -86,18 +90,21 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 		while (!statesToExplore.isEmpty()) {
 			System.out.println("################################################### still " + statesToExplore.size()
 					+ " steps to explore");
+			_possibleLogicalSteps = null;
 			ControlAndRTDState currentState = statesToExplore.remove(0);
 			modelStateHelper.restoreModelState(currentState.modelState);
 			this._solver.setState(currentState.moCCState);
 			// set the possibleLogicalSteps for this state
-			_possibleLogicalSteps = computeWithoutUpdatePossibleLogicalSteps();
+			_possibleLogicalSteps = ((ICCSLExplorer)this._solver).computeAndGetPossibleLogicalStepsForExploration();
 			// 2- compute all states accessible from the currenState when using the
 			// possibleLogicalStates
-			int originalPossibleLogicalStepSize = getPossibleLogicalSteps().size();
-			for (int i = 0; i < getPossibleLogicalSteps().size(); i++) {
+			int originalPossibleLogicalStepSize = _possibleLogicalSteps.size();
+			for (int i = 0; i < _possibleLogicalSteps.size(); i++) {
 				if (getPossibleLogicalSteps().size() != originalPossibleLogicalStepSize) {
 					System.err.println("something went wrong during mocc state save/restore");
 				}
+				((ICCSLExplorer)this._solver).prepareSolverForNewStepForExploration();
+				
 				Step<?> aStep = getPossibleLogicalSteps().get(i);
 				setSelectedLogicalStep(aStep);
 				try {
@@ -105,7 +112,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 				} catch (Throwable t) {
 					throw new RuntimeException(t);
 				}
-				this._solver.applyLogicalStep(aStep);
+				((ICCSLExplorer)this._solver).applyLogicalStepForExploration(aStep);
 				engineStatus.incrementNbLogicalStepRun();
 				ControlAndRTDState newState = new ControlAndRTDState(modelStateHelper.getK3ModelState(model),
 						this._solver.getState());
@@ -130,9 +137,13 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 				}
 				modelStateHelper.restoreModelState(currentState.modelState);
 				this._solver.setState(currentState.moCCState);
-				computePossibleLogicalSteps();
 			}
+			((ICCSLExplorer)this._solver).resetCurrentStepForExploration();
 		}
+//		stepExecutor.clearFiredClock();
+//		stepExecutor = null;
+		this._solver = null;
+		
 		stop();
 		PrintStream ps = null;
 		String modelPath = this._executionContext.getResourceModel().getURI().toPlatformString(true);
