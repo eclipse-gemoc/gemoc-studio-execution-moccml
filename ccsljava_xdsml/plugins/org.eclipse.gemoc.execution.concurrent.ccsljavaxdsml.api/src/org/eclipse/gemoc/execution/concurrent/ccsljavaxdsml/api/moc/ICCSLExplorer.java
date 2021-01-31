@@ -28,6 +28,7 @@ public interface ICCSLExplorer{
 	public void resetCurrentStepForExploration();
 	public List<Step<?>> computeAndGetPossibleLogicalStepsForExploration();
 	public void applyLogicalStepForExploration(Step<?> logicalStep);
+	public List<Step<?>> updatePossibleLogicalStepsForExploration();
 
 
 }

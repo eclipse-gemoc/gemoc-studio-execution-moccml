@@ -2,24 +2,29 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dsa.executors.expl
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.ElementState;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelState;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelStateFactory;
+import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 
 public class ControlAndRTDState implements Serializable {
 	
 	private static final long serialVersionUID = 0;
 	public K3ModelState modelState = K3ModelStateFactory.eINSTANCE.createK3ModelState();
 	public byte[] moCCState = null;
-	
-	public ControlAndRTDState(K3ModelState modelS, byte[] moccS) {
+	public Map<ModelSpecificEvent, Boolean> engineState = null;
+
+	public ControlAndRTDState(K3ModelState modelS, byte[] moccS, Map<ModelSpecificEvent, Boolean> es) {
 		super();
 		modelState = modelS;
 		moCCState = moccS;
+		engineState = es;
 	}
 	
 	@Override
@@ -44,8 +49,8 @@ public class ControlAndRTDState implements Serializable {
 			if (!found) {
 				return false;
 			}
-		}
-		return true;
+		}		
+		return state.engineState.equals(this.engineState);
 	}
 	
 	private boolean areEquals(ElementState modelElementState, ElementState newStateElemState) {
@@ -101,6 +106,9 @@ public class ControlAndRTDState implements Serializable {
 					e.printStackTrace();
 				}
 			}
+		}
+		for(ModelSpecificEvent mse : this.engineState.keySet()) {
+			sbRes.append(mse.getName()+ "=" +this.engineState.get(mse)+"\n");
 		}
 		return sbRes.toString();
 	}

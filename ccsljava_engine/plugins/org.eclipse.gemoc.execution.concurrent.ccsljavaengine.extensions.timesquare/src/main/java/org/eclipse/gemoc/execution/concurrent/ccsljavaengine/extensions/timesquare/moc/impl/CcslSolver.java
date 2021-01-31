@@ -625,7 +625,6 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 		});
 	}
 	
-	
 	//formal Anaysis stuff, implementing org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLExplorer
 	
 	
@@ -634,6 +633,7 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 	@Override
 	public void initSolverForExploration() {
 		stepExecutor = new StepExecutor(this.getSolverWrapper().getSolver());
+		this.getSolverWrapper().getSolver().setCurrentStepExecutor(stepExecutor); //convenience to force clocks
 		stepExecutor.inSimulationMode = false;
 		stepExecutor.clearStepData();
 		stepExecutor.stepPreHook();
@@ -685,6 +685,29 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 			}
 			return new ArrayList<Step<?>>();
 		}
+		
+		
+		@Override
+		public List<Step<?>> updatePossibleLogicalStepsForExploration() {
+			
+			try {
+				_intermediateResult = stepExecutor.getAllSolutions();
+						//solverWrapper.computeAndGetPossibleLogicalSteps();			
+				_lastLogicalSteps.clear();
+				for (fr.inria.aoste.trace.LogicalStep lsFromTimesquare : _intermediateResult)
+				{
+					Step<?> lsFromTrace = createLogicalStep(lsFromTimesquare);
+					_lastLogicalSteps.add(lsFromTrace);
+				}
+				return new ArrayList<Step<?>>(_lastLogicalSteps);
+			} catch (NoBooleanSolution e) {
+				Activator.getDefault().error(e.getMessage(), e);
+			} catch (SimulationException e) {
+				Activator.getDefault().error(e.getMessage(), e);
+			}
+			return new ArrayList<Step<?>>();
+		}
+		
 		
 		@Override
 		public void applyLogicalStepForExploration(Step<?> logicalStep) {

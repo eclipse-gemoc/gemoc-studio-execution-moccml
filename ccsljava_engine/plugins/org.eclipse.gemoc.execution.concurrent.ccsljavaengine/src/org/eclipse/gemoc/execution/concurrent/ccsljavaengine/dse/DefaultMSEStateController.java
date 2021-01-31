@@ -64,7 +64,10 @@ public class DefaultMSEStateController implements IMoccmlMSEStateController
 		}
 	}
 
-	private Map<ModelSpecificEvent, Boolean> _mseNextStates = new HashMap<ModelSpecificEvent, Boolean>();
+	/**
+	 * participates in the state in the exhaustive exploration
+	 */
+	public Map<ModelSpecificEvent, Boolean> _mseNextStates = new HashMap<ModelSpecificEvent, Boolean>();
 	
 	@Override
 	public void forcePresenceInTheFuture(ModelSpecificEvent mse)

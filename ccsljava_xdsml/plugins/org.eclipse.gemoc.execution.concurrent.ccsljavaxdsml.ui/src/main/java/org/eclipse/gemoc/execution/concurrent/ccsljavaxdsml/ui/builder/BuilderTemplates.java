@@ -91,6 +91,7 @@ public class BuilderTemplates {
 "import java.lang.reflect.InvocationTargetException;\n" + 
 "import java.util.List;\n"+
 "import java.lang.reflect.Method;\n" +
+"import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.NotInStateSpace;\n"+
 "import org.eclipse.gemoc.executionframework.engine.commons.K3DslHelper;\n" + 
 "${extraImports}\n"+
 "\n"+

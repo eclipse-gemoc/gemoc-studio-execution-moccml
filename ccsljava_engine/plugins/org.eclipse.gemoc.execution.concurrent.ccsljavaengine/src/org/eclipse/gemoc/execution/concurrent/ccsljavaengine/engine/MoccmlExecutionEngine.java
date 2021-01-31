@@ -12,6 +12,8 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 
 import org.eclipse.core.runtime.CoreException;
@@ -28,6 +30,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlMSESt
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.executionframework.engine.Activator;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ActionModel;
+import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.When;
 import org.eclipse.gemoc.trace.commons.model.trace.MSE;
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;

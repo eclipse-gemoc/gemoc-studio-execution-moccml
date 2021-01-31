@@ -45,6 +45,7 @@ import org.eclipse.gemoc.commons.eclipse.pde.manifest.ManifestChanger;
 import org.eclipse.gemoc.dsl.Dsl;
 import org.eclipse.gemoc.dsl.Entry;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageAdditionExtensionPoint;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.NotInStateSpace;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.Activator;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinitionExtensionPoint;
 import org.eclipse.gemoc.xdsmlframework.ide.ui.builder.pde.PluginXMLHelper;
@@ -70,7 +71,7 @@ import com.google.common.collect.Multimap;
 public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 
 	private Set<String> setAspectsWithRTDs = null;
-	Multimap<String, String> mapAspectProperties = null;
+	Multimap<String, SourceField> mapAspectProperties = null;
 
 	public MoccmlLanguageProjectBuilder() {
 		return;
@@ -247,10 +248,11 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 					+ "\t\t\t\telemState.setModelElement(elem);\n"
 					+ "\t\t\t\tres.getOwnedElementstates().add(elemState);\n");
 			int i = 0;
-			for (String property : mapAspectProperties.get(aspect)) {
-				sbContent.append("\t\t\t\tAttributeNameToValue n2v" + i + " = new AttributeNameToValue(\"" + property
-						+ "\", " + languageToUpperFirst + "RTDAccessor.get" + property + "(elem));\n"
-						+ "\t\t\t\telemState.getSavedRTDs().add(n2v" + i + ");\n");
+			for (SourceField property : mapAspectProperties.get(aspect)) {
+					//TODO add this only if there is  no annotation on it
+						sbContent.append("\t\t\t\tAttributeNameToValue n2v" + i + " = new AttributeNameToValue(\"" + property.getElementName()
+								+ "\", " + languageToUpperFirst + "RTDAccessor.get" + property.getElementName() + "(elem));\n"
+								+ "\t\t\t\telemState.getSavedRTDs().add(n2v" + i + ");\n");
 				i++;
 			}
 			sbContent.append("\t\t\t}\n");
@@ -331,7 +333,7 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 				if (javaElem instanceof SourceField) {
 					setAspectsWithRTDs.add(originalAspectClassName);
 					SourceField f = (SourceField) javaElem;
-					mapAspectProperties.put(originalAspectClassName, f.getElementName());
+					mapAspectProperties.put(originalAspectClassName, f);
 
 					try {
 						String fieldName = f.getElementName();
@@ -343,15 +345,22 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 						// !fieldName.equals("String")) {
 						// sbExtraImport.append("import "+fieldTypeName+";\n");
 						// }
+						//TODO: do this only if the annotation is present
+//						if (((SourceField) javaElem).getAnnotation("NotInStateSpace") != null) {
+//							sbContent.append("  @NotInStateSpace\n");
+//						}
 						sbContent.append("  public static " + fieldTypeName + " get" + f.getElementName()
-								+ "(EObject eObject) {\n" + "		return (" + fieldTypeName
+								+ "(EObject eObject) {\n" + "		return new "+fieldTypeName+"((" + fieldTypeName
 								+ ")  getAspectProperty(eObject, \"" + fullLanguageName + "\", \""
-								+ originalAspectClassName + "\", \"" + f.getElementName() + "\");\n" + "	}\n");
-
+								+ originalAspectClassName + "\", \"" + f.getElementName() + "\"));\n" + "	}\n");
+						
+//						if (((SourceField) javaElem).getAnnotation("NotInStateSpace") != null) {
+//							sbContent.append("  @NotInStateSpace\n");
+//						}
 						sbContent.append("	public static boolean set" + f.getElementName() + "(EObject eObject, "
 								+ fieldTypeName + " newValue) {\n" + "		return setAspectProperty(eObject, \""
 								+ fullLanguageName + "\", \"" + originalAspectClassName + "\", \"" + f.getElementName()
-								+ "\", newValue);\n" + "	}\n");
+								+ "\", new "+fieldTypeName+"(newValue));\n" + "	}\n");
 
 					} catch (NoSuchFieldException | SecurityException e) {
 						Activator.error(e.getMessage(), e);

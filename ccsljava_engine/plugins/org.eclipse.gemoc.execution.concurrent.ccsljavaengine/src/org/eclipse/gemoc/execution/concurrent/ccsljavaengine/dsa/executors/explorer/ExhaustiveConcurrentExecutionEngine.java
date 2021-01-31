@@ -13,7 +13,11 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dsa.executors.expl
 
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -21,11 +25,13 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse.DefaultMSEStateController;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper.IK3ModelStateHelper;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLExplorer;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
+import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericStep;
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
@@ -82,24 +88,34 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 		((ICCSLExplorer)this._solver).initSolverForExploration();
 		
 		ControlAndRTDState initialState = new ControlAndRTDState(modelStateHelper.getK3ModelState(model),
-				this._solver.getState());
+				this._solver.getState(), this.saveState());
 		stateSpace.initialState = initialState;
 		stateSpace.addVertex(initialState);
 		statesToExplore.add(initialState);
 
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+		LocalDateTime now = LocalDateTime.now();  
+		System.out.println("starts exploring state space on "+now);
+
+		int exploredStates = 0;
 		while (!statesToExplore.isEmpty()) {
-			System.out.println("################################################### still " + statesToExplore.size()
-					+ " steps to explore");
+			System.out.println("###################  explored "+exploredStates+"  ##################### still " + statesToExplore.size()+ " steps to explore ###########");
+			exploredStates++;
 			_possibleLogicalSteps = null;
 			ControlAndRTDState currentState = statesToExplore.remove(0);
 			modelStateHelper.restoreModelState(currentState.modelState);
-			this._solver.setState(currentState.moCCState);
+			this._solver.setState(currentState.moCCState); //Arrays.copyOf( ?
+			this.restoreState(currentState.engineState);
 			// set the possibleLogicalSteps for this state
-			_possibleLogicalSteps = ((ICCSLExplorer)this._solver).computeAndGetPossibleLogicalStepsForExploration();
+			((ICCSLExplorer)this._solver).computeAndGetPossibleLogicalStepsForExploration();
+			beforeUpdatePossibleLogicalSteps(); //filter according to DSA returned value
+			_possibleLogicalSteps = ((ICCSLExplorer)this._solver).updatePossibleLogicalStepsForExploration();
 			// 2- compute all states accessible from the currenState when using the
 			// possibleLogicalStates
 			int originalPossibleLogicalStepSize = _possibleLogicalSteps.size();
 			for (int i = 0; i < _possibleLogicalSteps.size(); i++) {
+				
+//				System.out.println(i+") current model state = "+currentState);
 				if (getPossibleLogicalSteps().size() != originalPossibleLogicalStepSize) {
 					System.err.println("something went wrong during mocc state save/restore");
 				}
@@ -115,7 +131,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 				((ICCSLExplorer)this._solver).applyLogicalStepForExploration(aStep);
 				engineStatus.incrementNbLogicalStepRun();
 				ControlAndRTDState newState = new ControlAndRTDState(modelStateHelper.getK3ModelState(model),
-						this._solver.getState());
+						this._solver.getState(), this.saveState());
 
 				ControlAndRTDState theExistingState = null;
 				for (ControlAndRTDState s : stateSpace.getVertices()) {
@@ -131,12 +147,13 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 					statesToExplore.add(newState);
 				} else {
 					assert (theExistingState != null);
-					System.out.println("there is a loop");
+//					System.out.println("there is a loop");
 					StringBuffer buf = new StringBuffer(prettyPrint((GenericParallelStep) aStep));
 					stateSpace.addDirectedSimpleEdge(currentState, buf, theExistingState);
 				}
 				modelStateHelper.restoreModelState(currentState.modelState);
-				this._solver.setState(currentState.moCCState);
+				this._solver.setState(currentState.moCCState); //Arrays.copyOf( ?
+				this.restoreState(currentState.engineState);
 			}
 			((ICCSLExplorer)this._solver).resetCurrentStepForExploration();
 		}
@@ -158,6 +175,8 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 			e.printStackTrace();
 		}
 		Grph internalGrph = stateSpace.getGrph();
+		now = LocalDateTime.now();  
+		System.out.println("just finished exploring state space on "+now);
 		System.out.println("################################################res: " + internalGrph.getVertices().size()
 				+ " states and " + internalGrph.getEdges().size() + " transitions");
 		ps.print(internalGrph.toDot());
@@ -175,6 +194,14 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 	@Override
 	public String engineKindName() {
 		return "GEMOC Moccml Exhaustive Concurrent Engine";
+	}
+	
+	public Map<ModelSpecificEvent, Boolean> saveState(){ //one map is enough since view are not used in exhaustive simulation
+		return new HashMap<ModelSpecificEvent, Boolean>(((DefaultMSEStateController)getExecutionContext().getExecutionPlatform().getMSEStateControllers().iterator().next())._mseNextStates);
+	}
+	
+	public void restoreState(Map<ModelSpecificEvent, Boolean> controllerStates){
+		((DefaultMSEStateController)getExecutionContext().getExecutionPlatform().getMSEStateControllers().iterator().next())._mseNextStates = new HashMap<ModelSpecificEvent, Boolean>(controllerStates);
 	}
 
 }
