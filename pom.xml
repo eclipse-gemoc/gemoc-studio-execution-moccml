@@ -77,11 +77,6 @@
             <layout>p2</layout>
             <url>${melange.p2.url}</url>
         </repository>
-        <repository>
-            <id>nebula</id>
-            <layout>p2</layout>
-            <url>http://archive.eclipse.org/nebula/Q22016/incubation</url>
-        </repository>
  <!--        <repository>
             <id>gemoc_non_concurrent</id>
             <layout>p2</layout>
