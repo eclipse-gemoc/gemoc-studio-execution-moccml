@@ -50,7 +50,7 @@ public class ControlAndRTDState implements Serializable {
 				return false;
 			}
 		}		
-		return state.engineState.equals(this.engineState);
+		if(engineState != null) { return state.engineState.equals(this.engineState);} else return true;
 	}
 	
 	private boolean areEquals(ElementState modelElementState, ElementState newStateElemState) {
@@ -107,8 +107,10 @@ public class ControlAndRTDState implements Serializable {
 				}
 			}
 		}
-		for(ModelSpecificEvent mse : this.engineState.keySet()) {
-			sbRes.append(mse.getName()+ "=" +this.engineState.get(mse)+"\n");
+		if (engineState != null) {
+			for(ModelSpecificEvent mse : this.engineState.keySet()) {
+				sbRes.append(mse.getName()+ "=" +this.engineState.get(mse)+"\n");
+			}
 		}
 		return sbRes.toString();
 	}

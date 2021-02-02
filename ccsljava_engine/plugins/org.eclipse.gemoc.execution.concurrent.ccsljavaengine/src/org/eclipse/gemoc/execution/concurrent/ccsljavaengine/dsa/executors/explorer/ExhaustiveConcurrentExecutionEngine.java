@@ -88,7 +88,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 		((ICCSLExplorer)this._solver).initSolverForExploration();
 		
 		ControlAndRTDState initialState = new ControlAndRTDState(modelStateHelper.getK3ModelState(model),
-				this._solver.getState(), this.saveState());
+				this._solver.getState(), null);//this.saveState());
 		stateSpace.initialState = initialState;
 		stateSpace.addVertex(initialState);
 		statesToExplore.add(initialState);
@@ -105,7 +105,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 			ControlAndRTDState currentState = statesToExplore.remove(0);
 			modelStateHelper.restoreModelState(currentState.modelState);
 			this._solver.setState(currentState.moCCState); //Arrays.copyOf( ?
-			this.restoreState(currentState.engineState);
+//			this.restoreState(currentState.engineState);
 			// set the possibleLogicalSteps for this state
 			((ICCSLExplorer)this._solver).computeAndGetPossibleLogicalStepsForExploration();
 			beforeUpdatePossibleLogicalSteps(); //filter according to DSA returned value
@@ -131,7 +131,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 				((ICCSLExplorer)this._solver).applyLogicalStepForExploration(aStep);
 				engineStatus.incrementNbLogicalStepRun();
 				ControlAndRTDState newState = new ControlAndRTDState(modelStateHelper.getK3ModelState(model),
-						this._solver.getState(), this.saveState());
+						this._solver.getState(), null);//this.saveState());
 
 				ControlAndRTDState theExistingState = null;
 				for (ControlAndRTDState s : stateSpace.getVertices()) {
@@ -153,7 +153,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 				}
 				modelStateHelper.restoreModelState(currentState.modelState);
 				this._solver.setState(currentState.moCCState); //Arrays.copyOf( ?
-				this.restoreState(currentState.engineState);
+//				this.restoreState(currentState.engineState);
 			}
 			((ICCSLExplorer)this._solver).resetCurrentStepForExploration();
 		}
@@ -162,15 +162,20 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 		this._solver = null;
 		
 		stop();
-		PrintStream ps = null;
+		PrintStream psDot = null;
+		PrintStream psGraphML = null;
 		String modelPath = this._executionContext.getResourceModel().getURI().toPlatformString(true);
 		IProject modelProject = ResourcesPlugin.getWorkspace().getRoot()
 				.getProject(modelPath.substring(1, modelPath.substring(1).indexOf('/') + 1));
 		IFile dotFile = modelProject
 				.getFile(modelPath.replace("/" + modelProject.getName() + "/", "") + "_statespace.dot");
+		IFile graphMLFile = modelProject
+				.getFile(modelPath.replace("/" + modelProject.getName() + "/", "") + "_statespace.graphml");
 
+		
 		try {
-			ps = new PrintStream(dotFile.getLocationURI().toString().substring(5));
+			psDot = new PrintStream(dotFile.getLocationURI().toString().substring(5));
+			psGraphML = new PrintStream(graphMLFile.getLocationURI().toString().substring(5));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -179,8 +184,10 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 		System.out.println("just finished exploring state space on "+now);
 		System.out.println("################################################res: " + internalGrph.getVertices().size()
 				+ " states and " + internalGrph.getEdges().size() + " transitions");
-		ps.print(internalGrph.toDot());
-		ps.close();
+		psDot.print(internalGrph.toDot());
+		psDot.close();
+		psGraphML.print(internalGrph.toGraphML());
+		psGraphML.close();
 	}
 
 	private String prettyPrint(GenericParallelStep aStep) {
