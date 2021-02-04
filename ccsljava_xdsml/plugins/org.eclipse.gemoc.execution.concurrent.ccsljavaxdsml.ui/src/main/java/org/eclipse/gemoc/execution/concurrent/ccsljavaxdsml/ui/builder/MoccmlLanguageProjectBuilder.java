@@ -235,12 +235,32 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 		StringBuilder sbContent = new StringBuilder();
 		StringBuilder sbExtraImport = new StringBuilder();
 
-		sbContent.append("\tpublic K3ModelState getK3ModelState(EObject model) {\n"
-				+ "\t\tK3ModelState res = theFactory.createK3ModelState();\n" + "\n"
-				+ "\t\tTreeIterator<EObject> allContentIt = model.eAllContents();\n"
+		sbContent.append("\n\n\tpublic K3ModelState getK3ModelState(EObject model) {\n"
+				+ "\t\tK3ModelState res = theFactory.createK3ModelState();\n" + "\n");
+		sbContent.append("\t\tClass<?> clazz =null;\n");
+		for (String aspect : setAspectsWithRTDs) {
+			sbContent.append("\t\tclazz = K3DslHelper.getTarget(" + aspect + ".class);\n"
+					+ "\t\tif (clazz.isInstance(model)) {\n"
+					+ "\t\t\tElementState elemState = theFactory.createElementState();\n"
+					+ "\t\t\telemState.setModelElement(model);\n"
+					+ "\t\t\tres.getOwnedElementstates().add(elemState);\n");
+			int i = 0;
+			for (SourceField property : mapAspectProperties.get(aspect)) {
+						if (!property.getAnnotation("NotInStateSpace") .exists()) {
+							sbContent.append("\t\t\t\tAttributeNameToValue n2v" + i + " = new AttributeNameToValue(\"" + property.getElementName()
+								+ "\", " + languageToUpperFirst + "RTDAccessor.get" + property.getElementName() + "(model));\n"
+								+ "\t\t\t\telemState.getSavedRTDs().add(n2v" + i + ");\n");
+							i++;
+						}
+				
+			}
+			sbContent.append("\t\t\t}\n");
+		}
+		
+		sbContent.append("\t\tTreeIterator<EObject> allContentIt = model.eAllContents();\n"
 				+ "\t\twhile (allContentIt.hasNext()) {\n" + "\t\t\tEObject elem = allContentIt.next();\n" + "\n");
 
-		sbContent.append("\t\t\tClass<?> clazz =null;\n");
+		sbContent.append("\t\t\tclazz =null;\n");
 		for (String aspect : setAspectsWithRTDs) {
 			sbContent.append("\t\t\tclazz = K3DslHelper.getTarget(" + aspect + ".class);\n"
 					+ "\t\t\tif (clazz.isInstance(elem)) {\n"
@@ -249,11 +269,12 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 					+ "\t\t\t\tres.getOwnedElementstates().add(elemState);\n");
 			int i = 0;
 			for (SourceField property : mapAspectProperties.get(aspect)) {
-					//TODO add this only if there is  no annotation on it
+				if (!property.getAnnotation("NotInStateSpace") .exists()) {
 						sbContent.append("\t\t\t\tAttributeNameToValue n2v" + i + " = new AttributeNameToValue(\"" + property.getElementName()
 								+ "\", " + languageToUpperFirst + "RTDAccessor.get" + property.getElementName() + "(elem));\n"
 								+ "\t\t\t\telemState.getSavedRTDs().add(n2v" + i + ");\n");
-				i++;
+						i++;
+				}
 			}
 			sbContent.append("\t\t\t}\n");
 		}
