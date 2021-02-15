@@ -27,28 +27,30 @@ import org.eclipse.gemoc.xdsmlframework.api.engine_addon.IEngineAddon
 import org.eclipse.xtend.lib.annotations.Accessors
 
 import static extension org.eclipse.gemoc.execution.concurrent.symbolic.ChocoHelper.*
+import java.util.Collections
+import java.util.Collection
 
 //TODO manage runconfiguration with strategies?
 abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentModelExecutionContext<R, ?, ?>, R extends IConcurrentRunConfiguration> extends AbstractExecutionEngine<C, R> {
 
-	def protected abstract void doAfterLogicalStepExecution(ParallelStep<?,?> logicalStep)
+	def protected abstract void doAfterLogicalStepExecution(ParallelStep<?, ?> logicalStep)
 
 	def protected abstract void executeSmallStep(SmallStep<?> smallStep) throws CodeExecutionException
 
 	def protected abstract void performSpecificInitialize(C executionContext)
 
 	def protected abstract Model computeInitialLogicalSteps()
-	
+
 	def abstract Set<String> getSemanticRules()
-	
+
 	def abstract Set<EPackage> getAbstractSyntax()
 
 	ILogicalStepDecider _logicalStepDecider
-	
+
 	protected Model symbolicLogicalSteps
-	
-	protected Set<ParallelStep<? extends Step<?>,?>> _possibleLogicalSteps = new HashSet()
-	ParallelStep<?,?> _selectedLogicalStep
+
+	protected Set<ParallelStep<? extends Step<?>, ?>> _possibleLogicalSteps = new HashSet<ParallelStep<? extends Step<?>, ?>>
+	ParallelStep<?, ?> _selectedLogicalStep
 
 	@Accessors
 	val List<ConcurrencyStrategy> concurrencyStrategies = new ArrayList<ConcurrencyStrategy>()
@@ -67,46 +69,50 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 		def Step<?> createClonedInnerStep(Step<?> ss) {
 			return EcoreUtil::copy(ss)
 		}
-		
+
 		/**
 		 * Return 0 if the two inner steps are equal, assuming that the steps have previously been created by this engine.
 		 * 
 		 * If needed, can be overridden by any engine that has its own custom class for inner steps.
 		 */
 		override compare(Step<?> step1, Step<?> step2) {
-			if (EcoreUtil::equals(step1, step2)) 0 else -1
+			if(EcoreUtil::equals(step1, step2)) 0 else -1
 		}
 	}
-	
+
 	extension protected val StepFactory stepFactory = createStepFactory
-	
+
 	protected def createStepFactory() {
 		new StepFactory
 	}
-	
-	def private Set<ParallelStep<? extends Step<?>,?>> computePossibleLogicalSteps() {
+
+	def private Set<ParallelStep<? extends Step<?>, ?>> computePossibleLogicalSteps() {
 		val model = computeInitialLogicalSteps()
-		
+
 		val steps = model.smallSteps.toList
-		
-		steps.forEach[s1, idx | steps.subList(idx, steps.size).forEach[s2 | 
-			if (!applyConcurrencyStrategies(s1, s2)) {
-				model.addExclusionConstraint(s1, s2)
-			}
-		]]
-		
+
+		steps.forEach [ s1, idx |
+			steps.subList(idx, steps.size).forEach [ s2 |
+				if (!applyConcurrencyStrategies(s1, s2)) {
+					model.addExclusionConstraint(s1, s2)
+				}
+			]
+		]
+
 		return filterByStrategies(model)
 	}
-	
+
 	/** 
 	 * Return a list of steps filtered by all filtering strategies
 	 */
-	private def Set<ParallelStep<? extends Step<?>,?>> filterByStrategies(Model symbolicPossibleSteps) {
+	private def Set<ParallelStep<? extends Step<?>, ?>> filterByStrategies(Model symbolicPossibleSteps) {
 		filteringStrategies.filter(SymbolicFilteringStrategy).forEach[filterSymbolically(symbolicPossibleSteps)]
-		
+
 		val possibleSteps = symbolicPossibleSteps.computePossibleStepInExtension(stepFactory)
-		
-		filteringStrategies.filter(EnumeratingFilteringStrategy).fold(possibleSteps, [steps, fh| fh.filter(steps, stepFactory)])
+
+		filteringStrategies.filter(EnumeratingFilteringStrategy).fold(possibleSteps, [ steps, fh |
+			fh.filter(steps, stepFactory)
+		])
 	}
 
 	/**
@@ -131,13 +137,13 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 		return _logicalStepDecider
 	}
 
-	def final ParallelStep<?,?> getSelectedLogicalStep() {
+	def final ParallelStep<?, ?> getSelectedLogicalStep() {
 		synchronized (this) {
 			return _selectedLogicalStep
 		}
 	}
 
-	def final protected void setSelectedLogicalStep(ParallelStep<?,?> ls) {
+	def final protected void setSelectedLogicalStep(ParallelStep<?, ?> ls) {
 		synchronized (this) {
 			_selectedLogicalStep = ls
 		}
@@ -189,16 +195,51 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 		}
 	}
 
-	def final List<ParallelStep<?,?>> getPossibleLogicalSteps() {
+	private static def List<ParallelStep<?, ?>> sortSteps(Set<ParallelStep<? extends Step<?>, ?>> steps) {
+		// Try to deterministically sort the possible steps, for better UI/UX
+		val List<ParallelStep<?, ?>> sortedSteps = new ArrayList<ParallelStep<?, ?>>
+		sortedSteps.addAll(steps.sortWith([ s1, s2 |
+
+			// If different amount of atomic steps, sort per amount
+			if (s1.subSteps.size != s2.subSteps.size) {
+				return s1.subSteps.size - s2.subSteps.size
+			} // Else, sort based on atomic steps names
+			else {
+
+				// Sort the lists of atomic steps based on names
+				val s1AtomicSteps = new ArrayList(s1.subSteps)
+				val s2AtomicSteps = new ArrayList(s2.subSteps)
+				val Comparator<Step<?>> stepsComparator = [ Step<?> a1, Step<?> a2 |
+					a1.mseoccurrence.mse.name.compareTo(a2.mseoccurrence.mse.name)
+				]
+				val sortedS1Substeps = s1AtomicSteps.sortWith(stepsComparator)
+				val sortedS2Substeps = s2AtomicSteps.sortWith(stepsComparator)
+
+				// Compare 2 by 2 the lists of atomic steps
+				for (var int i = 0; i < sortedS1Substeps.size; i++) {
+					val a1 = sortedS1Substeps.get(i)
+					val a2 = sortedS2Substeps.get(i)
+					val result = stepsComparator.compare(a1, a2)
+					if(result != 0) return result
+				}
+
+				return 0
+			}
+
+		]))
+		return sortedSteps
+	}
+
+	def final List<ParallelStep<?, ?>> getPossibleLogicalSteps() {
 		synchronized (this) {
-			return new ArrayList<ParallelStep<?,?>>(_possibleLogicalSteps)
+			return sortSteps(_possibleLogicalSteps)
 		}
 	}
 
-	def final protected ParallelStep<?,?> selectAndExecuteLogicalStep() throws CodeExecutionException, DeciderException {
+	def final protected ParallelStep<?, ?> selectAndExecuteLogicalStep() throws CodeExecutionException, DeciderException {
 		setEngineStatus(EngineStatus.RunStatus::WaitingLogicalStepSelection)
 		notifyAboutToSelectLogicalStep()
-		var ParallelStep<?,?> selectedLogicalStep = getLogicalStepDecider().decide(this, getPossibleLogicalSteps())
+		var ParallelStep<?, ?> selectedLogicalStep = getLogicalStepDecider().decide(this, getPossibleLogicalSteps())
 		if (selectedLogicalStep !== null) {
 			setSelectedLogicalStep(selectedLogicalStep)
 			setEngineStatus(EngineStatus.RunStatus::Running)
@@ -218,7 +259,7 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 			stop()
 		} else {
 			try {
-				var ParallelStep<?,?> selectedLogicalStep = selectAndExecuteLogicalStep()
+				var ParallelStep<?, ?> selectedLogicalStep = selectAndExecuteLogicalStep()
 				// 3 - run the selected logical step
 				// inform the solver that we will run this step
 				if (selectedLogicalStep !== null) {

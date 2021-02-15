@@ -19,6 +19,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -546,7 +547,13 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 	@Override
 	public void aboutToSelectStep(IExecutionEngine<?> engine, Collection<Step<?>> logicalSteps) {
 		setUp(engine);
-		updateTraceModelBeforeDeciding(logicalSteps);
+		
+		// Inverse the order of the step list, to display the same order as the decider view
+		List<Step<?>> stepsAsList = new ArrayList<Step<?>>();
+		stepsAsList.addAll(logicalSteps);
+		Collections.reverse(stepsAsList);
+		
+		updateTraceModelBeforeDeciding(stepsAsList);
 	}
 
 	@Override
