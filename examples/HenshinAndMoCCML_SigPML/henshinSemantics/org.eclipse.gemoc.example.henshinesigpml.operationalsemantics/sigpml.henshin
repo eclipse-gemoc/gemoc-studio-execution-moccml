@@ -95,7 +95,7 @@
         <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Place/itsOutputPort"/>
       </edges>
     </rhs>
-    <attributeConditions xmi:id="_18xYQFJlEeuoMZbmYKH0UA" name="enoughSize" conditionText="theSize+theRate &lt; theMaxSize"/>
+    <attributeConditions xmi:id="_18xYQFJlEeuoMZbmYKH0UA" name="enoughSize" conditionText="theSize+theRate &lt; theMaxSize &amp;&amp; theProcessState == false"/>
     <mappings xmi:id="_WVqzQlGXEeuGuqVBoHislg" origin="_WVqzQFGXEeuGuqVBoHislg" image="_WVqzQVGXEeuGuqVBoHislg"/>
     <mappings xmi:id="_X-qKUFGXEeuGuqVBoHislg" origin="_X-pjQFGXEeuGuqVBoHislg" image="_X-pjQVGXEeuGuqVBoHislg"/>
     <mappings xmi:id="_cKAwclGXEeuGuqVBoHislg" origin="_cKAwcFGXEeuGuqVBoHislg" image="_cKAwcVGXEeuGuqVBoHislg"/>
@@ -416,55 +416,48 @@
   </units>
   <units xsi:type="henshin:Rule" xmi:id="__kgp8HAyEeuTZ6rulb5Q1A" name="moveFromReadToExec">
     <parameters xmi:id="_ht80cHAzEeuTZ6rulb5Q1A" name="agentState" kind="VAR"/>
-    <parameters xmi:id="_HJfycHBAEeu3-LufW5H1QA" name="theProcessStatus" kind="VAR"/>
-    <parameters xmi:id="_W6lokHYSEeuZXK6SXNsEzg" name="theProcessStatusOut" kind="VAR"/>
     <lhs xmi:id="__kjtQHAyEeuTZ6rulb5Q1A" name="Lhs">
       <nodes xmi:id="_LiyZ0HAzEeuTZ6rulb5Q1A" outgoing="_WDxsUHAzEeuTZ6rulb5Q1A">
         <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application"/>
       </nodes>
-      <nodes xmi:id="_MTkWgHAzEeuTZ6rulb5Q1A" incoming="_WDxsUHAzEeuTZ6rulb5Q1A" outgoing="_WgHqEHAzEeuTZ6rulb5Q1A _6NhAIHYREeuZXK6SXNsEzg">
+      <nodes xmi:id="_MTkWgHAzEeuTZ6rulb5Q1A" incoming="_WDxsUHAzEeuTZ6rulb5Q1A">
         <annotations xmi:id="_7bdfYHB-Eeu5uLdeqmK_iQ" key="Target"/>
         <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent"/>
         <attributes xmi:id="_j-hI4HAzEeuTZ6rulb5Q1A" value="agentState">
           <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/state"/>
         </attributes>
       </nodes>
-      <nodes xmi:id="_RQkcAHAzEeuTZ6rulb5Q1A" incoming="_WgHqEHAzEeuTZ6rulb5Q1A">
-        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//InputPort"/>
-        <attributes xmi:id="_axJaYHAzEeuTZ6rulb5Q1A" value="theProcessStatus">
-          <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Port/hasBeenProcessed"/>
-        </attributes>
-      </nodes>
-      <nodes xmi:id="_zydoQHYREeuZXK6SXNsEzg" incoming="_6NhAIHYREeuZXK6SXNsEzg">
-        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//OutputPort"/>
-        <attributes xmi:id="_7YiBwHYREeuZXK6SXNsEzg" value="theProcessStatusOut">
-          <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Port/hasBeenProcessed"/>
-        </attributes>
-      </nodes>
       <edges xmi:id="_WDxsUHAzEeuTZ6rulb5Q1A" source="_LiyZ0HAzEeuTZ6rulb5Q1A" target="_MTkWgHAzEeuTZ6rulb5Q1A">
         <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application/ownedAgents"/>
       </edges>
-      <edges xmi:id="_WgHqEHAzEeuTZ6rulb5Q1A" source="_MTkWgHAzEeuTZ6rulb5Q1A" target="_RQkcAHAzEeuTZ6rulb5Q1A">
-        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/ownedPorts"/>
-      </edges>
-      <edges xmi:id="_6NhAIHYREeuZXK6SXNsEzg" source="_MTkWgHAzEeuTZ6rulb5Q1A" target="_zydoQHYREeuZXK6SXNsEzg">
-        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/ownedPorts"/>
-      </edges>
-      <formula xsi:type="henshin:Not" xmi:id="_dxyg4HAzEeuTZ6rulb5Q1A">
-        <child xsi:type="henshin:NestedCondition" xmi:id="_dxyg4XAzEeuTZ6rulb5Q1A">
-          <conclusion xmi:id="_dxyg4nAzEeuTZ6rulb5Q1A">
-            <nodes xmi:id="_dxyg43AzEeuTZ6rulb5Q1A">
-              <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//OutputPort"/>
+      <formula xsi:type="henshin:Not" xmi:id="_SmRSoHbhEeutP8IEMuT_Yg">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_SmRSoXbhEeutP8IEMuT_Yg">
+          <conclusion xmi:id="_SmRSonbhEeutP8IEMuT_Yg">
+            <nodes xmi:id="_RQkcAHAzEeuTZ6rulb5Q1A" incoming="_WgHqEHAzEeuTZ6rulb5Q1A">
+              <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//InputPort"/>
+              <attributes xmi:id="_AdD_oHbjEeuoo5rntyKycA" value="false">
+                <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Port/hasBeenProcessed"/>
+              </attributes>
             </nodes>
-            <nodes xmi:id="_dxzH8HAzEeuTZ6rulb5Q1A">
+            <nodes xmi:id="_SmR5sXbhEeutP8IEMuT_Yg" incoming="_-dTuYHbiEeuoo5rntyKycA" outgoing="_WgHqEHAzEeuTZ6rulb5Q1A">
+              <annotations xmi:id="_SmR5snbhEeutP8IEMuT_Yg" key="Target"/>
               <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent"/>
-              <attributes xmi:id="_j-hI4nAzEeuTZ6rulb5Q1A" value="agentState ">
+              <attributes xmi:id="_SmR5s3bhEeutP8IEMuT_Yg" value="agentState">
                 <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/state"/>
               </attributes>
             </nodes>
+            <nodes xmi:id="_-dSgQHbiEeuoo5rntyKycA" outgoing="_-dTuYHbiEeuoo5rntyKycA">
+              <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application"/>
+            </nodes>
+            <edges xmi:id="_-dTuYHbiEeuoo5rntyKycA" source="_-dSgQHbiEeuoo5rntyKycA" target="_SmR5sXbhEeutP8IEMuT_Yg">
+              <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application/ownedAgents"/>
+            </edges>
+            <edges xmi:id="_WgHqEHAzEeuTZ6rulb5Q1A" source="_SmR5sXbhEeutP8IEMuT_Yg" target="_RQkcAHAzEeuTZ6rulb5Q1A">
+              <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/ownedPorts"/>
+            </edges>
           </conclusion>
-          <mappings xmi:id="_dxyg5XAzEeuTZ6rulb5Q1A" origin="_RQkcAHAzEeuTZ6rulb5Q1A" image="_dxyg43AzEeuTZ6rulb5Q1A"/>
-          <mappings xmi:id="_dxzH8XAzEeuTZ6rulb5Q1A" origin="_MTkWgHAzEeuTZ6rulb5Q1A" image="_dxzH8HAzEeuTZ6rulb5Q1A"/>
+          <mappings xmi:id="_SmR5tHbhEeutP8IEMuT_Yg" origin="_MTkWgHAzEeuTZ6rulb5Q1A" image="_SmR5sXbhEeutP8IEMuT_Yg"/>
+          <mappings xmi:id="_-dTHUHbiEeuoo5rntyKycA" origin="_LiyZ0HAzEeuTZ6rulb5Q1A" image="_-dSgQHbiEeuoo5rntyKycA"/>
         </child>
       </formula>
     </lhs>
@@ -472,41 +465,21 @@
       <nodes xmi:id="_LizA4HAzEeuTZ6rulb5Q1A" outgoing="_WDxsUXAzEeuTZ6rulb5Q1A">
         <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application"/>
       </nodes>
-      <nodes xmi:id="_MTkWgXAzEeuTZ6rulb5Q1A" incoming="_WDxsUXAzEeuTZ6rulb5Q1A" outgoing="_FNoisHBAEeu3-LufW5H1QA _6NhAIXYREeuZXK6SXNsEzg">
+      <nodes xmi:id="_MTkWgXAzEeuTZ6rulb5Q1A" incoming="_WDxsUXAzEeuTZ6rulb5Q1A">
         <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent"/>
         <attributes xmi:id="_j-hI4XAzEeuTZ6rulb5Q1A" value="&quot;executing&quot;">
           <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/state"/>
         </attributes>
       </nodes>
-      <nodes xmi:id="_RQkcAXAzEeuTZ6rulb5Q1A" incoming="_FNoisHBAEeu3-LufW5H1QA">
-        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//InputPort"/>
-        <attributes xmi:id="_oU3dEHA-Eeu3-LufW5H1QA" value="theProcessStatus">
-          <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Port/hasBeenProcessed"/>
-        </attributes>
-      </nodes>
-      <nodes xmi:id="_zygEgHYREeuZXK6SXNsEzg" incoming="_6NhAIXYREeuZXK6SXNsEzg">
-        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//OutputPort"/>
-        <attributes xmi:id="_7Yio0HYREeuZXK6SXNsEzg" value="false">
-          <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Port/hasBeenProcessed"/>
-        </attributes>
-      </nodes>
       <edges xmi:id="_WDxsUXAzEeuTZ6rulb5Q1A" source="_LizA4HAzEeuTZ6rulb5Q1A" target="_MTkWgXAzEeuTZ6rulb5Q1A">
         <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application/ownedAgents"/>
       </edges>
-      <edges xmi:id="_FNoisHBAEeu3-LufW5H1QA" source="_MTkWgXAzEeuTZ6rulb5Q1A" target="_RQkcAXAzEeuTZ6rulb5Q1A">
-        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/ownedPorts"/>
-      </edges>
-      <edges xmi:id="_6NhAIXYREeuZXK6SXNsEzg" source="_MTkWgXAzEeuTZ6rulb5Q1A" target="_zygEgHYREeuZXK6SXNsEzg">
-        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/ownedPorts"/>
-      </edges>
     </rhs>
-    <attributeConditions xmi:id="_IR-zkHA3Eeu3-LufW5H1QA" name="agentStateisReading" conditionText="agentState == &quot;readingInputs&quot; &amp;&amp; theProcessStatus == true"/>
+    <attributeConditions xmi:id="_IR-zkHA3Eeu3-LufW5H1QA" name="agentStateisReading" conditionText="agentState == &quot;readingInputs&quot;"/>
     <mappings xmi:id="_LizA4XAzEeuTZ6rulb5Q1A" origin="_LiyZ0HAzEeuTZ6rulb5Q1A" image="_LizA4HAzEeuTZ6rulb5Q1A"/>
     <mappings xmi:id="_MTk9kHAzEeuTZ6rulb5Q1A" origin="_MTkWgHAzEeuTZ6rulb5Q1A" image="_MTkWgXAzEeuTZ6rulb5Q1A"/>
-    <mappings xmi:id="_RQkcAnAzEeuTZ6rulb5Q1A" origin="_RQkcAHAzEeuTZ6rulb5Q1A" image="_RQkcAXAzEeuTZ6rulb5Q1A"/>
-    <mappings xmi:id="_zygrkHYREeuZXK6SXNsEzg" origin="_zydoQHYREeuZXK6SXNsEzg" image="_zygEgHYREeuZXK6SXNsEzg"/>
   </units>
-  <units xsi:type="henshin:Rule" xmi:id="_MbaOj3A0EeuTZ6rulb5Q1A" name="moveFromProdToRead">
+  <units xsi:type="henshin:Rule" xmi:id="_MbaOj3A0EeuTZ6rulb5Q1A" name="moveFromProdToReset">
     <parameters xmi:id="_MbaOkHA0EeuTZ6rulb5Q1A" name="agentState" kind="VAR"/>
     <parameters xmi:id="_PUlCEHCDEeu5uLdeqmK_iQ" name="processState" kind="VAR"/>
     <lhs xmi:id="_MbaOkXA0EeuTZ6rulb5Q1A" name="Lhs">
@@ -548,7 +521,7 @@
       </nodes>
       <nodes xmi:id="_MbaOpHA0EeuTZ6rulb5Q1A" incoming="_MbaOp3A0EeuTZ6rulb5Q1A" outgoing="_Xyx9cXCDEeu5uLdeqmK_iQ _E_wnsHChEeupBOkVeNcWfA">
         <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent"/>
-        <attributes xmi:id="_MbaOpXA0EeuTZ6rulb5Q1A" value="&quot;readingInputs&quot;">
+        <attributes xmi:id="_MbaOpXA0EeuTZ6rulb5Q1A" value="&quot;reset&quot;">
           <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/state"/>
         </attributes>
       </nodes>
@@ -652,88 +625,7 @@
     <attributeConditions xmi:id="_dZ7TLnA2Eeu3-LufW5H1QA" name="isActuallyExecuting" conditionText="agentState == &quot;executing&quot; &amp;&amp; theCurrentCycle==theCycles"/>
     <mappings xmi:id="_dZ7TL3A2Eeu3-LufW5H1QA" origin="_dZ7TJXA2Eeu3-LufW5H1QA" image="_dZ7TKnA2Eeu3-LufW5H1QA"/>
   </units>
-  <units xsi:type="henshin:Rule" xmi:id="_qvlhIHBAEeu3-LufW5H1QA" name="moveFromReadToExecNoInputs">
-    <parameters xmi:id="_qvlhIXBAEeu3-LufW5H1QA" name="agentState" kind="VAR"/>
-    <parameters xmi:id="_Eq69sHYTEeuZXK6SXNsEzg" name="theProcessState" kind="VAR"/>
-    <lhs xmi:id="_qvlhI3BAEeu3-LufW5H1QA" name="Lhs">
-      <nodes xmi:id="_qvlhJHBAEeu3-LufW5H1QA" outgoing="_qvlhKXBAEeu3-LufW5H1QA">
-        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application"/>
-      </nodes>
-      <nodes xmi:id="_qvlhJXBAEeu3-LufW5H1QA" incoming="_qvlhKXBAEeu3-LufW5H1QA" outgoing="_NZSOIHBDEeu3-LufW5H1QA">
-        <annotations xmi:id="_-skDwHB-Eeu5uLdeqmK_iQ" key="Target"/>
-        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent"/>
-        <attributes xmi:id="_qvlhJnBAEeu3-LufW5H1QA" value="agentState">
-          <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/state"/>
-        </attributes>
-      </nodes>
-      <nodes xmi:id="_MVXTAHBDEeu3-LufW5H1QA" incoming="_NZSOIHBDEeu3-LufW5H1QA">
-        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//OutputPort"/>
-        <attributes xmi:id="_FqrKgHYTEeuZXK6SXNsEzg" value="theProcessState">
-          <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Port/hasBeenProcessed"/>
-        </attributes>
-      </nodes>
-      <edges xmi:id="_qvlhKXBAEeu3-LufW5H1QA" source="_qvlhJHBAEeu3-LufW5H1QA" target="_qvlhJXBAEeu3-LufW5H1QA">
-        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application/ownedAgents"/>
-      </edges>
-      <edges xmi:id="_NZSOIHBDEeu3-LufW5H1QA" source="_qvlhJXBAEeu3-LufW5H1QA" target="_MVXTAHBDEeu3-LufW5H1QA">
-        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/ownedPorts"/>
-      </edges>
-      <formula xsi:type="henshin:Not" xmi:id="_DbV-UXBDEeu3-LufW5H1QA">
-        <child xsi:type="henshin:NestedCondition" xmi:id="_DbV-UnBDEeu3-LufW5H1QA">
-          <conclusion xmi:id="_DbV-U3BDEeu3-LufW5H1QA">
-            <nodes xmi:id="_DbWlYHBDEeu3-LufW5H1QA" outgoing="_DbWlZXBDEeu3-LufW5H1QA">
-              <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application"/>
-            </nodes>
-            <nodes xmi:id="_DbWlYnBDEeu3-LufW5H1QA" incoming="_DbWlZXBDEeu3-LufW5H1QA" outgoing="_qvlhKnBAEeu3-LufW5H1QA">
-              <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent"/>
-              <attributes xmi:id="_DbWlY3BDEeu3-LufW5H1QA" value="agentState">
-                <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/state"/>
-              </attributes>
-            </nodes>
-            <nodes xmi:id="_qvlhJ3BAEeu3-LufW5H1QA" incoming="_qvlhKnBAEeu3-LufW5H1QA">
-              <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//InputPort"/>
-            </nodes>
-            <edges xmi:id="_DbWlZXBDEeu3-LufW5H1QA" source="_DbWlYHBDEeu3-LufW5H1QA" target="_DbWlYnBDEeu3-LufW5H1QA">
-              <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application/ownedAgents"/>
-            </edges>
-            <edges xmi:id="_qvlhKnBAEeu3-LufW5H1QA" source="_DbWlYnBDEeu3-LufW5H1QA" target="_qvlhJ3BAEeu3-LufW5H1QA">
-              <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/ownedPorts"/>
-            </edges>
-          </conclusion>
-          <mappings xmi:id="_DbWlYXBDEeu3-LufW5H1QA" origin="_qvlhJHBAEeu3-LufW5H1QA" image="_DbWlYHBDEeu3-LufW5H1QA"/>
-          <mappings xmi:id="_DbWlZHBDEeu3-LufW5H1QA" origin="_qvlhJXBAEeu3-LufW5H1QA" image="_DbWlYnBDEeu3-LufW5H1QA"/>
-        </child>
-      </formula>
-    </lhs>
-    <rhs xmi:id="_qvlhM3BAEeu3-LufW5H1QA" name="Rhs">
-      <nodes xmi:id="_qvlhNHBAEeu3-LufW5H1QA" outgoing="_qvlhOXBAEeu3-LufW5H1QA">
-        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application"/>
-      </nodes>
-      <nodes xmi:id="_qvlhNXBAEeu3-LufW5H1QA" incoming="_qvlhOXBAEeu3-LufW5H1QA" outgoing="_yGJlg3YTEeuZXK6SXNsEzg">
-        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent"/>
-        <attributes xmi:id="_qvlhNnBAEeu3-LufW5H1QA" value="&quot;executing&quot;">
-          <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/state"/>
-        </attributes>
-      </nodes>
-      <nodes xmi:id="_yGJlgHYTEeuZXK6SXNsEzg" incoming="_yGJlg3YTEeuZXK6SXNsEzg">
-        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//OutputPort"/>
-        <attributes xmi:id="_yGJlgXYTEeuZXK6SXNsEzg" value="false">
-          <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Port/hasBeenProcessed"/>
-        </attributes>
-      </nodes>
-      <edges xmi:id="_qvlhOXBAEeu3-LufW5H1QA" source="_qvlhNHBAEeu3-LufW5H1QA" target="_qvlhNXBAEeu3-LufW5H1QA">
-        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application/ownedAgents"/>
-      </edges>
-      <edges xmi:id="_yGJlg3YTEeuZXK6SXNsEzg" source="_qvlhNXBAEeu3-LufW5H1QA" target="_yGJlgHYTEeuZXK6SXNsEzg">
-        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/ownedPorts"/>
-      </edges>
-    </rhs>
-    <attributeConditions xmi:id="_qvlhO3BAEeu3-LufW5H1QA" name="agentStateisReading" conditionText="agentState == &quot;readingInputs&quot;"/>
-    <mappings xmi:id="_qvlhPHBAEeu3-LufW5H1QA" origin="_qvlhJHBAEeu3-LufW5H1QA" image="_qvlhNHBAEeu3-LufW5H1QA"/>
-    <mappings xmi:id="_qvlhPXBAEeu3-LufW5H1QA" origin="_qvlhJXBAEeu3-LufW5H1QA" image="_qvlhNXBAEeu3-LufW5H1QA"/>
-    <mappings xmi:id="_yGJlgnYTEeuZXK6SXNsEzg" origin="_MVXTAHBDEeu3-LufW5H1QA" image="_yGJlgHYTEeuZXK6SXNsEzg"/>
-  </units>
-  <units xsi:type="henshin:Rule" xmi:id="_ImA_4HClEeupBOkVeNcWfA" name="moveFromProdToReadNoOutputs">
+  <units xsi:type="henshin:Rule" xmi:id="_ImA_4HClEeupBOkVeNcWfA" name="moveFromProdToResetNoOutputs">
     <parameters xmi:id="_ImA_4XClEeupBOkVeNcWfA" name="agentState" kind="VAR"/>
     <parameters xmi:id="_ImA_4nClEeupBOkVeNcWfA" name="processState" kind="VAR"/>
     <lhs xmi:id="_ImA_43ClEeupBOkVeNcWfA" name="Lhs">
@@ -787,7 +679,7 @@
       </nodes>
       <nodes xmi:id="_ImA_8XClEeupBOkVeNcWfA" incoming="_ImA_93ClEeupBOkVeNcWfA">
         <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent"/>
-        <attributes xmi:id="_ImA_8nClEeupBOkVeNcWfA" value="&quot;readingInputs&quot;">
+        <attributes xmi:id="_ImA_8nClEeupBOkVeNcWfA" value="&quot;reset&quot;">
           <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/state"/>
         </attributes>
       </nodes>
@@ -798,5 +690,126 @@
     <attributeConditions xmi:id="_ImA_-nClEeupBOkVeNcWfA" name="agentStateIsProducing" conditionText="agentState == &quot;writingOutputs&quot;"/>
     <mappings xmi:id="_ImA_-3ClEeupBOkVeNcWfA" origin="_ImA_5HClEeupBOkVeNcWfA" image="_ImA_8HClEeupBOkVeNcWfA"/>
     <mappings xmi:id="_ImA__HClEeupBOkVeNcWfA" origin="_ImA_5XClEeupBOkVeNcWfA" image="_ImA_8XClEeupBOkVeNcWfA"/>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_LoPoAHbKEeup8u0GwoHTAw" name="reset">
+    <parameters xmi:id="_LoPoAXbKEeup8u0GwoHTAw" name="agentState" kind="VAR"/>
+    <parameters xmi:id="_fHcysHbKEeup8u0GwoHTAw" name="thePortState" kind="VAR"/>
+    <lhs xmi:id="_LoPoAnbKEeup8u0GwoHTAw" name="Lhs">
+      <nodes xmi:id="_LoPoA3bKEeup8u0GwoHTAw" outgoing="_LoPoCnbKEeup8u0GwoHTAw">
+        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application"/>
+      </nodes>
+      <nodes xmi:id="_LoPoBXbKEeup8u0GwoHTAw" name="a" incoming="_LoPoCnbKEeup8u0GwoHTAw" outgoing="_LoPoDHbKEeup8u0GwoHTAw">
+        <annotations xmi:id="_LoPoBnbKEeup8u0GwoHTAw" key="Target"/>
+        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent"/>
+        <attributes xmi:id="_LoPoB3bKEeup8u0GwoHTAw" value="agentState">
+          <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/state"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_LoPoCHbKEeup8u0GwoHTAw" incoming="_LoPoDHbKEeup8u0GwoHTAw">
+        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Port"/>
+        <attributes xmi:id="_LoPoCXbKEeup8u0GwoHTAw" value="thePortState">
+          <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Port/hasBeenProcessed"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_LoPoCnbKEeup8u0GwoHTAw" source="_LoPoA3bKEeup8u0GwoHTAw" target="_LoPoBXbKEeup8u0GwoHTAw">
+        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application/ownedAgents"/>
+      </edges>
+      <edges xmi:id="_LoPoDHbKEeup8u0GwoHTAw" source="_LoPoBXbKEeup8u0GwoHTAw" target="_LoPoCHbKEeup8u0GwoHTAw">
+        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/ownedPorts"/>
+      </edges>
+    </lhs>
+    <rhs xmi:id="_LoPoF3bKEeup8u0GwoHTAw" name="Rhs">
+      <nodes xmi:id="_LoPoGHbKEeup8u0GwoHTAw" outgoing="_LoPoHnbKEeup8u0GwoHTAw">
+        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application"/>
+      </nodes>
+      <nodes xmi:id="_LoPoGnbKEeup8u0GwoHTAw" name="a" incoming="_LoPoHnbKEeup8u0GwoHTAw" outgoing="_LoPoIHbKEeup8u0GwoHTAw">
+        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent"/>
+        <attributes xmi:id="_LoPoG3bKEeup8u0GwoHTAw" value="agentState">
+          <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/state"/>
+        </attributes>
+      </nodes>
+      <nodes xmi:id="_LoPoHHbKEeup8u0GwoHTAw" incoming="_LoPoIHbKEeup8u0GwoHTAw">
+        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//InputPort"/>
+        <attributes xmi:id="_LoPoHXbKEeup8u0GwoHTAw" value="false">
+          <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Port/hasBeenProcessed"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_LoPoHnbKEeup8u0GwoHTAw" source="_LoPoGHbKEeup8u0GwoHTAw" target="_LoPoGnbKEeup8u0GwoHTAw">
+        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application/ownedAgents"/>
+      </edges>
+      <edges xmi:id="_LoPoIHbKEeup8u0GwoHTAw" source="_LoPoGnbKEeup8u0GwoHTAw" target="_LoPoHHbKEeup8u0GwoHTAw">
+        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/ownedPorts"/>
+      </edges>
+    </rhs>
+    <attributeConditions xmi:id="_LoPoInbKEeup8u0GwoHTAw" name="notAlreadyDone" conditionText="agentState == 'reset' &amp;&amp; thePortState == true"/>
+    <mappings xmi:id="_LoPoI3bKEeup8u0GwoHTAw" origin="_LoPoA3bKEeup8u0GwoHTAw" image="_LoPoGHbKEeup8u0GwoHTAw"/>
+    <mappings xmi:id="_LoPoJXbKEeup8u0GwoHTAw" origin="_LoPoBXbKEeup8u0GwoHTAw" image="_LoPoGnbKEeup8u0GwoHTAw"/>
+    <mappings xmi:id="_LoPoJnbKEeup8u0GwoHTAw" origin="_LoPoCHbKEeup8u0GwoHTAw" image="_LoPoHHbKEeup8u0GwoHTAw"/>
+  </units>
+  <units xsi:type="henshin:Rule" xmi:id="_FfoOgHbLEeup8u0GwoHTAw" name="endReset">
+    <parameters xmi:id="_FfoOgXbLEeup8u0GwoHTAw" name="agentState" kind="VAR"/>
+    <parameters xmi:id="_FfoOgnbLEeup8u0GwoHTAw" name="thePortState" kind="VAR"/>
+    <lhs xmi:id="_FfoOg3bLEeup8u0GwoHTAw" name="Lhs">
+      <nodes xmi:id="_FfoOhHbLEeup8u0GwoHTAw" outgoing="_FfoOinbLEeup8u0GwoHTAw">
+        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application"/>
+      </nodes>
+      <nodes xmi:id="_FfoOhXbLEeup8u0GwoHTAw" name="a" incoming="_FfoOinbLEeup8u0GwoHTAw">
+        <annotations xmi:id="_FfoOhnbLEeup8u0GwoHTAw" key="Target"/>
+        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent"/>
+        <attributes xmi:id="_FfoOh3bLEeup8u0GwoHTAw" value="agentState">
+          <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/state"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_FfoOinbLEeup8u0GwoHTAw" source="_FfoOhHbLEeup8u0GwoHTAw" target="_FfoOhXbLEeup8u0GwoHTAw">
+        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application/ownedAgents"/>
+      </edges>
+      <formula xsi:type="henshin:Not" xmi:id="_ZWSP4HbLEeup8u0GwoHTAw">
+        <child xsi:type="henshin:NestedCondition" xmi:id="_ZWSP4XbLEeup8u0GwoHTAw">
+          <conclusion xmi:id="_ZWSP4nbLEeup8u0GwoHTAw">
+            <nodes xmi:id="_FfoOiHbLEeup8u0GwoHTAw" incoming="_FfoOi3bLEeup8u0GwoHTAw">
+              <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Port"/>
+              <attributes xmi:id="_cYXO4HbNEeup8u0GwoHTAw" value="true">
+                <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Port/hasBeenProcessed"/>
+              </attributes>
+            </nodes>
+            <nodes xmi:id="_ZWS283bLEeup8u0GwoHTAw" name="a" incoming="_anOBYHbNEeup8u0GwoHTAw" outgoing="_FfoOi3bLEeup8u0GwoHTAw">
+              <annotations xmi:id="_ZWS29HbLEeup8u0GwoHTAw" key="Target"/>
+              <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent"/>
+              <attributes xmi:id="_ZWS29XbLEeup8u0GwoHTAw" value="agentState">
+                <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/state"/>
+              </attributes>
+            </nodes>
+            <nodes xmi:id="_anMzQHbNEeup8u0GwoHTAw" outgoing="_anOBYHbNEeup8u0GwoHTAw">
+              <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application"/>
+            </nodes>
+            <edges xmi:id="_anOBYHbNEeup8u0GwoHTAw" source="_anMzQHbNEeup8u0GwoHTAw" target="_ZWS283bLEeup8u0GwoHTAw">
+              <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application/ownedAgents"/>
+            </edges>
+            <edges xmi:id="_FfoOi3bLEeup8u0GwoHTAw" source="_ZWS283bLEeup8u0GwoHTAw" target="_FfoOiHbLEeup8u0GwoHTAw">
+              <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/ownedPorts"/>
+            </edges>
+          </conclusion>
+          <mappings xmi:id="_ZWTeAHbLEeup8u0GwoHTAw" origin="_FfoOhXbLEeup8u0GwoHTAw" image="_ZWS283bLEeup8u0GwoHTAw"/>
+          <mappings xmi:id="_anNaUHbNEeup8u0GwoHTAw" origin="_FfoOhHbLEeup8u0GwoHTAw" image="_anMzQHbNEeup8u0GwoHTAw"/>
+        </child>
+      </formula>
+    </lhs>
+    <rhs xmi:id="_FfoOjHbLEeup8u0GwoHTAw" name="Rhs">
+      <nodes xmi:id="_FfoOjXbLEeup8u0GwoHTAw" outgoing="_FfoOknbLEeup8u0GwoHTAw">
+        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application"/>
+      </nodes>
+      <nodes xmi:id="_FfoOjnbLEeup8u0GwoHTAw" name="a" incoming="_FfoOknbLEeup8u0GwoHTAw">
+        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent"/>
+        <attributes xmi:id="_FfoOj3bLEeup8u0GwoHTAw" value="&quot;readingInputs&quot;">
+          <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Agent/state"/>
+        </attributes>
+      </nodes>
+      <edges xmi:id="_FfoOknbLEeup8u0GwoHTAw" source="_FfoOjXbLEeup8u0GwoHTAw" target="_FfoOjnbLEeup8u0GwoHTAw">
+        <type href="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0#//Application/ownedAgents"/>
+      </edges>
+    </rhs>
+    <attributeConditions xmi:id="_FfoOlHbLEeup8u0GwoHTAw" name="notAlreadyDone" conditionText="agentState == 'reset'"/>
+    <mappings xmi:id="_FfoOlXbLEeup8u0GwoHTAw" origin="_FfoOhHbLEeup8u0GwoHTAw" image="_FfoOjXbLEeup8u0GwoHTAw"/>
+    <mappings xmi:id="_FfoOlnbLEeup8u0GwoHTAw" origin="_FfoOhXbLEeup8u0GwoHTAw" image="_FfoOjnbLEeup8u0GwoHTAw"/>
   </units>
 </henshin:Module>

@@ -213,6 +213,16 @@
               <value href="environment:/viewpoint#//@systemColors/@entries[name='red']"/>
             </featureCustomizations>
           </vsmElementCustomizations>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="aql:self.hasBeenProcessed = true">
+            <featureCustomizations xsi:type="description:EReferenceCustomization" appliedOn="//@ownedViewpoints[name='SigPML']/@ownedRepresentations[name='SigPML']/@defaultLayer/@containerMappings[name='Application']/@subNodeMappings[name='Agent']/@borderedNodeMappings[name='InputPort']/@style //@ownedViewpoints[name='SigPML']/@ownedRepresentations[name='SigPML']/@defaultLayer/@containerMappings[name='Application']/@subNodeMappings[name='Agent']/@borderedNodeMappings[name='OutputPort']/@style" referenceName="color">
+              <value href="environment:/viewpoint#//@systemColors/@entries[name='light_orange']"/>
+            </featureCustomizations>
+          </vsmElementCustomizations>
+          <vsmElementCustomizations xsi:type="description:VSMElementCustomization" predicateExpression="[self.oclIsTypeOf(Application) and self.oclAsType(Application).ownedPlaces->exists(p | not p.isInitialized)/]">
+            <featureCustomizations xsi:type="description:EReferenceCustomization" appliedOn="//@ownedViewpoints[name='SigPML']/@ownedRepresentations[name='SigPML']/@defaultLayer/@containerMappings[name='Application']/@style" referenceName="backgroundColor">
+              <value href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            </featureCustomizations>
+          </vsmElementCustomizations>
         </customization>
       </additionalLayers>
     </ownedRepresentations>
