@@ -9,7 +9,7 @@
       <ownedPorts xsi:type="sigpml:InputPort" name="pA2in" rate="3"/>
     </ownedAgents>
     <ownedAgents name="A2bis" cycles="3" code="" state="">
-      <ownedPorts xsi:type="sigpml:InputPort" name="pA2bisIn" rate="4"/>
+      <ownedPorts xsi:type="sigpml:InputPort" name="pA2bisIn" rate="3"/>
     </ownedAgents>
     <ownedPlaces name="place1" itsOutputPort="//@ownedApplication/@ownedAgents.0/@ownedPorts.0" itsInputPort="//@ownedApplication/@ownedAgents.1/@ownedPorts.0" size="6" delay="2"/>
     <ownedPlaces name="place2" itsOutputPort="//@ownedApplication/@ownedAgents.0/@ownedPorts.1" itsInputPort="//@ownedApplication/@ownedAgents.2/@ownedPorts.0" size="4" delay="1"/>
