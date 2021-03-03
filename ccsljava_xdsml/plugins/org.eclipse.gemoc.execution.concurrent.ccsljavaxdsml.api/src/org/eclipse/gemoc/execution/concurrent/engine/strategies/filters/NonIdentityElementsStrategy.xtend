@@ -60,6 +60,9 @@ class NonIdentityElementsStrategy  implements EnumeratingFilteringStrategy {
 	private def equivalentFootprints(Step<?> s1, Step<?> s2) {
 		if (s1 instanceof SmallStep<?>) {
 			if (s2 instanceof SmallStep<?>) {
+				if (s1.footprint === null || s2.footprint === null){
+					return true // if footprint is not present then by default it can be concurrent
+				}
 				val s2Footprint = s2.footprint.accesses;
 				
 				(s1 === s2) || 
