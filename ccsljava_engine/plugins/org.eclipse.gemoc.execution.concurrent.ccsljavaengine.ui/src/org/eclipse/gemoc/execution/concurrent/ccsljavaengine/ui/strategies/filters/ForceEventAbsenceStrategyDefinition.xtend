@@ -14,18 +14,18 @@ import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Control
 import org.eclipse.swt.widgets.List
-import org.eclipse.gemoc.execution.concurrent.engine.strategies.filters.ForceEventPresenceStrategy
+import org.eclipse.gemoc.execution.concurrent.engine.strategies.filters.ForceEventAbsenceStrategy
 
-class ForceEventPresenceDefinition extends FilteringStrategyDefinition {
+class ForceEventAbsenceStrategyDefinition extends FilteringStrategyDefinition {
 	new() {
-		super("org.eclipse.gemoc.xdsml.strategies.keep_only_wanted", "Force Presence",
-			ForceEventPresenceStrategy)
+		super("org.eclipse.gemoc.xdsml.strategies.remove_unwanted", "Force Absence",
+			ForceEventAbsenceStrategy)
 	}
 
 	override getUIControl(Composite parent, LaunchConfigurationContext lcc, StrategyControlUpdateListener scul) {
-		val control = new List(parent, SWT.MULTI.bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.BORDER))
+		val control = new List(parent, SWT.FILL.bitwiseOr(SWT.MULTI.bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.BORDER)))
 		control.layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false)
-
+		
 		lcc.addMetamodelChangeListener([ evt |
 			control.updateMetamodels(evt.newValue as Set<EPackage>)
 		])
@@ -38,7 +38,7 @@ class ForceEventPresenceDefinition extends FilteringStrategyDefinition {
 				override widgetDefaultSelected(SelectionEvent e) { }
 				
 				override widgetSelected(SelectionEvent e) {
-					scul.controlUpdated(ForceEventPresenceDefinition.this)
+					scul.controlUpdated(ForceEventAbsenceStrategyDefinition.this)
 				}				
 			})
 		}
@@ -71,7 +71,7 @@ class ForceEventPresenceDefinition extends FilteringStrategyDefinition {
 	}
 
 	override initialise(Strategy strategy, String configData, LaunchConfigurationContext lcc) {
-		if (strategy instanceof ForceEventPresenceStrategy) {
+		if (strategy instanceof ForceEventAbsenceStrategy) {
 			lcc.addMetamodelChangeListener([ evt |
 				strategy.updateMetamodels(evt.newValue as Set<EPackage>, configData)
 			])
@@ -90,12 +90,12 @@ class ForceEventPresenceDefinition extends FilteringStrategyDefinition {
 		}
 	}
 
-	def updateMetamodels(ForceEventPresenceStrategy nieh, Set<EPackage> metamodels, String configData) {
-		nieh.toBePresentTypes.clear
+	def updateMetamodels(ForceEventAbsenceStrategy nieh, Set<EPackage> metamodels, String configData) {
+		nieh.toBeAbsentTypes.clear
 		
 		if (metamodels !== null) {
 			val classNames = configData.split("@@").toList
-			nieh.toBePresentTypes = metamodels.flatMap[ep | ep.eAllContents.filter(EClass).filter[ec | classNames.contains(ec.name)].toIterable].toList
+			nieh.toBeAbsentTypes = metamodels.flatMap[ep | ep.eAllContents.filter(EClass).filter[ec | classNames.contains(ec.name)].toIterable].toList
 		}
 	}
 }

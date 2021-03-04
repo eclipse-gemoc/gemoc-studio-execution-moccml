@@ -39,7 +39,7 @@ class StrategySelectionControl extends Composite {
 	var StrategyConfigurationUpdateListener updateListener = null
 
 	new(Composite parent, LaunchConfigurationContext configContext) {
-		super(parent, SWT.NULL)
+		super(parent, SWT.FILL)
 
 		this.configContext = configContext
 
