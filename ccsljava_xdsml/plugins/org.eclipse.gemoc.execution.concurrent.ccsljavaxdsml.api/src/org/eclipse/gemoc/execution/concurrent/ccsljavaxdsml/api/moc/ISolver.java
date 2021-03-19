@@ -13,6 +13,7 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc;
 
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentModelExecutionContext;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.xdsmlframework.api.core.IDisposable;
@@ -54,7 +55,7 @@ public interface ISolver extends IDisposable {
 	 * @param the LogicalStep to apply
 	 */
 	public void applyLogicalStep(Step<?> logicalStep);
-
+	
 	/**
 	 * Actions that could be done to prepare the workspace before any model is
 	 * loaded Ie. in the context the model is not loaded yet

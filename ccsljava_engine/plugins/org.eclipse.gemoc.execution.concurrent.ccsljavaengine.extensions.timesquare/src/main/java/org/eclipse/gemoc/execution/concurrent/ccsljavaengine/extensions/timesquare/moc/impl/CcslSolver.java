@@ -69,7 +69,9 @@ import fr.inria.aoste.timesquare.ccslkernel.solver.launch.CCSLKernelSolverWrappe
 import fr.inria.aoste.timesquare.instantrelation.CCSLRelationModel.OccurrenceRelation;
 import fr.inria.aoste.timesquare.instantrelation.listener.RelationModelListener;
 import fr.inria.aoste.timesquare.simulationpolicy.maxcardpolicy.MaxCardSimulationPolicy;
+import fr.inria.aoste.timesquare.trace.util.QualifiedNameBuilder;
 import fr.inria.aoste.timesquare.trace.util.adapter.AdapterRegistry;
+import fr.inria.aoste.trace.AssertionState;
 import fr.inria.aoste.trace.EventOccurrence;
 import fr.inria.aoste.trace.LogicalStep;
 import fr.inria.aoste.trace.ModelElementReference;
@@ -93,6 +95,7 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 	
 	
 	protected String _alternativeExecutionModelPath =null;
+	ArrayList<ModelElementReference> assertionList = null;;
 	
 	public CcslSolver() 
 	{
@@ -553,22 +556,6 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 				}
 		}
 		listressource = Collections.unmodifiableList(listressource);
-//		mappingURI = new HashMap<URI, Resource>();
-//		/********/
-//		for (Resource r : listressource) {
-//			System.out.println("URI :" + r.getURI());
-//			mappingURI.put(r.getURI(), r);
-//		}
-//		mappingURI = Collections.unmodifiableMap(mappingURI);
-//		/**********/
-//		for (IOutputOption ioo : cachedtable.values()) {
-//			try {
-//				if (ioo.isActivable())
-//					ioo.updateModel();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
 
 	}
 
@@ -625,7 +612,27 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 		});
 	}
 	
-	//formal Anaysis stuff, implementing org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLExplorer
+	
+	
+	@Override
+	public List<ModelElementReference> getAssertionViolations() {
+		ArrayList<ModelElementReference> res = new ArrayList<>();
+		if (assertionList == null) { //lazy initialization
+			assertionList = solverWrapper.getAssertList();
+		}
+		for(ModelElementReference assertion : assertionList) {
+			if (getSolverWrapper().isAssertionViolated(assertion)) {
+				res.add(assertion);
+			}
+		}
+		return res;
+	}
+
+	
+	
+	
+	
+	//formal Analysis stuff, implementing org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLExplorer
 	
 	
 	StepExecutor stepExecutor = null;
@@ -722,5 +729,6 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 				Activator.getDefault().error(e.getMessage(), e);
 			}
 		}
+
 	
 }
