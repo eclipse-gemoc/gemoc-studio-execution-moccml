@@ -239,18 +239,24 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 				+ "\t\tK3ModelState res = theFactory.createK3ModelState();\n" + "\n");
 		sbContent.append("\t\tClass<?> clazz =null;\n");
 		for (String aspect : setAspectsWithRTDs) {
-			sbContent.append("\t\tclazz = K3DslHelper.getTarget(" + aspect + ".class);\n"
-					+ "\t\tif (clazz.isInstance(model)) {\n"
-					+ "\t\t\tElementState elemState = theFactory.createElementState();\n"
-					+ "\t\t\telemState.setModelElement(model);\n"
-					+ "\t\t\tres.getOwnedElementstates().add(elemState);\n");
 			int i = 0;
+			boolean elemNotAlreadyCreated = true;
 			for (SourceField property : mapAspectProperties.get(aspect)) {
 						if (!property.getAnnotation("NotInStateSpace") .exists()) {
+							if (elemNotAlreadyCreated) {
+								sbContent.append("\t\tclazz = K3DslHelper.getTarget(" + aspect + ".class);\n"
+										+ "\t\tif (clazz.isInstance(model)) {\n"
+										+ "\t\t\tElementState elemState = theFactory.createElementState();\n"
+										+ "\t\t\telemState.setModelElement(model);\n"
+										+ "\t\t\tres.getOwnedElementstates().add(elemState);\n");
+								elemNotAlreadyCreated = false;
+							}
 							sbContent.append("\t\t\t\tAttributeNameToValue n2v" + i + " = new AttributeNameToValue(\"" + property.getElementName()
 								+ "\", " + languageToUpperFirst + "RTDAccessor.get" + property.getElementName() + "(model));\n"
 								+ "\t\t\t\telemState.getSavedRTDs().add(n2v" + i + ");\n");
 							i++;
+						}else {
+							sbContent.append("\t//property not in state space:"+ property.getElementName()+"\n");
 						}
 				
 			}
