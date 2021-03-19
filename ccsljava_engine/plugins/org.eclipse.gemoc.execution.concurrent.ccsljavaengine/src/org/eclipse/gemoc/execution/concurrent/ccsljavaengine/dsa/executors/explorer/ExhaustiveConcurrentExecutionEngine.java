@@ -62,7 +62,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 
 	public StateSpace stateSpace = new StateSpace();
 	protected ArrayList<ControlAndRTDState> statesToExplore = new ArrayList<ControlAndRTDState>();
-	private boolean savedDotRegularly = true; //only foe debugging purpose. Otherwise should be false
+	private boolean savedDotRegularly = false; //only foe debugging purpose. Otherwise should be false
 
 	/**
 	 * actually performs all the execution steps...
