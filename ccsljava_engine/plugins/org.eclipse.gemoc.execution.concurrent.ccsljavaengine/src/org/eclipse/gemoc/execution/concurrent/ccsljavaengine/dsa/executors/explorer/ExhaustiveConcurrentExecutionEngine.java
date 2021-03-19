@@ -12,11 +12,13 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dsa.executors.explorer;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
@@ -38,6 +40,7 @@ import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 
 import grph.Grph;
+import toools.io.file.RegularFile;
 
 /**
  * Experimental feature to explore the whole state space of a model. Seen for
@@ -59,6 +62,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 
 	public StateSpace stateSpace = new StateSpace();
 	protected ArrayList<ControlAndRTDState> statesToExplore = new ArrayList<ControlAndRTDState>();
+	private boolean savedDotRegularly = true; //only foe debugging purpose. Otherwise should be false
 
 	/**
 	 * actually performs all the execution steps...
@@ -156,6 +160,23 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 //				this.restoreState(currentState.engineState);
 			}
 			((ICCSLExplorer)this._solver).resetCurrentStepForExploration();
+			//for debugging purpose
+																if(savedDotRegularly && exploredStates%100 == 0) {
+																	String modelPath = this._executionContext.getResourceModel().getURI().toPlatformString(true);
+																	IProject modelProject = ResourcesPlugin.getWorkspace().getRoot()
+																			.getProject(modelPath.substring(1, modelPath.substring(1).indexOf('/') + 1));
+																	IFile autFile = modelProject
+																			.getFile(modelPath.replace("/" + modelProject.getName() + "/", "") + "_temp_statespace.dot");
+																	PrintStream psDot = null;
+																	try {
+																		psDot = new PrintStream(autFile.getLocationURI().toString().substring(5));
+																	} catch (FileNotFoundException e) {
+																		e.printStackTrace();
+																	}
+																	Grph internalGrph = stateSpace.getGrph();
+																	psDot.print(internalGrph.toDot());
+																	psDot.close();
+																}
 		}
 //		stepExecutor.clearFiredClock();
 //		stepExecutor = null;
@@ -163,19 +184,18 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 		
 		stop();
 		PrintStream psDot = null;
-		PrintStream psGraphML = null;
+		PrintStream psAut = null;
 		String modelPath = this._executionContext.getResourceModel().getURI().toPlatformString(true);
 		IProject modelProject = ResourcesPlugin.getWorkspace().getRoot()
 				.getProject(modelPath.substring(1, modelPath.substring(1).indexOf('/') + 1));
 		IFile dotFile = modelProject
 				.getFile(modelPath.replace("/" + modelProject.getName() + "/", "") + "_statespace.dot");
-		IFile graphMLFile = modelProject
-				.getFile(modelPath.replace("/" + modelProject.getName() + "/", "") + "_statespace.graphml");
-
-		
+		IFile autFile = modelProject
+				.getFile(modelPath.replace("/" + modelProject.getName() + "/", "") + "_statespace.aut");
+				
 		try {
 			psDot = new PrintStream(dotFile.getLocationURI().toString().substring(5));
-			psGraphML = new PrintStream(graphMLFile.getLocationURI().toString().substring(5));
+			psAut = new PrintStream(autFile.getLocationURI().toString().substring(5));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -186,8 +206,8 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 				+ " states and " + internalGrph.getEdges().size() + " transitions");
 		psDot.print(internalGrph.toDot());
 		psDot.close();
-		psGraphML.print(internalGrph.toGraphML());
-		psGraphML.close();
+		
+		createAutStateSpaceFormat(psAut);
 	}
 
 	private String prettyPrint(GenericParallelStep aStep) {
@@ -210,5 +230,67 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 	public void restoreState(Map<ModelSpecificEvent, Boolean> controllerStates){
 		((DefaultMSEStateController)getExecutionContext().getExecutionPlatform().getMSEStateControllers().iterator().next())._mseNextStates = new HashMap<ModelSpecificEvent, Boolean>(controllerStates);
 	}
+	private void createAutStateSpaceFormat(PrintStream psAut) {		
+				
+			Iterator<ControlAndRTDState> iterVertices = stateSpace.getVertices().iterator();
+			ControlAndRTDState aState = iterVertices.next();
+			if (aState == null){
+				System.err.println("no State space to serialize");
+				return;
+			}
+			StringBuilder fileContent = new StringBuilder();
+			fileContent.append("des(");
+			fileContent.append(stateSpace.v2i(stateSpace.initialState));
+			fileContent.append(",");
+			fileContent.append(stateSpace.getGrph().getEdges().size());
+			fileContent.append(",");
+			fileContent.append(stateSpace.getGrph().getVertices().size());
+			fileContent.append(")\n");
 
+			//print all transitions
+			//TODO check with Luc
+//			Iterator<String> iterEdges = stateSpace.getEdges().iterator();
+//			while (iterEdges.hasNext()){
+//				String transition = iterEdges.next();
+//				String aLine= serializeTransition(transition, clockNameToIndex);
+//				fileContent.append(aLine);
+//			}
+			
+			for(ControlAndRTDState s1 : stateSpace.getVertices()){
+				for(ControlAndRTDState s2 : stateSpace.getVertices()){
+					for(StringBuffer t: stateSpace.getEdges(s1, s2)){
+						String aLine= "("+(stateSpace.v2i(s1)+", "+ mclFormat(t) +"\", "+stateSpace.v2i(s2))+")";
+						fileContent.append(aLine);
+						fileContent.append("\n");
+					}
+				}
+			}
+			psAut.print(fileContent.toString());
+			psAut.close();
+		
+		
+		
+	}
+
+
+
+
+
+
+
+
+
+
+
+	private String mclFormat(StringBuffer t) {
+		StringBuffer res = new StringBuffer("\"LS !");
+		for(String s : t.toString().split(", ")) {
+			res.append(":");
+			res.append(s);
+		}
+		return res.toString().replaceAll("\\[", "").replaceAll("\\]", "");
+	}
+	
+	
+	
 }
