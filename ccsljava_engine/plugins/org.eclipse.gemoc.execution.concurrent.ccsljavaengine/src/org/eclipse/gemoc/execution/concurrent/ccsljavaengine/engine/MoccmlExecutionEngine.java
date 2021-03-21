@@ -13,6 +13,7 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -36,6 +37,8 @@ import org.eclipse.gemoc.trace.commons.model.trace.MSE;
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionEngine;
+
+import fr.inria.aoste.trace.ModelElementReference;
 
 /**
  * Basic abstract implementation of the ExecutionEngine, independent from the
@@ -187,7 +190,21 @@ public class MoccmlExecutionEngine extends
 
 	@Override
 	protected void doAfterLogicalStepExecution(Step<?> logicalStep) {
+	
 		getSolver().applyLogicalStep(logicalStep);
+		List<String> assertions = getSolver().getAssertionViolations();
+		if(assertions.size() > 0) {
+			System.err.println("###############################################\n  WARNING ! Assertion violation");
+			Activator.getDefault().error("###############################################\n  WARNING ! Assertion violation");
+		}
+		for(String ass : assertions) {
+			System.err.println("#    "+ ass);
+			Activator.getDefault().error("#    "+ ass);
+		}
+		if(assertions.size() > 0) {
+			System.err.println("###############################################");
+			Activator.getDefault().error("###############################################");
+		}
 	}
 
 }

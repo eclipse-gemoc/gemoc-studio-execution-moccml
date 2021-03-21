@@ -23,6 +23,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -60,6 +62,7 @@ import org.osgi.framework.Bundle;
 
 import fr.inria.aoste.timesquare.ccslkernel.explorer.CCSLConstraintState;
 import fr.inria.aoste.timesquare.ccslkernel.model.TimeModel.Event;
+import fr.inria.aoste.timesquare.ccslkernel.model.TimeModel.NamedElement;
 import fr.inria.aoste.timesquare.ccslkernel.modelunfolding.exception.UnfoldingException;
 import fr.inria.aoste.timesquare.ccslkernel.runtime.exceptions.NoBooleanSolution;
 import fr.inria.aoste.timesquare.ccslkernel.runtime.exceptions.SimulationException;
@@ -308,6 +311,7 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 	@Override
 	public void applyLogicalStep(Step<?> logicalStep) {
 		try {
+			stepExecutor = solverWrapper.getSolver().getCurrentStepExecutor(); //saved until assertions have been retrieved
 			int index = _lastLogicalSteps.indexOf(logicalStep);
 			solverWrapper.applyLogicalStepByIndex(index);
 			resolveOccurrenceRelations(_intermediateResult.get(index));
@@ -362,7 +366,7 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 	public void initialize(AbstractConcurrentModelExecutionContext context) 
 	{
 		if (context instanceof MoccmlModelExecutionContext){
-			_alternativeExecutionModelPath = ((MoccmlModelExecutionContext)context).alternativeExecutionModelPath;
+			_alternativeExecutionModelPath = ((MoccmlModelExecutionContext)context).getRunConfiguration().getExecutionModelPath();
 		}
 		createSolver(context);
 	}
@@ -615,16 +619,22 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 	
 	
 	@Override
-	public List<ModelElementReference> getAssertionViolations() {
-		ArrayList<ModelElementReference> res = new ArrayList<>();
+	public List<String> getAssertionViolations() {
+		ArrayList<String> res = new ArrayList<>();
 		if (assertionList == null) { //lazy initialization
 			assertionList = solverWrapper.getAssertList();
 		}
 		for(ModelElementReference assertion : assertionList) {
-			if (getSolverWrapper().isAssertionViolated(assertion)) {
-				res.add(assertion);
+			 List<String> nameList = new ArrayList<String>();
+			 for(EObject eo : assertion.getElementRef()) {
+				 nameList.add(((NamedElement)eo).getName());
+			 }
+			String qn = String.join("::", nameList);
+			if (stepExecutor.isAssertionViolated(qn)) {
+				res.add(qn);
 			}
 		}
+		stepExecutor = null; //not needed anymore, flushed
 		return res;
 	}
 

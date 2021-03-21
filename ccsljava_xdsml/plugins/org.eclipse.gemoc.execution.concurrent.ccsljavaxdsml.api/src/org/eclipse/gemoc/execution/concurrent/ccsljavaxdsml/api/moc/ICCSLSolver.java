@@ -65,7 +65,7 @@ public interface ICCSLSolver extends ISolver {
 	 * must be called after a {@link #applyLogicalStep(Step<?> logicalStep)}
 	 * @return a list of constraints where the assertion boolean is set to 'true' and which has been violated during the last step
 	 */
-	public List<ModelElementReference> getAssertionViolations();
+	public List<String> getAssertionViolations();
 
 
 }
