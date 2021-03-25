@@ -284,7 +284,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 
 	private String mclFormat(StringBuffer t) {
 		StringBuffer res = new StringBuffer("\"LS !");
-		for(String s : t.toString().split(", ")) {
+		for(String s : t.toString().split(" ")) {
 			res.append(":");
 			res.append(s);
 		}
