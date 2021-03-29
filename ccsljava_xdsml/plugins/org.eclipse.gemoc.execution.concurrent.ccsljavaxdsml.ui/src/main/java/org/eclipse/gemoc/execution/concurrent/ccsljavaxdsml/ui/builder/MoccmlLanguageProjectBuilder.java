@@ -36,6 +36,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -234,32 +235,43 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 		StringBuilder sbContent = new StringBuilder();
 		StringBuilder sbExtraImport = new StringBuilder();
 
-		sbContent.append("\n\n\tpublic K3ModelState getK3ModelState(EObject model) {\n"
+		sbContent.append("\n\tpublic K3ModelState getK3StateSpaceModelState(EObject model) {\n"
+				+ "		return getK3ModelState(model, false);\n"
+				+ "	}\n"
+				+ "	\n\n\tpublic K3ModelState getK3ModelState(EObject model) {\n"
+				+ "		return getK3ModelState(model, true);\n"
+				+ "	}\n"
+				+ "		\n"
+				+ "	public K3ModelState getK3ModelState(EObject model, boolean allRTDs) {\n"
 				+ "\t\tK3ModelState res = theFactory.createK3ModelState();\n" + "\n");
 		sbContent.append("\t\tClass<?> clazz =null;\n");
 		for (String aspect : setAspectsWithRTDs) {
 			int i = 0;
 			boolean elemNotAlreadyCreated = true;
 			for (SourceField property : mapAspectProperties.get(aspect)) {
-						if (!property.getAnnotation("NotInStateSpace") .exists()) {
-							if (elemNotAlreadyCreated) {
-								sbContent.append("\t\tclazz = K3DslHelper.getTarget(" + aspect + ".class);\n"
-										+ "\t\tif (clazz.isInstance(model)) {\n"
-										+ "\t\t\tElementState elemState = theFactory.createElementState();\n"
-										+ "\t\t\telemState.setModelElement(model);\n"
-										+ "\t\t\tres.getOwnedElementstates().add(elemState);\n");
-								elemNotAlreadyCreated = false;
-							}
+						if (elemNotAlreadyCreated) {
+							sbContent.append("\t\tclazz = K3DslHelper.getTarget(" + aspect + ".class);\n"
+									+ "\t\tif (clazz.isInstance(model)) {\n"
+									+ "\t\t\tElementState elemState = theFactory.createElementState();\n"
+									+ "\t\t\telemState.setModelElement(model);\n"
+									+ "\t\t\tres.getOwnedElementstates().add(elemState);\n");
+							elemNotAlreadyCreated = false;
+						}
+						if (property.getAnnotation("NotInStateSpace") .exists()) {
+							sbContent.append("\t\t\tif (allRTDs) {  //property not in state space:"+ property.getElementName()+"\n");
+						}
+							
 							sbContent.append("\t\t\t\tAttributeNameToValue n2v" + i + " = new AttributeNameToValue(\"" + property.getElementName()
 								+ "\", " + languageToUpperFirst + "RTDAccessor.get" + property.getElementName() + "(model));\n"
 								+ "\t\t\t\telemState.getSavedRTDs().add(n2v" + i + ");\n");
 							i++;
-						}else {
-							sbContent.append("\t//property not in state space:"+ property.getElementName()+"\n");
+							
+						if (property.getAnnotation("NotInStateSpace") .exists()) {
+							sbContent.append("\t\t\t}\n");
 						}
 				
 			}
-			sbContent.append("\t\t\t}\n");
+			sbContent.append("\t\t}\n");
 		}
 		
 		sbContent.append("\t\tTreeIterator<EObject> allContentIt = model.eAllContents();\n"
@@ -274,11 +286,15 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 					+ "\t\t\t\tres.getOwnedElementstates().add(elemState);\n");
 			int i = 0;
 			for (SourceField property : mapAspectProperties.get(aspect)) {
-				if (!property.getAnnotation("NotInStateSpace") .exists()) {
+				if (property.getAnnotation("NotInStateSpace") .exists()) {
+					sbContent.append("\t\t\t\tif (allRTDs) {  //property not in state space:"+ property.getElementName()+"\n");
+				}
 						sbContent.append("\t\t\t\tAttributeNameToValue n2v" + i + " = new AttributeNameToValue(\"" + property.getElementName()
 								+ "\", " + languageToUpperFirst + "RTDAccessor.get" + property.getElementName() + "(elem));\n"
 								+ "\t\t\t\telemState.getSavedRTDs().add(n2v" + i + ");\n");
 						i++;
+				if (property.getAnnotation("NotInStateSpace") .exists()) {
+					sbContent.append("\t\t\t\t}\n");
 				}
 			}
 			sbContent.append("\t\t\t}\n");

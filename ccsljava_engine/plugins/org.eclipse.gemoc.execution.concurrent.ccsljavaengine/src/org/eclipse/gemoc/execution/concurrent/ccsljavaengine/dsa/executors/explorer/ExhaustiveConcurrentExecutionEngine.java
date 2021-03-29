@@ -12,7 +12,6 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dsa.executors.explorer;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -40,7 +39,6 @@ import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 
 import grph.Grph;
-import toools.io.file.RegularFile;
 
 /**
  * Experimental feature to explore the whole state space of a model. Seen for
@@ -62,7 +60,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 
 	public StateSpace stateSpace = new StateSpace();
 	protected ArrayList<ControlAndRTDState> statesToExplore = new ArrayList<ControlAndRTDState>();
-	private boolean savedDotRegularly = false; //only foe debugging purpose. Otherwise should be false
+	private boolean savedDotRegularly = false; //only for debugging purpose. Otherwise should be false
 
 	/**
 	 * actually performs all the execution steps...
@@ -91,7 +89,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 		
 		((ICCSLExplorer)this._solver).initSolverForExploration();
 		
-		ControlAndRTDState initialState = new ControlAndRTDState(modelStateHelper.getK3ModelState(model),
+		ControlAndRTDState initialState = new ControlAndRTDState(modelStateHelper.getK3StateSpaceModelState(model),
 				this._solver.getState(), null);//this.saveState());
 		stateSpace.initialState = initialState;
 		stateSpace.addVertex(initialState);
@@ -134,7 +132,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 				}
 				((ICCSLExplorer)this._solver).applyLogicalStepForExploration(aStep);
 				engineStatus.incrementNbLogicalStepRun();
-				ControlAndRTDState newState = new ControlAndRTDState(modelStateHelper.getK3ModelState(model),
+				ControlAndRTDState newState = new ControlAndRTDState(modelStateHelper.getK3StateSpaceModelState(model),
 						this._solver.getState(), null);//this.saveState());
 
 				ControlAndRTDState theExistingState = null;
