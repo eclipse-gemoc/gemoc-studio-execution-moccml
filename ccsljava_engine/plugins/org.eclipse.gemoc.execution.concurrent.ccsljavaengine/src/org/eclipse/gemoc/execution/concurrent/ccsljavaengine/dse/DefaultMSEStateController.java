@@ -62,6 +62,8 @@ public class DefaultMSEStateController implements IMoccmlMSEStateController
 				applyForceAbsence(solver, eo);				
 			}
 		}
+		_mseNextStates.clear();
+		
 	}
 
 	/**
@@ -89,7 +91,12 @@ public class DefaultMSEStateController implements IMoccmlMSEStateController
 	@Override
 	public void freeInTheFuture(ModelSpecificEvent mse)
 	{
-		_mseNextStates.remove(mse);
+		for(Entry<ModelSpecificEvent, Boolean> entry : _mseNextStates.entrySet()) {
+			if (entry.getKey().getName().compareTo(mse.getName()) == 0) {
+				_mseNextStates.remove(entry.getKey());
+			}
+		}
+		
 	}
 
 	@Override
