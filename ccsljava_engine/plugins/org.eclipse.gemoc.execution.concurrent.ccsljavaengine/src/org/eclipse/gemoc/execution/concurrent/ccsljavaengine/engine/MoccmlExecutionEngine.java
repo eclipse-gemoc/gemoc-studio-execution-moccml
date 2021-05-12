@@ -116,7 +116,7 @@ public class MoccmlExecutionEngine extends
 		synchronized (_futureActionsLock) {
 			ArrayList<IMoccmlFutureAction> actionsToRemove = new ArrayList<IMoccmlFutureAction>();
 			for (IMoccmlFutureAction action : _futureActions) {
-				if (action.getTriggeringMSE() == mse) {
+				if (action.getTriggeringMSE().getName().compareTo(mse.getName())==0) {
 					actionsToRemove.add(action);
 					action.perform();
 				}
