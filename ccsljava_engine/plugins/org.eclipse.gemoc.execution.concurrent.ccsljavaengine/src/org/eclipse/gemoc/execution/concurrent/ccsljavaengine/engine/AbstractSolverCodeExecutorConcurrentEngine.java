@@ -46,7 +46,7 @@ public abstract class AbstractSolverCodeExecutorConcurrentEngine<C extends Abstr
 	}
 
 	protected List<Step<?>> updatePossibleLogicalSteps() {
-		beforeUpdatePossibleLogicalSteps();
+		//beforeUpdatePossibleLogicalSteps(); //TO BE REMOVED, called before the priority mechanism
 		return getSolver().updatePossibleLogicalSteps();
 	}
 
@@ -54,6 +54,7 @@ public abstract class AbstractSolverCodeExecutorConcurrentEngine<C extends Abstr
 
 	@Override
 	protected List<Step<?>> computePossibleLogicalSteps() {
+		beforeUpdatePossibleLogicalSteps();
 		computeWithoutUpdatePossibleLogicalSteps();
 		synchronized (this) {
 			return updatePossibleLogicalSteps();

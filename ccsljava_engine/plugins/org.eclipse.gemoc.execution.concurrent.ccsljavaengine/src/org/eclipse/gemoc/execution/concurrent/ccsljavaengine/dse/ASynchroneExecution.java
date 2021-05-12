@@ -151,12 +151,19 @@ public class ASynchroneExecution extends OperationExecution {
 				break;
 			}
 			if (goOn) {
-				if (entry.getKey().getOnTrigger() == null) {
-					_clockController.freeInTheFuture(entry.getKey().getEventToBeForced());
-				} else {
+				if (entry.getKey().getOnTrigger() != null) {
 					FreeClockFutureAction action = new FreeClockFutureAction(entry.getKey().getEventToBeForced(),
 							entry.getKey().getOnTrigger(), _clockController);
 					((MoccmlExecutionEngine)getEngine()).addFutureAction(action);
+				} else {
+					if (entry.getKey().getUntilTrigger() != null) {
+						_clockController.forceAbsenceTickInTheFuture(entry.getKey().getEventToBeForced());
+						FreeClockFutureAction action = new FreeClockFutureAction(entry.getKey().getEventToBeForced(),
+								entry.getKey().getUntilTrigger(), _clockController);
+						((MoccmlExecutionEngine)getEngine()).addFutureAction(action);
+					} else {
+						_clockController.freeInTheFuture(entry.getKey().getEventToBeForced());
+					}
 				}
 			}
 		}

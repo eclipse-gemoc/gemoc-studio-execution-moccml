@@ -12,8 +12,10 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlMSEStateController;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
@@ -62,7 +64,7 @@ public class DefaultMSEStateController implements IMoccmlMSEStateController
 				applyForceAbsence(solver, eo);				
 			}
 		}
-		_mseNextStates.clear();
+		//_mseNextStates.clear(); --> done by the 'futurActions'
 		
 	}
 
@@ -91,7 +93,8 @@ public class DefaultMSEStateController implements IMoccmlMSEStateController
 	@Override
 	public void freeInTheFuture(ModelSpecificEvent mse)
 	{
-		for(Entry<ModelSpecificEvent, Boolean> entry : _mseNextStates.entrySet()) {
+		Set<Entry<ModelSpecificEvent, Boolean>> allEntrySet = new HashSet<Entry<ModelSpecificEvent, Boolean>>(_mseNextStates.entrySet());
+		for(Entry<ModelSpecificEvent, Boolean> entry : allEntrySet) {
 			if (entry.getKey().getName().compareTo(mse.getName()) == 0) {
 				_mseNextStates.remove(entry.getKey());
 			}

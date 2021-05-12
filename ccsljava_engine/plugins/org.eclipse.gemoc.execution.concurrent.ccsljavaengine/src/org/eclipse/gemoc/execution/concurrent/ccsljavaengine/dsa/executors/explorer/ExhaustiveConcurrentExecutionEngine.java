@@ -109,8 +109,8 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 			this._solver.setState(currentState.moCCState); //Arrays.copyOf( ?
 //			this.restoreState(currentState.engineState);
 			// set the possibleLogicalSteps for this state
-			((ICCSLExplorer)this._solver).computeAndGetPossibleLogicalStepsForExploration();
 			beforeUpdatePossibleLogicalSteps(); //filter according to DSA returned value
+			((ICCSLExplorer)this._solver).computeAndGetPossibleLogicalStepsForExploration();
 			_possibleLogicalSteps = ((ICCSLExplorer)this._solver).updatePossibleLogicalStepsForExploration();
 			// 2- compute all states accessible from the currenState when using the
 			// possibleLogicalStates

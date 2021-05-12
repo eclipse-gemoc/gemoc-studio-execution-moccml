@@ -34,7 +34,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gemoc.commons.eclipse.messagingsystem.api,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare.moc.impl
 Bundle-Vendor: Inria Aoste/I3S
