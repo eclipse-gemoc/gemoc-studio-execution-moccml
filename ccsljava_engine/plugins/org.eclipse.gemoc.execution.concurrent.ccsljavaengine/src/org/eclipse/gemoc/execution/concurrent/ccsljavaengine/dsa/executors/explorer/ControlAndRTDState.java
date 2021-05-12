@@ -5,12 +5,16 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse.FreeClockFutureAction;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.ElementState;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelState;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelStateFactory;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlFutureAction;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 
 public class ControlAndRTDState implements Serializable {
@@ -18,13 +22,15 @@ public class ControlAndRTDState implements Serializable {
 	private static final long serialVersionUID = 0;
 	public K3ModelState modelState = K3ModelStateFactory.eINSTANCE.createK3ModelState();
 	public byte[] moCCState = null;
-	public Map<ModelSpecificEvent, Boolean> engineState = null;
-
-	public ControlAndRTDState(K3ModelState modelS, byte[] moccS, Map<ModelSpecificEvent, Boolean> es) {
+	public Map<ModelSpecificEvent, Boolean> nextEventToForce = null;
+	public ArrayList<IMoccmlFutureAction> futurActions = null;
+	
+	public ControlAndRTDState(K3ModelState modelS, byte[] moccS, Pair<Map<ModelSpecificEvent, Boolean>, ArrayList<IMoccmlFutureAction>> engineState) {
 		super();
 		modelState = modelS;
 		moCCState = moccS;
-		engineState = es;
+		nextEventToForce = engineState.getLeft();
+		futurActions = engineState.getRight();
 	}
 	
 	@Override
@@ -50,7 +56,44 @@ public class ControlAndRTDState implements Serializable {
 				return false;
 			}
 		}		
-		if(engineState != null) { return state.engineState.equals(this.engineState);} else return true;
+		if(nextEventToForce != null) { 
+			if(!areEquals(state.nextEventToForce,this.nextEventToForce)) {
+				return false;
+			}
+		}
+		return areEquals(state.futurActions, this.futurActions);
+	}
+	
+	private boolean areEquals(ArrayList<IMoccmlFutureAction> futurActions1,	ArrayList<IMoccmlFutureAction> futurActions2) {
+		if(futurActions1.size() != futurActions2.size()) {
+			return false;
+		}
+		mainloop: for(IMoccmlFutureAction fa1 : futurActions1) {
+			for(IMoccmlFutureAction fa2 : futurActions2) {
+				if (fa1.getTriggeringMSE().getName().compareTo(fa2.getTriggeringMSE().getName()) == 0 
+						&&
+					fa1.getMseToBeForced().getName().compareTo(fa2.getMseToBeForced().getName()) == 0) {
+					continue mainloop;
+				}
+			}
+			return false;
+		}
+		return true;
+	}
+
+	private boolean areEquals(Map<ModelSpecificEvent, Boolean> engineState, Map<ModelSpecificEvent, Boolean> newEngineState) {
+		if(engineState.size() != newEngineState.size()) {
+			return false;
+		}
+		mainloop: for(Entry<ModelSpecificEvent, Boolean> e1 : engineState.entrySet()) {
+			for(Entry<ModelSpecificEvent, Boolean>  e2 : newEngineState.entrySet()) {
+				if (e1.getKey().getName().compareTo(e2.getKey().getName()) == 0 && e1.getValue() == e2.getValue()) {
+					continue mainloop;
+				}
+			}
+			return false;
+		}
+		return true;
 	}
 	
 	private boolean areEquals(ElementState modelElementState, ElementState newStateElemState) {
@@ -107,9 +150,14 @@ public class ControlAndRTDState implements Serializable {
 				}
 			}
 		}
-		if (engineState != null) {
-			for(ModelSpecificEvent mse : this.engineState.keySet()) {
-				sbRes.append(mse.getName()+ "=" +this.engineState.get(mse)+"\n");
+		if (nextEventToForce != null) {
+			for(ModelSpecificEvent mse : this.nextEventToForce.keySet()) {
+				sbRes.append(mse.getName()+ "=" +this.nextEventToForce.get(mse)+"\n");
+			}
+		}
+		if (futurActions != null) {
+			for(IMoccmlFutureAction fa: this.futurActions) {
+				sbRes.append("free "+ fa.getMseToBeForced()+ " on " +fa.getTriggeringMSE().getName()+"\n");
 			}
 		}
 		return sbRes.toString();

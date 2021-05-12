@@ -34,6 +34,12 @@ public class FreeClockFutureAction implements IMoccmlFutureAction
 	{
 		return _triggeringMSE;
 	}
+	
+	@Override
+	public ModelSpecificEvent getMseToBeForced() 
+	{
+		return _mseToBeForced;
+	}
 
 	@Override
 	public void perform() 

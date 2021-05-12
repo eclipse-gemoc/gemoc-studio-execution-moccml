@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -60,7 +61,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 
 	public StateSpace stateSpace = new StateSpace();
 	protected ArrayList<ControlAndRTDState> statesToExplore = new ArrayList<ControlAndRTDState>();
-	private boolean savedDotRegularly = false; //only for debugging purpose. Otherwise should be false
+	private boolean savedDotRegularly = true; //only for debugging purpose. Otherwise should be false
 
 	/**
 	 * actually performs all the execution steps...
@@ -90,7 +91,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 		((ICCSLExplorer)this._solver).initSolverForExploration();
 		
 		ControlAndRTDState initialState = new ControlAndRTDState(modelStateHelper.getK3StateSpaceModelState(model),
-				this._solver.getState(), null);//this.saveState());
+				this._solver.getState(), this.saveState());
 		stateSpace.initialState = initialState;
 		stateSpace.addVertex(initialState);
 		statesToExplore.add(initialState);
@@ -107,7 +108,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 			ControlAndRTDState currentState = statesToExplore.remove(0);
 			modelStateHelper.restoreModelState(currentState.modelState);
 			this._solver.setState(currentState.moCCState); //Arrays.copyOf( ?
-//			this.restoreState(currentState.engineState);
+			this.restoreState(Pair.of(currentState.nextEventToForce, currentState.futurActions));
 			// set the possibleLogicalSteps for this state
 			beforeUpdatePossibleLogicalSteps(); //filter according to DSA returned value
 			((ICCSLExplorer)this._solver).computeAndGetPossibleLogicalStepsForExploration();
@@ -133,7 +134,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 				((ICCSLExplorer)this._solver).applyLogicalStepForExploration(aStep);
 				engineStatus.incrementNbLogicalStepRun();
 				ControlAndRTDState newState = new ControlAndRTDState(modelStateHelper.getK3StateSpaceModelState(model),
-						this._solver.getState(), null);//this.saveState());
+						this._solver.getState(), this.saveState());//this.saveState());
 
 				ControlAndRTDState theExistingState = null;
 				for (ControlAndRTDState s : stateSpace.getVertices()) {
@@ -155,7 +156,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 				}
 				modelStateHelper.restoreModelState(currentState.modelState);
 				this._solver.setState(currentState.moCCState); //Arrays.copyOf( ?
-//				this.restoreState(currentState.engineState);
+				this.restoreState(Pair.of(currentState.nextEventToForce, currentState.futurActions));
 			}
 			((ICCSLExplorer)this._solver).resetCurrentStepForExploration();
 			//for debugging purpose
@@ -221,13 +222,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 		return "GEMOC Moccml Exhaustive Concurrent Engine";
 	}
 	
-	public Map<ModelSpecificEvent, Boolean> saveState(){ //one map is enough since view are not used in exhaustive simulation
-		return new HashMap<ModelSpecificEvent, Boolean>(((DefaultMSEStateController)getExecutionContext().getExecutionPlatform().getMSEStateControllers().iterator().next())._mseNextStates);
-	}
-	
-	public void restoreState(Map<ModelSpecificEvent, Boolean> controllerStates){
-		((DefaultMSEStateController)getExecutionContext().getExecutionPlatform().getMSEStateControllers().iterator().next())._mseNextStates = new HashMap<ModelSpecificEvent, Boolean>(controllerStates);
-	}
+
 	private void createAutStateSpaceFormat(PrintStream psAut) {		
 				
 			Iterator<ControlAndRTDState> iterVertices = stateSpace.getVertices().iterator();

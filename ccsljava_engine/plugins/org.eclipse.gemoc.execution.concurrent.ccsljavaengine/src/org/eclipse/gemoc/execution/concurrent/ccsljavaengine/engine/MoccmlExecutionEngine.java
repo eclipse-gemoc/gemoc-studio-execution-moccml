@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.concurrentmse.FeedbackMSE;
@@ -205,6 +206,18 @@ public class MoccmlExecutionEngine extends
 			System.err.println("###############################################");
 			Activator.getDefault().error("###############################################");
 		}
+	}
+	
+	public Pair<Map<ModelSpecificEvent, Boolean>, ArrayList<IMoccmlFutureAction>> saveState(){ //one map is enough since view are not used in exhaustive simulation
+		return Pair.of(
+				new HashMap<ModelSpecificEvent, Boolean>(((DefaultMSEStateController)getExecutionContext().getExecutionPlatform().getMSEStateControllers().iterator().next())._mseNextStates),
+				new ArrayList<>(this._futureActions)
+				);
+	}
+	
+	public void restoreState(Pair<Map<ModelSpecificEvent, Boolean>, ArrayList<IMoccmlFutureAction>> controllerStates){
+		((DefaultMSEStateController)getExecutionContext().getExecutionPlatform().getMSEStateControllers().iterator().next())._mseNextStates = new HashMap<ModelSpecificEvent, Boolean>(controllerStates.getLeft());
+		this._futureActions = new ArrayList<IMoccmlFutureAction>(controllerStates.getRight());
 	}
 
 }
