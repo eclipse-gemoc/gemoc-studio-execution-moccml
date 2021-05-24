@@ -392,17 +392,21 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 //							sbContent.append("  @NotInStateSpace\n");
 //						}
 						sbContent.append("  public static " + fieldTypeName + " get" + f.getElementName()
-								+ "(EObject eObject) {\n" + "		return new "+fieldTypeName+"((" + fieldTypeName
-								+ ")  getAspectProperty(eObject, \"" + fullLanguageName + "\", \""
-								+ originalAspectClassName + "\", \"" + f.getElementName() + "\"));\n" + "	}\n");
+								+ "(EObject eObject) {\n"
+								+ "     "+fieldTypeName+" theProperty = ("+fieldTypeName+")getAspectProperty(eObject, \"" + fullLanguageName + "\", \""
+								+ originalAspectClassName + "\", \"" + f.getElementName() + "\");\n"
+								+ "		return (theProperty == null) ? null : new "+fieldTypeName+"((" + fieldTypeName
+								+ ")  theProperty);\n}\n");
 						
 //						if (((SourceField) javaElem).getAnnotation("NotInStateSpace") != null) {
 //							sbContent.append("  @NotInStateSpace\n");
 //						}
 						sbContent.append("	public static boolean set" + f.getElementName() + "(EObject eObject, "
-								+ fieldTypeName + " newValue) {\n" + "		return setAspectProperty(eObject, \""
+								+ fieldTypeName + " newValue) {\n" 
+								+ "     "+fieldTypeName+" theValue = newValue == null ? null: new "+fieldTypeName+"(newValue);"
+								+ "		return setAspectProperty(eObject, \""
 								+ fullLanguageName + "\", \"" + originalAspectClassName + "\", \"" + f.getElementName()
-								+ "\", new "+fieldTypeName+"(newValue));\n" + "	}\n");
+								+ "\", theValue);\n	}\n");
 
 					} catch (NoSuchFieldException | SecurityException e) {
 						Activator.error(e.getMessage(), e);
