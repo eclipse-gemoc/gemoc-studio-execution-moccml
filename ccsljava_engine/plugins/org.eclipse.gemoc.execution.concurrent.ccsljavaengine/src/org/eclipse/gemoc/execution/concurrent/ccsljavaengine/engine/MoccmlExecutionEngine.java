@@ -19,6 +19,7 @@ import java.util.function.Consumer;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.concurrentmse.FeedbackMSE;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse.ASynchroneExecution;
@@ -117,9 +118,12 @@ public class MoccmlExecutionEngine extends
 		synchronized (_futureActionsLock) {
 			ArrayList<IMoccmlFutureAction> actionsToRemove = new ArrayList<IMoccmlFutureAction>();
 			for (IMoccmlFutureAction action : _futureActions) {
-				if (action.getTriggeringMSE().getName().compareTo(mse.getName())==0) {
+				if (((ModelSpecificEvent)_mseStateController.getFeedBackModelResource().getEObject(action.getTriggeringMSEURI())).getName()
+						.compareTo(
+								mse.getName()
+						)==0) {
 					actionsToRemove.add(action);
-					action.perform();
+					action.perform(_mseStateController);
 				}
 			}
 			_futureActions.removeAll(actionsToRemove);
@@ -185,7 +189,8 @@ public class MoccmlExecutionEngine extends
 		executeInitializeModelMethod(executionContext);
 
 		executionContext.setUpMSEModel();
-		executionContext.setUpFeedbackModel();
+		Resource resFeedbackModel = executionContext.setUpFeedbackModel();
+		_mseStateController.setFeedBackModelResource(resFeedbackModel);
 
 	}
 
@@ -208,15 +213,16 @@ public class MoccmlExecutionEngine extends
 		}
 	}
 	
-	public Pair<Map<ModelSpecificEvent, Boolean>, ArrayList<IMoccmlFutureAction>> saveState(){ //one map is enough since view are not used in exhaustive simulation
+	public Pair<Map<String, Boolean>, ArrayList<IMoccmlFutureAction>> saveState(){ //one map is enough since view are not used in exhaustive simulation
 		return Pair.of(
-				new HashMap<ModelSpecificEvent, Boolean>(((DefaultMSEStateController)getExecutionContext().getExecutionPlatform().getMSEStateControllers().iterator().next())._mseNextStates),
+				new HashMap<String, Boolean>(((DefaultMSEStateController)getExecutionContext().getExecutionPlatform().getMSEStateControllers().iterator().next())._mseNextStates),
 				new ArrayList<>(this._futureActions)
 				);
 	}
 	
-	public void restoreState(Pair<Map<ModelSpecificEvent, Boolean>, ArrayList<IMoccmlFutureAction>> controllerStates){
-		((DefaultMSEStateController)getExecutionContext().getExecutionPlatform().getMSEStateControllers().iterator().next())._mseNextStates = new HashMap<ModelSpecificEvent, Boolean>(controllerStates.getLeft());
+	public void restoreState(Pair<Map<String, Boolean>, ArrayList<IMoccmlFutureAction>> controllerStates){
+//		((DefaultMSEStateController)getExecutionContext().getExecutionPlatform().getMSEStateControllers().iterator().next())._mseNextStates = new HashMap<String, Boolean>(controllerStates.getLeft());
+		((DefaultMSEStateController)_mseStateController)._mseNextStates = new HashMap<String, Boolean>(controllerStates.getLeft());
 		this._futureActions = new ArrayList<IMoccmlFutureAction>(controllerStates.getRight());
 	}
 

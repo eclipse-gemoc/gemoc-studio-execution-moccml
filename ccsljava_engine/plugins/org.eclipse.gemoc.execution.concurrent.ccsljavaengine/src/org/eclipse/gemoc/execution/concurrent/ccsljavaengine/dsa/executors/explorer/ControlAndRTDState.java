@@ -22,10 +22,10 @@ public class ControlAndRTDState implements Serializable {
 	private static final long serialVersionUID = 0;
 	public K3ModelState modelState = K3ModelStateFactory.eINSTANCE.createK3ModelState();
 	public byte[] moCCState = null;
-	public Map<ModelSpecificEvent, Boolean> nextEventToForce = null;
+	public Map<String, Boolean> nextEventToForce = null;
 	public ArrayList<IMoccmlFutureAction> futurActions = null;
 	
-	public ControlAndRTDState(K3ModelState modelS, byte[] moccS, Pair<Map<ModelSpecificEvent, Boolean>, ArrayList<IMoccmlFutureAction>> engineState) {
+	public ControlAndRTDState(K3ModelState modelS, byte[] moccS, Pair<Map<String, Boolean>, ArrayList<IMoccmlFutureAction>> engineState) {
 		super();
 		modelState = modelS;
 		moCCState = moccS;
@@ -70,9 +70,9 @@ public class ControlAndRTDState implements Serializable {
 		}
 		mainloop: for(IMoccmlFutureAction fa1 : futurActions1) {
 			for(IMoccmlFutureAction fa2 : futurActions2) {
-				if (fa1.getTriggeringMSE().getName().compareTo(fa2.getTriggeringMSE().getName()) == 0 
+				if (fa1.getTriggeringMSEURI().compareTo(fa2.getTriggeringMSEURI()) == 0 
 						&&
-					fa1.getMseToBeForced().getName().compareTo(fa2.getMseToBeForced().getName()) == 0) {
+					fa1.getMseToBeForcedURI().compareTo(fa2.getMseToBeForcedURI()) == 0) {
 					continue mainloop;
 				}
 			}
@@ -81,13 +81,13 @@ public class ControlAndRTDState implements Serializable {
 		return true;
 	}
 
-	private boolean areEquals(Map<ModelSpecificEvent, Boolean> engineState, Map<ModelSpecificEvent, Boolean> newEngineState) {
+	private boolean areEquals(Map<String, Boolean> engineState, Map<String, Boolean> newEngineState) {
 		if(engineState.size() != newEngineState.size()) {
 			return false;
 		}
-		mainloop: for(Entry<ModelSpecificEvent, Boolean> e1 : engineState.entrySet()) {
-			for(Entry<ModelSpecificEvent, Boolean>  e2 : newEngineState.entrySet()) {
-				if (e1.getKey().getName().compareTo(e2.getKey().getName()) == 0 && e1.getValue() == e2.getValue()) {
+		mainloop: for(Entry<String, Boolean> e1 : engineState.entrySet()) {
+			for(Entry<String, Boolean>  e2 : newEngineState.entrySet()) {
+				if (e1.getKey().compareTo(e2.getKey()) == 0 && e1.getValue() == e2.getValue()) {
 					continue mainloop;
 				}
 			}
@@ -151,13 +151,13 @@ public class ControlAndRTDState implements Serializable {
 			}
 		}
 		if (nextEventToForce != null) {
-			for(ModelSpecificEvent mse : this.nextEventToForce.keySet()) {
-				sbRes.append(mse.getName()+ "=" +this.nextEventToForce.get(mse)+"\n");
+			for(String mse : this.nextEventToForce.keySet()) {
+				sbRes.append(mse+ "=" +this.nextEventToForce.get(mse)+"\n");
 			}
 		}
 		if (futurActions != null) {
 			for(IMoccmlFutureAction fa: this.futurActions) {
-				sbRes.append("free "+ fa.getMseToBeForced()+ " on " +fa.getTriggeringMSE().getName()+"\n");
+				sbRes.append("free "+ fa.getMseToBeForcedURI()+ " on " +fa.getTriggeringMSEURI()+"\n");
 			}
 		}
 		return sbRes.toString();

@@ -19,6 +19,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse.DefaultMSEState
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.stimuliscenario.Future;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.scenario.ScenarioManager;
+import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 
 public class ModelSpecificEventContext 
 {
@@ -44,6 +45,7 @@ public class ModelSpecificEventContext
 	{
 		MoccmlModelExecutionContext execontext =  (MoccmlModelExecutionContext) _engine.getExecutionContext();
 		_mseSet = new ModelSpecificEventSet(execontext.getFeedbackModel());
+		_clockController.setFeedBackModelResource(_mseSet.getMSEs().iterator().next().getMSE().eResource());
 		_engine.getExecutionContext().getExecutionPlatform().getMSEStateControllers().add(_clockController);
 	}
 
@@ -89,7 +91,8 @@ public class ModelSpecificEventContext
 		}
 		else
 		{
-			_clockController.freeInTheFuture(wrapper.getMSE());
+			ModelSpecificEvent mse = wrapper.getMSE();
+			_clockController.freeInTheFuture(mse.eResource().getURIFragment(mse));
 		}
 	}
 	

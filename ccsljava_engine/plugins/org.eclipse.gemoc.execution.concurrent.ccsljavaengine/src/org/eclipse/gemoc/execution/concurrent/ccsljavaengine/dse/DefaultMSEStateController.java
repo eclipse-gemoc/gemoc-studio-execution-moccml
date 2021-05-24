@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlMSEStateController;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ISolver;
@@ -29,6 +30,13 @@ import fr.inria.aoste.trace.TraceFactory;
 public class DefaultMSEStateController implements IMoccmlMSEStateController
 {
 
+	private Resource feedbackModelResource = null;
+	/**
+	 * participates in the state in the exhaustive exploration
+	 */
+	public Map<String, Boolean> _mseNextStates = new HashMap<String, Boolean>();
+	
+	
 	private void applyForcePresence(ICCSLSolver solver, EventOccurrence eventOccurrence) 
 	{
 		solver.forceEventOccurrence(eventOccurrence);
@@ -39,8 +47,9 @@ public class DefaultMSEStateController implements IMoccmlMSEStateController
 		solver.forbidEventOccurrence(eventOccurrence);
 	}
 	
-	private EventOccurrence createEventoccurence(ModelSpecificEvent mse) 
+	private EventOccurrence createEventoccurence(String mseURI) 
 	{
+		ModelSpecificEvent mse = (ModelSpecificEvent) feedbackModelResource.getEObject(mseURI);
 		EventOccurrence eo = TraceFactory.eINSTANCE.createEventOccurrence();
 		ModelElementReference mer = TraceFactory.eINSTANCE.createModelElementReference();
 		mer.getElementRef().add(mse.getSolverEvent().eContainer().eContainer());
@@ -52,7 +61,7 @@ public class DefaultMSEStateController implements IMoccmlMSEStateController
 
 	public void applyMSEFutureStates(ICCSLSolver solver) 
 	{
-		for(Entry<ModelSpecificEvent, Boolean> entry : _mseNextStates.entrySet())
+		for(Entry<String, Boolean> entry : _mseNextStates.entrySet())
 		{
 			EventOccurrence eo = createEventoccurence(entry.getKey());
 			if (entry.getValue())
@@ -68,10 +77,6 @@ public class DefaultMSEStateController implements IMoccmlMSEStateController
 		
 	}
 
-	/**
-	 * participates in the state in the exhaustive exploration
-	 */
-	public Map<ModelSpecificEvent, Boolean> _mseNextStates = new HashMap<ModelSpecificEvent, Boolean>();
 	
 	@Override
 	public void forcePresenceInTheFuture(ModelSpecificEvent mse)
@@ -87,15 +92,16 @@ public class DefaultMSEStateController implements IMoccmlMSEStateController
 
 	private void setFutureClockState(ModelSpecificEvent mse, Boolean willTick)
 	{
-		_mseNextStates.put(mse, willTick);		
+		String mseURI = feedbackModelResource.getURIFragment(mse);
+		_mseNextStates.put(mseURI, willTick);		
 	}
 	
 	@Override
-	public void freeInTheFuture(ModelSpecificEvent mse)
+	public void freeInTheFuture(String mseURI)
 	{
-		Set<Entry<ModelSpecificEvent, Boolean>> allEntrySet = new HashSet<Entry<ModelSpecificEvent, Boolean>>(_mseNextStates.entrySet());
-		for(Entry<ModelSpecificEvent, Boolean> entry : allEntrySet) {
-			if (entry.getKey().getName().compareTo(mse.getName()) == 0) {
+		Set<Entry<String, Boolean>> allEntrySet = new HashSet<Entry<String, Boolean>>(_mseNextStates.entrySet());
+		for(Entry<String, Boolean> entry : allEntrySet) {
+			if (entry.getKey().compareTo(mseURI) == 0) {
 				_mseNextStates.remove(entry.getKey());
 			}
 		}
@@ -107,6 +113,16 @@ public class DefaultMSEStateController implements IMoccmlMSEStateController
 		if(solver instanceof ICCSLSolver) {
 			applyMSEFutureStates((ICCSLSolver)solver);
 		}
+	}
+
+	@Override
+	public void setFeedBackModelResource(Resource resFeedbackModel) {
+		this.feedbackModelResource = resFeedbackModel;
+	}
+
+	@Override
+	public Resource getFeedBackModelResource() {
+		return feedbackModelResource;
 	}
 	
 }

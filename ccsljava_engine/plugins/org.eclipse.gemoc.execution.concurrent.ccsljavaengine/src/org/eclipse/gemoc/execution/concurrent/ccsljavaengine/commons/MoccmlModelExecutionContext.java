@@ -41,15 +41,17 @@ public class MoccmlModelExecutionContext extends
 		return _feedbackModel;
 	}
 
-	public void setUpFeedbackModel() {
+	public Resource setUpFeedbackModel() {
 		URI feedbackPlatformURI = URI.createPlatformResourceURI(
 				getWorkspace().getMSEModelPath().removeFileExtension().addFileExtension("feedback").toString(), true);
 		try {
 			Resource resource = this.getResourceModel().getResourceSet().getResource(feedbackPlatformURI, true);
 			_feedbackModel = (ActionModel) resource.getContents().get(0);
+			return resource;
 		} catch (Exception e) {
 			// file will be created later
 		}
+		return null;
 	}
 
 	@Override

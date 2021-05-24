@@ -11,14 +11,14 @@
  *******************************************************************************/
 package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse;
 
-import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
+import java.io.Serializable;
 
-public interface IMoccmlFutureAction {
+public interface IMoccmlFutureAction extends Serializable {
 
-	ModelSpecificEvent getTriggeringMSE();
+	String getTriggeringMSEURI();
+	String getMseToBeForcedURI();
 
-	void perform();
-
-	ModelSpecificEvent getMseToBeForced();
+	void perform(IMoccmlMSEStateController controler);
+	
 
 }

@@ -115,11 +115,7 @@ public class BuilderTemplates {
 "		Object res = null;\n" + 
 "		 try {\n" + 
 "			res = aspect.getDeclaredMethod(propertyName, ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).className()).invoke(eObject, eObject);\n" + 
-"			if (res != null) {\n" + 
-"				return res;\n" + 
-"			}else {\n" + 
-"				return null;\n" + 
-"			}\n" + 
+"			return res;\n" + 
 "		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException\n" + 
 "					| NoSuchMethodException | SecurityException e) {\n" + 
 "			e.printStackTrace();\n" + 
@@ -129,41 +125,71 @@ public class BuilderTemplates {
 "	}\n" + 
 "	\n" + 
 "	\n" + 
-"	public static boolean setAspectProperty(EObject eObject, String languageName, String aspectName, String propertyName, Object newValue) {\n" + 
-"		List<Class<?>> aspects = K3DslHelper.getAspectsOn(languageName, eObject.getClass());\n" + 
-"		Class<?> aspect = null;\n" + 
-"		for (Class<?> a : aspects) {\n" + 
-"			try {\n" + 
-"				if (Class.forName(aspectName).isAssignableFrom(a)) {\n" + 
-"					aspect = a;\n" + 
-"				}\n" + 
-"			} catch (ClassNotFoundException e) {\n" + 
-"				e.printStackTrace();\n" + 
-"				return false;\n" + 
-"			}\n" + 
-"		}\n" + 
-"		if (aspect == null) {\n" + 
-"			return false;\n" + 
-"		}\n" + 
-"			 try {\n" + 
-"				 aspect.getMethod(propertyName, ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).className(), newValue.getClass()).invoke(eObject, eObject, newValue);\n" + 
-"				return true;\n" + 
-"				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {\n" + 
-"					Method m = null;\n" + 
-"					for(Class<?> c : ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).getClass().getInterfaces()) {\n" + 
-"						\n" + 
-"						try {\n" + 
-"							aspect.getMethod(propertyName, c, newValue.getClass()).invoke(eObject, eObject, newValue);\n" + 
-"							return true;\n" + 
-"						} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {\n" + 
-"						}\n" + 
-"						if (m == null) {\n" + 
-"							throw new RuntimeException(\"not method found for \"+((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).className()+\"::set\"+propertyName);\n" + 
-"						}\n" + 
-"					}\n" + 
-"				}\n" + 
-"			return false;\n" + 
-"	}\n"+
+"public static boolean setAspectProperty(EObject eObject, String languageName, String aspectName, String propertyName, Object newValue) {\n"
++ "		List<Class<?>> aspects = K3DslHelper.getAspectsOn(languageName, eObject.getClass());\n"
++ "		Class<?> aspect = null;\n"
++ "		for (Class<?> a : aspects) {\n"
++ "			try {\n"
++ "				if (Class.forName(aspectName).isAssignableFrom(a)) {\n"
++ "					aspect = a;\n"
++ "				}\n"
++ "			} catch (ClassNotFoundException e) {\n"
++ "				e.printStackTrace();\n"
++ "				return false;\n"
++ "			}\n"
++ "		}\n"
++ "		if (aspect == null) {\n"
++ "			return false;\n"
++ "		}\n"
++ "		 Method m = getSetter(propertyName,newValue,aspect);\n"
++ "		 try {\n"
++ "			m.invoke(eObject, eObject, newValue);\n"
++ "			return true;\n"
++ "		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {\n"
++ "			e.printStackTrace();\n"
++ "		}			\n"
++ "		return false;\n"
++ "}\n"
++ "	\n"
++ "	private static Method getSetter(String propertyName, Object value, Class<?> aspect) {\n"
++ "		Method setter = null;\n"
++ "		try {\n"
++ "			if(value != null) {\n"
++ "				setter = aspect.getMethod(propertyName, ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).className(), value.getClass());\n"
++ "			}else {\n"
++ "				for (Method m : aspect.getMethods()) {\n"
++ "					if (m.getName().compareTo(propertyName) ==0 && m.getParameterCount() == 2) {\n"
++ "						setter= m;\n"
++ "						return setter;\n"
++ "					}\n"
++ "				}\n"
++ "				throw new NoSuchMethodException();\n"
++ "			}\n"
++ "			return setter;\n"
++ "		} catch (NoSuchMethodException | SecurityException | IllegalArgumentException e) {\n"
++ "			\n"
++ "				for(Class<?> c : ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).getClass().getInterfaces()) {\n"
++ "					try {\n"
++ "					if(value != null) {\n"
++ "						setter = aspect.getMethod(propertyName, c, value.getClass());\n"
++ "						return setter;\n"
++ "					}else {\n"
++ "						for (Method m : aspect.getMethods()) {\n"
++ "							if (m.getName().compareTo(propertyName) ==0 && m.getParameterCount() == 2) {\n"
++ "								setter= m;\n"
++ "								return setter;\n"
++ "							}\n"
++ "						}\n"
++ "					}\n"
++ "					} catch (NoSuchMethodException | SecurityException | IllegalArgumentException e1) {\n"
++ "					}\n"
++ "					if (setter == null) {\n"
++ "						throw new RuntimeException(\"not method found for \"+value.getClass().getName()+\"::set\"+propertyName);\n"
++ "					}\n"
++ "				}\n"
++ "			}\n"
++ "		return setter;\n"
++ "	}"+
 "};";
 	
 	public static final String MODEL_STATE_CLASS_TEMPLATE =
@@ -215,32 +241,53 @@ public class BuilderTemplates {
 "\n\t\tK3ModelStateFactory theFactory = K3ModelStateFactory.eINSTANCE; \n"+
 "${saveAndRestoreMethod}\n"+
 "\n" + 
-"	public void restoreModelState(K3ModelState state) {\n" + 
-"		for(ElementState elemState : state.getOwnedElementstates()) {\n" + 
-"			for(Object o : elemState.getSavedRTDs()) {\n" + 
-"				AttributeNameToValue n2v = (AttributeNameToValue)o;\n" + 
-"				try {\n" + 
-"					if (n2v.value != null) {\n" + 
-"						Method m = ${language.name.toupperfirst}RTDAccessor.class.getMethod(\"set\"+n2v.name, EObject.class, n2v.value.getClass());\n" + 
-"						m.invoke(null, elemState.getModelElement(), n2v.value);\n" + 
-"					}\n" + 
-"				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {\n" + 
-"					Method m = null;\n" + 
-"					for(Class<?> c : n2v.value.getClass().getInterfaces()) {\n" + 
-"						\n" + 
-"						try {\n" + 
-"							m = ${language.name.toupperfirst}RTDAccessor.class.getMethod(\"set\"+n2v.name, EObject.class, n2v.value.getClass().getInterfaces()[0]);\n" + 
-"							m.invoke(null, elemState.getModelElement(), n2v.value);\n" + 
-"						} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {\n" + 
-"						}\n" + 
-"						if (m == null) {\n" + 
-"							throw new RuntimeException(\"not method found for \"+n2v.value.getClass().getName()+\"::set\"+n2v.name);\n" + 
-"						}\n" + 
-"					}\n" + 
-"				}\n" + 
-"			}\n" + 
-"		}\n" + 
-"	}\n" + 
+"		public void restoreModelState(K3ModelState state) {\n"
++ "		for(ElementState elemState : state.getOwnedElementstates()) {\n"
++ "			for(Object o : elemState.getSavedRTDs()) {\n"
++ "				AttributeNameToValue n2v = (AttributeNameToValue)o;\n"
++ "						Method setter = null;\n"
++ "						setter = getSetter(n2v);\n"
++ "						try {\n"
++ "							setter.invoke(null, elemState.getModelElement(), n2v.value);\n"
++ "						} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {\n"
++ "							e.printStackTrace();\n"
++ "						}\n"
++ "				\n"
++ "			}\n"
++ "		}\n"
++ "	}\n"
++ "\n"
++ "\n"
++ "	private Method getSetter(AttributeNameToValue n2v) {\n"
++ "		Method setter = null;\n"
++ "		try {\n"
++ "			if(n2v.value != null) {\n"
++ "				setter = LinguaFrancaRTDAccessor.class.getMethod(\"set\"+n2v.name, EObject.class, n2v.value.getClass());\n"
++ "			}else {\n"
++ "				for (Method m : LinguaFrancaRTDAccessor.class.getMethods()) {\n"
++ "					if (m.getName().compareTo(\"set\"+n2v.name) ==0 && m.getParameterCount() == 2) {\n"
++ "						setter= m;\n"
++ "						break;\n"
++ "					}\n"
++ "				}\n"
++ "			}\n"
++ "			return setter;\n"
++ "		} catch (NoSuchMethodException | SecurityException | IllegalArgumentException e) {\n"
++ "			if(n2v.value != null) {\n"
++ "					for(Class<?> c : n2v.value.getClass().getInterfaces()) {\n"
++ "					try {\n"
++ "						setter = LinguaFrancaRTDAccessor.class.getMethod(\"set\"+n2v.name, EObject.class, n2v.value.getClass().getInterfaces()[0]);\n"
++ "						return setter;\n"
++ "					} catch (NoSuchMethodException | SecurityException | IllegalArgumentException e1) {\n"
++ "					}\n"
++ "					if (setter == null) {\n"
++ "						throw new RuntimeException(\"not method found for \"+n2v.value.getClass().getName()+\"::set\"+n2v.name);\n"
++ "					}\n"
++ "				}\n"
++ "			}\n"
++ "		}\n"
++ "		return setter;\n"
++ "	}" + 
 "\n" + 
 "};";
 	

@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ISolver;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 
@@ -22,6 +23,8 @@ public interface IMoccmlMSEStateController
 	void applyMSEFutureStates(ISolver solver);
 	void forcePresenceInTheFuture(ModelSpecificEvent mse);
 	void forceAbsenceTickInTheFuture(ModelSpecificEvent mse);
-	void freeInTheFuture(ModelSpecificEvent mse);
+	void freeInTheFuture(String _mseToBeForcedURI);
+	void setFeedBackModelResource(Resource resFeedbackModel);
+	Resource  getFeedBackModelResource();
 	
 }
