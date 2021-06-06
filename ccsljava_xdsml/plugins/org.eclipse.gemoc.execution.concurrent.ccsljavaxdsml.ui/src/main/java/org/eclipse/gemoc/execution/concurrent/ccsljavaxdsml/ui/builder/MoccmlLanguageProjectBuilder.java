@@ -259,13 +259,11 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 						}
 						if (property.getAnnotation("NotInStateSpace") .exists()) {
 							sbContent.append("\t\t\tif (allRTDs) {  //property not in state space:"+ property.getElementName()+"\n");
-						}else {
-							
+						}
 							sbContent.append("\t\t\t\tAttributeNameToValue n2v" + i + " = new AttributeNameToValue(\"" + property.getElementName()
 								+ "\", " + languageToUpperFirst + "RTDAccessor.get" + property.getElementName() + "(model));\n"
 								+ "\t\t\t\telemState.getSavedRTDs().add(n2v" + i + ");\n");
 							i++;
-						}
 						if (property.getAnnotation("NotInStateSpace") .exists()) {
 							sbContent.append("\t\t\t}\n");
 						}
