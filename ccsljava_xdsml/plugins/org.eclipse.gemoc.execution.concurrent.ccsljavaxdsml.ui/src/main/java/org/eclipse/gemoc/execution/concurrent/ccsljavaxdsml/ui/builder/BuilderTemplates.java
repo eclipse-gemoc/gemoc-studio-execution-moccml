@@ -91,7 +91,7 @@ public class BuilderTemplates {
 "import java.lang.reflect.InvocationTargetException;\n" + 
 "import java.util.List;\n"+
 "import java.lang.reflect.Method;\n" +
-"import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.NotInStateSpace;\n"+
+"import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils.Copier;\n"+
 "import org.eclipse.gemoc.executionframework.engine.commons.K3DslHelper;\n" + 
 "${extraImports}\n"+
 "\n"+
@@ -170,27 +170,27 @@ public class BuilderTemplates {
 + "			\n"
 + "				for(Class<?> c : ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).getClass().getInterfaces()) {\n"
 + "					try {\n"
-+ "					if(value != null) {\n"
-+ "						setter = aspect.getMethod(propertyName, c, value.getClass());\n"
-+ "						return setter;\n"
-+ "					}else {\n"
-+ "						for (Method m : aspect.getMethods()) {\n"
-+ "							if (m.getName().compareTo(propertyName) ==0 && m.getParameterCount() == 2) {\n"
-+ "								setter= m;\n"
-+ "								return setter;\n"
-+ "							}\n"
++ "						if(value != null) {\n"
++ "							setter = aspect.getMethod(propertyName, c, value.getClass());\n"
++ "							return setter;\n"
 + "						}\n"
-+ "					}\n"
 + "					} catch (NoSuchMethodException | SecurityException | IllegalArgumentException e1) {\n"
 + "					}\n"
-+ "					if (setter == null) {\n"
-+ "						throw new RuntimeException(\"not method found for \"+value.getClass().getName()+\"::set\"+propertyName);\n"
++ "					for (Method m : aspect.getMethods()) {\n"
++ "						if (m.getName().compareTo(propertyName) ==0 && m.getParameterCount() == 2) {\n"
++ "							setter= m;\n"
++ "							return setter;\n"
++ "						}\n"
 + "					}\n"
++ "					\n"
++ "				}\n"
++ "				if (setter == null) {\n"
++ "					throw new RuntimeException(\"no method found for \"+value.getClass().getName()+\"::set\"+propertyName);\n"
 + "				}\n"
 + "			}\n"
 + "		return setter;\n"
-+ "	}"+
-"};";
++ "	}};";
+
 	
 	public static final String MODEL_STATE_CLASS_TEMPLATE =
 "/* GENERATED FILE, do not modify manually                                                    *\n" +
@@ -206,6 +206,9 @@ public class BuilderTemplates {
 "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelStateFactory;\n"+
 "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper.IK3ModelStateHelper;"+
 "import org.eclipse.gemoc.executionframework.engine.commons.K3DslHelper;\n"+
+"import java.util.ArrayList;\n"
++ "import java.util.Arrays;\n"
++ "import java.util.List;\n"+
 "${extraImports}\n"+
 "\n"+
 "public class ${language.name.toupperfirst}ModelStateHelper implements IK3ModelStateHelper{\n"+ 
@@ -258,6 +261,7 @@ public class BuilderTemplates {
 + "	}\n"
 + "\n"
 + "\n"
+
 + "	private Method getSetter(AttributeNameToValue n2v) {\n"
 + "		Method setter = null;\n"
 + "		try {\n"
@@ -274,21 +278,39 @@ public class BuilderTemplates {
 + "			return setter;\n"
 + "		} catch (NoSuchMethodException | SecurityException | IllegalArgumentException e) {\n"
 + "			if(n2v.value != null) {\n"
-+ "					for(Class<?> c : n2v.value.getClass().getInterfaces()) {\n"
-+ "					try {\n"
-+ "						setter = LinguaFrancaRTDAccessor.class.getMethod(\"set\"+n2v.name, EObject.class, n2v.value.getClass().getInterfaces()[0]);\n"
-+ "						return setter;\n"
-+ "					} catch (NoSuchMethodException | SecurityException | IllegalArgumentException e1) {\n"
++ "					List<Class> allTypes = getSuperClasses(n2v.value.getClass());\n"
++ "					allTypes.addAll(Arrays.asList(n2v.value.getClass().getInterfaces()));\n"
++ "					for(Class<?> c : allTypes) {\n"
++ "						try {\n"
++ "							setter = LinguaFrancaRTDAccessor.class.getMethod(\"set\"+n2v.name, EObject.class, c);\n"
++ "							return setter;\n"
++ "						} catch (NoSuchMethodException | SecurityException | IllegalArgumentException e1) {\n"
++ "						}\n"
 + "					}\n"
 + "					if (setter == null) {\n"
-+ "						throw new RuntimeException(\"not method found for \"+n2v.value.getClass().getName()+\"::set\"+n2v.name);\n"
++ "						throw new RuntimeException(\"no method found for \"+n2v.value.getClass().getName()+\"::set\"+n2v.name);\n"
 + "					}\n"
 + "				}\n"
 + "			}\n"
++ "			return setter;\n"
++ "	}\n"
++ "	\n"
++ "	public static List<Class> getSuperClasses(Class c) {\n"
++ "		List<Class> r = new ArrayList<>();\n"
++ "		List<Class> q = new ArrayList<>();\n"
++ "		q.add(c);\n"
++ "		while (!q.isEmpty()) {\n"
++ "			c = q.remove(0);\n"
++ "			r.add(c);\n"
++ "			if (c.getSuperclass() != null) {\n"
++ "				q.add(c.getSuperclass());\n"
++ "			}\n"
++ "			for (Class i : c.getInterfaces()) {\n"
++ "				q.add(i);\n"
++ "			}\n"
 + "		}\n"
-+ "		return setter;\n"
-+ "	}" + 
-"\n" + 
-"};";
++ "		return r;\n"
++ "	}\n"
++ "};";
 	
 }
