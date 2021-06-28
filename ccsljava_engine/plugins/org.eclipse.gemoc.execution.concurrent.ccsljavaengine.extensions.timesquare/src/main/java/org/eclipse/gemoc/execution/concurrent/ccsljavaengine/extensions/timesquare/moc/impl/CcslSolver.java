@@ -638,7 +638,9 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 		return res;
 	}
 
-	
+	public void addClockCoincidence(EventOccurrence occ1, EventOccurrence occ2) {
+		solverWrapper.addClockCoincidence((ModelElementReference)occ1.getReferedElement(), (ModelElementReference)occ2.getReferedElement());
+	}	
 	
 	
 	

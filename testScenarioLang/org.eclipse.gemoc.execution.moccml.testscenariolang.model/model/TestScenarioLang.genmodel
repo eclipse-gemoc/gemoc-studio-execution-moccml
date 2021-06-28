@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gemoc.execution.moccml.testscenariolang.model/src_gen"
+    editDirectory="" editorDirectory="" modelPluginID="org.eclipse.gemoc.execution.moccml.testscenariolang.model"
+    modelName="TestScenarioLang" testsDirectory="" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false" usedGenPackages="../../fr.inria.aoste.timesquare.ccslkernel.model/model/TimeModel.genmodel#//TimeModel ../../fr.inria.aoste.trace/model/trace.genmodel#//trace platform:/plugin/org.eclipse.xtext.common.types/model/JavaVMTypes.genmodel#//types">
+  <foreignModel>TestScenarioLang.ecore</foreignModel>
+  <genPackages prefix="TestScenarioLang" basePackage="org.eclipse.gemoc.execution.moccml.testscenariolang.model"
+      resource="XMI" disposableProviderFactory="true" fileExtensions="codeexec" ecorePackage="TestScenarioLang.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="TestScenarioLang.ecore#//LiveStateKind">
+      <genEnumLiterals ecoreEnumLiteral="TestScenarioLang.ecore#//LiveStateKind/isAlive"/>
+      <genEnumLiterals ecoreEnumLiteral="TestScenarioLang.ecore#//LiveStateKind/isDead"/>
+    </genEnums>
+    <genClasses ecoreClass="TestScenarioLang.ecore#//MseStatement">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestScenarioLang.ecore#//MseStatement/clocks"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestScenarioLang.ecore#//MseStatement/fireState"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestScenarioLang.ecore#//MseStatement/enableState"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestScenarioLang.ecore#//MseStatement/liveState"/>
+    </genClasses>
+    <genClasses ecoreClass="TestScenarioLang.ecore#//ObjectVariable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestScenarioLang.ecore#//ObjectVariable/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestScenarioLang.ecore#//ObjectVariable/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestScenarioLang.ecore#//ObjectVariable/initialValue"/>
+    </genClasses>
+    <genClasses ecoreClass="TestScenarioLang.ecore#//Scenario">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestScenarioLang.ecore#//Scenario/modelImports"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestScenarioLang.ecore#//Scenario/variables"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestScenarioLang.ecore#//Scenario/statementSequence"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestScenarioLang.ecore#//Scenario/classImports"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestScenarioLang.ecore#//Scenario/name"/>
+    </genClasses>
+    <genClasses ecoreClass="TestScenarioLang.ecore#//RewritingRuleCallStatement">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestScenarioLang.ecore#//RewritingRuleCallStatement/objectVariable"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestScenarioLang.ecore#//RewritingRuleCallStatement/method"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestScenarioLang.ecore#//RewritingRuleCallStatement/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="TestScenarioLang.ecore#//Statement"/>
+    <genClasses ecoreClass="TestScenarioLang.ecore#//ImportJavaStatement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestScenarioLang.ecore#//ImportJavaStatement/importedNamespace"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="TestScenarioLang.ecore#//Variable"/>
+    <genClasses ecoreClass="TestScenarioLang.ecore#//Constant"/>
+    <genClasses ecoreClass="TestScenarioLang.ecore#//IntegerLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestScenarioLang.ecore#//IntegerLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="TestScenarioLang.ecore#//VariableRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestScenarioLang.ecore#//VariableRef/var"/>
+    </genClasses>
+    <genClasses ecoreClass="TestScenarioLang.ecore#//StringLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestScenarioLang.ecore#//StringLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="TestScenarioLang.ecore#//EObjectRef">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestScenarioLang.ecore#//EObjectRef/object"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

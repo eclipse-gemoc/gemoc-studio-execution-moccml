@@ -67,5 +67,7 @@ public interface ICCSLSolver extends ISolver {
 	 */
 	public List<String> getAssertionViolations();
 
+	
+	public void addClockCoincidence(EventOccurrence occ1, EventOccurrence occ2);	
 
 }

@@ -11,15 +11,34 @@
  *******************************************************************************/
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.concurrentmse.FeedbackMSE;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse.ASynchroneExecution;
@@ -31,16 +50,35 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.Co
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlFutureAction;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlMSEStateController;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
+import org.eclipse.gemoc.execution.moccml.testscenariolang.model.TestScenarioLang.EObjectRef;
+import org.eclipse.gemoc.execution.moccml.testscenariolang.model.TestScenarioLang.IntegerLiteral;
+import org.eclipse.gemoc.execution.moccml.testscenariolang.model.TestScenarioLang.MseStatement;
+import org.eclipse.gemoc.execution.moccml.testscenariolang.model.TestScenarioLang.ObjectVariable;
+import org.eclipse.gemoc.execution.moccml.testscenariolang.model.TestScenarioLang.RewritingRuleCallStatement;
+import org.eclipse.gemoc.execution.moccml.testscenariolang.model.TestScenarioLang.Scenario;
+import org.eclipse.gemoc.execution.moccml.testscenariolang.model.TestScenarioLang.Statement;
+import org.eclipse.gemoc.execution.moccml.testscenariolang.model.TestScenarioLang.Variable;
+import org.eclipse.gemoc.execution.moccml.testscenariolang.xtext.ui.internal.TestScenarioLangActivator;
 import org.eclipse.gemoc.executionframework.engine.Activator;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ActionModel;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.When;
+import org.eclipse.gemoc.trace.commons.model.generictrace.GenericSmallStep;
 import org.eclipse.gemoc.trace.commons.model.trace.MSE;
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionEngine;
+import org.eclipse.xtext.common.types.JvmOperation;
+import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.resource.XtextResourceSet;
+import org.eclipse.xtext.ui.resource.XtextResourceSetProvider;
 
+import com.google.inject.Injector;
+
+import fr.inria.aoste.timesquare.ccslkernel.model.TimeModel.Clock;
+import fr.inria.aoste.trace.EventOccurrence;
 import fr.inria.aoste.trace.ModelElementReference;
+import fr.inria.aoste.trace.TraceFactory;
 
 /**
  * Basic abstract implementation of the ExecutionEngine, independent from the
@@ -95,6 +133,14 @@ public class MoccmlExecutionEngine extends
 	private Object _futureActionsLock = new Object();
 
 	private IMoccmlMSEStateController _mseStateController;
+
+	private Scenario moccmlScenario = null;
+
+	private EList<Statement> scenarioStatementSequence;
+
+	private int indexInScenarioStatementSequence;
+
+	private HashSet<Clock> clockUsedInScenario;
 
 	public MoccmlExecutionEngine(MoccmlModelExecutionContext concurrentexecutionContext, ICCSLSolver s)
 			throws CoreException {
@@ -164,6 +210,82 @@ public class MoccmlExecutionEngine extends
 		}
 	}
 
+	/**
+	 * Override to add management of the moccmlscenario if one is given
+	 */
+	@Override
+	protected void performExecutionStep() {
+		switchDeciderIfNecessary();
+		_possibleLogicalSteps = computePossibleLogicalSteps();
+		if (_possibleLogicalSteps.size() == 0) {
+			Activator.getDefault().debug("No more LogicalStep to run");
+//			stop();
+		} else {
+			//scenario mangement
+			if(moccmlScenario != null) {
+				applyScenarioEffect();
+			}
+			try {
+				Step<?> selectedLogicalStep = selectAndExecuteLogicalStep();
+
+				// 3 - run the selected logical step
+				// inform the solver that we will run this step
+				if (selectedLogicalStep != null) {
+					doAfterLogicalStepExecution(selectedLogicalStep);
+					engineStatus.incrementNbLogicalStepRun();
+
+				} else {
+					// no logical step was selected, this is most probably due to a
+					// preempt on the LogicalStepDecider and a change of Decider,
+					// notify Addons that we'll rerun this ExecutionStep
+					// recomputePossibleLogicalSteps();
+				}
+			} catch (Throwable t) {
+				throw new RuntimeException(t);
+			}
+			
+		}
+	}
+
+	private void applyScenarioEffect() {
+		Statement currentStatement = scenarioStatementSequence.get(indexInScenarioStatementSequence);
+		if(currentStatement instanceof MseStatement) {
+			HashSet<Clock> clockToForceAbsent = new HashSet<Clock>(clockUsedInScenario);
+			EList<Clock> statementClocks = ((MseStatement) currentStatement).getClocks();
+			for(Clock toRemove : statementClocks) {
+				clockToForceAbsent.remove(toRemove);
+			}
+			for(Clock c : clockToForceAbsent) {
+				EventOccurrence occ = getEventOccurrenceFromClock(c);
+				_solver.forbidEventOccurrence(occ);
+			}
+			if(statementClocks.size() > 1) {
+				Clock oneClock = statementClocks.get(0);
+				EventOccurrence oneClockOcc = getEventOccurrenceFromClock(oneClock);
+				for(int i = 1; i < statementClocks.size(); i++) {
+					EventOccurrence anotherClockOcc = getEventOccurrenceFromClock(statementClocks.get(i));
+					_solver.addClockCoincidence(oneClockOcc, anotherClockOcc);
+				}
+			}
+			_possibleLogicalSteps = updatePossibleLogicalSteps();
+			if (_possibleLogicalSteps.size() == 0) {
+				Activator.getDefault().error("The scenario violates the semantics at step "+indexInScenarioStatementSequence+". One of these clock cannot be absent: "+clockToForceAbsent);
+//						stop();
+			} 
+		}
+	}
+
+	private EventOccurrence getEventOccurrenceFromClock(Clock c) {
+		EventOccurrence occ = TraceFactory.eINSTANCE.createEventOccurrence();
+		ModelElementReference mer = TraceFactory.eINSTANCE.createModelElementReference();
+		mer.getElementRef().add(c.eContainer().eContainer());
+		mer.getElementRef().add(c.eContainer());
+		mer.getElementRef().add(c);
+		occ.setReferedElement(mer);
+		return occ;
+	}
+	
+	
 	public void recomputePossibleLogicalSteps() {
 		getSolver().revertForceClockEffect();
 		updatePossibleLogicalSteps();
@@ -192,8 +314,53 @@ public class MoccmlExecutionEngine extends
 		Resource resFeedbackModel = executionContext.setUpFeedbackModel();
 		_mseStateController.setFeedBackModelResource(resFeedbackModel);
 
+		if(executionContext.hasARegisteredScenario) {
+//			URI scenarioModelPlatformURI = URI.createPlatformResourceURI(
+//						concurrentExecutionContext.getMoccmlscenarioModelPath(), true);
+//			ResourceSet resourceSet = new ResourceSetImpl();
+//			Resource resource = resourceSet.getResource(scenarioModelPlatformURI, true);
+//			moccmlScenario = (Scenario) resource.getContents().get(0);
+			moccmlScenario = loadTestScenarioLangification(concurrentExecutionContext.getMoccmlscenarioModelPath());
+			scenarioStatementSequence = moccmlScenario.getStatementSequence();
+			indexInScenarioStatementSequence = 0;
+			clockUsedInScenario = new HashSet<Clock>();
+
+			for(Statement s : moccmlScenario.getStatementSequence().stream().filter(s -> s instanceof MseStatement).collect(Collectors.toList())) {
+				clockUsedInScenario.addAll(((MseStatement)s).getClocks());
+			}
+		}
+	}
+	
+	private Scenario loadTestScenarioLangification(String filename) {
+		if (filename == null || filename.isEmpty()) {
+			return null;
+		}
+		String language = TestScenarioLangActivator.ORG_ECLIPSE_GEMOC_EXECUTION_MOCCML_TESTSCENARIOLANG_XTEXT_TESTSCENARIOLANG;
+		Injector injector = TestScenarioLangActivator.getInstance().getInjector(language);
+		XtextResourceSetProvider provider = injector.getInstance(XtextResourceSetProvider.class);
+
+		XtextResourceSet resourceSet = (XtextResourceSet) provider
+				.get(findContainingProject(filename));
+		resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
+
+		URI uri = URI.createPlatformResourceURI(filename, true);
+		XtextResource resource = (XtextResource) resourceSet.getResource(uri, true);
+		List<Diagnostic> errors = resource.getErrors();
+		if (!errors.isEmpty()) {
+			return null;
+		}
+		return (Scenario) resource.getContents().get(0);
 	}
 
+	private IProject findContainingProject(String filename) {
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceRoot root = workspace.getRoot();
+		IPath path = root.getLocation();
+		path = path.append(new Path(filename));
+		IFile file = (IFile) root.findMember(filename);
+		return (file != null ? file.getProject() : null);
+	}
+	
 	@Override
 	protected void doAfterLogicalStepExecution(Step<?> logicalStep) {
 	
@@ -210,6 +377,71 @@ public class MoccmlExecutionEngine extends
 		if(assertions.size() > 0) {
 			System.err.println("###############################################");
 			Activator.getDefault().error("###############################################");
+		}
+		if(moccmlScenario != null) {
+			manageScenario(logicalStep);
+		}
+	}
+
+	private void manageScenario(Step<?> logicalStep) {
+		Statement currentScenarioStatement = scenarioStatementSequence.get(indexInScenarioStatementSequence);
+		if (currentScenarioStatement instanceof MseStatement) {
+			ArrayList<Clock> clocksThatTicked = new ArrayList<Clock>();
+			retrieveAllClocksFromStep(logicalStep, clocksThatTicked);
+			if (((MseStatement)currentScenarioStatement).getClocks().stream().allMatch(c -> clocksThatTicked.stream().anyMatch(c2 ->c2.getName().compareTo(c.getName()) == 0))){
+				indexInScenarioStatementSequence++;
+				currentScenarioStatement = scenarioStatementSequence.get(indexInScenarioStatementSequence);
+				while(! (currentScenarioStatement instanceof MseStatement)) {
+					RewritingRuleCallStatement rwrcallStatement = (RewritingRuleCallStatement) currentScenarioStatement;
+					ObjectVariable ov = rwrcallStatement.getObjectVariable();
+					JavaVariable javaVar = new JavaVariable(ov.getName(), ov.getType().getType().getQualifiedName());
+					Object obj = javaVar.getObject();
+					JvmOperation jvmOp = rwrcallStatement.getMethod();
+					EList<Variable> params = rwrcallStatement.getParameters();
+					Object[] realParams = new Object[params.size()];
+					Class<?>[] realParamTypes = new Class<?>[params.size()];
+					for(int i = 0; i < params.size();i++) {
+						Variable v = params.get(i);
+						if (v instanceof EObjectRef) {
+							realParams[i]=((EObjectRef)v).getObject();
+							realParamTypes[i]=(EObject.class);//(EObjectRef)v).getObject().getClass();
+						}
+						if (v instanceof IntegerLiteral) {
+							realParams[i]=new Integer(((IntegerLiteral)v).getValue());
+							realParamTypes[i] =Integer.class;
+						}
+					}
+					Method m;
+					try {
+						m = obj.getClass().getDeclaredMethod(jvmOp.getSimpleName(), realParamTypes);
+						// it is possible to get the result here !
+						Object res = m.invoke(obj, realParams);
+						System.out.println(res);
+					} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					indexInScenarioStatementSequence++;
+					currentScenarioStatement = scenarioStatementSequence.get(indexInScenarioStatementSequence);
+				}
+			}
+		}
+	}
+
+	private void retrieveAllClocksFromStep(Step<?> logicalStep, ArrayList<Clock> clocksThatTicked) {
+		TreeIterator<EObject> it = logicalStep.eAllContents();
+		while(it.hasNext()) {
+			EObject eo = it.next();
+			if (eo instanceof GenericSmallStep) {
+				MSE mse = ((GenericSmallStep)eo).getMseoccurrence().getMse();
+				if (mse instanceof FeedbackMSE) {
+					EObject se = ((FeedbackMSE) mse).getFeedbackModelSpecificEvent().getSolverEvent();
+					if (se instanceof Clock) {
+						clocksThatTicked.add((Clock) se);
+					}
+				}
+				
+			}
 		}
 	}
 	
