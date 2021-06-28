@@ -24,7 +24,6 @@ Require-Bundle: org.eclipse.gemoc.xdsmlframework.api,
  fr.inria.aoste.timesquare.utils.pluginhelpers,
  org.eclipse.gemoc.commons.eclipse.messagingsystem.api,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine,
- org.eclipse.fx.osgi.util;bundle-version="3.7.0",
  fr.inria.aoste.timesquare.ccslkernel.solver.launch,
  fr.inria.aoste.timesquare.simulationpolicy;bundle-version="1.1.0",
  fr.inria.aoste.timesquare.utils.extensionpoint;bundle-version="1.0.0"
