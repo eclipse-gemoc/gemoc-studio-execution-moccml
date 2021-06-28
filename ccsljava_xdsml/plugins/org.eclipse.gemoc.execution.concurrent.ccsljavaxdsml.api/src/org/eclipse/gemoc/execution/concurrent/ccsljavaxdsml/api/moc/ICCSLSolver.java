@@ -69,5 +69,5 @@ public interface ICCSLSolver extends ISolver {
 
 	
 	public void addClockCoincidence(EventOccurrence occ1, EventOccurrence occ2);	
-
+	public boolean hasSolution();
 }

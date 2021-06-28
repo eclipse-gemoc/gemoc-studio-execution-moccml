@@ -267,11 +267,26 @@ public class MoccmlExecutionEngine extends
 					_solver.addClockCoincidence(oneClockOcc, anotherClockOcc);
 				}
 			}
-			_possibleLogicalSteps = updatePossibleLogicalSteps();
-			if (_possibleLogicalSteps.size() == 0) {
+			_possibleLogicalSteps = computePossibleLogicalSteps();
+			if (!_solver.hasSolution()) {
 				Activator.getDefault().error("The scenario violates the semantics at step "+indexInScenarioStatementSequence+". One of these clock cannot be absent: "+clockToForceAbsent);
 //						stop();
 			} 
+			//try to force presence of currentStatement but if not possible it does not mean it will not be possible in a future step so we have to revert
+			for(Clock toForce : statementClocks) {
+				EventOccurrence occ = getEventOccurrenceFromClock(toForce);
+				_solver.forceEventOccurrence(occ);
+			}
+			if(!_solver.hasSolution()) {
+				_solver.revertForceClockEffect();
+				for(Clock c : clockToForceAbsent) {
+					EventOccurrence occ = getEventOccurrenceFromClock(c);
+					_solver.forbidEventOccurrence(occ);
+				}
+				
+			}
+			_possibleLogicalSteps = computePossibleLogicalSteps();
+			notifyProposedLogicalStepsChanged();
 		}
 	}
 

@@ -253,6 +253,10 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 		}
 	}
 
+	public boolean hasSolution(){
+		return solverWrapper.hasSolution();
+	}
+	
 	@Override
 	public List<Step<?>> computeAndGetPossibleLogicalSteps() {
 		
