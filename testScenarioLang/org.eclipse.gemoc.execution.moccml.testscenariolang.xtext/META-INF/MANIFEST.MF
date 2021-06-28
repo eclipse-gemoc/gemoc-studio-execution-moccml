@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: org.eclipse.gemoc.execution.moccml.testscenariolang.xtext
-Bundle-Vendor: Kairos INRIA/I3S
-Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Université Cote d'Azur I3S/INRIA KAIROS
+Bundle-Version: 2.3.0.qualifier
 Bundle-SymbolicName: org.eclipse.gemoc.execution.moccml.testscenariolang.xtext;singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.emf;bundle-version="2.6.0",

@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %pluginName
+Bundle-Name: Test Scenario Lnag
 Bundle-SymbolicName: org.eclipse.gemoc.execution.moccml.testscenariolang.model;singleton:=true
 Automatic-Module-Name: org.eclipse.gemoc.execution.moccml.testscenariolang.model
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 2.3.0.qualifier
 Bundle-ClassPath: .
-Bundle-Vendor: %providerName
+Bundle-Vendor: Université Cote d'Azur I3S/INRIA KAIROS
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipse.gemoc.execution.moccml.testscenariolang.model.TestScenarioLang,
