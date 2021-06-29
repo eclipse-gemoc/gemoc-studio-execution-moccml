@@ -248,10 +248,11 @@ public class MoccmlExecutionEngine extends
 	}
 
 	private void applyScenarioEffect() {
-		Statement currentStatement = scenarioStatementSequence.get(indexInScenarioStatementSequence);
-		if(currentStatement instanceof MseStatement) {
+		Statement currentScenarioStatement = scenarioStatementSequence.get(indexInScenarioStatementSequence);
+		dealWithRwRCallStatement(currentScenarioStatement);
+		if(currentScenarioStatement instanceof MseStatement) {
 			HashSet<Clock> clockToForceAbsent = new HashSet<Clock>(clockUsedInScenario);
-			EList<Clock> statementClocks = ((MseStatement) currentStatement).getClocks();
+			EList<Clock> statementClocks = ((MseStatement) currentScenarioStatement).getClocks();
 			for(Clock toRemove : statementClocks) {
 				clockToForceAbsent.remove(toRemove);
 			}
@@ -362,6 +363,7 @@ public class MoccmlExecutionEngine extends
 		XtextResource resource = (XtextResource) resourceSet.getResource(uri, true);
 		List<Diagnostic> errors = resource.getErrors();
 		if (!errors.isEmpty()) {
+			System.err.println("the moccml scenrio file contains errors: "+errors);
 			return null;
 		}
 		return (Scenario) resource.getContents().get(0);
@@ -406,40 +408,44 @@ public class MoccmlExecutionEngine extends
 			if (((MseStatement)currentScenarioStatement).getClocks().stream().allMatch(c -> clocksThatTicked.stream().anyMatch(c2 ->c2.getName().compareTo(c.getName()) == 0))){
 				indexInScenarioStatementSequence++;
 				currentScenarioStatement = scenarioStatementSequence.get(indexInScenarioStatementSequence);
-				while(! (currentScenarioStatement instanceof MseStatement)) {
-					RewritingRuleCallStatement rwrcallStatement = (RewritingRuleCallStatement) currentScenarioStatement;
-					ObjectVariable ov = rwrcallStatement.getObjectVariable();
-					JavaVariable javaVar = new JavaVariable(ov.getName(), ov.getType().getType().getQualifiedName());
-					Object obj = javaVar.getObject();
-					JvmOperation jvmOp = rwrcallStatement.getMethod();
-					EList<Variable> params = rwrcallStatement.getParameters();
-					Object[] realParams = new Object[params.size()];
-					Class<?>[] realParamTypes = new Class<?>[params.size()];
-					for(int i = 0; i < params.size();i++) {
-						Variable v = params.get(i);
-						if (v instanceof EObjectRef) {
-							realParams[i]=((EObjectRef)v).getObject();
-							realParamTypes[i]=(EObject.class);//(EObjectRef)v).getObject().getClass();
-						}
-						if (v instanceof IntegerLiteral) {
-							realParams[i]=new Integer(((IntegerLiteral)v).getValue());
-							realParamTypes[i] =Integer.class;
-						}
-					}
-					Method m;
-					try {
-						m = obj.getClass().getDeclaredMethod(jvmOp.getSimpleName(), realParamTypes);
-						// it is possible to get the result here !
-						Object res = m.invoke(obj, realParams);
-						System.out.println(res);
-					} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					indexInScenarioStatementSequence++;
-					currentScenarioStatement = scenarioStatementSequence.get(indexInScenarioStatementSequence);
+				dealWithRwRCallStatement(currentScenarioStatement);
+			}
+		}
+	}
+
+	private void dealWithRwRCallStatement(Statement currentScenarioStatement) {
+		while(! (currentScenarioStatement instanceof MseStatement)) {
+			RewritingRuleCallStatement rwrcallStatement = (RewritingRuleCallStatement) currentScenarioStatement;
+			ObjectVariable ov = rwrcallStatement.getObjectVariable();
+			JavaVariable javaVar = new JavaVariable(ov.getName(), ov.getType().getType().getQualifiedName());
+			Object obj = javaVar.getObject();
+			JvmOperation jvmOp = rwrcallStatement.getMethod();
+			EList<Variable> params = rwrcallStatement.getParameters();
+			Object[] realParams = new Object[params.size()];
+			Class<?>[] realParamTypes = new Class<?>[params.size()];
+			for(int i = 0; i < params.size();i++) {
+				Variable v = params.get(i);
+				if (v instanceof EObjectRef) {
+					realParams[i]=((EObjectRef)v).getObject();
+					realParamTypes[i]=(EObject.class);//(EObjectRef)v).getObject().getClass();
+				}
+				if (v instanceof IntegerLiteral) {
+					realParams[i]=new Integer(((IntegerLiteral)v).getValue());
+					realParamTypes[i] =Integer.class;
 				}
 			}
+			Method m;
+			try {
+				m = obj.getClass().getDeclaredMethod(jvmOp.getSimpleName(), realParamTypes);
+				// it is possible to get the result here !
+				Object res = m.invoke(obj, realParams);
+				System.out.println(res);
+			} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			indexInScenarioStatementSequence++;
+			currentScenarioStatement = scenarioStatementSequence.get(indexInScenarioStatementSequence);
 		}
 	}
 
