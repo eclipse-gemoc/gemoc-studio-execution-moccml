@@ -1,7 +1,6 @@
 package org.eclipse.gemoc.execution.moccml.testscenariolang.xtext.ui
 
 
-import org.eclipse.gemoc.execution.moccml.testscenariolang.xtext.TestScenarioLangRuntimeModule
 import org.eclipse.gemoc.execution.moccml.testscenariolang.xtext.TimemodelRuntimeModule
 import org.eclipse.gemoc.execution.moccml.testscenariolang.xtext.ui.TimemodelUiModule
 import org.eclipse.gemoc.execution.moccml.testscenariolang.xtext.ui.internal.TestScenarioLangActivator
