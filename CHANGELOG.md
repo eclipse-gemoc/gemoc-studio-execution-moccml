@@ -1,5 +1,24 @@
 # Changelog
 
+## v3.3.0 (28/07/2021)
+
+#### Enhancements:
+
+- [**enhancement**] Add Sirius ELK support [#50](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/50)
+- [**enhancement**] update the formal analysis branch wrt changes done in the master [#53](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/53)
+
+#### Version upgrades
+
+- [**bump**] Bump eclipse 2020-12 [#49](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/49)
+- [**bump**] Bump to Eclipse 2021-06 [#54](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/54)
+- [**bump**] Bump to Eclipse 2020-03 [#48](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/48)
+
+#### Release Engineering
+
+- [**releng**] Consolidation and automatic bump of K3 versions [#51](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/51)
+
+---
+
 ## v3.2.0 (16/06/2020)
 
 #### Enhancements:
