@@ -16,7 +16,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.transaction;bundle-version="1.9.1",
  org.eclipse.gemoc.commons.eclipse.pde;bundle-version="3.0.0"
 Bundle-ActivationPolicy: lazy
-Bundle-Vendor: Inria
+Bundle-Vendor: Eclipse GEMOC Project
 Automatic-Module-Name: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api
 Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors,

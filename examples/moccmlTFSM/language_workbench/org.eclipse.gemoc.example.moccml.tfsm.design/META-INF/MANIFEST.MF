@@ -29,3 +29,4 @@ Bundle-ManifestVersion: 2
 Export-Package: org.eclipse.gemoc.example.moccml.tfsm.design,
  org.eclipse.gemoc.example.moccml.tfsm.design.services
 Automatic-Module-Name: org.eclipse.gemoc.example.moccml.tfsm.design
+Bundle-Vendor: Eclipse GEMOC Project

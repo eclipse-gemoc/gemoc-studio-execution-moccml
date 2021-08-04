@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Groovy
+Bundle-Name: moccmlsigpml Groovy
 Bundle-SymbolicName: org.eclipse.gemoc.example.moccmlsigpml.groovy
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
@@ -154,3 +154,4 @@ Export-Package: groovy.beans,
  org.codehaus.groovy.vmplugin.v6,
  org.codehaus.groovy.vmplugin.v7,
  org.codehaus.groovy.vmplugin.v8
+Bundle-Vendor: Eclipse GEMOC Project

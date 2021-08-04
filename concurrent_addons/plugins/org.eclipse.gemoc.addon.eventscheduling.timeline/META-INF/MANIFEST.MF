@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Gemoc Event Scheduling Timeline Addon
+Bundle-Name: GEMOC Event Scheduling Timeline Addon
 Bundle-SymbolicName: org.eclipse.gemoc.addon.eventscheduling.timeline;singleton:=true
 Bundle-Version: 2.3.0.qualifier
 Bundle-Activator: org.eclipse.gemoc.addon.eventscheduling.timeline.Activator
@@ -27,6 +27,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.eclipse.gemoc.addon.eventscheduling.timeline,
  org.eclipse.gemoc.addon.eventscheduling.timeline.ui.commands,
  org.eclipse.gemoc.addon.eventscheduling.timeline.views.timeline
-Bundle-Vendor: Inria
+Bundle-Vendor: Eclipse GEMOC Project
 Automatic-Module-Name: org.eclipse.gemoc.addon.eventscheduling.timeline
 

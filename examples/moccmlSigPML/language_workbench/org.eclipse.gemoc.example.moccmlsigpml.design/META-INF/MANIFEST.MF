@@ -29,3 +29,4 @@ Export-Package:
  org.eclipse.gemoc.example.moccmlsigpml.design,
  org.eclipse.gemoc.example.moccmlsigpml.design.services
 Automatic-Module-Name: org.eclipse.gemoc.example.moccmlsigpml.design
+Bundle-Vendor: Eclipse GEMOC Project
