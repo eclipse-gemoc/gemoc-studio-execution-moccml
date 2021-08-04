@@ -21,3 +21,4 @@ Bundle-ManifestVersion: 2
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Activator: org.eclipse.gemoc.example.moccml.tfsm.k3dsa.Activator
+Bundle-Vendor: Eclipse GEMOC Project

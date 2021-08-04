@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Gemoc Language Workbench UI
+Bundle-Name: GEMOC MoCCML Language Workbench UI
 Bundle-SymbolicName: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui;singleton:=true
 Bundle-Version: 2.3.0.qualifier
 Bundle-Activator: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.Activator
-Bundle-Vendor: Inria
+Bundle-Vendor: Eclipse GEMOC Project
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
