@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Gemoc extension for TimeSquare
+Bundle-Name: GEMOC extension for TimeSquare
 Bundle-SymbolicName: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare
 Bundle-Version: 2.3.0.qualifier
 Bundle-Activator: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare.Activator
@@ -31,4 +31,4 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare.moc.impl
-Bundle-Vendor: Inria Aoste/I3S
+Bundle-Vendor: Eclipse GEMOC Project

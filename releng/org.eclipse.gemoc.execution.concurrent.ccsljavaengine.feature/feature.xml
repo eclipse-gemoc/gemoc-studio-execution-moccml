@@ -36,6 +36,7 @@ http://www.eclipse.org/legal/epl-v10.html
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
    <plugin
          id="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare"
          download-size="0"

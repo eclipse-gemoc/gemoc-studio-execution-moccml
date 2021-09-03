@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: CCSLJava Engine
+Bundle-Name: GEMOC CCSLJava Engine
 Bundle-SymbolicName: org.eclipse.gemoc.execution.concurrent.ccsljavaengine;singleton:=true
 Bundle-Version: 2.3.0.qualifier
 Bundle-Activator: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.Activator
@@ -43,5 +43,5 @@ Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaengine,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.eventscheduling.trace
-Bundle-Vendor: Inria
+Bundle-Vendor: Eclipse GEMOC Project
 Automatic-Module-Name: org.eclipse.gemoc.execution.concurrent.ccsljavaengine

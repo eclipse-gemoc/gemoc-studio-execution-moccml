@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.mse.model;singleton:=true
 Bundle-Version: 2.3.0.qualifier
 Bundle-ClassPath: .
-Bundle-Vendor: Inria
+Bundle-Vendor: Eclipse GEMOC Project
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.concurrentmse,

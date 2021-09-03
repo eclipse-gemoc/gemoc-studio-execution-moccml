@@ -20,4 +20,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils.ccsl
 Bundle-ClassPath: .
-Bundle-Vendor: Inria
+Bundle-Vendor: Eclipse GEMOC Project

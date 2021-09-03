@@ -4,7 +4,7 @@ Bundle-Name: Gemoc Concurrent Executable Modeling Workbench UI
 Bundle-SymbolicName: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui;singleton:=true
 Bundle-Version: 2.3.0.qualifier
 Bundle-Activator: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.Activator
-Bundle-Vendor: Inria
+Bundle-Vendor: Eclipse GEMOC Project
 Require-Bundle: org.eclipse.ui.ide,
  org.eclipse.core.expressions;bundle-version="3.4.400",
  org.eclipse.debug.ui;bundle-version="3.8.2",

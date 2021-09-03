@@ -3,7 +3,7 @@ Automatic-Module-Name: org.eclipse.gemoc.example.moccmlsigpml
 Bundle-SymbolicName: org.eclipse.gemoc.example.moccmlsigpml;singleton:=true
 Export-Package: sigpml.xdsml.api.impl
 Bundle-Version: 2.3.0.qualifier
-Bundle-Name: Xdsml
+Bundle-Name: moccmlsigpml Xdsml
 Bundle-ClassPath: .
 Require-Bundle: org.eclipse.emf.ecore.xmi;bundle-version="2.8.0";visibility:="reexport",
  org.eclipse.gemoc.ultimateplotter;bundle-version="1.0.0";visibility:="reexport",
@@ -38,3 +38,4 @@ Bundle-ActivationPolicy: lazy
 Bundle-ManifestVersion: 2
 Bundle-Activator: org.eclipse.gemoc.example.moccmlsigpml.Activator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-Vendor: Eclipse GEMOC Project
