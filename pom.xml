@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.eclipse.gemoc.execution.concurrent.ccsljava</groupId>
+    <groupId>org.eclipse.gemoc.gemoc-studio-execution-moccml.bundle</groupId>
     <artifactId>org.eclipse.gemoc.execution.concurrent.ccsljava.root</artifactId>
     <version>3.4.0-SNAPSHOT</version>
     <packaging>pom</packaging>  
@@ -23,23 +23,10 @@
     <modules>
     
         <!-- plugins -->
-        <module>ccsljava_engine/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaengine</module>
-        <module>ccsljava_engine/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3</module>
-        <module>ccsljava_engine/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate</module>
-        <module>ccsljava_engine/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare</module>
-        <module>ccsljava_engine/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaengine.mse.model</module>
-        <module>ccsljava_engine/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaengine.stimuli_scenario.model</module>
-        <module>ccsljava_engine/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui</module>
-        <module>ccsljava_xdsml/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api</module>
-        <module>ccsljava_xdsml/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui</module>
-        <module>ccsljava_xdsml/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils</module>
-        <module>ccsljava_xdsml/plugins/org.eclipse.gemoc.execution.moccml.example.deployer</module>
-        <module>ccsljava_xdsml/plugins/org.eclipse.gemoc.execution.moccmlxdsml.metaprog</module>
-        <module>concurrent_addons/plugins/org.eclipse.gemoc.addon.vcdgenerator</module>
-        <module>concurrent_addons/plugins/org.eclipse.gemoc.addon.eventscheduling.timeline</module>
-        <module>testScenarioLang/org.eclipse.gemoc.execution.moccml.testscenariolang.model</module>
-        <module>testScenarioLang/org.eclipse.gemoc.execution.moccml.testscenariolang.xtext</module>
-        <module>testScenarioLang/org.eclipse.gemoc.execution.moccml.testscenariolang.xtext.ui</module>
+        <module>ccsljava_engine/plugins</module>
+        <module>ccsljava_xdsml/plugins</module>
+        <module>concurrent_addons/plugins</module>
+        <module>testScenarioLang/</module>
         
         <!-- feature and update site -->
         <module>releng</module>
