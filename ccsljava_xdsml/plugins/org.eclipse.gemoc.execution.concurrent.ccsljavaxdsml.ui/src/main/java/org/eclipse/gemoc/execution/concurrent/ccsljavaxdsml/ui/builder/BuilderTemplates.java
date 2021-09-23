@@ -144,15 +144,16 @@ public class BuilderTemplates {
 "		if (aspect == null) {\n" + 
 "			return false;\n" + 
 "		}\n" + 
+"		final Class<?> targetClass = ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).className();\n" +
 "			 try {\n" + 
-"				 aspect.getMethod(propertyName, ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).className(), newValue.getClass()).invoke(eObject, eObject, newValue);\n" + 
+"				 aspect.getMethod(propertyName, targetClass, newValue.getClass()).invoke(eObject, eObject, newValue);\n" + 
 "				return true;\n" + 
 "				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {\n" + 
 "					Method m = null;\n" + 
-"					for(Class<?> c : ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).getClass().getInterfaces()) {\n" + 
+"					for(Class<?> c : newValue.getClass().getInterfaces()) {\n" + 
 "						\n" + 
 "						try {\n" + 
-"							aspect.getMethod(propertyName, c, newValue.getClass()).invoke(eObject, eObject, newValue);\n" + 
+"							aspect.getMethod(propertyName, targetClass, c).invoke(eObject, eObject, newValue);\n" + 
 "							return true;\n" + 
 "						} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {\n" + 
 "						}\n" + 
@@ -208,19 +209,20 @@ public class BuilderTemplates {
 "				return false;\n" + 
 "			}\n" + 
 "			return true;\n" + 
-"		}" + 
-""+
-"\t}"+
-"\n\t\tK3ModelStateFactory theFactory = K3ModelStateFactory.eINSTANCE; \n"+
+"		}\n" + 
+"\n"+
+"\t}\n"+
+"\tK3ModelStateFactory theFactory = K3ModelStateFactory.eINSTANCE; \n"+
 "${saveAndRestoreMethod}\n"+
 "\n" + 
 "	public void restoreModelState(K3ModelState state) {\n" + 
 "		for(ElementState elemState : state.getOwnedElementstates()) {\n" + 
 "			for(Object o : elemState.getSavedRTDs()) {\n" + 
 "				AttributeNameToValue n2v = (AttributeNameToValue)o;\n" + 
+"				String n2vOpName = n2v.name.substring(0,1).toUpperCase() + n2v.name.substring(1);\n" +
 "				try {\n" + 
 "					if (n2v.value != null) {\n" + 
-"						Method m = ${language.name.toupperfirst}RTDAccessor.class.getMethod(\"set\"+n2v.name, EObject.class, n2v.value.getClass());\n" + 
+"						Method m = ${language.name.toupperfirst}RTDAccessor.class.getMethod(\"set\"+n2vOpName, elemState.getModelElement().getClass().getInterfaces()[0], n2v.value.getClass());\n" + 
 "						m.invoke(null, elemState.getModelElement(), n2v.value);\n" + 
 "					}\n" + 
 "				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {\n" + 
@@ -228,12 +230,12 @@ public class BuilderTemplates {
 "					for(Class<?> c : n2v.value.getClass().getInterfaces()) {\n" + 
 "						\n" + 
 "						try {\n" + 
-"							m = ${language.name.toupperfirst}RTDAccessor.class.getMethod(\"set\"+n2v.name, EObject.class, n2v.value.getClass().getInterfaces()[0]);\n" + 
+"							m = ${language.name.toupperfirst}RTDAccessor.class.getMethod(\"set\"+n2vOpName, elemState.getModelElement().getClass().getInterfaces()[0], c);\n" + 
 "							m.invoke(null, elemState.getModelElement(), n2v.value);\n" + 
 "						} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {\n" + 
 "						}\n" + 
 "						if (m == null) {\n" + 
-"							throw new RuntimeException(\"not method found for \"+n2v.value.getClass().getName()+\"::set\"+n2v.name);\n" + 
+"							throw new RuntimeException(\"not method found for \"+n2v.value.getClass().getName()+\"::set\"+n2vOpName);\n" + 
 "						}\n" + 
 "					}\n" + 
 "				}\n" + 
