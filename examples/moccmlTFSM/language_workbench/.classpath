@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="org.eclipse.gemoc.example.moccml.tfsm.design/src"/>
+	<classpathentry kind="src" path="org.eclipse.gemoc.example.moccml.tfsm.k3dsa/src"/>
+	<classpathentry kind="src" path="org.eclipse.gemoc.example.moccml.tfsm.moc.dse/src"/>
+	<classpathentry kind="src" path="org.eclipse.gemoc.example.moccml.tfsm.moc.lib/src"/>
+	<classpathentry kind="src" path="org.eclipse.gemoc.example.moccml.tfsm.model.edit/emf-gen"/>
+	<classpathentry kind="src" path="org.eclipse.gemoc.example.moccml.tfsm.model.editor/emf-gen"/>
+	<classpathentry kind="src" path="org.eclipse.gemoc.example.moccml.tfsm.model/emf-gen"/>
+	<classpathentry kind="src" path="org.eclipse.gemoc.example.moccml.tfsm/src"/>
+	<classpathentry kind="src" path="org.eclipse.gemoc.example.moccml.tfsm/xdsml-java-gen"/>
+	<classpathentry kind="lib" path="org.eclipse.gemoc.example.moccml.tfsm.k3dsa/lib/groovy-all-2.4.7.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
