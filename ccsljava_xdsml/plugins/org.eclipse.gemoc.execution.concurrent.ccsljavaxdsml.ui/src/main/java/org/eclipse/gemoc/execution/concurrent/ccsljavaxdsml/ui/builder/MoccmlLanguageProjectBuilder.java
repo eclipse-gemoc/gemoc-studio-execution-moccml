@@ -241,26 +241,36 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 
 		sbContent.append("\tpublic K3ModelState getK3ModelState(EObject model) {\n"
 				+ "\t\tK3ModelState res = theFactory.createK3ModelState();\n" + "\n"
-				+ "\t\tTreeIterator<EObject> allContentIt = model.eAllContents();\n"
-				+ "\t\twhile (allContentIt.hasNext()) {\n" + "\t\t\tEObject elem = allContentIt.next();\n" + "\n");
+				+ "\t\t		// consider indirectly referenced models (ugly and probably not efficient)\n"
+				+ "		ArrayList<EObject> allElements = new ArrayList<EObject>();\n"
+				+ "		model.eAllContents().forEachRemaining(x -> allElements.add(x));\n"
+				+ "		Map<EObject, Collection<Setting>> f = EcoreUtil.CrossReferencer.find(allElements);\n"
+				+ "		HashSet<Resource> consideredResources = new HashSet<Resource>();\n"
+				+ "		consideredResources.add(model.eResource());\n"
+				+ "		f.keySet().forEach(eo -> consideredResources.add(eo.eResource()));\n"
+				+ "		\n"
+				+ "		for(Resource resource : consideredResources) {\n"
+				+ "			TreeIterator<EObject> allContentIt = resource.getAllContents();\n"
+				+ "			while (allContentIt.hasNext()) {\n"
+				+ "				EObject elem = allContentIt.next();\n" + "\n");
 
-		sbContent.append("\t\t\tClass<?> clazz =null;\n");
+		sbContent.append("				Class<?> clazz =null;\n");
 		for (String aspect : setAspectsWithRTDs) {
-			sbContent.append("\t\t\tclazz = K3DslHelper.getTarget(" + aspect + ".class);\n"
-					+ "\t\t\tif (clazz.isInstance(elem)) {\n"
-					+ "\t\t\t\tElementState elemState = theFactory.createElementState();\n"
-					+ "\t\t\t\telemState.setModelElement(elem);\n"
-					+ "\t\t\t\tres.getOwnedElementstates().add(elemState);\n");
+			sbContent.append("				clazz = K3DslHelper.getTarget(" + aspect + ".class);\n"
+					+ "				if (clazz.isInstance(elem)) {\n"
+					+ "					ElementState elemState = theFactory.createElementState();\n"
+					+ "					elemState.setModelElement(elem);\n"
+					+ "					res.getOwnedElementstates().add(elemState);\n");
 			int i = 0;
 			for (String property : mapAspectProperties.get(aspect)) {
-				sbContent.append("\t\t\t\tAttributeNameToValue n2v" + i + " = new AttributeNameToValue(\"" + property
+				sbContent.append("					AttributeNameToValue n2v" + i + " = new AttributeNameToValue(\"" + property
 						+ "\", " + languageToUpperFirst + "RTDAccessor.get" + toUpperFirst(property) + "(("+ mapAspectizedClass.get(aspect)+")elem));\n"
-						+ "\t\t\t\telemState.getSavedRTDs().add(n2v" + i + ");\n");
+						+ "					elemState.getSavedRTDs().add(n2v" + i + ");\n");
 				i++;
 			}
-			sbContent.append("\t\t\t}\n");
+			sbContent.append("				}\n");
 		}
-		sbContent.append("\t\t}\n\t\treturn res;\n\t\t}");
+		sbContent.append("\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n");
 
 		fileContent = fileContent.replaceAll(Pattern.quote("${saveAndRestoreMethod}"), sbContent.toString());
 		fileContent = fileContent.replaceAll(Pattern.quote("${extraImports}"), sbExtraImport.toString());
