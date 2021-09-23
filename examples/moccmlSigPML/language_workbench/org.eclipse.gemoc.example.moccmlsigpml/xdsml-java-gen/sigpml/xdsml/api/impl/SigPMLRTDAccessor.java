@@ -136,15 +136,16 @@ public class SigPMLRTDAccessor {
 		if (aspect == null) {
 			return false;
 		}
+		final Class<?> targetClass = ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).className();
 			 try {
-				 aspect.getMethod(propertyName, ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).className(), newValue.getClass()).invoke(eObject, eObject, newValue);
+				 aspect.getMethod(propertyName, targetClass, newValue.getClass()).invoke(eObject, eObject, newValue);
 				return true;
 				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 					Method m = null;
-					for(Class<?> c : ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).getClass().getInterfaces()) {
+					for(Class<?> c : newValue.getClass().getInterfaces()) {
 						
 						try {
-							aspect.getMethod(propertyName, c, newValue.getClass()).invoke(eObject, eObject, newValue);
+							aspect.getMethod(propertyName, targetClass, c).invoke(eObject, eObject, newValue);
 							return true;
 						} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {
 						}
