@@ -84,12 +84,12 @@ public class OncurrentTFSMRTDAccessor {
 		}
 		final Class<?> targetClass = ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).className();
 			 try {
+				 
 				 aspect.getMethod(propertyName, targetClass, newValue.getClass()).invoke(eObject, eObject, newValue);
 				return true;
 				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 					Method m = null;
 					for(Class<?> c : newValue.getClass().getInterfaces()) {
-						
 						try {
 							aspect.getMethod(propertyName, targetClass, c).invoke(eObject, eObject, newValue);
 							return true;

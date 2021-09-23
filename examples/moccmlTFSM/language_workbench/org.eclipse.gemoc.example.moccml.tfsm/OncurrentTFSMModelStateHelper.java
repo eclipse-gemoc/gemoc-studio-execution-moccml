@@ -39,10 +39,8 @@ public class OncurrentTFSMModelStateHelper implements IK3ModelStateHelper{
 				return false;
 			}
 			return true;
-		}
-
-	}
-	K3ModelStateFactory theFactory = K3ModelStateFactory.eINSTANCE; 
+		}	}
+		K3ModelStateFactory theFactory = K3ModelStateFactory.eINSTANCE; 
 	public K3ModelState getK3ModelState(EObject model) {
 		K3ModelState res = theFactory.createK3ModelState();
 
@@ -91,23 +89,21 @@ public class OncurrentTFSMModelStateHelper implements IK3ModelStateHelper{
 		for(ElementState elemState : state.getOwnedElementstates()) {
 			for(Object o : elemState.getSavedRTDs()) {
 				AttributeNameToValue n2v = (AttributeNameToValue)o;
-				String n2vOpName = n2v.name.substring(0,1).toUpperCase() + n2v.name.substring(1);
 				try {
 					if (n2v.value != null) {
-						Method m = OncurrentTFSMRTDAccessor.class.getMethod("set"+n2vOpName, elemState.getModelElement().getClass().getInterfaces()[0], n2v.value.getClass());
+						Method m = OncurrentTFSMRTDAccessor.class.getMethod("set"+n2v.name.substring(0,1).toUpperCase() + n2v.name.substring(1), elemState.getModelElement().getClass().getInterfaces()[0], n2v.value.getClass());
 						m.invoke(null, elemState.getModelElement(), n2v.value);
 					}
 				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 					Method m = null;
 					for(Class<?> c : n2v.value.getClass().getInterfaces()) {
-						
 						try {
-							m = OncurrentTFSMRTDAccessor.class.getMethod("set"+n2vOpName, elemState.getModelElement().getClass().getInterfaces()[0], c);
+							m = OncurrentTFSMRTDAccessor.class.getMethod("set"+n2v.name.substring(0,1).toUpperCase() + n2v.name.substring(1), elemState.getModelElement().getClass().getInterfaces()[0], c);
 							m.invoke(null, elemState.getModelElement(), n2v.value);
 						} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {
 						}
 						if (m == null) {
-							throw new RuntimeException("not method found for "+n2v.value.getClass().getName()+"::set"+n2vOpName);
+							throw new RuntimeException("not method found for "+n2v.value.getClass().getName()+"::set"+n2v.name);
 						}
 					}
 				}
