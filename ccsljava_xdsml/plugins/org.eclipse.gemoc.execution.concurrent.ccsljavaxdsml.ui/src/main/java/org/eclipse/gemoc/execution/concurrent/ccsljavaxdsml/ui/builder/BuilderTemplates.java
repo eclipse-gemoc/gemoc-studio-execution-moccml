@@ -172,9 +172,16 @@ public class BuilderTemplates {
 "package ${package.name};\n"+
 "import java.io.Serializable;\n" + 
 "import java.lang.reflect.Method;\n" +
+"import java.util.ArrayList;\n" +
+"import java.util.Collection;\n" +
+"import java.util.HashSet;\n" +
+"import java.util.Map;" +
 "import java.lang.reflect.InvocationTargetException;\n" + 
 "import org.eclipse.emf.common.util.TreeIterator;\n" + 
 "import org.eclipse.emf.ecore.EObject;\n" + 
+"import org.eclipse.emf.ecore.EStructuralFeature.Setting;\n" + 
+"import org.eclipse.emf.ecore.resource.Resource;\n" +
+"import org.eclipse.emf.ecore.util.EcoreUtil;\n" +
 "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.ElementState;\n" + 
 "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelState;\n" + 
 "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelStateFactory;\n"+
