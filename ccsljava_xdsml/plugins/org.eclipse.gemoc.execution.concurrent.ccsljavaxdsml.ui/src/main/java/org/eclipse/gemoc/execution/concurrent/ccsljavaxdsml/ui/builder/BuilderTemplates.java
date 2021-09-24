@@ -229,10 +229,19 @@ public class BuilderTemplates {
 "				String n2vOpName = n2v.name.substring(0,1).toUpperCase() + n2v.name.substring(1);\n" +
 "				try {\n" + 
 "					if (n2v.value != null) {\n" + 
-"						Method m = ${language.name.toupperfirst}RTDAccessor.class.getMethod(\"set\"+n2vOpName, elemState.getModelElement().getClass().getInterfaces()[0], n2v.value.getClass());\n" + 
+"						Method m= null;\n"
++ "						for(Method m2 :XBPMNRTDAccessor.class.getMethods()) {\n"
++ "							if(m2.getName().equals(\"set\"+n2vOpName) && m2.getParameterTypes().length == 2) {\n"
++ "								if(m2.getParameterTypes()[0].isAssignableFrom(elemState.getModelElement().getClass()) &&\n"
++ "										m2.getParameterTypes()[1].isAssignableFrom(n2v.value.getClass())	) {\n"
++ "									m = m2;\n"
++ "									break;\n"
++ "								}\n"
++ "							}\n"
++ "						}\n" +
 "						m.invoke(null, elemState.getModelElement(), n2v.value);\n" + 
 "					}\n" + 
-"				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {\n" + 
+"				} catch (NullPointerException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {\n" + 
 "					Method m = null;\n" + 
 "					for(Class<?> c : n2v.value.getClass().getInterfaces()) {\n" + 
 "						\n" + 
