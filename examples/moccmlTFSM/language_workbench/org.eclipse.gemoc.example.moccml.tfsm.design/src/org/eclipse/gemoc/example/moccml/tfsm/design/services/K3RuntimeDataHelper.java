@@ -13,18 +13,18 @@ import oncurrenttfsm.xdsml.api.impl.OncurrentTFSMRTDAccessor;
 public class K3RuntimeDataHelper {
 	
 	public State getCurrentState(TFSM eObject) {
-		return OncurrentTFSMRTDAccessor.getCurrentState(eObject);
+		return OncurrentTFSMRTDAccessor.getcurrentState((TFSM)eObject);
 	}
 	
 	public int getNumberOfTicks(FSMClock eObject) {
-		return OncurrentTFSMRTDAccessor.getNumberOfTicks(eObject);
+		return OncurrentTFSMRTDAccessor.getnumberOfTicks(eObject);
 	}
 	
 	public Object getCurrentValue(Variable eObject) {
 		if (eObject instanceof BooleanVariable) {
-			return OncurrentTFSMRTDAccessor.getCurrentValue((BooleanVariable)eObject);
+			return OncurrentTFSMRTDAccessor.getcurrentValue((BooleanVariable)eObject);
 		}
-		return OncurrentTFSMRTDAccessor.getCurrentValue((IntegerVariable)eObject);
+		return OncurrentTFSMRTDAccessor.getcurrentValue((IntegerVariable)eObject);
 
 	}
 	
