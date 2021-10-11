@@ -291,24 +291,9 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 				IAnnotation annotation = property.getAnnotation("Containment");
 				if(annotation != null) {
 					sbContent.append("					// Annotation "+mapFieldContainmentStrategy.get(property)+"\n");
-					mapFieldContainmentStrategy.get(property);
-					// TODO decide for clone or reference
 				}
 				sbContent.append(indent+ "					propertyValue = " + languageToUpperFirst + "RTDAccessor.saveProperty_" + property.getElementName() + "(("+ mapAspectizedClass.get(aspectName)+")elem);\n");
-//				switch (mapFieldContainmentStrategy.get(property)) {
-//				case REFERENCE:
-//					// nothing to do this is a reference
-//					break;
-//				case MAP_KEYCONTAINMENT_VALUEREFERENCE:
-//					Activator.error("MAP_KEYCONTAINMENT_VALUEREFERENCE not implemented, probable issue with property "+ property.getElementName() , new Exception("MAP_KEYCONTAINMENT_VALUEREFERENCE not implemented, probable issue with propertey "+ property.getElementName()));
-//					break;
-//				case MAP_KEYREFERENCE_VALUECONTAINMENT:
-//					Activator.error("MAP_KEYREFERENCE_VALUECONTAINMENT not implemented, probable issue with property "+ property.getElementName() , new Exception("MAP_KEYREFERENCE_VALUECONTAINMENT not implemented, probable issue with propertey "+ property.getElementName()));
-//					break;
-//				default: // CONTAINER
-//					sbContent.append(indent+ "					propertyValue = propertyValue == null ? null : Copier.clone(propertyValue);\n");
-//					break;
-//				}
+
 				sbContent.append(indent+ "					AttributeNameToValue n2v" + i + " = new AttributeNameToValue(\"" + property.getElementName() + "\", propertyValue);\n");
 				
 				sbContent.append(indent + "					elemState.getSavedRTDs().add(n2v" + i + ");\n");
@@ -471,8 +456,6 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 
 		StringBuilder sbContent = new StringBuilder();
 		StringBuilder sbExtraImport = new StringBuilder();
-//		setAspectsWithRTDs = new HashSet<String>();
-//		mapAspectProperties = ArrayListMultimap.create();
 
 		for (String aspectName : setAspectsWithRTDs) {
 			String aspectizedClassName = mapAspectizedClass.get(aspectName);
