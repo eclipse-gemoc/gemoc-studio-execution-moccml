@@ -405,7 +405,7 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 								Field f = aspectClass.getField(sf.getElementName());
 								mapAspectFieldProperties.put(aspectClassName, f);
 								Optional<Annotation> annotation = Arrays.asList(f.getAnnotations()).stream()
-										.filter(a ->  a.annotationType().getCanonicalName().equals(fr.inria.diverse.k3.al.annotationprocessor.Containment.class.getCanonicalName())).findFirst();
+										.filter(a ->  a.annotationType().getCanonicalName().equals(org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.api.Containment.class.getCanonicalName())).findFirst();
 								if(annotation.isPresent()) {
 									// pb of classpath, recreate containment information via reflexivity
 									Method m = annotation.get().annotationType().getMethod("value");
