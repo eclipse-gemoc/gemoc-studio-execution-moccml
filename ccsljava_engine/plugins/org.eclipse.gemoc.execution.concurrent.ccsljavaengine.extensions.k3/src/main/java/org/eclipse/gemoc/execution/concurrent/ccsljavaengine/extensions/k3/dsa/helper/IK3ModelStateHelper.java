@@ -5,6 +5,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.m
 
 public interface IK3ModelStateHelper {
 	
+	public K3ModelState getK3StateSpaceModelState(EObject model);
 	public K3ModelState getK3ModelState(EObject model);
 	public void restoreModelState(K3ModelState state);
 

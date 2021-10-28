@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+    Copyright (c) 2017 I3S laboratory, INRIA and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+        I3S laboratory and INRIA Kairos - initial API and implementation
+ -->
+
+<!--
+-->
+
+<plugin>
+
+
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated TestScenarioLang -->
+      <package
+            uri="http://gemoc.org/moccml/testscenariolang"
+            class="org.eclipse.gemoc.execution.moccml.testscenariolang.model.TestScenarioLang.TestScenarioLangPackage"
+            genModel="model/TestScenarioLang.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated TestScenarioLang -->
+      <parser
+            type="codeexec"
+            class="org.eclipse.gemoc.execution.moccml.testscenariolang.model.TestScenarioLang.util.TestScenarioLangResourceFactoryImpl"/>
+   </extension>
+</plugin>

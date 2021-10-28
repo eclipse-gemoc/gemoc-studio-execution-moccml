@@ -4,5 +4,6 @@ public interface IMoccmlRunConfiguration extends IConcurrentRunConfiguration {
 
 	boolean getIsExhaustiveSimulation();
 	String getExecutionModelPath();
+	String getMoccmlScenarioModelPath();
 
 }

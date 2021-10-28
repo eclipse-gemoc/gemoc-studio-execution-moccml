@@ -26,30 +26,49 @@ import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinit
 public class MoccmlModelExecutionContext extends
 		BaseConcurrentModelExecutionContext<IMoccmlRunConfiguration, MoccmlExecutionPlatform, LanguageDefinitionExtension> {
 
+	
+
+	protected ActionModel _feedbackModel;
+	protected String moccmlscenarioModelPath = null;
+	public boolean hasARegisteredScenario = false;
+	
+	protected MoccmlLanguageAdditionExtension _moccmlLanguageAdditionExtension;
+
 	public MoccmlModelExecutionContext(IMoccmlRunConfiguration runConfiguration, ExecutionMode executionMode)
 			throws EngineContextException {
 		super(runConfiguration, executionMode);
 		_moccmlLanguageAdditionExtension = this.getMoccmlLanguageAddition(runConfiguration.getLanguageName());
+		moccmlscenarioModelPath = runConfiguration.getMoccmlScenarioModelPath();
+		if (moccmlscenarioModelPath.length() > 1) {
+			hasARegisteredScenario = true;
+		}
+
 	}
-
-	protected ActionModel _feedbackModel;
-	public String alternativeExecutionModelPath = null;
 	
-	protected MoccmlLanguageAdditionExtension _moccmlLanguageAdditionExtension;
-
 	public ActionModel getFeedbackModel() {
 		return _feedbackModel;
 	}
+	
+	public String getMoccmlscenarioModelPath() {
+		return moccmlscenarioModelPath;
+	}
 
-	public void setUpFeedbackModel() {
+	public void setMoccmlscenarioModelPath(String moccmlscenarioModelPath) {
+		this.moccmlscenarioModelPath = moccmlscenarioModelPath;
+	}
+
+
+	public Resource setUpFeedbackModel() {
 		URI feedbackPlatformURI = URI.createPlatformResourceURI(
 				getWorkspace().getMSEModelPath().removeFileExtension().addFileExtension("feedback").toString(), true);
 		try {
 			Resource resource = this.getResourceModel().getResourceSet().getResource(feedbackPlatformURI, true);
 			_feedbackModel = (ActionModel) resource.getContents().get(0);
+			return resource;
 		} catch (Exception e) {
 			// file will be created later
 		}
+		return null;
 	}
 
 	@Override

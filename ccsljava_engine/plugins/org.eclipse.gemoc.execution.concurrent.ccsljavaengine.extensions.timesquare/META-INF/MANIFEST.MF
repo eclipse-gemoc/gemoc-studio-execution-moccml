@@ -4,37 +4,31 @@ Bundle-Name: GEMOC extension for TimeSquare
 Bundle-SymbolicName: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare
 Bundle-Version: 2.3.0.qualifier
 Bundle-Activator: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare.Activator
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.gemoc.xdsmlframework.api,
- org.eclipse.emf.ecore,
+Require-Bundle: org.eclipse.gemoc.xdsmlframework.api,
  fr.inria.aoste.trace;bundle-version="1.0.1",
  fr.inria.aoste.timesquare.ccslkernel.runtime;bundle-version="1.0.0",
  fr.inria.aoste.timesquare.ccslkernel.solver;bundle-version="1.0.0",
- fr.inria.aoste.timesquare.ccslkernel.solver.launch;bundle-version="1.0.0",
  fr.inria.aoste.timesquare.ccslkernel.model;bundle-version="1.0.0",
  fr.inria.aoste.timesquare.ccslkernel.modelunfolding;bundle-version="1.0.0",
  fr.inria.aoste.timesquare.trace.util;bundle-version="1.0.0",
  fr.inria.aoste.timesquare.simulationpolicy.maxcard;bundle-version="1.0.0",
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils;bundle-version="0.1.0",
- org.eclipse.core.resources,
- org.eclipse.gemoc.commons.eclipse;bundle-version="0.1.0",
- fr.inria.aoste.timesquare.simulationpolicy;bundle-version="1.1.0",
- org.eclipse.gemoc.executionframework.reflectivetrace.model,
  fr.inria.aoste.timesquare.launcher.core;bundle-version="1.4.1",
  org.eclipse.gemoc.commons.eclipse.pde,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.mse.model;bundle-version="0.1.0",
  org.eclipse.emf.transaction;bundle-version="1.8.0",
  org.eclipse.gemoc.executionframework.engine,
- org.eclipse.gemoc.trace.commons;bundle-version="1.0.0",
  fr.inria.aoste.timesquare.instantrelation,
  fr.inria.aoste.timesquare.instantrelation.trace.relation;bundle-version="1.0.0",
  fr.inria.aoste.timesquare.utils.pluginhelpers,
- fr.inria.aoste.timesquare.utils.extensionpoint;bundle-version="1.0.0",
  org.eclipse.gemoc.commons.eclipse.messagingsystem.api,
- org.eclipse.gemoc.execution.concurrent.ccsljavaengine
+ org.eclipse.gemoc.execution.concurrent.ccsljavaengine,
+ fr.inria.aoste.timesquare.ccslkernel.solver.launch,
+ fr.inria.aoste.timesquare.simulationpolicy;bundle-version="1.1.0",
+ fr.inria.aoste.timesquare.utils.extensionpoint;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare.moc.impl
 Bundle-Vendor: Eclipse GEMOC Project

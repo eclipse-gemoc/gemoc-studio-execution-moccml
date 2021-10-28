@@ -18,27 +18,35 @@ import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 public class FreeClockFutureAction implements IMoccmlFutureAction
 {
 
-	private ModelSpecificEvent _mseToBeForced;
-	private ModelSpecificEvent _triggeringMSE;
-	private IMoccmlMSEStateController _clockController;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1600863389578532939L;
+	private String _mseToBeForcedURI;
+	private String _triggeringMSEURI;
 	
-	public FreeClockFutureAction(ModelSpecificEvent mseToBeForced, ModelSpecificEvent triggeringMSE, IMoccmlMSEStateController clockController) 
+	public FreeClockFutureAction(String mseToBeForcedURI, String triggeringMSEURI) 
 	{
-		_mseToBeForced = mseToBeForced;
-		_triggeringMSE = triggeringMSE;
-		_clockController = clockController;
+		_mseToBeForcedURI = mseToBeForcedURI;
+		_triggeringMSEURI = triggeringMSEURI;
 	}
 
 	@Override
-	public ModelSpecificEvent getTriggeringMSE() 
+	public String getTriggeringMSEURI() 
 	{
-		return _triggeringMSE;
+		return _triggeringMSEURI;
+	}
+	
+	@Override
+	public String getMseToBeForcedURI() 
+	{
+		return _mseToBeForcedURI;
 	}
 
 	@Override
-	public void perform() 
+	public void perform(IMoccmlMSEStateController controler) 
 	{
-		_clockController.freeInTheFuture(_mseToBeForced);
+		controler.freeInTheFuture(_mseToBeForcedURI);
 	}
 
 }

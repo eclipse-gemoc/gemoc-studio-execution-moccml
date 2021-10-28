@@ -31,9 +31,14 @@ import cnrs.luchogie.up.data.rendering.figure.ConnectedLineFigureRenderer
 //import fr.inria.diverse.k3.al.annotationprocessor.coordination.Input
 //import fr.inria.diverse.k3.al.annotationprocessor.coordination.Output
 import fr.inria.diverse.k3.al.annotationprocessor.Step
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.NotInStateSpace
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.api.Containment
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.api.Containment.ContainmentStrategy
 
 @Aspect(className = HWComputationalResource)
 class HWComputationalResourceAspect {
+	
+	@NotInStateSpace
 	public Integer executionCycle = 0
 
 	def void incCycle() {
@@ -45,10 +50,14 @@ class HWComputationalResourceAspect {
 
 @Aspect(className = Agent) 
 class AgentAspect extends NamedElementAspect {
+	@Containment(ContainmentStrategy.REFERENCE)
 	public SwingPlotter plotter = new InteractiveSwingPlotter
+	@Containment(ContainmentStrategy.REFERENCE)
 	public JFrame frame = new JFrame
+	@Containment(ContainmentStrategy.REFERENCE)
 	public Figure figure = new Figure
 	public Boolean hasBeenStopped = false
+	@NotInStateSpace
 	public Integer currentExecCycle = 0;
 	public Boolean isCurrentlyExecuting = false;
 
@@ -129,7 +138,29 @@ class AgentAspect extends NamedElementAspect {
 			val ucl = AgentAspect.classLoader
 			//val ucl = _self.class.classLoader	
 			val shell = new GroovyShell(ucl,binding)
-	
+			println(_self.code)
+			
+			
+			val failingString  = '''import java.util.Map;
+			import java.util.LinkedHashMap;
+			
+					Map<String, Object> res = new LinkedHashMap<String, Object>();
+					Double state = null
+			
+					if(pA1inState.get(0) == null){
+						state = new Float(0)
+					}else{
+						state = pA1inState.get(0)
+					}
+			
+					Double radians = Math.toRadians(state);
+					Double  value = Math.sin(radians)
+					state = (state + 10)
+					res.put("pA1out", value);
+					res.put("pA1outState", state)
+					return res;
+			'''
+			shell.parse(failingString)
 			val res = shell.evaluate(_self.code) as Map<String, Object>
 	
 				
@@ -183,6 +214,7 @@ class PlaceAspect extends NamedElementAspect {
 //	@Exposed
 //	@Input(cond="true")
 //	@Output(cond="true")
+	@Containment()
 	public EList<Object> fifo = new BasicEList()
 	public Integer currentSize = 0
 	public Boolean isInitialized = false

@@ -12,16 +12,19 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.builder;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -40,6 +43,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -52,6 +56,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.langu
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui.Activator;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinitionExtensionPoint;
 import org.eclipse.gemoc.xdsmlframework.ide.ui.builder.pde.PluginXMLHelper;
+import org.eclipse.jdt.core.IAnnotation;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
@@ -68,6 +73,9 @@ import org.osgi.framework.BundleException;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.api.Containment;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.api.Containment.ContainmentStrategy;
+
 //import fr.inria.diverse.melange.metamodel.melange.Language;
 //import fr.inria.diverse.melange.metamodel.melange.ModelTypingSpace;
 
@@ -75,7 +83,9 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 
 	private Set<String> setAspectsWithRTDs = null;
 	HashMap<String, String> mapAspectizedClass = new HashMap<String, String>(); // key the aspectClass name, value the aspectized class 
-	Multimap<String, String> mapAspectProperties = null;
+	Multimap<String, SourceField> mapAspectProperties = null;
+	Multimap<String, Field> mapAspectFieldProperties = null;
+	HashMap<SourceField, Containment.ContainmentStrategy> mapFieldContainmentStrategy = null;
 
 	public MoccmlLanguageProjectBuilder() {
 		return;
@@ -198,8 +208,10 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 
 					if (anEntry.getKey().compareTo("k3") == 0) {
 						try {
-							createLanguageSpecificDSAHelper(anEntry.getValue(), project, languageName, manifestChanger);
-							createLanguageSpecificModelStateHelper(anEntry.getValue(), project, languageName,
+							String k3AspectListString = anEntry.getValue();
+							populateK3AspectMaps(k3AspectListString);
+							createLanguageSpecificDSAHelper(k3AspectListString, project, languageName, manifestChanger);
+							createLanguageSpecificModelStateHelper(k3AspectListString, project, languageName,
 									manifestChanger);
 						} catch (ClassNotFoundException | CoreException | BundleException | IOException e) {
 							Activator.error(e.getMessage(), e);
@@ -239,29 +251,61 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 		StringBuilder sbContent = new StringBuilder();
 		StringBuilder sbExtraImport = new StringBuilder();
 
-		sbContent.append("\tpublic K3ModelState getK3ModelState(EObject model) {\n"
-				+ "\t\tK3ModelState res = theFactory.createK3ModelState();\n" + "\n"
-				+ "\t\tTreeIterator<EObject> allContentIt = model.eAllContents();\n"
-				+ "\t\twhile (allContentIt.hasNext()) {\n" + "\t\t\tEObject elem = allContentIt.next();\n" + "\n");
+		sbContent.append("\n\tpublic K3ModelState getK3StateSpaceModelState(EObject model) {\n"
+				+ "		return getK3ModelState(model, false);\n"
+				+ "	}\n"
+				+ "	\n\tpublic K3ModelState getK3ModelState(EObject model) {\n"
+				+ "		return getK3ModelState(model, true);\n"
+				+ "	}\n"
+				+ "		\n"
+				+ "	public K3ModelState getK3ModelState(EObject model, boolean allRTDs) {\n"
+				+ "		K3ModelState res = theFactory.createK3ModelState();\n" + "\n"
+				+ "		// consider indirectly referenced models (ugly and probably not efficient)\n"
+				+ "		ArrayList<EObject> allElements = new ArrayList<EObject>();\n"
+				+ "		model.eAllContents().forEachRemaining(x -> allElements.add(x));\n"
+				+ "		Map<EObject, Collection<Setting>> f = EcoreUtil.CrossReferencer.find(allElements);\n"
+				+ "		HashSet<Resource> consideredResources = new HashSet<Resource>();\n"
+				+ "		consideredResources.add(model.eResource());\n"
+				+ "		f.keySet().forEach(eo -> consideredResources.add(eo.eResource()));\n"
+				+ "		\n"
+				+ "		for(Resource resource : consideredResources) {\n"
+				+ "			TreeIterator<EObject> allContentIt = resource.getAllContents();\n"
+				+ "			while (allContentIt.hasNext()) {\n"
+				+ "				EObject elem = allContentIt.next();\n" + "\n");
 
-		sbContent.append("\t\t\tClass<?> clazz =null;\n");
-		for (String aspect : setAspectsWithRTDs) {
-			sbContent.append("\t\t\tclazz = K3DslHelper.getTarget(" + aspect + ".class);\n"
-					+ "\t\t\tif (clazz.isInstance(elem)) {\n"
-					+ "\t\t\t\tElementState elemState = theFactory.createElementState();\n"
-					+ "\t\t\t\telemState.setModelElement(elem);\n"
-					+ "\t\t\t\tres.getOwnedElementstates().add(elemState);\n");
+		sbContent.append("				Class<?> clazz =null;\n");
+		for (String aspectName : setAspectsWithRTDs) {
+			sbContent.append("				clazz = K3DslHelper.getTarget(" + aspectName + ".class);\n"
+					+ "				if (clazz.isInstance(elem)) {\n"
+					+ "					ElementState elemState = theFactory.createElementState();\n"
+					+ "					elemState.setModelElement(elem);\n"
+					+ "					res.getOwnedElementstates().add(elemState);\n"
+					+ "					Object propertyValue = null;\n");
 			int i = 0;
-			for (String property : mapAspectProperties.get(aspect)) {
-				sbContent.append("\t\t\t\tAttributeNameToValue n2v" + i + " = new AttributeNameToValue(\"" + property
-						+ "\", " + languageToUpperFirst + "RTDAccessor.get" + toUpperFirst(property) + "(("+ mapAspectizedClass.get(aspect)+")elem));\n"
-						+ "\t\t\t\telemState.getSavedRTDs().add(n2v" + i + ");\n");
-				i++;
-			}
-			sbContent.append("\t\t\t}\n");
-		}
-		sbContent.append("\t\t}\n\t\treturn res;\n\t\t}");
+			for (SourceField property : mapAspectProperties.get(aspectName)) {
+				String indent = "";
+				if (property.getAnnotation("NotInStateSpace") .exists()) {
+					sbContent.append("\t\t\t\t\tif (allRTDs) {  //property not in state space:"+ property.getElementName()+"\n");
+					indent = "\t";
+				}
+				IAnnotation annotation = property.getAnnotation("Containment");
+				if(annotation != null) {
+					sbContent.append("					// Annotation "+mapFieldContainmentStrategy.get(property)+"\n");
+				}
+				sbContent.append(indent+ "					propertyValue = " + languageToUpperFirst + "RTDAccessor.saveProperty_" + property.getElementName() + "(("+ mapAspectizedClass.get(aspectName)+")elem);\n");
 
+				sbContent.append(indent+ "					AttributeNameToValue n2v" + i + " = new AttributeNameToValue(\"" + property.getElementName() + "\", propertyValue);\n");
+				
+				sbContent.append(indent + "					elemState.getSavedRTDs().add(n2v" + i + ");\n");
+				i++;
+				if (property.getAnnotation("NotInStateSpace") .exists()) {
+					sbContent.append("\t\t\t\t\t}\n");
+				}
+			}
+			sbContent.append("				}\n");
+		}
+		sbContent.append("\t\t\t}\n\t\t}\n\t\treturn res;\n\t}\n");
+		
 		fileContent = fileContent.replaceAll(Pattern.quote("${saveAndRestoreMethod}"), sbContent.toString());
 		fileContent = fileContent.replaceAll(Pattern.quote("${extraImports}"), sbExtraImport.toString());
 
@@ -271,6 +315,128 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 
 	}
 
+	/**
+	 * analyze K3 aspects in order to fill maps for future processing
+	 * Maps filed by this method:
+	 * <ul>
+	 * <li>setAspectsWithRTDs
+	 * <li>mapAspectProperties
+	 * <li>mapAspectizedClass
+	 * </ul>
+	 * @param allAspects
+	 * @throws JavaModelException 
+	 */
+	@SuppressWarnings("restriction")
+	protected void populateK3AspectMaps(String allAspects) throws CoreException, BundleException, IOException {
+		setAspectsWithRTDs = new HashSet<String>();
+		mapAspectProperties = ArrayListMultimap.create();
+		mapAspectFieldProperties  = ArrayListMultimap.create();
+		mapAspectizedClass = new HashMap<String, String>();
+		mapFieldContainmentStrategy =  new HashMap<SourceField, Containment.ContainmentStrategy>();
+		
+		
+		for (String aspectClassName : allAspects.trim().split(",")) {
+			
+			int dot = aspectClassName.lastIndexOf('.');
+			String aspectPropertiesClassName = aspectClassName + aspectClassName.substring(dot + 1) + "Properties";
+			char[][] qualifications;
+			String simpleName;
+			if (dot != -1) {
+				qualifications = new char[][] { aspectPropertiesClassName.substring(0, dot).toCharArray() };
+				simpleName = aspectPropertiesClassName.substring(dot + 1);
+			} else {
+				qualifications = null;
+				simpleName = aspectPropertiesClassName;
+			}
+			char[][] typeNames = new char[][] { simpleName.toCharArray() };
+
+			IType aspectIType = findAnyTypeInWorkspace(qualifications, typeNames);
+			if (aspectIType == null) {
+				System.err.println("type \"" + simpleName + "\" not found");
+				continue;
+			}
+
+			IJavaProject aspectProject = aspectIType.getJavaProject();
+			String[] classPathEntries = JavaRuntime.computeDefaultRuntimeClassPath(aspectProject);
+
+			List<URL> urlList = new ArrayList<URL>();
+			for (int i = 0; i < classPathEntries.length; i++) {
+				String entry = classPathEntries[i];
+				IPath path = new Path(entry);
+				URL url = path.toFile().toURI().toURL();
+				urlList.add(url);
+			}
+			try {
+				// TODO optimise classloader use
+				ClassLoader parentClassLoader = aspectProject.getClass().getClassLoader();
+				URL[] urls = (URL[]) urlList.toArray(new URL[urlList.size()]);
+				URLClassLoader classLoader = new URLClassLoader(urls, parentClassLoader);
+				Class<?> aspectClass = classLoader.loadClass(aspectIType.getFullyQualifiedName());
+	
+				String aspectizedClassName;
+				try {
+					aspectizedClassName = getAspectizedClassCanonicalName(classLoader, aspectClassName);
+					// store aspect/aspectizedClass map for future use
+					mapAspectizedClass.put(aspectClassName, aspectizedClassName);
+					IJavaElement[] allChildren = aspectIType.getChildren();
+					for (int i = 0; i < allChildren.length; i++) {
+						IJavaElement javaElem = allChildren[i];
+						if (javaElem instanceof SourceField) {
+							setAspectsWithRTDs.add(aspectClassName);
+							SourceField sf = (SourceField) javaElem;
+							mapAspectProperties.put(aspectClassName, sf);
+							try {
+								
+								Field f = aspectClass.getField(sf.getElementName());
+								mapAspectFieldProperties.put(aspectClassName, f);
+								Optional<Annotation> annotation = Arrays.asList(f.getAnnotations()).stream()
+										.filter(a ->  a.annotationType().getCanonicalName().equals(org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.api.Containment.class.getCanonicalName())).findFirst();
+								if(annotation.isPresent()) {
+									// pb of classpath, recreate containment information via reflexivity
+									Method m = annotation.get().annotationType().getMethod("value");
+									Object o = m.invoke(annotation.get());
+									switch (o.toString()) {
+									case "CONTAINER":
+										mapFieldContainmentStrategy.put(sf, ContainmentStrategy.CONTAINER);
+										break;
+									case "REFERENCE" :	
+										mapFieldContainmentStrategy.put(sf, ContainmentStrategy.REFERENCE);
+										break;
+									case "MAP_KEYCONTAINMENT_VALUEREFERENCE" :	
+										mapFieldContainmentStrategy.put(sf, ContainmentStrategy.MAP_KEYCONTAINMENT_VALUEREFERENCE);
+										break;
+									case "MAP_KEYREFERENCE_VALUECONTAINMENT" :	
+										mapFieldContainmentStrategy.put(sf, ContainmentStrategy.MAP_KEYREFERENCE_VALUECONTAINMENT);
+										break;
+									default:
+										mapFieldContainmentStrategy.put(sf, ContainmentStrategy.CONTAINER);
+										break;
+									}
+								} else {
+									mapFieldContainmentStrategy.put(sf, ContainmentStrategy.CONTAINER);
+								}
+								
+							} catch (NoSuchFieldException e) {
+								Activator.error("Cannot generate getter and setter for aspect property "+ aspectIType.getFullyQualifiedName() + " " +sf.getElementName() , e);
+							}
+						}
+					}
+			
+				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException e1) {
+					Activator.error("Cannot generate getter and setter for aspect "+ aspectIType.getFullyQualifiedName() , e1);
+				}
+				// warning after this point the access to the field and annotations will not work anymore
+				classLoader.close();
+			}
+			catch (ClassNotFoundException e2) {
+				Activator.error("Cannot generate getter and setter for aspect "+ aspectIType.getFullyQualifiedName() , e2);
+				
+			}
+		}
+	}
+	
+	
 	@SuppressWarnings("restriction")
 	protected void createLanguageSpecificDSAHelper(String allAspects, IProject project, String fullLanguageName,
 			ManifestChanger manifestChanger)
@@ -290,106 +456,54 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 
 		StringBuilder sbContent = new StringBuilder();
 		StringBuilder sbExtraImport = new StringBuilder();
-		setAspectsWithRTDs = new HashSet<String>();
-		mapAspectProperties = ArrayListMultimap.create();
 
-		for (String a : allAspects.split(",")) {
-			a = a.trim();
-			String originalAspectClassName = a;
-			int dot = a.lastIndexOf('.');
-			a = a + a.substring(dot + 1) + "Properties";
-			char[][] qualifications;
-			String simpleName;
-			if (dot != -1) {
-				qualifications = new char[][] { a.substring(0, dot).toCharArray() };
-				simpleName = a.substring(dot + 1);
-			} else { // Is this case really managed ?
-				qualifications = null;
-				simpleName = a;
-			}
-			char[][] typeNames = new char[][] { simpleName.toCharArray() };
-
-			IType aspectPropertiesIType = findAnyTypeInWorkspace(qualifications, typeNames);
-			if (aspectPropertiesIType == null) {
-				System.err.println("type \"" + simpleName + "\" not found");
-				continue;
-			}
-			
-
-			IJavaProject aspectProject = aspectPropertiesIType.getJavaProject();
-			String[] classPathEntries = JavaRuntime.computeDefaultRuntimeClassPath(aspectProject);
-
-			List<URL> urlList = new ArrayList<URL>();
-			for (int i = 0; i < classPathEntries.length; i++) {
-				String entry = classPathEntries[i];
-				IPath path = new Path(entry);
-				URL url = path.toFile().toURI().toURL();
-				urlList.add(url);
-			}
-
-			ClassLoader parentClassLoader = aspectProject.getClass().getClassLoader();
-			URL[] urls = (URL[]) urlList.toArray(new URL[urlList.size()]);
-			URLClassLoader classLoader = new URLClassLoader(urls, parentClassLoader);
-			Class<?> aspectPropertiesClass = classLoader.loadClass(aspectPropertiesIType.getFullyQualifiedName());
-			
-			String aspectizedClassName = "";
-			Class<?> aspectClass = classLoader.loadClass(originalAspectClassName);
-			// we are working in a separate classloader so a simple
-			// Class<?> aspectizedClass = aspectClass.getAnnotation(fr.inria.diverse.k3.al.annotationprocessor.Aspect.class).className();
-			// will not work
-			// use reflexivity instead in order to get the values
-			for( Annotation annot : aspectClass.getAnnotations()) {
-				if(annot.annotationType().getCanonicalName().equals("fr.inria.diverse.k3.al.annotationprocessor.Aspect")) {
-					
-					try {
-						Method methodClassName = annot.getClass().getMethod("className");
-						Object o = methodClassName.invoke(annot);
-						Method methodGetCanonicalName = o.getClass().getMethod("getCanonicalName");
-						aspectizedClassName = (String)methodGetCanonicalName.invoke(o);
-						mapAspectizedClass.put(originalAspectClassName, aspectizedClassName);
-						break;
-					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} 
+		for (String aspectName : setAspectsWithRTDs) {
+			String aspectizedClassName = mapAspectizedClass.get(aspectName);
+			for(Field property : mapAspectFieldProperties.get(aspectName)) {
+				String fieldName = property.getName();
+				String fieldTypeName = property.getType().getTypeName();
+				
+				sbContent.append("  public static " + fieldTypeName + " get" + fieldName
+				+ "(" + aspectizedClassName + " eObject) {\n"
+				+ "     "+fieldTypeName+" theProperty = ("+fieldTypeName+")getAspectProperty(eObject, \"" + fullLanguageName + "\", \""
+				+ aspectName + "\", \"" + fieldName + "\");\n"
+				+ "		return theProperty;\n}\n");
+								
+				// save/restore property by reference or copy
+				String savePropertyStrategy = "";
+				Optional<SourceField> propertySourceField = mapAspectProperties.get(aspectName).stream().filter(p -> p.getElementName().equals(fieldName)).findFirst();
+				ContainmentStrategy propertyContainmentStragety = propertySourceField.isEmpty() ? ContainmentStrategy.CONTAINER : mapFieldContainmentStrategy.get(propertySourceField.get());
+				switch (propertyContainmentStragety) {
+				case REFERENCE:
+					// nothing to do this is a reference
+					savePropertyStrategy = "// Reference property\n";
+					break;
+				case MAP_KEYCONTAINMENT_VALUEREFERENCE:
+					Activator.error("MAP_KEYCONTAINMENT_VALUEREFERENCE not implemented, probable issue with property "+ fieldName , new Exception("MAP_KEYCONTAINMENT_VALUEREFERENCE not implemented, probable issue with property "+ fieldName));
+					break;
+				case MAP_KEYREFERENCE_VALUECONTAINMENT:
+					Activator.error("MAP_KEYREFERENCE_VALUECONTAINMENT not implemented, probable issue with property "+ fieldName , new Exception("MAP_KEYREFERENCE_VALUECONTAINMENT not implemented, probable issue with property "+ fieldName));
+					break;
+				default: // CONTAINER
+					savePropertyStrategy ="propertyValue = propertyValue == null ? null : ("+fieldTypeName+")Copier.clone(propertyValue);\n";
+					break;
 				}
+				sbContent.append("  public static " + fieldTypeName + " saveProperty_" + fieldName
+				+ "(" + aspectizedClassName + " eObject) {\n"
+				+ "		"+fieldTypeName+" propertyValue = ("+fieldTypeName+")getAspectProperty(eObject, \"" + fullLanguageName + "\", \""+ aspectName + "\", \"" + fieldName + "\");\n"
+				+ "		" + savePropertyStrategy	
+				+ "		return propertyValue;\n}\n");
+				
+				sbContent.append("	public static boolean set" + fieldName + "(" + aspectizedClassName + " eObject, "
+				+ fieldTypeName + " newValue) {\n" 
+				+ "		return setAspectProperty(eObject, \""+ fullLanguageName + "\", \"" + aspectName + "\", \"" + fieldName+ "\", newValue);\n	}\n");
+				
+				sbContent.append("	public static boolean restoreProperty_" + fieldName + "(" + aspectizedClassName + " eObject, "
+				+ fieldTypeName + " newValue) {\n" 
+				+ "		"+fieldTypeName+" propertyValue = newValue;\n"
+				+ "		"+savePropertyStrategy
+				+ "		return setAspectProperty(eObject, \""+ fullLanguageName + "\", \"" + aspectName + "\", \"" + fieldName+ "\", propertyValue);\n	}\n");
 			}
-			
-			IJavaElement[] allChildren = aspectPropertiesIType.getChildren();
-			for (int i = 0; i < allChildren.length; i++) {
-				IJavaElement javaElem = allChildren[i];
-				if (javaElem instanceof SourceField) {
-					setAspectsWithRTDs.add(originalAspectClassName);
-					SourceField f = (SourceField) javaElem;
-					mapAspectProperties.put(originalAspectClassName, f.getElementName());
-
-					try {
-						String fieldName = f.getElementName();
-						Type fieldType = aspectPropertiesClass.getField(fieldName).getType();
-						String fieldTypeName = fieldType.getTypeName();
-
-						// if(fieldType != null) {
-						// if(!fieldName.equals("Object") &&
-						// !fieldName.equals("String")) {
-						// sbExtraImport.append("import "+fieldTypeName+";\n");
-						// }
-						sbContent.append("\tpublic static " + fieldTypeName + " get" + toUpperFirst(f.getElementName())
-								+ "(" + aspectizedClassName + " eObject) {\n" + "		return (" + fieldTypeName
-								+ ")  getAspectProperty(eObject, \"" + fullLanguageName + "\", \""
-								+ originalAspectClassName + "\", \"" + f.getElementName() + "\");\n" + "	}\n");
-
-						sbContent.append("\tpublic static boolean set" + toUpperFirst(f.getElementName()) + "(" + aspectizedClassName + " eObject, "
-								+ fieldTypeName + " newValue) {\n" + "		return setAspectProperty(eObject, \""
-								+ fullLanguageName + "\", \"" + originalAspectClassName + "\", \"" + f.getElementName()
-								+ "\", newValue);\n" + "	}\n");
-
-					} catch (NoSuchFieldException | SecurityException e) {
-						Activator.error(e.getMessage(), e);
-					}
-
-				}
-			}
-			classLoader.close();
 		}
 
 		fileContent = fileContent.replaceAll(Pattern.quote("${allGettersAndSetters}"), sbContent.toString());
@@ -411,9 +525,6 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 		manifestChanger.addExportPackage(packageName);
 	}
 
-	public static String toUpperFirst(String str) {
-		return str.substring(0, 1).toUpperCase() + str.substring(1);
-	}
 	private static IType findAnyTypeInWorkspace(char[][] qualifications, char[][] typeNames) throws JavaModelException {
 		class ResultException extends RuntimeException {
 			private static final long serialVersionUID = 1L;
@@ -558,6 +669,50 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 		// TODO find a way to remove possible old domain model dependencies
 	}
 
+	
+	protected void updateMapAspectizedClass(URLClassLoader classLoader, String aspectClassName) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException {
+		
+		Class<?> aspectClass = classLoader.loadClass(aspectClassName);
+		// we are working in a separate classloader so a simple
+		// Class<?> aspectizedClass = aspectClass.getAnnotation(fr.inria.diverse.k3.al.annotationprocessor.Aspect.class).className();
+		// will not work
+		// use reflexivity instead in order to get the values
+		for( Annotation annot : aspectClass.getAnnotations()) {
+			if(annot.annotationType().getCanonicalName().equals("fr.inria.diverse.k3.al.annotationprocessor.Aspect")) {	
+				Method methodClassName = annot.getClass().getMethod("className");
+				Object o = methodClassName.invoke(annot);
+				Method methodGetCanonicalName = o.getClass().getMethod("getCanonicalName");
+				String aspectizedClassName = (String)methodGetCanonicalName.invoke(o);
+				mapAspectizedClass.put(aspectClassName, aspectizedClassName);
+			}
+		}
+	}
+	
+	/**
+	 * returns the name of the aspectized class from an aspect class
+	 * as this builder isn't working in the same class loader as the searched aspect/aspectized class this methods requires a dedicated class loader
+	 * @param classLoader used to look for the classes
+	 * @param aspectClassName
+	 * @return
+	 */
+	public String getAspectizedClassCanonicalName(URLClassLoader classLoader, String aspectClassName) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException {
+		Class<?> aspectClass = classLoader.loadClass(aspectClassName);
+		// we are working in a separate classloader so a simple
+		// Class<?> aspectizedClass = aspectClass.getAnnotation(fr.inria.diverse.k3.al.annotationprocessor.Aspect.class).className();
+		// will not work
+		// use reflexivity instead in order to get the values
+		for( Annotation annot : aspectClass.getAnnotations()) {
+			if(annot.annotationType().getCanonicalName().equals("fr.inria.diverse.k3.al.annotationprocessor.Aspect")) {	
+				Method methodClassName = annot.getClass().getMethod("className");
+				Object o = methodClassName.invoke(annot);
+				Method methodGetCanonicalName = o.getClass().getMethod("getCanonicalName");
+				String aspectizedClassName = (String)methodGetCanonicalName.invoke(o);
+				return aspectizedClassName;
+			}
+		}
+		return null;
+	}
+	
 	// protected void updateDependenciesWithDSAProject(ManifestChanger
 	// connection, DSAProject dsaPoject) throws BundleException, IOException,
 	// CoreException {

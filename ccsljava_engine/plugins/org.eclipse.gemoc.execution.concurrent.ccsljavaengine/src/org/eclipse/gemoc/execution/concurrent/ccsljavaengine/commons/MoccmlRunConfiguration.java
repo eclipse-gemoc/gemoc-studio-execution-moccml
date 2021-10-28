@@ -6,9 +6,11 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IMoccmlRunC
 
 public class MoccmlRunConfiguration  extends ConcurrentRunConfiguration implements IMoccmlRunConfiguration{
 	public static final String EXTRA_TIMEMODEL_PATH = "TIMEMODEL_PATH";
+	public static final String MOCCML_SCENARIO_PATH = "MOCCML_SCENARIO_PATH";
 	public static final String EXHAUSTIVE_MODE = "Do Exhaustive Simulation";
 	protected boolean _isExhaustive;
 	protected String _executionModelPath;
+	protected String _moccmlscenarioModelPath;
 
 	
 	public MoccmlRunConfiguration(ILaunchConfiguration launchConfiguration) throws CoreException {
@@ -25,7 +27,7 @@ public class MoccmlRunConfiguration  extends ConcurrentRunConfiguration implemen
 		super.extractInformation();
 		_isExhaustive = getAttribute(EXHAUSTIVE_MODE, false);
 		_executionModelPath = getAttribute(EXTRA_TIMEMODEL_PATH, "");
-
+		_moccmlscenarioModelPath = getAttribute(MOCCML_SCENARIO_PATH, "");
 	}
 	
 	@Override
@@ -33,5 +35,9 @@ public class MoccmlRunConfiguration  extends ConcurrentRunConfiguration implemen
 		return _executionModelPath;
 	}
 
+	@Override
+	public String getMoccmlScenarioModelPath() {
+		return _moccmlscenarioModelPath;
+	}
 
 }
