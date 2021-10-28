@@ -198,13 +198,20 @@ public class BuilderTemplates {
 "package ${package.name};\n"+
 "import java.io.Serializable;\n" + 
 "import java.lang.reflect.Method;\n" +
+"import java.util.Collection;\n" +
+"import java.util.HashSet;\n" +
+"import java.util.Map;" +
 "import java.lang.reflect.InvocationTargetException;\n" + 
 "import org.eclipse.emf.common.util.TreeIterator;\n" + 
 "import org.eclipse.emf.ecore.EObject;\n" + 
+"import org.eclipse.emf.ecore.EStructuralFeature.Setting;\n" + 
+"import org.eclipse.emf.ecore.resource.Resource;\n" +
+"import org.eclipse.emf.ecore.util.EcoreUtil;\n" +
 "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.ElementState;\n" + 
 "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelState;\n" + 
 "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelStateFactory;\n"+
 "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper.IK3ModelStateHelper;"+
+"import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils.Copier;"+
 "import org.eclipse.gemoc.executionframework.engine.commons.K3DslHelper;\n"+
 "import java.util.ArrayList;\n"
 + "import java.util.Arrays;\n"
@@ -244,17 +251,17 @@ public class BuilderTemplates {
 "\n\t\tK3ModelStateFactory theFactory = K3ModelStateFactory.eINSTANCE; \n"+
 "${saveAndRestoreMethod}\n"+
 "\n" + 
-"		public void restoreModelState(K3ModelState state) {\n"
+"	public void restoreModelState(K3ModelState state) {\n"
 + "		for(ElementState elemState : state.getOwnedElementstates()) {\n"
 + "			for(Object o : elemState.getSavedRTDs()) {\n"
 + "				AttributeNameToValue n2v = (AttributeNameToValue)o;\n"
-+ "						Method setter = null;\n"
-+ "						setter = getSetter(n2v);\n"
-+ "						try {\n"
-+ "							setter.invoke(null, elemState.getModelElement(), n2v.value);\n"
-+ "						} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {\n"
-+ "							e.printStackTrace();\n"
-+ "						}\n"
++ "				Method setter = null;\n"
++ "				setter = getRestorePropertySetter(elemState.getModelElement().getClass(), n2v);\n"
++ "				try {\n"
++ "					setter.invoke(null, elemState.getModelElement(), n2v.value);\n"
++ "				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {\n"
++ "					e.printStackTrace();\n"
++ "				}\n"
 + "				\n"
 + "			}\n"
 + "		}\n"
@@ -262,37 +269,25 @@ public class BuilderTemplates {
 + "\n"
 + "\n"
 
-+ "	private Method getSetter(AttributeNameToValue n2v) {\n"
++ "	private Method getRestorePropertySetter(Class<?> targetClass, AttributeNameToValue n2v) {\n"
 + "		Method setter = null;\n"
 + "		try {\n"
-+ "			if(n2v.value != null) {\n"
-+ "				setter = ${language.name.toupperfirst}RTDAccessor.class.getMethod(\"set\"+n2v.name, EObject.class, n2v.value.getClass());\n"
-+ "			}else {\n"
-+ "				for (Method m : ${language.name.toupperfirst}RTDAccessor.class.getMethods()) {\n"
-+ "					if (m.getName().compareTo(\"set\"+n2v.name) ==0 && m.getParameterCount() == 2) {\n"
-+ "						setter= m;\n"
++ "			for(Method m2 : ${language.name.toupperfirst}RTDAccessor.class.getMethods()) {\n"
++ "				if(m2.getName().equals(\"restoreProperty_\"+n2v.name) && m2.getParameterTypes().length == 2) {\n"
++ "					if(m2.getParameterTypes()[0].isAssignableFrom(targetClass) &&\n"
++ "							(n2v.value == null || m2.getParameterTypes()[1].isAssignableFrom(n2v.value.getClass()))	) {\n"
++ "						setter = m2;\n"
 + "						break;\n"
 + "					}\n"
 + "				}\n"
 + "			}\n"
-+ "			return setter;\n"
-+ "		} catch (NoSuchMethodException | SecurityException | IllegalArgumentException e) {\n"
-+ "			if(n2v.value != null) {\n"
-+ "					List<Class> allTypes = getSuperClasses(n2v.value.getClass());\n"
-+ "					allTypes.addAll(Arrays.asList(n2v.value.getClass().getInterfaces()));\n"
-+ "					for(Class<?> c : allTypes) {\n"
-+ "						try {\n"
-+ "							setter = ${language.name.toupperfirst}RTDAccessor.class.getMethod(\"set\"+n2v.name, EObject.class, c);\n"
-+ "							return setter;\n"
-+ "						} catch (NoSuchMethodException | SecurityException | IllegalArgumentException e1) {\n"
-+ "						}\n"
-+ "					}\n"
-+ "					if (setter == null) {\n"
-+ "						throw new RuntimeException(\"no method found for \"+n2v.value.getClass().getName()+\"::set\"+n2v.name);\n"
-+ "					}\n"
-+ "				}\n"
++ "			if (setter == null) {\n"
++ "				throw new RuntimeException(\"no method found for restoreProperty_\"+n2v.name+\"(\"+targetClass+\", \"+n2v.value.getClass().getName()+\")\");\n"
 + "			}\n"
 + "			return setter;\n"
++ "		} catch (SecurityException | IllegalArgumentException e) {\n"
++ "			throw new RuntimeException(\"no method found for set\"+n2v.name+\"(\"+targetClass+\", \"+n2v.value.getClass().getName()+\")\");\n"
++ "		}\n"
 + "	}\n"
 + "	\n"
 + "	public static List<Class> getSuperClasses(Class c) {\n"

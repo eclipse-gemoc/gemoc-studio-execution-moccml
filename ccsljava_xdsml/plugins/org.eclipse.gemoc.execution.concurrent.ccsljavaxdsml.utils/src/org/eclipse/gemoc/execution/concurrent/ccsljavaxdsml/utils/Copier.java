@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.google.common.collect.Multimap;
+
 public class Copier {
 	
 	
@@ -47,11 +49,20 @@ public class Copier {
 				}
 				return r;
 		}
+		if( o instanceof Multimap) {
+			Multimap l = (Multimap) o;
+			Multimap r = allocateCloneContainerGoogleCollect(l, l.size());
+			Collection<Map.Entry> entrySet = l.entries();
+			for (Entry e : entrySet) {
+				r.put(Copier.clone(e.getKey()), Copier.clone(e.getValue()));
+			}
+			return r;
+		}
 //		if (o instanceof Serializable) {
 //			JavaSerializer js = new JavaSerializer();
 //			return (E) js.getDefaultSerializer().clone(o);
 //		} 
-			throw new IllegalArgumentException("unable to clone instances of " + o.getClass());
+		throw new IllegalArgumentException("unable to clone instances of " + o.getClass());
 		
 	}
 	
@@ -59,9 +70,21 @@ public class Copier {
 	
 	private static <E> E allocateCloneContainer(E o, int size) {
 		try {
+			
 			E r = (E) o.getClass().getConstructor(int.class).newInstance(size);
 			return (E) r;
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	private static <E> E allocateCloneContainerGoogleCollect(E o, int size) {
+		try {
+			Method m = o.getClass().getDeclaredMethod("create", int.class);
+			E r = (E)m.invoke(null, size);
+			return (E) r;
+		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException e) {
 			throw new RuntimeException(e);
 		}
