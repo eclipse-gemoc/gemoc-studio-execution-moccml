@@ -43,7 +43,7 @@ class StrategySelectionControl extends Composite {
 	new(Composite parent, LaunchConfigurationContext configContext) {
 		super(parent, SWT.FILL)
 
-		layout = new GridLayout(1, true)
+		layout = new GridLayout(1, false)
 
 		this.configContext = configContext
 
@@ -122,12 +122,18 @@ class StrategySelectionControl extends Composite {
 					updateListener.onStrategyConfigurationHasChanged(sd, isSelected, components.get(sd).value)
 				}
 			])
+			if (uiControl !== null) {
+				uiControl.enabled = strategySelections.get(sd)
+			}
 			components.put(sd, new Pair(checkbox, uiControl))
 
 			checkbox.addSelectionListener(new SelectionListener() {
 
 				override widgetSelected(SelectionEvent e) {
 					strategySelections.put(sd, checkbox.selection)
+					if (uiControl !== null) {
+						uiControl.enabled = strategySelections.get(sd)
+					}
 					updateListener.onStrategyConfigurationHasChanged(sd, checkbox.selection, uiControl)
 				}
 
