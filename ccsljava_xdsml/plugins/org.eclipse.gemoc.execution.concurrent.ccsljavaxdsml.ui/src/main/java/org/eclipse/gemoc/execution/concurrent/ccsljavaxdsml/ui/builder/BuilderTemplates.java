@@ -210,8 +210,8 @@ public class BuilderTemplates {
 "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.ElementState;\n" + 
 "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelState;\n" + 
 "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelStateFactory;\n"+
-"import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper.IK3ModelStateHelper;"+
-"import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils.Copier;"+
+"import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper.IK3ModelStateHelper;\n"+
+"import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils.Copier;\n"+
 "import org.eclipse.gemoc.executionframework.engine.commons.K3DslHelper;\n"+
 "import java.util.ArrayList;\n"
 + "import java.util.Arrays;\n"
