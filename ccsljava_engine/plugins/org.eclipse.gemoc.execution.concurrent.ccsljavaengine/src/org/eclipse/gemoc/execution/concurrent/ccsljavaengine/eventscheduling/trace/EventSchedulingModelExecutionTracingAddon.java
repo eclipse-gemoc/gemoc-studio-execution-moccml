@@ -55,6 +55,7 @@ import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trac
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.SolverState;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
+import org.eclipse.gemoc.trace.commons.model.helper.StepHelper;
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.trace.gemoc.api.IMultiDimensionalTraceAddon;
@@ -140,6 +141,11 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 						}
 					}
 					try {
+						
+						Activator.getDefault().warn(String.format("[trace-%10s] branching from %s",
+								getCurrentEngineShortName(), 
+								StepHelper.getStepName(choice.getPreviousChoice().getChosenLogicalStep())
+								));
 						restoreModelState(choice);
 						restoreSolverState(choice);
 						// TODO: here we should notify the addons !
@@ -155,6 +161,9 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 	}
 
 	private void restoreModelState(Choice choice) {
+		Activator.getDefault().debug(String.format("[trace-%10s] restoring model state: %s",
+				getCurrentEngineShortName(), 
+				choice.getContextState().getModelState().getModel()));
 		ModelState state = choice.getContextState().getModelState();
 		restoreModelState(state, true);
 	}
@@ -234,8 +243,9 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 		if (_executionEngine instanceof AbstractSolverCodeExecutorConcurrentEngine) {
 			MoccmlExecutionEngine engine_cast = (MoccmlExecutionEngine) _executionEngine;
 			ICCSLSolver solver = engine_cast.getSolver();
-			Activator.getDefault().debug(
-					"restoring solver state: " + choice.getContextState().getSolverState().getSerializableModel());
+			Activator.getDefault().debug(String.format("[trace-%10s] restoring solver state: %s",
+					getCurrentEngineShortName(), 
+					choice.getContextState().getSolverState().getSerializableModel()));
 			
 			byte[] moccmlEngineState = choice.getContextState().getSolverState().getSerializableModel();
 			ByteArrayInputStream out = new ByteArrayInputStream(moccmlEngineState);

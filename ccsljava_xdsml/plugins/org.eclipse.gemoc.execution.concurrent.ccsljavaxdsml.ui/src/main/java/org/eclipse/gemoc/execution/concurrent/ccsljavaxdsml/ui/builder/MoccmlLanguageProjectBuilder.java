@@ -295,8 +295,9 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 				sbContent.append(indent+ "					propertyValue = " + languageToUpperFirst + "RTDAccessor.saveProperty_" + property.getElementName() + "(("+ mapAspectizedClass.get(aspectName)+")elem);\n");
 
 				sbContent.append(indent+ "					AttributeNameToValue n2v" + i + " = new AttributeNameToValue(\"" + property.getElementName() + "\", propertyValue);\n");
-				
 				sbContent.append(indent + "					elemState.getSavedRTDs().add(n2v" + i + ");\n");
+				sbContent.append(indent+ "					org.eclipse.gemoc.executionframework.engine.Activator.getDefault().debug(String.format(\"   saving %s.%s := %s\",\n"
+						+ "						elemState.getModelElement(), \"" + property.getElementName() + "\", propertyValue));");
 				i++;
 				if (property.getAnnotation("NotInStateSpace") .exists()) {
 					sbContent.append("\t\t\t\t\t}\n");

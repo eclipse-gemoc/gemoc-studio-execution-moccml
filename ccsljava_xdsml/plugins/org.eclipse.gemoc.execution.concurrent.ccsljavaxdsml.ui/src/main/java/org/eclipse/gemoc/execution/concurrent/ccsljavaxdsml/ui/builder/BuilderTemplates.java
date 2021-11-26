@@ -220,7 +220,7 @@ public class BuilderTemplates {
 "\n"+
 "public class ${language.name.toupperfirst}ModelStateHelper implements IK3ModelStateHelper{\n"+ 
 "\tprivate static class AttributeNameToValue implements Serializable{\n" + 
-"\n\t\tprivate static final long serialVersionUID = 0;"+
+"\t\tprivate static final long serialVersionUID = 0;\n"+
 "\t\tString name;\n" + 
 "\t\tObject value;\n" + 
 "\t\tpublic AttributeNameToValue(String n, Object v) {\n" + 
@@ -245,16 +245,17 @@ public class BuilderTemplates {
 "				return false;\n" + 
 "			}\n" + 
 "			return true;\n" + 
-"		}" + 
-""+
-"\t}"+
-"\n\t\tK3ModelStateFactory theFactory = K3ModelStateFactory.eINSTANCE; \n"+
+"		}\n" + 
+"	}\n"+
+"	K3ModelStateFactory theFactory = K3ModelStateFactory.eINSTANCE; \n"+
 "${saveAndRestoreMethod}\n"+
 "\n" + 
 "	public void restoreModelState(K3ModelState state) {\n"
 + "		for(ElementState elemState : state.getOwnedElementstates()) {\n"
 + "			for(Object o : elemState.getSavedRTDs()) {\n"
 + "				AttributeNameToValue n2v = (AttributeNameToValue)o;\n"
++ "				org.eclipse.gemoc.executionframework.engine.Activator.getDefault().debug(String.format(\"Restoring %s.%s := %s\",\n"
++ "						elemState.getModelElement(), n2v.name,n2v.value.toString()));\n"
 + "				Method setter = null;\n"
 + "				setter = getRestorePropertySetter(elemState.getModelElement().getClass(), n2v);\n"
 + "				try {\n"
