@@ -166,6 +166,7 @@ class StrategySelectionControl extends Composite {
 			val hComponent = strategyComponents.value
 			if (hComponent !== null) {
 				initialiseControl.apply(hComponent, sd)
+				hComponent.enabled = selected
 			}
 		]
 	}
