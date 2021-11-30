@@ -248,6 +248,8 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	override protected final void performInitialize(C executionContext) {
 		this.changeLogicalStepDecider(executionContext.getLogicalStepDecider())
 
+// FIXME: A variant of this code needs instantiating here, but this requires that we can access the strategy registry from here, which we cannot currently do.
+//
 //		val config = executionContext.getRunConfiguration() as ConcurrentRunConfiguration
 //
 //		config.getStrategies.forEach [ extension h |
