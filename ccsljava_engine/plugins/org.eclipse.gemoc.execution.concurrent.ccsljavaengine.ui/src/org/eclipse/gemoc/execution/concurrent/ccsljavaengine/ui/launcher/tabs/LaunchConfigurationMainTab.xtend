@@ -301,7 +301,8 @@ class LaunchConfigurationMainTab extends AbstractLaunchConfigurationTab {
 			var Object caller = EMFResource.getFirstContent(uri)
 			var ArrayList<Object> parameters = new ArrayList<Object>()
 			// try with String[] agrs
-			parameters.add(newArrayOfSize(1))
+			var String[] p = newArrayOfSize(1);
+			parameters.add(p); // new String[1]
 			var List<Method> methods = codeExecutor.findCompatibleMethodsWithAnnotation(caller, parameters,
 				InitializeModel)
 			// try with List<String>
@@ -365,14 +366,14 @@ class LaunchConfigurationMainTab extends AbstractLaunchConfigurationTab {
 
 	def Set<String> getSemanticRules() {
 		if (_languageCombo.text !== null && !_languageCombo.text.empty)
-			MoccmlDSLHelper::getSemanticRules(_languageCombo.text)
+			return MoccmlDSLHelper::getSemanticRules(_languageCombo.text)
 		else
 			return #{}
 	}
 
 	def Set<EPackage> getAbstractSyntax() {
 		if (_languageCombo.text !== null && !_languageCombo.text.empty)
-			MoccmlDSLHelper::getAbstractSyntax(_languageCombo.text)
+			return MoccmlDSLHelper::getAbstractSyntax(_languageCombo.text)
 		else
 			return #{}
 	}

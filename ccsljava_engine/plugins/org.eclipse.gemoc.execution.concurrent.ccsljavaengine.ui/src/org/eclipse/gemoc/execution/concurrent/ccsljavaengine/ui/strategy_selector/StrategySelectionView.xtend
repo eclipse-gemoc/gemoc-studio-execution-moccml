@@ -108,9 +108,10 @@ class StrategySelectionView extends EngineSelectionDependentViewPart implements 
 	override createPartControl(Composite parent) {
 //		val content = new Composite(parent, SWT.NULL)
 		val gl = new GridLayout(1, false)
-
 		gl.marginHeight = 0
-		parent.setLayout(gl)
+		parent.layout = gl
+
+		parent.layoutData = new GridData(SWT.FILL, SWT.FILL, true, true)
 
 		createLayout(parent)
 
@@ -121,6 +122,7 @@ class StrategySelectionView extends EngineSelectionDependentViewPart implements 
 		createTextLabelLayout(parent, "Update strategy selection below. This will take effect from the next step.")
 
 		strategyControl = new StrategySelectionControl(parent, configContext)
+		strategyControl.layoutData =  new GridData(SWT.FILL, SWT.FILL, true, true)
 		strategyControl.updateListener = this
 	}
 

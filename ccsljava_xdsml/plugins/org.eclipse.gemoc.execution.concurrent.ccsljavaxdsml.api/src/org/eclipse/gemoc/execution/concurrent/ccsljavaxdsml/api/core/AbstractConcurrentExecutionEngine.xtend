@@ -254,10 +254,11 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	def protected void performExecutionStep() {
 		switchDeciderIfNecessary()
 		_possibleLogicalSteps = computePossibleLogicalSteps()
-		if (_possibleLogicalSteps.size() === 0) {
+		/* Since we can use Strategy to explore, this is boring if it stops. Moreover we cannot go backward in time anymore...
+		 * if (_possibleLogicalSteps.size() === 0) {
 			Activator::getDefault().debug("No more LogicalStep to run")
 			stop()
-		} else {
+		} else {*/
 			try {
 				var ParallelStep<?, ?> selectedLogicalStep = selectAndExecuteLogicalStep()
 				// 3 - run the selected logical step
@@ -274,7 +275,7 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 				throw new RuntimeException(t)
 			}
 
-		}
+		//}
 	}
 
 	def void addFilteringStrategy(FilteringStrategy strategy) {
@@ -288,6 +289,8 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 	override protected final void performInitialize(C executionContext) {
 		this.changeLogicalStepDecider(executionContext.getLogicalStepDecider())
 
+// FIXME: A variant of this code needs instantiating here, but this requires that we can access the strategy registry from here, which we cannot currently do.
+//
 //		val config = executionContext.getRunConfiguration() as ConcurrentRunConfiguration
 //
 //		config.getStrategies.forEach [ extension h |

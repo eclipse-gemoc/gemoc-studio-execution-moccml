@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sigpml:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sigpml="http://org.eclipse.gemoc.example.moccmlsigpml.model/1.0" name="simpleSystem">
+  <ownedApplication name="appli1">
+    <ownedAgents name="A1" cycles="2" code="">
+      <ownedPorts xsi:type="sigpml:OutputPort" name="pA1out" rate="1"/>
+      <ownedPorts xsi:type="sigpml:InputPort" name="pA1inState" rate="1"/>
+      <ownedPorts xsi:type="sigpml:OutputPort" name="pA1outState" rate="1"/>
+    </ownedAgents>
+    <ownedAgents name="A2" cycles="4" code="">
+      <ownedPorts xsi:type="sigpml:InputPort" name="pA2in" rate="4"/>
+    </ownedAgents>
+    <ownedPlaces name="place1" itsOutputPort="//@ownedApplication/@ownedAgents.0/@ownedPorts.0" itsInputPort="//@ownedApplication/@ownedAgents.1/@ownedPorts.0" size="6"/>
+    <ownedPlaces name="placeA1State" itsOutputPort="//@ownedApplication/@ownedAgents.0/@ownedPorts.2" itsInputPort="//@ownedApplication/@ownedAgents.0/@ownedPorts.1" size="1" delay="1"/>
+  </ownedApplication>
+</sigpml:System>

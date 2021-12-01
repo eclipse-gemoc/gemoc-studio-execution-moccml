@@ -15,6 +15,9 @@ class OverlapStrategy implements ConcurrencyStrategy {
 	var boolean requireOnlyStaticOverlap = true
 
 	override canBeConcurrent(SmallStep<?> step1, SmallStep<?> step2) {
+		if (step1.footprint === null || step2.footprint === null){
+			return true // if footprint is not present then by default it can be concurrent
+		}
 		val step1FootPrint = if(requireOnlyStaticOverlap) step1.footprint.allUnchangedEObjects else step1.footprint.
 				accesses
 		val step2FootPrint = if(requireOnlyStaticOverlap) step2.footprint.allUnchangedEObjects else step2.footprint.

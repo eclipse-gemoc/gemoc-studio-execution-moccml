@@ -6,25 +6,24 @@ import java.util.List
 import org.eclipse.debug.core.ILaunchConfiguration
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy
 import org.eclipse.debug.internal.ui.SWTFactory
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.tabs.LaunchConfigurationStrategiesTab
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.LaunchConfigurationContext
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.StrategyDefinition
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.StrategyDefinition.StrategyGroup
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.StrategyRegistry
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ConcurrentRunConfiguration
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.Strategy
 import org.eclipse.swt.SWT
+import org.eclipse.swt.custom.ScrolledComposite
 import org.eclipse.swt.events.SelectionEvent
 import org.eclipse.swt.events.SelectionListener
+import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.layout.GridLayout
 import org.eclipse.swt.widgets.Button
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Control
-import org.eclipse.swt.widgets.Group
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure2
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.tabs.LaunchConfigurationStrategiesTab
-import org.eclipse.swt.layout.GridData
 
 /**
  * Control for selecting and configuring strategies.
@@ -34,44 +33,66 @@ class StrategySelectionControl extends Composite {
 	val strategySelections = new HashMap<StrategyDefinition, Boolean>
 	val components = new HashMap<StrategyDefinition, Pair<Button, Control>>
 	val LaunchConfigurationContext configContext
-	
+
 	@Accessors(PUBLIC_SETTER)
 	var StrategyConfigurationUpdateListener updateListener = null
 
+	var ScrolledComposite scrollPane
+	var Composite content
+
 	new(Composite parent, LaunchConfigurationContext configContext) {
-		super(parent, SWT.NULL)
+		super(parent, SWT.FILL)
+
+		layout = new GridLayout(1, false)
 
 		this.configContext = configContext
 
 		// FIXME: This seems wrong: the control will be used without a launch tab, too...
 		updateListener = new LaunchConfigurationStrategiesTab(configContext)
-		
+
 		StrategyRegistry.INSTANCE.strategies.forEach [ sd |
 			strategySelections.put(sd, false)
 		]
 
-		val gl = new GridLayout(1, false)
+		scrollPane = new ScrolledComposite(this, SWT.V_SCROLL.bitwiseOr(SWT.H_SCROLL))
+		scrollPane.layout = new GridLayout(1, false)
+		scrollPane.layoutData = new GridData(SWT.FILL, SWT.FILL, true, true)
 
-		gl.marginHeight = 0
-		setLayout(gl)
+		content = new Composite(scrollPane, SWT.NONE)
+		content.layout = new GridLayout(2, false)
+		content.layoutData = new GridData(SWT.FILL, SWT.FILL, true, true)
 
 		createLayout
 
-		layout()
+		scrollPane.content = content
+		scrollPane.expandHorizontal = true
+		scrollPane.expandVertical = true
+		scrollPane.minSize = content.computeSize(SWT.DEFAULT, SWT.DEFAULT)
+
+		requestLayout
 	}
 
 	def initialiseFrom(ILaunchConfiguration configuration) {
-		initialiseFrom(configuration.getAttribute(StrategyRegistry.STRATEGIES_CONFIG_KEY, #[]), 
-			[control, extension sd | control.initaliseControl(configuration.getAttribute(sd.strategyID + ConcurrentRunConfiguration.STRATEGIES_CONFIG_DATA_KEY, ""))]
+		initialiseFrom(
+			configuration.getAttribute(StrategyRegistry.STRATEGIES_CONFIG_KEY, #[]),
+			[ control, extension sd |
+				control.initaliseControl(
+					configuration.getAttribute(sd.strategyID + ConcurrentRunConfiguration.STRATEGIES_CONFIG_DATA_KEY,
+						""))
+			]
 		)
+		scrollPane.minSize = content.computeSize(SWT.DEFAULT, SWT.DEFAULT)
+		requestLayout
 	}
 
-	def updateSelectionsFrom(AbstractConcurrentExecutionEngine<?,?> engine) {
+	def updateSelectionsFrom(AbstractConcurrentExecutionEngine<?, ?> engine) {
 		val List<Strategy> strategies = new ArrayList
 		strategies.addAll(engine.concurrencyStrategies)
-		strategies.addAll(engine.filteringStrategies) 
+		strategies.addAll(engine.filteringStrategies)
 		val groupedStrategies = strategies.groupBy[StrategyRegistry::INSTANCE.strategyDefinitionOf(it)]
-		initialiseFrom(groupedStrategies.keySet.map[strategyID], [control, extension sd | control.initaliseControl(groupedStrategies.get(sd)?.head)])		
+		initialiseFrom(groupedStrategies.keySet.map[strategyID], [ control, extension sd |
+			control.initaliseControl(groupedStrategies.get(sd)?.head)
+		])
 	}
 
 	def saveConfiguration(ILaunchConfigurationWorkingCopy configuration) {
@@ -88,68 +109,45 @@ class StrategySelectionControl extends Composite {
 	}
 
 	private def createLayout() {
-		val groupmap = new HashMap<StrategyGroup, Group>()
+		strategySelections.keySet.sortBy[strategyID].reverseView.forEach [ sd |
 
-		groupmap.put(StrategyGroup.CONCURRENCY_STRATEGY, createGroup(this, "Concurrency Strategies"))
-		groupmap.put(StrategyGroup.FILTERING_STRATEGY, createGroup(this, "Filtering Strategies"))
-
-		strategySelections.keySet.forEach [ sd |
-
-			var parentGroup = groupmap.get(sd.group)
-
-			val checkbox = createCheckButton(parentGroup, sd.humanReadableLabel)
+			val checkbox = createCheckButton(content, sd.humanReadableLabel)
 			checkbox.selection = strategySelections.get(sd)
 
-			val uiControl = sd.getUIControl(parentGroup, configContext, [
+			val uiControl = sd.getUIControl(content, configContext, [
 				val isSelected = strategySelections.get(sd)
-				
+
 				if (isSelected) {
 					// No point updating the detailed strategy config otherwise...
-					updateListener.onStrategyConfigurationHasChanged(sd, isSelected, components.get(sd).value)		
+					updateListener.onStrategyConfigurationHasChanged(sd, isSelected, components.get(sd).value)
 				}
 			])
+			if (uiControl !== null) {
+				uiControl.enabled = strategySelections.get(sd)
+			}
 			components.put(sd, new Pair(checkbox, uiControl))
 
 			checkbox.addSelectionListener(new SelectionListener() {
 
 				override widgetSelected(SelectionEvent e) {
 					strategySelections.put(sd, checkbox.selection)
+					if (uiControl !== null) {
+						uiControl.enabled = strategySelections.get(sd)
+					}
 					updateListener.onStrategyConfigurationHasChanged(sd, checkbox.selection, uiControl)
 				}
 
 				override widgetDefaultSelected(SelectionEvent e) {}
 			})
 		]
-
-		// remove empty groups
-		groupmap.values.forEach [ g |
-			if (g.children.length === 0) {
-				g.dispose()
-				this.layout(true)
-			}
-		]
-	}
-
-	private def Group createGroup(Composite parent, String text) {
-		val group = new Group(parent, SWT.NULL)
-		group.setText(text)
-
-		group.layoutData = new GridData(SWT.FILL, SWT.FILL, true, true)
-
-		val locationLayout = new GridLayout(6, false)
-		locationLayout.marginHeight = 10
-		locationLayout.marginWidth = 10
-		group.setLayout(locationLayout)
-
-		group
 	}
 
 	private def Button createCheckButton(Composite parent, String label) {
 		SWTFactory.createCheckButton(parent, label, null, false, 1)
-	}	
+	}
 
 	private def initialiseFrom(
-		Iterable<String> selectedStrategiesIDs, 
+		Iterable<String> selectedStrategiesIDs,
 		Procedure2<Control, StrategyDefinition> initialiseControl
 	) {
 		strategySelections.keySet.forEach[hd|strategySelections.put(hd, false)]
@@ -168,6 +166,7 @@ class StrategySelectionControl extends Composite {
 			val hComponent = strategyComponents.value
 			if (hComponent !== null) {
 				initialiseControl.apply(hComponent, sd)
+				hComponent.enabled = selected
 			}
 		]
 	}

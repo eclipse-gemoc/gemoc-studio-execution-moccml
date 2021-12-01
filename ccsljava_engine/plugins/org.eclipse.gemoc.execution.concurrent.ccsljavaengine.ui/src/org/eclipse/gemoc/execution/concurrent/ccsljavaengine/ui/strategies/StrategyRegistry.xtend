@@ -7,6 +7,8 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filte
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filters.NonIdentityElementsStrategyDefinition
 import org.eclipse.gemoc.execution.concurrent.engine.strategies.Strategy
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filters.MaximalConcurrencyStrategyDefinition
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filters.ForceEventPresenceStrategyDefinition
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filters.ForceEventAbsenceStrategyDefinition
 
 /**
  * Registry of strategy descriptions. Eventually to be filled from an extension point.
@@ -24,6 +26,8 @@ class StrategyRegistry {
 		add(new NonIdentityElementsStrategyDefinition)
 		add(new MaxNumberOfStepsStrategyDefinition)
 		add(new MaximalConcurrencyStrategyDefinition)
+		add(new ForceEventPresenceStrategyDefinition)
+		add(new ForceEventAbsenceStrategyDefinition)
 	}
 
 	val registry = new HashMap<String, StrategyDefinition>()
