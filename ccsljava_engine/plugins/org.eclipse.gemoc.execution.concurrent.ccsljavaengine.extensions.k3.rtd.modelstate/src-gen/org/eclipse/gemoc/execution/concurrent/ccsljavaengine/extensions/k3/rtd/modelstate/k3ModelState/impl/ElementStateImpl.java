@@ -3,20 +3,19 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.impl;
 
 import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
-
-import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
-
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.ElementState;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3AttributeRTD;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelStatePackage;
 
 /**
@@ -27,23 +26,13 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.m
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.impl.ElementStateImpl#getSavedRTDs <em>Saved RT Ds</em>}</li>
  *   <li>{@link org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.impl.ElementStateImpl#getModelElement <em>Model Element</em>}</li>
+ *   <li>{@link org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.impl.ElementStateImpl#getSavedRTDs <em>Saved RT Ds</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ElementStateImpl extends MinimalEObjectImpl.Container implements ElementState {
-	/**
-	 * The cached value of the '{@link #getSavedRTDs() <em>Saved RT Ds</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSavedRTDs()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Object> savedRTDs;
-
 	/**
 	 * The cached value of the '{@link #getModelElement() <em>Model Element</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -53,6 +42,16 @@ public class ElementStateImpl extends MinimalEObjectImpl.Container implements El
 	 * @ordered
 	 */
 	protected EObject modelElement;
+
+	/**
+	 * The cached value of the '{@link #getSavedRTDs() <em>Saved RT Ds</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSavedRTDs()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<K3AttributeRTD> savedRTDs;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -78,9 +77,10 @@ public class ElementStateImpl extends MinimalEObjectImpl.Container implements El
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Object> getSavedRTDs() {
+	@Override
+	public EList<K3AttributeRTD> getSavedRTDs() {
 		if (savedRTDs == null) {
-			savedRTDs = new EDataTypeUniqueEList<Object>(Object.class, this, K3ModelStatePackage.ELEMENT_STATE__SAVED_RT_DS);
+			savedRTDs = new EObjectContainmentEList<K3AttributeRTD>(K3AttributeRTD.class, this, K3ModelStatePackage.ELEMENT_STATE__SAVED_RT_DS);
 		}
 		return savedRTDs;
 	}
@@ -90,6 +90,21 @@ public class ElementStateImpl extends MinimalEObjectImpl.Container implements El
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case K3ModelStatePackage.ELEMENT_STATE__SAVED_RT_DS:
+				return ((InternalEList<?>)getSavedRTDs()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EObject getModelElement() {
 		if (modelElement != null && modelElement.eIsProxy()) {
 			InternalEObject oldModelElement = (InternalEObject)modelElement;
@@ -116,6 +131,7 @@ public class ElementStateImpl extends MinimalEObjectImpl.Container implements El
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setModelElement(EObject newModelElement) {
 		EObject oldModelElement = modelElement;
 		modelElement = newModelElement;
@@ -131,11 +147,11 @@ public class ElementStateImpl extends MinimalEObjectImpl.Container implements El
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case K3ModelStatePackage.ELEMENT_STATE__SAVED_RT_DS:
-				return getSavedRTDs();
 			case K3ModelStatePackage.ELEMENT_STATE__MODEL_ELEMENT:
 				if (resolve) return getModelElement();
 				return basicGetModelElement();
+			case K3ModelStatePackage.ELEMENT_STATE__SAVED_RT_DS:
+				return getSavedRTDs();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -149,12 +165,12 @@ public class ElementStateImpl extends MinimalEObjectImpl.Container implements El
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case K3ModelStatePackage.ELEMENT_STATE__SAVED_RT_DS:
-				getSavedRTDs().clear();
-				getSavedRTDs().addAll((Collection<? extends Object>)newValue);
-				return;
 			case K3ModelStatePackage.ELEMENT_STATE__MODEL_ELEMENT:
 				setModelElement((EObject)newValue);
+				return;
+			case K3ModelStatePackage.ELEMENT_STATE__SAVED_RT_DS:
+				getSavedRTDs().clear();
+				getSavedRTDs().addAll((Collection<? extends K3AttributeRTD>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -168,11 +184,11 @@ public class ElementStateImpl extends MinimalEObjectImpl.Container implements El
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case K3ModelStatePackage.ELEMENT_STATE__SAVED_RT_DS:
-				getSavedRTDs().clear();
-				return;
 			case K3ModelStatePackage.ELEMENT_STATE__MODEL_ELEMENT:
 				setModelElement((EObject)null);
+				return;
+			case K3ModelStatePackage.ELEMENT_STATE__SAVED_RT_DS:
+				getSavedRTDs().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -186,28 +202,12 @@ public class ElementStateImpl extends MinimalEObjectImpl.Container implements El
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case K3ModelStatePackage.ELEMENT_STATE__SAVED_RT_DS:
-				return savedRTDs != null && !savedRTDs.isEmpty();
 			case K3ModelStatePackage.ELEMENT_STATE__MODEL_ELEMENT:
 				return modelElement != null;
+			case K3ModelStatePackage.ELEMENT_STATE__SAVED_RT_DS:
+				return savedRTDs != null && !savedRTDs.isEmpty();
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (savedRTDs: ");
-		result.append(savedRTDs);
-		result.append(')');
-		return result.toString();
 	}
 
 } //ElementStateImpl

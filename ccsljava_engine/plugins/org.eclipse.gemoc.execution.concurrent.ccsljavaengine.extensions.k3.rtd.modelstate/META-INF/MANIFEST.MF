@@ -1,16 +1,18 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: GEMOC ccsljavaengine extension for K3 runtime data helper
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate;singleton:=true
 Bundle-Version: 2.3.0.qualifier
 Bundle-ClassPath: .
-Bundle-Vendor: Eclipse GEMOC Project
+Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.impl,
- org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.util
+ org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.util,
+ org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.utils
 Require-Bundle: org.eclipse.emf.ecore;visibility:=reexport,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ com.google.gson;bundle-version="2.8.6"
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate

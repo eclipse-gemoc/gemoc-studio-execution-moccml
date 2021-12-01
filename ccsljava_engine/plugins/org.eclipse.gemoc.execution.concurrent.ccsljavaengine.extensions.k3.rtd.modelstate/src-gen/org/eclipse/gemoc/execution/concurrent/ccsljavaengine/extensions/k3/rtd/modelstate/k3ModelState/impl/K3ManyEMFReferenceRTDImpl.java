@@ -3,51 +3,51 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.impl;
 
 import java.util.Collection;
+
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.ElementState;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelState;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ManyEMFReferenceRTD;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelStatePackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>K3 Model State</b></em>'.
+ * An implementation of the model object '<em><b>K3 Many EMF Reference RTD</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.impl.K3ModelStateImpl#getOwnedElementstates <em>Owned Elementstates</em>}</li>
+ *   <li>{@link org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.impl.K3ManyEMFReferenceRTDImpl#getReferenceValues <em>Reference Values</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class K3ModelStateImpl extends MinimalEObjectImpl.Container implements K3ModelState {
+public class K3ManyEMFReferenceRTDImpl extends K3AttributeRTDImpl implements K3ManyEMFReferenceRTD {
 	/**
-	 * The cached value of the '{@link #getOwnedElementstates() <em>Owned Elementstates</em>}' containment reference list.
+	 * The cached value of the '{@link #getReferenceValues() <em>Reference Values</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getOwnedElementstates()
+	 * @see #getReferenceValues()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ElementState> ownedElementstates;
+	protected EList<EObject> referenceValues;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected K3ModelStateImpl() {
+	protected K3ManyEMFReferenceRTDImpl() {
 		super();
 	}
 
@@ -58,7 +58,7 @@ public class K3ModelStateImpl extends MinimalEObjectImpl.Container implements K3
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return K3ModelStatePackage.Literals.K3_MODEL_STATE;
+		return K3ModelStatePackage.Literals.K3_MANY_EMF_REFERENCE_RTD;
 	}
 
 	/**
@@ -67,11 +67,11 @@ public class K3ModelStateImpl extends MinimalEObjectImpl.Container implements K3
 	 * @generated
 	 */
 	@Override
-	public EList<ElementState> getOwnedElementstates() {
-		if (ownedElementstates == null) {
-			ownedElementstates = new EObjectContainmentEList<ElementState>(ElementState.class, this, K3ModelStatePackage.K3_MODEL_STATE__OWNED_ELEMENTSTATES);
+	public EList<EObject> getReferenceValues() {
+		if (referenceValues == null) {
+			referenceValues = new EObjectContainmentEList<EObject>(EObject.class, this, K3ModelStatePackage.K3_MANY_EMF_REFERENCE_RTD__REFERENCE_VALUES);
 		}
-		return ownedElementstates;
+		return referenceValues;
 	}
 
 	/**
@@ -82,8 +82,8 @@ public class K3ModelStateImpl extends MinimalEObjectImpl.Container implements K3
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case K3ModelStatePackage.K3_MODEL_STATE__OWNED_ELEMENTSTATES:
-				return ((InternalEList<?>)getOwnedElementstates()).basicRemove(otherEnd, msgs);
+			case K3ModelStatePackage.K3_MANY_EMF_REFERENCE_RTD__REFERENCE_VALUES:
+				return ((InternalEList<?>)getReferenceValues()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -96,8 +96,8 @@ public class K3ModelStateImpl extends MinimalEObjectImpl.Container implements K3
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case K3ModelStatePackage.K3_MODEL_STATE__OWNED_ELEMENTSTATES:
-				return getOwnedElementstates();
+			case K3ModelStatePackage.K3_MANY_EMF_REFERENCE_RTD__REFERENCE_VALUES:
+				return getReferenceValues();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -111,9 +111,9 @@ public class K3ModelStateImpl extends MinimalEObjectImpl.Container implements K3
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case K3ModelStatePackage.K3_MODEL_STATE__OWNED_ELEMENTSTATES:
-				getOwnedElementstates().clear();
-				getOwnedElementstates().addAll((Collection<? extends ElementState>)newValue);
+			case K3ModelStatePackage.K3_MANY_EMF_REFERENCE_RTD__REFERENCE_VALUES:
+				getReferenceValues().clear();
+				getReferenceValues().addAll((Collection<? extends EObject>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -127,8 +127,8 @@ public class K3ModelStateImpl extends MinimalEObjectImpl.Container implements K3
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case K3ModelStatePackage.K3_MODEL_STATE__OWNED_ELEMENTSTATES:
-				getOwnedElementstates().clear();
+			case K3ModelStatePackage.K3_MANY_EMF_REFERENCE_RTD__REFERENCE_VALUES:
+				getReferenceValues().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -142,10 +142,10 @@ public class K3ModelStateImpl extends MinimalEObjectImpl.Container implements K3
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case K3ModelStatePackage.K3_MODEL_STATE__OWNED_ELEMENTSTATES:
-				return ownedElementstates != null && !ownedElementstates.isEmpty();
+			case K3ModelStatePackage.K3_MANY_EMF_REFERENCE_RTD__REFERENCE_VALUES:
+				return referenceValues != null && !referenceValues.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //K3ModelStateImpl
+} //K3ManyEMFReferenceRTDImpl

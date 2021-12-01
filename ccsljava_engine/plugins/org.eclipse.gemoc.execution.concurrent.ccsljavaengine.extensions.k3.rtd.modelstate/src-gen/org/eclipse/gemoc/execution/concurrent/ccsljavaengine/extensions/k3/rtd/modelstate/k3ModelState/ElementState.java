@@ -3,7 +3,6 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -15,8 +14,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.ElementState#getSavedRTDs <em>Saved RT Ds</em>}</li>
  *   <li>{@link org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.ElementState#getModelElement <em>Model Element</em>}</li>
+ *   <li>{@link org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.ElementState#getSavedRTDs <em>Saved RT Ds</em>}</li>
  * </ul>
  *
  * @see org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelStatePackage#getElementState()
@@ -25,20 +24,20 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface ElementState extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Saved RT Ds</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.Object}.
+	 * Returns the value of the '<em><b>Saved RT Ds</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3AttributeRTD}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Saved RT Ds</em>' attribute list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Saved RT Ds</em>' attribute list.
+	 * @return the value of the '<em>Saved RT Ds</em>' containment reference list.
 	 * @see org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelStatePackage#getElementState_SavedRTDs()
-	 * @model dataType="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.JavaObject"
+	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Object> getSavedRTDs();
+	EList<K3AttributeRTD> getSavedRTDs();
 
 	/**
 	 * Returns the value of the '<em><b>Model Element</b></em>' reference.

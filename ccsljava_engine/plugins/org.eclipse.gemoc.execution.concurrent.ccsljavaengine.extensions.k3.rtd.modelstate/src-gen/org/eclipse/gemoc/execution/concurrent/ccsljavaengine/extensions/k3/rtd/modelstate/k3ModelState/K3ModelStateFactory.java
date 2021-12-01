@@ -40,6 +40,42 @@ public interface K3ModelStateFactory extends EFactory {
 	ElementState createElementState();
 
 	/**
+	 * Returns a new object of class '<em>K3 String Attribute RTD</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>K3 String Attribute RTD</em>'.
+	 * @generated
+	 */
+	K3StringAttributeRTD createK3StringAttributeRTD();
+
+	/**
+	 * Returns a new object of class '<em>K3 Raw Attribute RTD</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>K3 Raw Attribute RTD</em>'.
+	 * @generated
+	 */
+	K3RawAttributeRTD createK3RawAttributeRTD();
+
+	/**
+	 * Returns a new object of class '<em>K3 Single EMF Reference RTD</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>K3 Single EMF Reference RTD</em>'.
+	 * @generated
+	 */
+	K3SingleEMFReferenceRTD createK3SingleEMFReferenceRTD();
+
+	/**
+	 * Returns a new object of class '<em>K3 Many EMF Reference RTD</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>K3 Many EMF Reference RTD</em>'.
+	 * @generated
+	 */
+	K3ManyEMFReferenceRTD createK3ManyEMFReferenceRTD();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

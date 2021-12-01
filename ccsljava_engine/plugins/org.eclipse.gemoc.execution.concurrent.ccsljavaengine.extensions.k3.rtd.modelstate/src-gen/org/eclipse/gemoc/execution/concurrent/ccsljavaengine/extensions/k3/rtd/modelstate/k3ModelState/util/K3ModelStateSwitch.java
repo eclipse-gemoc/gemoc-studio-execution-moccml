@@ -78,6 +78,40 @@ public class K3ModelStateSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case K3ModelStatePackage.K3_ATTRIBUTE_RTD: {
+				K3AttributeRTD k3AttributeRTD = (K3AttributeRTD)theEObject;
+				T result = caseK3AttributeRTD(k3AttributeRTD);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case K3ModelStatePackage.K3_STRING_ATTRIBUTE_RTD: {
+				K3StringAttributeRTD k3StringAttributeRTD = (K3StringAttributeRTD)theEObject;
+				T result = caseK3StringAttributeRTD(k3StringAttributeRTD);
+				if (result == null) result = caseK3AttributeRTD(k3StringAttributeRTD);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case K3ModelStatePackage.K3_RAW_ATTRIBUTE_RTD: {
+				K3RawAttributeRTD k3RawAttributeRTD = (K3RawAttributeRTD)theEObject;
+				T result = caseK3RawAttributeRTD(k3RawAttributeRTD);
+				if (result == null) result = caseK3AttributeRTD(k3RawAttributeRTD);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case K3ModelStatePackage.K3_SINGLE_EMF_REFERENCE_RTD: {
+				K3SingleEMFReferenceRTD k3SingleEMFReferenceRTD = (K3SingleEMFReferenceRTD)theEObject;
+				T result = caseK3SingleEMFReferenceRTD(k3SingleEMFReferenceRTD);
+				if (result == null) result = caseK3AttributeRTD(k3SingleEMFReferenceRTD);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case K3ModelStatePackage.K3_MANY_EMF_REFERENCE_RTD: {
+				K3ManyEMFReferenceRTD k3ManyEMFReferenceRTD = (K3ManyEMFReferenceRTD)theEObject;
+				T result = caseK3ManyEMFReferenceRTD(k3ManyEMFReferenceRTD);
+				if (result == null) result = caseK3AttributeRTD(k3ManyEMFReferenceRTD);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -109,6 +143,81 @@ public class K3ModelStateSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseElementState(ElementState object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>K3 Attribute RTD</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>K3 Attribute RTD</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseK3AttributeRTD(K3AttributeRTD object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>K3 String Attribute RTD</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>K3 String Attribute RTD</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseK3StringAttributeRTD(K3StringAttributeRTD object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>K3 Raw Attribute RTD</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>K3 Raw Attribute RTD</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseK3RawAttributeRTD(K3RawAttributeRTD object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>K3 Single EMF Reference RTD</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>K3 Single EMF Reference RTD</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseK3SingleEMFReferenceRTD(K3SingleEMFReferenceRTD object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>K3 Many EMF Reference RTD</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>K3 Many EMF Reference RTD</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseK3ManyEMFReferenceRTD(K3ManyEMFReferenceRTD object) {
 		return null;
 	}
 

@@ -59,6 +59,10 @@ public class K3ModelStateFactoryImpl extends EFactoryImpl implements K3ModelStat
 		switch (eClass.getClassifierID()) {
 			case K3ModelStatePackage.K3_MODEL_STATE: return createK3ModelState();
 			case K3ModelStatePackage.ELEMENT_STATE: return createElementState();
+			case K3ModelStatePackage.K3_STRING_ATTRIBUTE_RTD: return createK3StringAttributeRTD();
+			case K3ModelStatePackage.K3_RAW_ATTRIBUTE_RTD: return createK3RawAttributeRTD();
+			case K3ModelStatePackage.K3_SINGLE_EMF_REFERENCE_RTD: return createK3SingleEMFReferenceRTD();
+			case K3ModelStatePackage.K3_MANY_EMF_REFERENCE_RTD: return createK3ManyEMFReferenceRTD();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -99,6 +103,7 @@ public class K3ModelStateFactoryImpl extends EFactoryImpl implements K3ModelStat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public K3ModelState createK3ModelState() {
 		K3ModelStateImpl k3ModelState = new K3ModelStateImpl();
 		return k3ModelState;
@@ -109,9 +114,54 @@ public class K3ModelStateFactoryImpl extends EFactoryImpl implements K3ModelStat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public ElementState createElementState() {
 		ElementStateImpl elementState = new ElementStateImpl();
 		return elementState;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public K3StringAttributeRTD createK3StringAttributeRTD() {
+		K3StringAttributeRTDImpl k3StringAttributeRTD = new K3StringAttributeRTDImpl();
+		return k3StringAttributeRTD;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public K3RawAttributeRTD createK3RawAttributeRTD() {
+		K3RawAttributeRTDImpl k3RawAttributeRTD = new K3RawAttributeRTDImpl();
+		return k3RawAttributeRTD;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public K3SingleEMFReferenceRTD createK3SingleEMFReferenceRTD() {
+		K3SingleEMFReferenceRTDImpl k3SingleEMFReferenceRTD = new K3SingleEMFReferenceRTDImpl();
+		return k3SingleEMFReferenceRTD;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public K3ManyEMFReferenceRTD createK3ManyEMFReferenceRTD() {
+		K3ManyEMFReferenceRTDImpl k3ManyEMFReferenceRTD = new K3ManyEMFReferenceRTDImpl();
+		return k3ManyEMFReferenceRTD;
 	}
 
 	/**
@@ -137,6 +187,7 @@ public class K3ModelStateFactoryImpl extends EFactoryImpl implements K3ModelStat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public K3ModelStatePackage getK3ModelStatePackage() {
 		return (K3ModelStatePackage)getEPackage();
 	}

@@ -13,8 +13,24 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference k3ModelState.ecore#//K3ModelState/ownedElementstates"/>
     </genClasses>
     <genClasses ecoreClass="k3ModelState.ecore#//ElementState">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute k3ModelState.ecore#//ElementState/savedRTDs"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference k3ModelState.ecore#//ElementState/modelElement"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference k3ModelState.ecore#//ElementState/savedRTDs"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="k3ModelState.ecore#//K3AttributeRTD">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute k3ModelState.ecore#//K3AttributeRTD/attributeName"/>
+    </genClasses>
+    <genClasses ecoreClass="k3ModelState.ecore#//K3StringAttributeRTD">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute k3ModelState.ecore#//K3StringAttributeRTD/value"/>
+    </genClasses>
+    <genClasses ecoreClass="k3ModelState.ecore#//K3RawAttributeRTD">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute k3ModelState.ecore#//K3RawAttributeRTD/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute k3ModelState.ecore#//K3RawAttributeRTD/className"/>
+    </genClasses>
+    <genClasses ecoreClass="k3ModelState.ecore#//K3SingleEMFReferenceRTD">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference k3ModelState.ecore#//K3SingleEMFReferenceRTD/referenceValue"/>
+    </genClasses>
+    <genClasses ecoreClass="k3ModelState.ecore#//K3ManyEMFReferenceRTD">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference k3ModelState.ecore#//K3ManyEMFReferenceRTD/referenceValues"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

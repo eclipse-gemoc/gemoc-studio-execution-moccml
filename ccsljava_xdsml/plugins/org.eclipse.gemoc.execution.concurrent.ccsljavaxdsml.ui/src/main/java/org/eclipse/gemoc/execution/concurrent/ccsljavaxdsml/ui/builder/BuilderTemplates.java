@@ -86,9 +86,13 @@ public class BuilderTemplates {
 	public static final String RTD_ACCESSOR_CLASS_TEMPLATE =
 "/* GENERATED FILE, do not modify manually                                                    *\n" +
 " * If you need to modify it, copy it first */\n" +
-"package ${package.name};\n"+
-"import org.eclipse.emf.ecore.EObject;\n"+
-"import java.lang.reflect.InvocationTargetException;\n" + 
+"package ${package.name};\n"
++ "import org.eclipse.emf.common.util.BasicEList;\n"
++ "import org.eclipse.emf.common.util.EList;\n"
++ "import org.eclipse.emf.ecore.EObject;\n"
++ "import org.eclipse.emf.ecore.util.EcoreUtil;\n"
++ "import java.lang.reflect.InvocationTargetException;\n"
++ "import java.util.Collection;\n" + 
 "import java.util.List;\n"+
 "import java.lang.reflect.Method;\n" +
 "import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils.Copier;\n"+
@@ -196,117 +200,150 @@ public class BuilderTemplates {
 "/* GENERATED FILE, do not modify manually                                                    *\n" +
 " * If you need to modify it, copy it first */\n" +
 "package ${package.name};\n"+
-"import java.io.Serializable;\n" + 
+"import java.io.IOException;\n" + 
+"import java.io.Serializable;\n" +
 "import java.lang.reflect.Method;\n" +
 "import java.util.Collection;\n" +
 "import java.util.HashSet;\n" +
-"import java.util.Map;" +
+"import java.util.Map;\n" +
 "import java.lang.reflect.InvocationTargetException;\n" + 
 "import org.eclipse.emf.common.util.TreeIterator;\n" + 
 "import org.eclipse.emf.ecore.EObject;\n" + 
 "import org.eclipse.emf.ecore.EStructuralFeature.Setting;\n" + 
 "import org.eclipse.emf.ecore.resource.Resource;\n" +
 "import org.eclipse.emf.ecore.util.EcoreUtil;\n" +
-"import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.ElementState;\n" + 
+"import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.ElementState;\n" +
+"import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3AttributeRTD;\n" +
+"import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3StringAttributeRTD;\n" +
+"import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3RawAttributeRTD;\n" +
+"import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ManyEMFReferenceRTD;\n" +
+"import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3SingleEMFReferenceRTD;\n" +
 "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelState;\n" + 
-"import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelStateFactory;\n"+
-"import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper.IK3ModelStateHelper;\n"+
-"import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils.Copier;\n"+
-"import org.eclipse.gemoc.executionframework.engine.commons.K3DslHelper;\n"+
-"import java.util.ArrayList;\n"
+"import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelStateFactory;\n"
++ "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.utils.K3ModelStateHelper;\n"
++ "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper.IK3ModelStateHelper;\n"
++ "import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils.Copier;\n"
++ "import org.eclipse.gemoc.executionframework.engine.commons.K3DslHelper;\n"
++ "import java.util.ArrayList;\n"
++ "import com.google.gson.Gson;\n"
++ "import com.google.gson.JsonSyntaxException;\n"
 + "import java.util.Arrays;\n"
 + "import java.util.List;\n"+
 "${extraImports}\n"+
 "\n"+
 "public class ${language.name.toupperfirst}ModelStateHelper implements IK3ModelStateHelper{\n"+ 
-"\tprivate static class AttributeNameToValue implements Serializable{\n" + 
-"\t\tprivate static final long serialVersionUID = 0;\n"+
-"\t\tString name;\n" + 
-"\t\tObject value;\n" + 
-"\t\tpublic AttributeNameToValue(String n, Object v) {\n" + 
-"\t\t\tname = n;\n" + 
-"\t\t\tvalue = v;\n" + 
-"\t\t}\n" + 
-"\n" + 
-"\n" + 
-"		@Override\n" + 
-"		public boolean equals(Object obj) {\n" + 
-"			if (! (obj instanceof AttributeNameToValue)) {\n" + 
-"				return false;\n" + 
-"			}\n" + 
-"			AttributeNameToValue a2n = (AttributeNameToValue)obj;\n" + 
-"			if (this.name.compareTo(a2n.name) != 0) {\n" + 
-"				return false;\n" + 
-"			}\n" + 
-"			if (this.value == null) {\n" + 
-"				return a2n.value == null;\n" + 
-"			}\n" + 
-"			if (!this.value.equals(a2n.value)) {\n" + 
-"				return false;\n" + 
-"			}\n" + 
-"			return true;\n" + 
-"		}\n" + 
-"	}\n"+
+//"\tprivate static class AttributeNameToValue implements Serializable{\n" + 
+//"\t\tprivate static final long serialVersionUID = 0;\n"+
+//"\t\tString name;\n" + 
+//"\t\tObject value;\n" + 
+//"\t\tpublic AttributeNameToValue(String n, Object v) {\n" + 
+//"\t\t\tname = n;\n" + 
+//"\t\t\tvalue = v;\n" + 
+//"\t\t}\n" + 
+//"\n" + 
+//"		@Override\n" + 
+//"		public boolean equals(Object obj) {\n" + 
+//"			if (! (obj instanceof AttributeNameToValue)) {\n" + 
+//"				return false;\n" + 
+//"			}\n" + 
+//"			AttributeNameToValue a2n = (AttributeNameToValue)obj;\n" + 
+//"			if (this.name.compareTo(a2n.name) != 0) {\n" + 
+//"				return false;\n" + 
+//"			}\n" + 
+//"			if (this.value == null) {\n" + 
+//"				return a2n.value == null;\n" + 
+//"			}\n" + 
+//"			if (!this.value.equals(a2n.value)) {\n" + 
+//"				return false;\n" + 
+//"			}\n" + 
+//"			return true;\n" + 
+//"		}\n" + 
+//"	}\n"+
 "	K3ModelStateFactory theFactory = K3ModelStateFactory.eINSTANCE; \n"+
 "${saveAndRestoreMethod}\n"+
 "\n" + 
 "	public void restoreModelState(K3ModelState state) {\n"
 + "		for(ElementState elemState : state.getOwnedElementstates()) {\n"
-+ "			for(Object o : elemState.getSavedRTDs()) {\n"
-+ "				AttributeNameToValue n2v = (AttributeNameToValue)o;\n"
-+ "				org.eclipse.gemoc.executionframework.engine.Activator.getDefault().debug(String.format(\"Restoring %s.%s := %s\",\n"
-+ "						elemState.getModelElement(), n2v.name,n2v.value.toString()));\n"
++ "			for(K3AttributeRTD o : elemState.getSavedRTDs()) {\n"
++ "				Object value = null;\n"
++ "				if(o instanceof K3RawAttributeRTD) {\n"
++ "					try {\n"
++ "						value = K3ModelStateHelper.getDeserializedObject(((K3RawAttributeRTD)o).getValue());\n"
++ "					} catch (ClassNotFoundException | IOException e) {\n"
++ "						e.printStackTrace();\n"
++ "					}"
++ "				} else if(o instanceof K3StringAttributeRTD) { \n"
++ "					value = ((K3StringAttributeRTD)o).getValue();\n"
++ "				}  else if(o instanceof K3ManyEMFReferenceRTD) { \n"
++ "						value = ((K3ManyEMFReferenceRTD)o).getReferenceValues();\n"
++ "				} else if(o instanceof K3SingleEMFReferenceRTD) { \n"
++ "					value = ((K3SingleEMFReferenceRTD)o).getReferenceValue();\n"
++ "				}\n"
++ "				org.eclipse.gemoc.executionframework.engine.Activator.getDefault().debug(String.format(\"	restoring %s.%s := %s\",\n"
++ "						elemState.getModelElement(), o.getAttributeName(), value!=null ? value.toString(): \"null\"));\n"
 + "				Method setter = null;\n"
-+ "				setter = getRestorePropertySetter(elemState.getModelElement().getClass(), n2v);\n"
++ "				setter = getRestorePropertySetter(elemState.getModelElement().getClass(), o);\n"
 + "				try {\n"
-+ "					setter.invoke(null, elemState.getModelElement(), n2v.value);\n"
++ "					setter.invoke(null, elemState.getModelElement(), value);\n"
 + "				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {\n"
 + "					e.printStackTrace();\n"
 + "				}\n"
-+ "				\n"
 + "			}\n"
 + "		}\n"
-+ "	}\n"
-+ "\n"
++ "	}"
 + "\n"
 
-+ "	private Method getRestorePropertySetter(Class<?> targetClass, AttributeNameToValue n2v) {\n"
++ "	private Method getRestorePropertySetter(Class<?> targetClass, K3AttributeRTD n2v) {\n"
 + "		Method setter = null;\n"
++ "		Object deserializedValue = null;\n"
 + "		try {\n"
-+ "			for(Method m2 : ${language.name.toupperfirst}RTDAccessor.class.getMethods()) {\n"
-+ "				if(m2.getName().equals(\"restoreProperty_\"+n2v.name) && m2.getParameterTypes().length == 2) {\n"
++ "			\n"
++ "			if(n2v instanceof K3RawAttributeRTD) {\n"
++ "				try {\n"
++ "					deserializedValue = K3ModelStateHelper.getDeserializedObject(((K3RawAttributeRTD)n2v).getValue());\n"
++ "				} catch (ClassNotFoundException | IOException e) {\n"
++ "					org.eclipse.gemoc.executionframework.engine.Activator.getDefault().error(String.format(\"	ERROR restoring property %s from serialized String %s\",\n"
++ "							n2v.getAttributeName(), ((K3RawAttributeRTD)n2v).getValue()), e);\n"
++ "				}"
+//+ "				deserializedValue  = new Gson().fromJson(n2v.getAttributeName(), Class.forName(((K3RawAttributeRTD)n2v).getClassName()));\n"
++ "			} else if(n2v instanceof K3StringAttributeRTD) { \n"
++ "				deserializedValue = ((K3StringAttributeRTD)n2v).getValue();\n"
++ "			}\n"
++ "			for(Method m2 : XBPMNRTDAccessor.class.getMethods()) {\n"
++ "				if(m2.getName().equals(\"restoreProperty_\"+n2v.getAttributeName()) && m2.getParameterTypes().length == 2) {\n"
++ "					\n"
 + "					if(m2.getParameterTypes()[0].isAssignableFrom(targetClass) &&\n"
-+ "							(n2v.value == null || m2.getParameterTypes()[1].isAssignableFrom(n2v.value.getClass()))	) {\n"
++ "							(deserializedValue == null || m2.getParameterTypes()[1].isAssignableFrom(deserializedValue.getClass()))	) {\n"
 + "						setter = m2;\n"
 + "						break;\n"
 + "					}\n"
 + "				}\n"
 + "			}\n"
 + "			if (setter == null) {\n"
-+ "				throw new RuntimeException(\"no method found for restoreProperty_\"+n2v.name+\"(\"+targetClass+\", \"+n2v.value.getClass().getName()+\")\");\n"
++ "				throw new RuntimeException(\"no method found for restoreProperty_\"+n2v.getAttributeName()+\"(\"+targetClass+\", \"+deserializedValue.getClass().getName()+\")\");\n"
 + "			}\n"
 + "			return setter;\n"
 + "		} catch (SecurityException | IllegalArgumentException e) {\n"
-+ "			throw new RuntimeException(\"no method found for set\"+n2v.name+\"(\"+targetClass+\", \"+n2v.value.getClass().getName()+\")\");\n"
++ "			throw new RuntimeException(\"no method found for set\"+n2v.getAttributeName()+\"(\"+targetClass+\", \"+deserializedValue.getClass().getName()+\")\", e);\n"
 + "		}\n"
 + "	}\n"
 + "	\n"
-+ "	public static List<Class> getSuperClasses(Class c) {\n"
-+ "		List<Class> r = new ArrayList<>();\n"
-+ "		List<Class> q = new ArrayList<>();\n"
-+ "		q.add(c);\n"
-+ "		while (!q.isEmpty()) {\n"
-+ "			c = q.remove(0);\n"
-+ "			r.add(c);\n"
-+ "			if (c.getSuperclass() != null) {\n"
-+ "				q.add(c.getSuperclass());\n"
-+ "			}\n"
-+ "			for (Class i : c.getInterfaces()) {\n"
-+ "				q.add(i);\n"
-+ "			}\n"
-+ "		}\n"
-+ "		return r;\n"
-+ "	}\n"
+//+ "	public static List<Class> getSuperClasses(Class c) {\n"
+//+ "		List<Class> r = new ArrayList<>();\n"
+//+ "		List<Class> q = new ArrayList<>();\n"
+//+ "		q.add(c);\n"
+//+ "		while (!q.isEmpty()) {\n"
+//+ "			c = q.remove(0);\n"
+//+ "			r.add(c);\n"
+//+ "			if (c.getSuperclass() != null) {\n"
+//+ "				q.add(c.getSuperclass());\n"
+//+ "			}\n"
+//+ "			for (Class i : c.getInterfaces()) {\n"
+//+ "				q.add(i);\n"
+//+ "			}\n"
+//+ "		}\n"
+//+ "		return r;\n"
+//+ "	}\n"
 + "};";
 	
 }

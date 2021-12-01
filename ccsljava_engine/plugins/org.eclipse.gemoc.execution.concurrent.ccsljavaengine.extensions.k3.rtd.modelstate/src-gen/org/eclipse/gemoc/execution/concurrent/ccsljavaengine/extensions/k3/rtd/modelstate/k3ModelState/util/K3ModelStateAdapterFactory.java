@@ -76,6 +76,26 @@ public class K3ModelStateAdapterFactory extends AdapterFactoryImpl {
 				return createElementStateAdapter();
 			}
 			@Override
+			public Adapter caseK3AttributeRTD(K3AttributeRTD object) {
+				return createK3AttributeRTDAdapter();
+			}
+			@Override
+			public Adapter caseK3StringAttributeRTD(K3StringAttributeRTD object) {
+				return createK3StringAttributeRTDAdapter();
+			}
+			@Override
+			public Adapter caseK3RawAttributeRTD(K3RawAttributeRTD object) {
+				return createK3RawAttributeRTDAdapter();
+			}
+			@Override
+			public Adapter caseK3SingleEMFReferenceRTD(K3SingleEMFReferenceRTD object) {
+				return createK3SingleEMFReferenceRTDAdapter();
+			}
+			@Override
+			public Adapter caseK3ManyEMFReferenceRTD(K3ManyEMFReferenceRTD object) {
+				return createK3ManyEMFReferenceRTDAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -120,6 +140,76 @@ public class K3ModelStateAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createElementStateAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3AttributeRTD <em>K3 Attribute RTD</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3AttributeRTD
+	 * @generated
+	 */
+	public Adapter createK3AttributeRTDAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3StringAttributeRTD <em>K3 String Attribute RTD</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3StringAttributeRTD
+	 * @generated
+	 */
+	public Adapter createK3StringAttributeRTDAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3RawAttributeRTD <em>K3 Raw Attribute RTD</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3RawAttributeRTD
+	 * @generated
+	 */
+	public Adapter createK3RawAttributeRTDAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3SingleEMFReferenceRTD <em>K3 Single EMF Reference RTD</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3SingleEMFReferenceRTD
+	 * @generated
+	 */
+	public Adapter createK3SingleEMFReferenceRTDAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ManyEMFReferenceRTD <em>K3 Many EMF Reference RTD</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ManyEMFReferenceRTD
+	 * @generated
+	 */
+	public Adapter createK3ManyEMFReferenceRTDAdapter() {
 		return null;
 	}
 

@@ -42,6 +42,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -280,7 +281,8 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 					+ "					ElementState elemState = theFactory.createElementState();\n"
 					+ "					elemState.setModelElement(elem);\n"
 					+ "					res.getOwnedElementstates().add(elemState);\n"
-					+ "					Object propertyValue = null;\n");
+					//+ "					Object propertyValue = null;\n"
+					);
 			int i = 0;
 			for (SourceField property : mapAspectProperties.get(aspectName)) {
 				String indent = "";
@@ -292,12 +294,37 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 				if(annotation != null) {
 					sbContent.append("					// Annotation "+mapFieldContainmentStrategy.get(property)+"\n");
 				}
-				sbContent.append(indent+ "					propertyValue = " + languageToUpperFirst + "RTDAccessor.saveProperty_" + property.getElementName() + "(("+ mapAspectizedClass.get(aspectName)+")elem);\n");
+				Class<?> aspectPropertyType = getAspectPropertyTypeFromMap(aspectName, property.getElementName());
+				String propertyTypeName = getAspectPropertyTypeFromMap(aspectName, property.getElementName()).getName();
+				String propertyValueVar = "propertyValue" + i;
+				sbContent.append(indent+ "					"+ propertyTypeName +" "+ propertyValueVar +" = "+ languageToUpperFirst +"RTDAccessor.saveProperty_"+ property.getElementName() + "(("+ mapAspectizedClass.get(aspectName)+")elem);\n");
 
-				sbContent.append(indent+ "					AttributeNameToValue n2v" + i + " = new AttributeNameToValue(\"" + property.getElementName() + "\", propertyValue);\n");
+				if(aspectPropertyType.equals(String.class)){
+					sbContent.append(indent+ "					K3StringAttributeRTD n2v" + i + " = theFactory.createK3StringAttributeRTD();\n");
+					sbContent.append(indent+ "					n2v" + i + ".setValue("+propertyValueVar+");\n");
+				} else if(propertyTypeName.equals("org.eclipse.emf.common.util.EList")) {
+				//} else if(EList.class.isAssignableFrom(aspectPropertyType)){ aspectPropertyType.isAssignableFrom(EList.class) // classloader problem :-(
+					sbContent.append(indent+ "					K3ManyEMFReferenceRTD n2v" + i + " = theFactory.createK3ManyEMFReferenceRTD();\n");
+					sbContent.append(indent+ "					n2v" + i + ".getReferenceValues().addAll("+propertyValueVar+");\n");
+				} else	if(EObject.class.isAssignableFrom(aspectPropertyType)){
+					sbContent.append(indent+ "					K3SingleEMFReferenceRTD n2v" + i + " = theFactory.createK3SingleEMFReferenceRTD();\n");
+				} else {
+					sbContent.append(indent+ "					K3RawAttributeRTD n2v" + i + " = theFactory.createK3RawAttributeRTD();\n");
+					sbContent.append(indent+ "					n2v" + i + ".setClassName(\""+propertyTypeName+"\");\n");
+					//sbContent.append(indent+ "					n2v" + i + ".setValue(new Gson().toJson("+propertyValueVar+"));\n");
+					sbContent.append(indent+ "					try {\n"
+							+ "						n2v" + i + ".setValue(K3ModelStateHelper.getSerializedString("+propertyValueVar+"));\n"
+							+ "					} catch (IOException e" + i + ") {\n"
+							+ "						org.eclipse.gemoc.executionframework.engine.Activator.getDefault().error(String.format(\" Error while saving %s.%s := %s\",\n"
+							+ "								elemState.getModelElement(), \""+property.getElementName()+"\", "+propertyValueVar+"), e" + i + ");\n"
+							+ "					}\n");
+					
+				}
+
+				sbContent.append(indent+ "					n2v" + i + ".setAttributeName(\""+property.getElementName()+"\");\n");
 				sbContent.append(indent + "					elemState.getSavedRTDs().add(n2v" + i + ");\n");
 				sbContent.append(indent+ "					org.eclipse.gemoc.executionframework.engine.Activator.getDefault().debug(String.format(\"   saving %s.%s := %s\",\n"
-						+ "						elemState.getModelElement(), \"" + property.getElementName() + "\", propertyValue));");
+						+ "						elemState.getModelElement(), \"" + property.getElementName() + "\", "+propertyValueVar+"));\n");
 				i++;
 				if (property.getAnnotation("NotInStateSpace") .exists()) {
 					sbContent.append("\t\t\t\t\t}\n");
@@ -489,21 +516,39 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 					savePropertyStrategy ="propertyValue = propertyValue == null ? null : ("+fieldTypeName+")Copier.clone(propertyValue);\n";
 					break;
 				}
-				sbContent.append("  public static " + fieldTypeName + " saveProperty_" + fieldName
-				+ "(" + aspectizedClassName + " eObject) {\n"
-				+ "		"+fieldTypeName+" propertyValue = ("+fieldTypeName+")getAspectProperty(eObject, \"" + fullLanguageName + "\", \""+ aspectName + "\", \"" + fieldName + "\");\n"
-				+ "		" + savePropertyStrategy	
-				+ "		return propertyValue;\n}\n");
 				
-				sbContent.append("	public static boolean set" + fieldName + "(" + aspectizedClassName + " eObject, "
-				+ fieldTypeName + " newValue) {\n" 
-				+ "		return setAspectProperty(eObject, \""+ fullLanguageName + "\", \"" + aspectName + "\", \"" + fieldName+ "\", newValue);\n	}\n");
-				
-				sbContent.append("	public static boolean restoreProperty_" + fieldName + "(" + aspectizedClassName + " eObject, "
-				+ fieldTypeName + " newValue) {\n" 
-				+ "		"+fieldTypeName+" propertyValue = newValue;\n"
-				+ "		"+savePropertyStrategy
-				+ "		return setAspectProperty(eObject, \""+ fullLanguageName + "\", \"" + aspectName + "\", \"" + fieldName+ "\", propertyValue);\n	}\n");
+				if(fieldTypeName.equals("org.eclipse.emf.common.util.EList")) {
+					sbContent.append("  public static " + fieldTypeName + " saveProperty_" + fieldName
+							+ "(" + aspectizedClassName + " eObject) {\n"
+							+ "	    EList res = new BasicEList();\n"
+							+ "	    res.addAll(EcoreUtil.copyAll((org.eclipse.emf.common.util.EList)getAspectProperty(eObject, \"" + fullLanguageName + "\", \""+ aspectName + "\", \"" + fieldName + "\")));\n"
+							+ "	    return res;\n"
+							+ "  }\n");
+
+					sbContent.append("	public static boolean restoreProperty_" + fieldName + "(" + aspectizedClassName + " eObject, "
+							+ fieldTypeName + " newValue) {\n" 
+							+ "		get" + fieldName+ "(eObject).clear();\n"
+							+ "		Collection c = EcoreUtil.copyAll(newValue);\n"
+							+ "		get" + fieldName+ "(eObject).addAll(c);\n"
+							+ "		eObject.eResource().getContents().addAll(c);\n"
+							+ "		return true;\n	}\n");
+				} else {
+					sbContent.append("  public static " + fieldTypeName + " saveProperty_" + fieldName
+					+ "(" + aspectizedClassName + " eObject) {\n"
+					+ "		"+fieldTypeName+" propertyValue = ("+fieldTypeName+")getAspectProperty(eObject, \"" + fullLanguageName + "\", \""+ aspectName + "\", \"" + fieldName + "\");\n"
+					+ "		" + savePropertyStrategy	
+					+ "		return propertyValue;\n}\n");
+					
+					sbContent.append("	public static boolean set" + fieldName + "(" + aspectizedClassName + " eObject, "
+					+ fieldTypeName + " newValue) {\n" 
+					+ "		return setAspectProperty(eObject, \""+ fullLanguageName + "\", \"" + aspectName + "\", \"" + fieldName+ "\", newValue);\n	}\n");
+					
+					sbContent.append("	public static boolean restoreProperty_" + fieldName + "(" + aspectizedClassName + " eObject, "
+					+ fieldTypeName + " newValue) {\n" 
+					+ "		"+fieldTypeName+" propertyValue = newValue;\n"
+					+ "		"+savePropertyStrategy
+					+ "		return setAspectProperty(eObject, \""+ fullLanguageName + "\", \"" + aspectName + "\", \"" + fieldName+ "\", propertyValue);\n	}\n");
+				}
 			}
 		}
 
@@ -712,6 +757,14 @@ public class MoccmlLanguageProjectBuilder extends IncrementalProjectBuilder {
 			}
 		}
 		return null;
+	}
+	
+	protected Class<?> getAspectPropertyTypeFromMap(String aspectName, String propertyName) {
+		Optional<Field> t =mapAspectFieldProperties.get(aspectName).stream().filter(f -> f.getName().equals(propertyName)).findFirst();
+		if(t.isPresent()) 
+			return mapAspectFieldProperties.get(aspectName).stream().filter(f -> f.getName().equals(propertyName)).findFirst().get().getType();
+		else 
+			return Object.class;
 	}
 	
 	// protected void updateDependenciesWithDSAProject(ManifestChanger

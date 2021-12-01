@@ -7,9 +7,28 @@
         eType="#//ElementState" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ElementState">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="savedRTDs" upperBound="-1"
-        eType="#//JavaObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="savedRTDs" upperBound="-1"
+        eType="#//K3AttributeRTD" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="JavaObject" instanceTypeName="object"/>
+  <eClassifiers xsi:type="ecore:EClass" name="K3AttributeRTD" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="attributeName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="K3StringAttributeRTD" eSuperTypes="#//K3AttributeRTD">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="K3RawAttributeRTD" eSuperTypes="#//K3AttributeRTD">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="className" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="K3SingleEMFReferenceRTD" eSuperTypes="#//K3AttributeRTD">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referenceValue" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="K3ManyEMFReferenceRTD" eSuperTypes="#//K3AttributeRTD">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referenceValues" upperBound="-1"
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject" containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>
