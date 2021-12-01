@@ -10,9 +10,12 @@
  */
 package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core
 
+import java.util.List
 import org.eclipse.core.runtime.CoreException
 import org.eclipse.debug.core.ILaunchConfiguration
+import org.eclipse.gemoc.execution.concurrent.engine.strategies.Strategy
 import org.eclipse.gemoc.executionframework.engine.core.RunConfiguration
+import org.eclipse.xtend.lib.annotations.Accessors
 
 //import org.eclipse.gemoc.executionframework.engine.ui.commons.RunConfiguration;
 class ConcurrentRunConfiguration extends RunConfiguration implements IConcurrentRunConfiguration {
@@ -23,6 +26,7 @@ class ConcurrentRunConfiguration extends RunConfiguration implements IConcurrent
 	String _modelInitializationArguments
 
 	public static val STRATEGIES_CONFIG_DATA_KEY = ".configData"
+//	public static val STRATEGIES_CONFIG_KEY = "uk.ac.kcl.inf.xdsml.strategies"
 
 
 	new(ILaunchConfiguration launchConfiguration) throws CoreException {
@@ -49,12 +53,15 @@ class ConcurrentRunConfiguration extends RunConfiguration implements IConcurrent
 	override String getModelInitializationArguments() {
 		return _modelInitializationArguments
 	}
-//
+
+//	@Accessors(PUBLIC_GETTER)
+//	var List<String> strategyIDs = _launchConfiguration.getAttribute(STRATEGIES_CONFIG_KEY, #[])
+//	
 //	@Accessors(PUBLIC_GETTER)
 //	var List<Strategy> strategies
-	
+//	
 //	def getConfigDetailFor(Strategy hd) {
-//		_launchConfiguration.getAttribute(hd.getStrategyID + HenshinConcurrentRunConfiguration.STRATEGIES_CONFIG_DATA_KEY, "")
+//		_launchConfiguration.getAttribute(hd.getStrategyID + STRATEGIES_CONFIG_DATA_KEY, "")
 //	}
 	
 }
