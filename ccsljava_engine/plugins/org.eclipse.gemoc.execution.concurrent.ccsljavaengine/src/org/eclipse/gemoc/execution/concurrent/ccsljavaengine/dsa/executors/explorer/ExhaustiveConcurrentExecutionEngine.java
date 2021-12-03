@@ -172,7 +172,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 																		e.printStackTrace();
 																	}
 																	Grph internalGrph = stateSpace.getGrph();
-																	psDot.print(internalGrph.toDot());
+																	psDot.print(internalGrph.toDot().replaceAll("##", "#"));
 																	psDot.close();
 																}
 		}
@@ -202,7 +202,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 		System.out.println("just finished exploring state space on "+now);
 		System.out.println("################################################res: " + internalGrph.getVertices().size()
 				+ " states and " + internalGrph.getEdges().size() + " transitions");
-		psDot.print(internalGrph.toDot());
+		psDot.print(internalGrph.toDot().replaceAll("##", "#"));
 		psDot.close();
 		
 		createAutStateSpaceFormat(psAut);
