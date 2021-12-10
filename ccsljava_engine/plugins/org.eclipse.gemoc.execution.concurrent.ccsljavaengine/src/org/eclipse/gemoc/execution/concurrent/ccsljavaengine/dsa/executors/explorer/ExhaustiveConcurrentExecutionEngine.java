@@ -202,7 +202,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 		System.out.println("just finished exploring state space on "+now);
 		System.out.println("################################################res: " + internalGrph.getVertices().size()
 				+ " states and " + internalGrph.getEdges().size() + " transitions");
-		psDot.print(internalGrph.toDot().replaceAll("##", "#"));
+		psDot.print(internalGrph.toDot().replaceAll("##", "#").replaceAll("MSE_","").replaceAll("([^_]*)_[^_]*_([^ ]*)","$1::$2"));
 		psDot.close();
 		
 		createAutStateSpaceFormat(psAut);
