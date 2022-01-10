@@ -19,13 +19,13 @@
 	<parent>
 		<groupId>org.gemoc.sample.robotml</groupId>
 		<artifactId>org.gemoc.sample.robotml.root</artifactId>
-		<version>3.4.0-SNAPSHOT</version>
+		<version>3.5.0-SNAPSHOT</version>
 		<relativePath>../../../RobotML/Language/org.gemoc.sample.robotml.root</relativePath>
 	</parent>
 
 	<artifactId>org.gemoc.sample.tfsm.concurrent.moc.lib</artifactId>
 	<packaging>eclipse-plugin</packaging>
-	<version>3.4.0-SNAPSHOT</version>
+	<version>3.5.0-SNAPSHOT</version>
 
 	
 </project>
