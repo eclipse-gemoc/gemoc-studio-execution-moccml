@@ -1,5 +1,18 @@
 # Changelog
 
+## v3.4.0 (10/01/2022)
+
+#### Enhancements:
+
+- [**enhancement**] Formal analysis by exhaustive simulation update [#62](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/62)
+- [**enhancement**] Formal analysis by exhaustive simulation [#60](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/60)
+
+#### Version upgrades
+
+- [**releng**][**bump**] Bump Studio to 3.4.0 [#55](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/55)
+
+---
+
 ## v3.3.0 (28/07/2021)
 
 #### Enhancements:
@@ -9,8 +22,8 @@
 
 #### Version upgrades
 
-- [**bump**] Bump eclipse 2020-12 [#49](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/49)
 - [**bump**] Bump to Eclipse 2021-06 [#54](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/54)
+- [**bump**] Bump eclipse 2020-12 [#49](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/49)
 - [**bump**] Bump to Eclipse 2020-03 [#48](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/48)
 
 #### Release Engineering
