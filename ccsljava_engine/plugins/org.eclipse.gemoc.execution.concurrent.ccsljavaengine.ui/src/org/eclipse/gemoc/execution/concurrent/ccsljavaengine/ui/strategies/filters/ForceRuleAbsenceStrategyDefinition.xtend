@@ -14,23 +14,24 @@ import org.eclipse.swt.layout.GridData
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Control
 import org.eclipse.swt.widgets.List
-import org.eclipse.gemoc.execution.concurrent.engine.strategies.filters.ForceEventAbsenceStrategy
+import org.eclipse.gemoc.execution.concurrent.engine.strategies.filters.ForceRuleAbsenceStrategy
 
-class ForceEventAbsenceStrategyDefinition extends FilteringStrategyDefinition {
+class ForceRuleAbsenceStrategyDefinition extends FilteringStrategyDefinition {
 	new() {
-		super("org.eclipse.gemoc.xdsml.strategies.remove_unwanted", "Force Absence",
-			ForceEventAbsenceStrategy)
+		super("org.eclipse.gemoc.xdsml.strategies.remove_unwanted", "Force Rule Absence",
+			ForceRuleAbsenceStrategy)
 	}
 
 	override getUIControl(Composite parent, LaunchConfigurationContext lcc, StrategyControlUpdateListener scul) {
-		val control = new List(parent, SWT.FILL.bitwiseOr(SWT.MULTI.bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.BORDER)))
+		val control = new List(parent, SWT.MULTI.bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.BORDER))
 		control.layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false)
 		
-		lcc.addMetamodelChangeListener([ evt |
-			control.updateMetamodels(evt.newValue as Set<EPackage>)
+		lcc.addSemanticsChangeListener([ evt |
+			control.updateSemantics(evt.newValue as Set<String>)
 		])
 
-		control.updateMetamodels(lcc.metamodels)
+		control.updateSemantics(lcc.semantics)
+
 		
 		if (scul !== null) {
 			control.addSelectionListener(new SelectionListener() {
@@ -38,7 +39,7 @@ class ForceEventAbsenceStrategyDefinition extends FilteringStrategyDefinition {
 				override widgetDefaultSelected(SelectionEvent e) { }
 				
 				override widgetSelected(SelectionEvent e) {
-					scul.controlUpdated(ForceEventAbsenceStrategyDefinition.this)
+					scul.controlUpdated(ForceRuleAbsenceStrategyDefinition.this)
 				}				
 			})
 		}
@@ -71,31 +72,31 @@ class ForceEventAbsenceStrategyDefinition extends FilteringStrategyDefinition {
 	}
 
 	override initialise(Strategy strategy, String configData, LaunchConfigurationContext lcc) {
-		if (strategy instanceof ForceEventAbsenceStrategy) {
-			lcc.addMetamodelChangeListener([ evt |
-				strategy.updateMetamodels(evt.newValue as Set<EPackage>, configData)
+		if (strategy instanceof ForceRuleAbsenceStrategy) {
+			lcc.addSemanticsChangeListener([ evt |
+				strategy.updateSemantics(evt.newValue as Set<String>, configData)
 			])
-			
-			strategy.updateMetamodels(lcc.metamodels as Set<EPackage>, configData)			
+	
+			strategy.updateSemantics(lcc.semantics, configData)
 		}
 	}
 
-	def updateMetamodels(List control, Set<EPackage> metamodels) {
+	def updateSemantics(List control, Set<String> semantics) {
 		control.items = emptyList
 
-		if (metamodels !== null) {
-			metamodels.flatMap[mm|mm.eAllContents.filter(EClass).toIterable].forEach [ c |
-				control.add(c.name)
+		if (semantics !== null) {
+			semantics.forEach [ r |
+				control.add(r)
 			]
 		}
 	}
 
-	def updateMetamodels(ForceEventAbsenceStrategy nieh, Set<EPackage> metamodels, String configData) {
-		nieh.toBeAbsentTypes.clear
-		
-		if (metamodels !== null) {
-			val classNames = configData.split("@@").toList
-			nieh.toBeAbsentTypes = metamodels.flatMap[ep | ep.eAllContents.filter(EClass).filter[ec | classNames.contains(ec.name)].toIterable].toList
+	def updateSemantics(ForceRuleAbsenceStrategy feas, Set<String> semantics, String configData) {
+		feas.toBeAbsentRule.clear
+
+		if (semantics !== null) {
+			val actionNames = configData.split("@@").toList
+			feas.toBeAbsentRule= semantics.filter[r|actionNames.contains(r)].toList
 		}
 	}
 }

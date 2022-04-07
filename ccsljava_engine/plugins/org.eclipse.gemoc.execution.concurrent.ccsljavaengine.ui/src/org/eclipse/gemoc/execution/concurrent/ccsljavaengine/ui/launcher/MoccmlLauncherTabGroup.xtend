@@ -51,6 +51,14 @@ class MoccmlLauncherTabGroup extends AbstractLaunchConfigurationTabGroup {
 					mainTab.addSemanticsListener(pcl)
 				}
 				
+				override getModelRoot() {
+					return mainTab.modelRoot
+				}
+				
+				override getEngine() {
+					return null
+				}
+				
 			})
 			]
 		setTabs(tabs)

@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Composite
 import org.eclipse.swt.widgets.Control
 import org.eclipse.swt.widgets.Label
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.eclipse.emf.ecore.EObject
 
 class StrategySelectionView extends EngineSelectionDependentViewPart implements StrategyConfigurationUpdateListener {
 
@@ -36,6 +37,7 @@ class StrategySelectionView extends EngineSelectionDependentViewPart implements 
 		var Set<String> semantics = emptySet
 		@Accessors(PUBLIC_GETTER)
 		var Set<EPackage> metamodels = emptySet
+		var EObject modelRoot= null
 
 		@Accessors(PUBLIC_GETTER)
 		var IExecutionEngine<?> engine = null
@@ -49,9 +51,11 @@ class StrategySelectionView extends EngineSelectionDependentViewPart implements 
 				if (engine instanceof AbstractConcurrentExecutionEngine<?, ?>) {
 					semantics = engine.semanticRules
 					metamodels = engine.abstractSyntax
+					modelRoot = engine.executionContext.resourceModel.contents.get(0)
 				} else {
 					semantics = emptySet
 					metamodels = emptySet
+					modelRoot = null
 				}
 
 				pcs.firePropertyChange(SEMANTICS, oldSemantics, semantics)
@@ -70,6 +74,11 @@ class StrategySelectionView extends EngineSelectionDependentViewPart implements 
 		override addSemanticsChangeListener(PropertyChangeListener pcl) {
 			pcs.addPropertyChangeListener(SEMANTICS, pcl)
 		}
+		
+		override getModelRoot() {
+			return modelRoot
+		}
+		
 	}
 
 	/**
@@ -100,6 +109,16 @@ class StrategySelectionView extends EngineSelectionDependentViewPart implements 
 		override addSemanticsChangeListener(PropertyChangeListener pcl) {
 			// Ignore
 		}
+		
+		override getModelRoot() {
+			delegate.modelRoot
+		}
+		
+		override getEngine() {
+			return delegate.engine
+		}
+		
+		
 
 	}
 

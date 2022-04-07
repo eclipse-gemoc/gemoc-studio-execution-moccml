@@ -3,6 +3,8 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies
 import java.beans.PropertyChangeListener
 import java.util.Set
 import org.eclipse.emf.ecore.EPackage
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionEngine
 
 interface LaunchConfigurationContext {
 	
@@ -15,6 +17,11 @@ interface LaunchConfigurationContext {
 	 * Identification string for semantics property.
 	 */
 	val SEMANTICS = "semantics"
+	
+	/**
+	 * Identification string for models property.
+	 */
+	val MODELS = "models"
 	
 	/**
 	 * Return the metamodel currently specified in the launch configuration, if any. 
@@ -39,4 +46,16 @@ interface LaunchConfigurationContext {
 	 * Register a listener to be informed on any changes of the semantics (rule set) selected in this launch configuration. 
 	 */
 	def void addSemanticsChangeListener(PropertyChangeListener pcl)	
+	
+	/**
+	 * Return the root of the model currently under simulation. 
+	 * 
+	 */
+	def EObject getModelRoot()
+	
+	/**
+	 * Return simulation engine, if any. 
+	 * 
+	 */
+	def IExecutionEngine<?> getEngine()
 }

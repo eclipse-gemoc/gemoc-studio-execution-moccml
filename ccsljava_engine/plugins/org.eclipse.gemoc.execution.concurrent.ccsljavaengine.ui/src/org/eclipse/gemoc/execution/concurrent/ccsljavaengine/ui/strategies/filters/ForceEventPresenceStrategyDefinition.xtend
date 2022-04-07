@@ -23,7 +23,7 @@ class ForceEventPresenceStrategyDefinition extends FilteringStrategyDefinition {
 	}
 
 	override getUIControl(Composite parent, LaunchConfigurationContext lcc, StrategyControlUpdateListener scul) {
-		val control = new List(parent, SWT.FILL.bitwiseOr(SWT.MULTI.bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.BORDER)))
+		val control = new List(parent, SWT.MULTI.bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.BORDER))
 		control.layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false)
 
 		lcc.addMetamodelChangeListener([ evt |
