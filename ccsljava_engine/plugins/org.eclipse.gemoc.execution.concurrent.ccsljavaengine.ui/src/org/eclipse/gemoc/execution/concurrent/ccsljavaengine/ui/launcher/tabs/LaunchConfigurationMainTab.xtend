@@ -62,6 +62,7 @@ import org.eclipse.swt.widgets.Label
 import org.eclipse.swt.widgets.Text
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlDSLHelper
+import org.eclipse.emf.ecore.EObject
 
 class LaunchConfigurationMainTab extends AbstractLaunchConfigurationTab {
 	protected Composite _parent
@@ -81,6 +82,9 @@ class LaunchConfigurationMainTab extends AbstractLaunchConfigurationTab {
 	var Set<EPackage> metamodels
 	@Accessors(PUBLIC_GETTER)
 	var Set<String> semantics
+	@Accessors(PUBLIC_GETTER)
+	var EObject modelRoot
+	
 
 	override void createControl(Composite parent) {
 		_parent = parent
@@ -291,6 +295,8 @@ class LaunchConfigurationMainTab extends AbstractLaunchConfigurationTab {
 			_modelInitializationMethodText.setText("")
 		}
 		_modelInitializationArgumentsText.setEnabled(!_modelInitializationMethodText.getText().isEmpty())
+		
+		modelRoot = MoccmlDSLHelper::getModelRoot(_modelLocationText.text)
 	}
 
 	def protected String getModelInitializationMethodName(MoccmlLanguageAdditionExtension languageDefinitionExtension) {
@@ -377,6 +383,8 @@ class LaunchConfigurationMainTab extends AbstractLaunchConfigurationTab {
 		else
 			return #{}
 	}
+	
+
 
 	val pcs = new PropertyChangeSupport(this)
 	val METAMODELS = "metamodels"
