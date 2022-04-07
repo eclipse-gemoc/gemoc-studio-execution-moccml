@@ -38,7 +38,7 @@ class StrategyDefinition {
 	}
 
 	/**
-	 * Override this to define additional initialisation for a newly created strategy
+	 * Override this to define additional initialisation for a newly created strategy.
 	 * 
 	 * @param strategy the strategy to configure
 	 * @param configData a string containing configuration data as defined by a previous call to {@link #encodeConfigInformation}. May be <code>null</code> if this strategy definition does not define any additional configuration data.
@@ -57,12 +57,12 @@ class StrategyDefinition {
 	def String encodeConfigInformation(Control uiElement) { null }
 
 	/**
-	 * Initialise this strategy definition's control from the given configData
+	 * Initialise this strategy definition's control from the given configData.
 	 */
 	def void initaliseControl(Control uiElement, String configData) {}
 
 	/**
-	 * Initialise this strategy definition's control from the given strategy
+	 * Initialise this strategy definition's control from the given strategy.
 	 */
 	def void initaliseControl(Control uiElement, Strategy strategy) {}
 	
