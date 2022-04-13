@@ -43,28 +43,17 @@ import static extension org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.Integ
 import static extension org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.BooleanVariableAspect.*
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.OpaqueBooleanExpression
 import org.eclipse.gemoc.example.moccml.tfsm.tfsm.OpaqueIntegerExpression
-//import fr.inria.diverse.k3.al.annotationprocessor.coordination.Time
-//import fr.inria.diverse.k3.al.annotationprocessor.coordination.Input
-//import fr.inria.diverse.k3.al.annotationprocessor.coordination.Output
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.NotInStateSpace
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.api.Containment
 
-/*import static extension org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.StateAspect.*
-import static extension org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.TransitionAspect.*
-import static extension org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.NamedElementAspect.*
-import static extension org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.GuardAspect.*
-import static extension org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.TemporalGuardAspect.*
-import static extension org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.EventGuardAspect.*
-import static extension org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.FSMEventAspect.*
-import static extension org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.TimedSystemAspect.*
-import static extension org.eclipse.gemoc.example.moccml.tfsm.k3dsa.aspect.EvaluateGuardAspect.*
-*/
 
 @Aspect(className=TFSM)
 class TFSMAspect extends NamedElementAspect {
-	
+	@Containment(Containment.ContainmentStrategy.REFERENCE)
 	public State currentState;
 
 	def public String initialize() {
-		if (_self.currentState === null) {
+		if (_self.currentState === null) { 
 
 			_self.currentState = _self.initialState;
 		}
@@ -146,7 +135,8 @@ class FSMEventAspect extends NamedElementAspect {
 @Aspect(className=FSMClock)
 class FSMClockAspect extends NamedElementAspect {
 	
-	//@Time 
+	@NotInStateSpace 
+	@Containment(Containment.ContainmentStrategy.CONTAINER)
 	public Integer numberOfTicks = 0 //MUST be initialized for coordination
 
 	// Clock tick
@@ -214,6 +204,7 @@ class IntegerVariableAspect extends VariableAspect {
 	
 //	@Input(cond="true")
 //	@Output(cond="true")
+	@Containment(Containment.ContainmentStrategy.CONTAINER)
 	public Integer currentValue = 0
 	
 	@OverrideAspectMethod
@@ -236,6 +227,7 @@ class BooleanVariableAspect extends VariableAspect {
 
 //	@Input(cond="true")
 //	@Output(cond="true")
+	@Containment(Containment.ContainmentStrategy.CONTAINER)
 	public Boolean currentValue = false;
 	
 	@OverrideAspectMethod

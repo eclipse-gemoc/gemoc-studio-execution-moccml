@@ -34,15 +34,6 @@ class ForceAbsenceOfActionsOnClassDefinition extends FilteringStrategyDefinition
 		control = new List(parent, SWT.MULTI.bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.BORDER))
 		control.layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false)
 		
-		lcc.addMetamodelChangeListener([ evt |
-			control.updateMSEModel()
-		])
-//		var engine = lcc.engine
-//		if(engine !== null){
-//			control.updateMSEModel(lcc.engine.executionContext.MSEModel)
-//		}
-		
-		
 		
 		if (scul !== null) {
 			control.addSelectionListener(new SelectionListener() {
@@ -84,27 +75,28 @@ class ForceAbsenceOfActionsOnClassDefinition extends FilteringStrategyDefinition
 
 	override initialise(Strategy strategy, String configData, LaunchConfigurationContext lcc) {
 		if (strategy instanceof ForceAbsenceOfActionsOnClassStrategy) {
-			lcc.addMetamodelChangeListener([ evt |
-				strategy.updateMetamodels(evt.newValue as MSEModel, configData)
-			])
-			mseModel = lcc.engine.executionContext.MSEModel
-			strategy.updateMetamodels(mseModel, configData)			
-			control.updateMSEModel()
+			
+//			lcc.addMetamodelChangeListener([ evt |
+//				strategy.updateObjectsWithoutRules(evt.newValue as MSEModel, configData)
+//			])
+			if(mseModel === null){
+				mseModel = lcc.engine.executionContext.MSEModel
+				updateMSEModel()
+			}
+			strategy.updateObjectsWithoutRules(mseModel, configData)			
+			
 		}
 	}
 
-//	def updateMetamodels(List control){
-//		println(control)
-//		//unused, just to avoid 'control' to be disposed
-//	}
-
-	def updateMSEModel(List control) {
+	def updateMSEModel() {
 		control.items = emptyList
-
 		if (mseModel !== null) {
-			mseModel.ownedMSEs.map[mse| mse.caller].toSet.forEach [ c |
-				(c.name !== null)?control.add(c.name)
-			]
+			for (EObject c : mseModel.ownedMSEs.map[mse| mse.caller]){
+				println("dealing with "+c.name)
+				if(c.name !== null){
+					control.add(c.name)
+				}
+			}
 		}
 	}
 	
@@ -119,7 +111,7 @@ class ForceAbsenceOfActionsOnClassDefinition extends FilteringStrategyDefinition
     	}
 	}
 
-	def updateMetamodels(ForceAbsenceOfActionsOnClassStrategy nieh, MSEModel mseModel, String configData) {
+	def updateObjectsWithoutRules(ForceAbsenceOfActionsOnClassStrategy nieh, MSEModel mseModel, String configData) {
 		nieh.toBeAbsentObject.clear
 		
 		if (mseModel !== null) {

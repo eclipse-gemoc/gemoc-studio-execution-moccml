@@ -11,17 +11,23 @@
  *******************************************************************************/
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.eventscheduling.trace;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.common.util.URI;
@@ -47,6 +53,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.h
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelState;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentModelExecutionContext;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlFutureAction;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.executionframework.engine.Activator;
 import org.eclipse.gemoc.executionframework.engine.core.CommandExecution;
@@ -57,6 +64,7 @@ import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trac
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.Gemoc_execution_traceFactory;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.ModelState;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.SolverState;
+import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
@@ -247,7 +255,21 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 			ICCSLSolver solver = engine_cast.getSolver();
 			Activator.getDefault().debug(
 					"restoring solver state: " + choice.getContextState().getSolverState().getSerializableModel());
-			solver.setState(choice.getContextState().getSolverState().getSerializableModel());
+			
+			byte[] moccmlEngineState = choice.getContextState().getSolverState().getSerializableModel();
+			ByteArrayInputStream out = new ByteArrayInputStream(moccmlEngineState);
+	        ObjectInputStream objOut;
+	        Object thePair = null;
+			try {
+				objOut = new ObjectInputStream(out);
+				thePair = objOut.readObject();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			engine_cast.restoreState((Pair<Map<String, Boolean>, ArrayList<IMoccmlFutureAction>>)((Pair)thePair).getLeft());
+			solver.setState((byte[]) ((Pair)thePair).getRight());
 		}
 	}
 
@@ -348,9 +370,23 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 
 				if (_executionEngine instanceof MoccmlExecutionEngine) {
 					MoccmlExecutionEngine engine_cast = (MoccmlExecutionEngine) _executionEngine;
-					SolverState solverState = Gemoc_execution_traceFactory.eINSTANCE.createSolverState();
+					Pair<Map<String, Boolean>, ArrayList<IMoccmlFutureAction>> engineState = engine_cast.saveState();
+					
 					ICCSLSolver solver_cast = engine_cast.getSolver();
-					solverState.setSerializableModel(solver_cast.getState());
+					
+					ByteArrayOutputStream out = new ByteArrayOutputStream();
+			        ObjectOutputStream objOut;
+			        byte[] serializableEngineState = null;
+					try {
+						objOut = new ObjectOutputStream(out);
+				        objOut.writeObject(Pair.of(engineState,solver_cast.getState()));
+				        serializableEngineState= out.toByteArray();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+					SolverState solverState = Gemoc_execution_traceFactory.eINSTANCE.createSolverState();
+					solverState.setSerializableModel(serializableEngineState);
 					contextState.setSolverState(solverState);
 				}
 

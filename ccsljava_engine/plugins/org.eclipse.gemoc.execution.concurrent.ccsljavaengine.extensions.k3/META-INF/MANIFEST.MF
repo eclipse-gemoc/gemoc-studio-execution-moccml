@@ -24,6 +24,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.api,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper,
- org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.impl
-Bundle-Vendor: Inria
+ org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.impl,
+ org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.api
+Bundle-Vendor: Eclipse GEMOC Project
 Automatic-Module-Name: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3

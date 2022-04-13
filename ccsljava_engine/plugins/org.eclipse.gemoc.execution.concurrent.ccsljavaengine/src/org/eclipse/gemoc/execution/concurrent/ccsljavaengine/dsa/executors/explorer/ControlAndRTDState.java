@@ -2,24 +2,35 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dsa.executors.expl
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse.FreeClockFutureAction;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.ElementState;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelState;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelStateFactory;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlFutureAction;
+import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 
 public class ControlAndRTDState implements Serializable {
 	
 	private static final long serialVersionUID = 0;
 	public K3ModelState modelState = K3ModelStateFactory.eINSTANCE.createK3ModelState();
 	public byte[] moCCState = null;
+	public Map<String, Boolean> nextEventToForce = null;
+	public ArrayList<IMoccmlFutureAction> futurActions = null;
 	
-	public ControlAndRTDState(K3ModelState modelS, byte[] moccS) {
+	public ControlAndRTDState(K3ModelState modelS, byte[] moccS, Pair<Map<String, Boolean>, ArrayList<IMoccmlFutureAction>> engineState) {
 		super();
 		modelState = modelS;
 		moCCState = moccS;
+		nextEventToForce = engineState.getLeft();
+		futurActions = engineState.getRight();
 	}
 	
 	@Override
@@ -44,6 +55,43 @@ public class ControlAndRTDState implements Serializable {
 			if (!found) {
 				return false;
 			}
+		}		
+		if(nextEventToForce != null) { 
+			if(!areEquals(state.nextEventToForce,this.nextEventToForce)) {
+				return false;
+			}
+		}
+		return areEquals(state.futurActions, this.futurActions);
+	}
+	
+	private boolean areEquals(ArrayList<IMoccmlFutureAction> futurActions1,	ArrayList<IMoccmlFutureAction> futurActions2) {
+		if(futurActions1.size() != futurActions2.size()) {
+			return false;
+		}
+		mainloop: for(IMoccmlFutureAction fa1 : futurActions1) {
+			for(IMoccmlFutureAction fa2 : futurActions2) {
+				if (fa1.getTriggeringMSEURI().compareTo(fa2.getTriggeringMSEURI()) == 0 
+						&&
+					fa1.getMseToBeForcedURI().compareTo(fa2.getMseToBeForcedURI()) == 0) {
+					continue mainloop;
+				}
+			}
+			return false;
+		}
+		return true;
+	}
+
+	private boolean areEquals(Map<String, Boolean> engineState, Map<String, Boolean> newEngineState) {
+		if(engineState.size() != newEngineState.size()) {
+			return false;
+		}
+		mainloop: for(Entry<String, Boolean> e1 : engineState.entrySet()) {
+			for(Entry<String, Boolean>  e2 : newEngineState.entrySet()) {
+				if (e1.getKey().compareTo(e2.getKey()) == 0 && e1.getValue() == e2.getValue()) {
+					continue mainloop;
+				}
+			}
+			return false;
 		}
 		return true;
 	}
@@ -100,6 +148,16 @@ public class ControlAndRTDState implements Serializable {
 				} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
+			}
+		}
+		if (nextEventToForce != null) {
+			for(String mse : this.nextEventToForce.keySet()) {
+				sbRes.append(mse+ "=" +this.nextEventToForce.get(mse)+"\n");
+			}
+		}
+		if (futurActions != null) {
+			for(IMoccmlFutureAction fa: this.futurActions) {
+				sbRes.append("free "+ fa.getMseToBeForcedURI()+ " on " +fa.getTriggeringMSEURI()+"\n");
 			}
 		}
 		return sbRes.toString();

@@ -9,15 +9,15 @@ import sigpml.xdsml.api.impl.SigPMLRTDAccessor;
 public class K3RuntimeDataHelper {
 	
 	public boolean getIsCurrentlyExecuting(Agent eObject) {
-		return SigPMLRTDAccessor.getIsCurrentlyExecuting(eObject);
+		return SigPMLRTDAccessor.getisCurrentlyExecuting(eObject);
 	}
 	
 	public int getCurrentSize(Place eObject) {
-		return SigPMLRTDAccessor.getCurrentSize(eObject);
+		return SigPMLRTDAccessor.getcurrentSize(eObject);
 	}
 	
 	public int getCurrentExecCycle(Agent eObject) {
-		return SigPMLRTDAccessor.getCurrentExecCycle(eObject);
+		return SigPMLRTDAccessor.getcurrentExecCycle(eObject);
 	}
 
 }

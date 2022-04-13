@@ -3,9 +3,11 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 
 import fr.inria.aoste.timesquare.instantrelation.CCSLRelationModel.OccurrenceRelation;
+import fr.inria.aoste.trace.AssertionState;
 import fr.inria.aoste.trace.EventOccurrence;
 import fr.inria.aoste.trace.ModelElementReference;
 
@@ -58,5 +60,14 @@ public interface ICCSLSolver extends ISolver {
 	
 	public void revertForceClockEffect();
 
+	/**
+	 * ask the solver to provide possible assertion violations
+	 * must be called after a {@link #applyLogicalStep(Step<?> logicalStep)}
+	 * @return a list of constraints where the assertion boolean is set to 'true' and which has been violated during the last step
+	 */
+	public List<String> getAssertionViolations();
 
+	
+	public void addClockCoincidence(EventOccurrence occ1, EventOccurrence occ2);	
+	public boolean hasSolution();
 }

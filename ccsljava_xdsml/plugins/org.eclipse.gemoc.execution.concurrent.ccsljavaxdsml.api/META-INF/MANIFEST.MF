@@ -21,7 +21,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.xtend.lib.macro,
  org.eclipse.debug.core
 Bundle-ActivationPolicy: lazy
-Bundle-Vendor: Inria
+Bundle-Vendor: Eclipse GEMOC Project
 Automatic-Module-Name: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api
 Export-Package: org.chocosolver.sat,
  org.chocosolver.solver,

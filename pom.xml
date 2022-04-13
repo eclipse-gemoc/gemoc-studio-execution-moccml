@@ -2,48 +2,31 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.eclipse.gemoc.execution.concurrent.ccsljava</groupId>
+    <groupId>org.eclipse.gemoc.gemoc-studio-execution-moccml.bundle</groupId>
     <artifactId>org.eclipse.gemoc.execution.concurrent.ccsljava.root</artifactId>
-    <version>2.3.0-SNAPSHOT</version>
-    <packaging>pom</packaging>    
+    <version>3.5.0-SNAPSHOT</version>
+    <packaging>pom</packaging>  
+    
+    <parent>
+		<groupId>org.eclipse.gemoc.gemoc-studio</groupId>
+		<artifactId>gemoc_studio-eclipse-bom</artifactId>
+		<version>3.5.0-SNAPSHOT</version>
+		<relativePath>../gemoc-studio/gemoc_studio/plugins/gemoc_studio-eclipse-bom</relativePath>
+	</parent>
+	  
     <properties>
-		<tycho-version>2.2.0</tycho-version>
-    	<xtend.version>2.24.0</xtend.version>
-		<project.build.sourceEncoding>UTF8</project.build.sourceEncoding>
 		<tycho.scmUrl>scm:git:https://github.com/eclipse/gemoc-studio-execution-moccml.git</tycho.scmUrl>
 		
-		<maven.deploy.skip>true</maven.deploy.skip>
-		
-		<eclipse.release.p2.url>http://download.eclipse.org/releases/2020-12</eclipse.release.p2.url>
-<!--     	<eclipse.photon.release.p2.url>http://download.eclipse.org/releases/photon</eclipse.photon.release.p2.url> -->
-		<k3.p2.url>http://www.kermeta.org/k3/update_2018-09-05</k3.p2.url>
-		<melange.p2.url>http://melange.inria.fr/updatesite/nightly/update_2020-11-16</melange.p2.url>
-		<elk.p2.url>http://download.eclipse.org/elk/updates/releases/0.7.1</elk.p2.url>
-		<aspectJ.p2.url>http://download.eclipse.org/tools/ajdt/410/dev/update</aspectJ.p2.url>
-		<!-- <timesquare.p2.url>http://www.i3s.unice.fr/~deantoni/photon/</timesquare.p2.url> -->
-		<timesquare.p2.url>http://timesquare.inria.fr/update_site/2020</timesquare.p2.url>
-		<diverse-commons.p2.url>http://www.kermeta.org/diverse-commons/updates/latest</diverse-commons.p2.url>
-<!-- 		<sirius.p2.url>http://download.eclipse.org/sirius/updates/releases/6.1.3/photon</sirius.p2.url> -->
-		<efxclipse.p2.url>https://download.eclipse.org/efxclipse/updates-released/3.7.0/site</efxclipse.p2.url>
+		<maven.deploy.skip>true</maven.deploy.skip>	
 	</properties>
+	
     <modules>
     
         <!-- plugins -->
-        <module>ccsljava_engine/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaengine</module>
-        <module>ccsljava_engine/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3</module>
-        <module>ccsljava_engine/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate</module>
-        <module>ccsljava_engine/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare</module>
-        <module>ccsljava_engine/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaengine.mse.model</module>
-        <module>ccsljava_engine/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaengine.stimuli_scenario.model</module>
-        <module>ccsljava_engine/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui</module>
-        <module>ccsljava_xdsml/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api</module>
-        <module>ccsljava_xdsml/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.ui</module>
-        <module>ccsljava_xdsml/plugins/org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils</module>
-        <module>ccsljava_xdsml/plugins/org.eclipse.gemoc.execution.moccml.example.deployer</module>
-        <module>ccsljava_xdsml/plugins/org.eclipse.gemoc.execution.moccmlxdsml.metaprog</module>
-        <module>concurrent_addons/plugins/org.eclipse.gemoc.addon.vcdgenerator</module>
-        <module>concurrent_addons/plugins/org.eclipse.gemoc.addon.eventscheduling.timeline</module>
-        
+        <module>ccsljava_engine/plugins</module>
+        <module>ccsljava_xdsml/plugins</module>
+        <module>concurrent_addons/plugins</module>
+        <module>testScenarioLang/</module>
         
         <!-- feature and update site -->
         <module>releng</module>
@@ -56,17 +39,7 @@
 
   	<!-- List of P2 repositories of external tool used to build the components -->
   	<!--  must NOT include the repositories of the tools included in the Studio has it has its own complementary list -->
-        <repository>
-            <id>Eclipse release</id>
-            <layout>p2</layout>
-            <url>${eclipse.release.p2.url}</url>
-        </repository>
-        <repository>
-            <id>timesquare</id>
-            <layout>p2</layout>
-            <!-- <url>http://www.i3s.unice.fr/~deantoni/photon/</url> -->
-            <url>${timesquare.p2.url}</url>
-        </repository>
+        <!-- list only the repo not present in the target platform -->
 		<repository>
             <id>K3</id>
             <layout>p2</layout>
@@ -82,23 +55,20 @@
             <layout>p2</layout>
             <url>http://download.eclipse.org/gemoc/updates/nightly/</url>
         </repository> -->
-        
-        <repository> <!-- indirectly, required by the test that indirectly grabs sequential_addon.stategraph that depends on it -->
+        <!-- indirectly, required by the test that indirectly grabs sequential_addon.stategraph that depends on it -->
+        <!--<repository> 
             <id>elk</id>
             <layout>p2</layout>
             <url>${elk.p2.url}</url>
-        </repository>
-		<repository> <!-- used in some tests -->
+        </repository>-->
+		<!-- used in some tests -->
+		<!--<repository> 
             <id>Groovy4Eclipse</id>
             <layout>p2</layout>
             <url>http://dist.springsource.org/snapshot/GRECLIPSE/e4.6/</url>
-        </repository>
+        </repository>-->
         
-        <repository> <!-- used in some tests -->
-            <id>AspectJ</id>
-            <layout>p2</layout>
-            <url>${aspectJ.p2.url}</url>
-        </repository>
+
     </repositories>
 
 
@@ -195,6 +165,14 @@
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
+					<target>
+                        <artifact>
+                            <groupId>org.eclipse.gemoc.gemoc-studio.bundle</groupId>
+                            <artifactId>org.eclipse.gemoc.gemoc_studio.targetplatform</artifactId>
+                            <version>3.5.0-SNAPSHOT</version>
+                            <classifier>gemoc_studio</classifier>
+                        </artifact>
+                    </target>
 					<!-- environments that will be built -->
 					<environments>
 						<environment>

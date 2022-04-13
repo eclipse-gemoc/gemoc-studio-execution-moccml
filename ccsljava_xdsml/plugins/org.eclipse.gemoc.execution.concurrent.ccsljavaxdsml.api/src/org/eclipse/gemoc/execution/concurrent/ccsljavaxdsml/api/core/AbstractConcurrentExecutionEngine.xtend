@@ -86,7 +86,7 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 		new StepFactory
 	}
 
-	def private Set<ParallelStep<? extends Step<?>, ?>> computePossibleLogicalSteps() {
+	def protected Set<ParallelStep<? extends Step<?>, ?>> computePossibleLogicalSteps() {
 		val model = computeInitialLogicalSteps()
 
 		val steps = model.smallSteps.toList

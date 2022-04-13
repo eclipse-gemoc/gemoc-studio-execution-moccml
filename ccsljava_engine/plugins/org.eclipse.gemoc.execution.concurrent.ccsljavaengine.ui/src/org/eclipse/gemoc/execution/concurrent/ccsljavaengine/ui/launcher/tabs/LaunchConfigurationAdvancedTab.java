@@ -45,6 +45,7 @@ public class LaunchConfigurationAdvancedTab extends AbstractLaunchConfigurationT
 
 	protected Composite _parent;
 	protected Text _timemodelLocationText;
+	protected Text _moccmlscenarioLocationText;
 	protected Button _isExhaustive;
 	public int GRID_DEFAULT_WIDTH = 200;
 
@@ -60,6 +61,8 @@ public class LaunchConfigurationAdvancedTab extends AbstractLaunchConfigurationT
 
 		Group executionModelArea = createGroup(area, "execution model (.timemodel):");
 		createModelLayout(executionModelArea , null);
+		Group moccmlscenarioModelArea = createGroup(area, "moccml scenario(.moccmlscenario):");
+		createScenarioLayout(moccmlscenarioModelArea , null);
 	
 		_isExhaustive =createCheckButton(area, "Do Exhaustive Simulation");
 		
@@ -93,6 +96,7 @@ public class LaunchConfigurationAdvancedTab extends AbstractLaunchConfigurationT
 		try {
 			IMoccmlRunConfiguration runConfiguration = new MoccmlRunConfiguration(configuration);
 			_timemodelLocationText.setText(runConfiguration.getExecutionModelPath());
+			_moccmlscenarioLocationText.setText(runConfiguration.getMoccmlScenarioModelPath());
 			_isExhaustive.setSelection(runConfiguration.getIsExhaustiveSimulation());
 		} catch (CoreException e) {
 			Activator.error(e.getMessage(), e);
@@ -102,6 +106,7 @@ public class LaunchConfigurationAdvancedTab extends AbstractLaunchConfigurationT
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute(MoccmlRunConfiguration.EXTRA_TIMEMODEL_PATH, _timemodelLocationText.getText());
+		configuration.setAttribute(MoccmlRunConfiguration.MOCCML_SCENARIO_PATH, _moccmlscenarioLocationText.getText());
 		configuration.setAttribute(MoccmlRunConfiguration.EXHAUSTIVE_MODE, _isExhaustive.getSelection());
 	}
 
@@ -156,6 +161,39 @@ public class LaunchConfigurationAdvancedTab extends AbstractLaunchConfigurationT
 		createTextLabelLayout(parent, "");
 		return parent;
 	}
+	
+	/***
+	 * Create the Field where user enters model to execute
+	 * 
+	 * @param parent
+	 * @param font
+	 * @return
+	 */
+	public Composite createScenarioLayout(Composite parent, Font font) {
+		createTextLabelLayout(parent, "MoCCML Scenario");
+		// Model location text
+		_moccmlscenarioLocationText = new Text(parent, SWT.SINGLE | SWT.BORDER);
+		_moccmlscenarioLocationText.setLayoutData(createStandardLayout());
+		_moccmlscenarioLocationText.setFont(font);
+		_moccmlscenarioLocationText.addModifyListener(fBasicModifyListener);
+		Button modelLocationButton = createPushButton(parent, "Browse", null);
+		modelLocationButton.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent evt) {
+				// handleModelLocationButtonSelected();
+				// TODO launch the appropriate selector
+
+				SelectAnyIFileDialog dialog = new SelectAnyIFileDialog();
+				if (dialog.open() == Dialog.OK) {
+					String modelPath = ((IResource) dialog.getResult()[0]).getFullPath().toPortableString();
+					_moccmlscenarioLocationText.setText(modelPath);
+					updateLaunchConfigurationDialog();
+				}
+			}
+		});
+		
+		createTextLabelLayout(parent, "");
+		return parent;
+	}
 
 	private GridData createStandardLayout() {
 		return new GridData(SWT.FILL, SWT.CENTER, true, false);
@@ -189,6 +227,21 @@ public class LaunchConfigurationAdvancedTab extends AbstractLaunchConfigurationT
 		}
 		if (timemodelName.length() != 0) {
 			setWarningMessage("warning, you specified a specific timemodel file in the advanced tab... you may better know what you are doing :)"); 
+		}
+		
+		
+		String scenarioName = _moccmlscenarioLocationText.getText().trim();
+		if (scenarioName.length() > 0) {
+			
+			IResource modelIResource = workspace.getRoot().findMember(scenarioName);
+			if (modelIResource == null || !modelIResource.exists()) {
+				setErrorMessage(NLS.bind("moccml scenario does not exist", new String[] {timemodelName})); 
+				return false;
+			}
+			if (! (modelIResource instanceof IFile)) {
+				setErrorMessage(NLS.bind("moccml scenario invalid file", new String[] {timemodelName})); 
+				return false;
+			}
 		}
 		
 		return true;

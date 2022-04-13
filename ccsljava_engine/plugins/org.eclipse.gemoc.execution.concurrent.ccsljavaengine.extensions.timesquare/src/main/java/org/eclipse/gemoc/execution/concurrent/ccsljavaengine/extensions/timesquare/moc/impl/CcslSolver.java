@@ -25,7 +25,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.exception.ContradictionException;
 import org.chocosolver.solver.expression.discrete.relational.ReExpression;
@@ -70,15 +71,19 @@ import org.osgi.framework.Bundle;
 
 import fr.inria.aoste.timesquare.ccslkernel.explorer.CCSLConstraintState;
 import fr.inria.aoste.timesquare.ccslkernel.model.TimeModel.Event;
+import fr.inria.aoste.timesquare.ccslkernel.model.TimeModel.NamedElement;
 import fr.inria.aoste.timesquare.ccslkernel.modelunfolding.exception.UnfoldingException;
 import fr.inria.aoste.timesquare.ccslkernel.runtime.exceptions.NoBooleanSolution;
 import fr.inria.aoste.timesquare.ccslkernel.runtime.exceptions.SimulationException;
+import fr.inria.aoste.timesquare.ccslkernel.solver.StepExecutor;
 import fr.inria.aoste.timesquare.ccslkernel.solver.exception.SolverException;
 import fr.inria.aoste.timesquare.ccslkernel.solver.launch.CCSLKernelSolverWrapper;
 import fr.inria.aoste.timesquare.instantrelation.CCSLRelationModel.OccurrenceRelation;
 import fr.inria.aoste.timesquare.instantrelation.listener.RelationModelListener;
 import fr.inria.aoste.timesquare.simulationpolicy.maxcardpolicy.MaxCardSimulationPolicy;
+import fr.inria.aoste.timesquare.trace.util.QualifiedNameBuilder;
 import fr.inria.aoste.timesquare.trace.util.adapter.AdapterRegistry;
+import fr.inria.aoste.trace.AssertionState;
 import fr.inria.aoste.trace.EventOccurrence;
 import fr.inria.aoste.trace.LogicalStep;
 import fr.inria.aoste.trace.ModelElementReference;
@@ -89,7 +94,7 @@ import fr.inria.aoste.trace.relation.IDescription;
  * Implementation of the ISolver dedicated to CCSL.
  * 
  */
-public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver {
+public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver, org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLExplorer {
 
 	protected CCSLKernelSolverWrapper solverWrapper = null;
 	protected URI solverInputURI = null;
@@ -100,6 +105,7 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 	
 	
 	protected String _alternativeExecutionModelPath =null;
+	ArrayList<ModelElementReference> assertionList = null;;
 	
 	public CcslSolver() 
 	{
@@ -254,6 +260,10 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 		}
 	}
 
+	public boolean hasSolution(){
+		return solverWrapper.hasSolution();
+	}
+	
 	@Override
 	public Model computeAndGetPossibleLogicalSteps() {
 		
@@ -385,8 +395,10 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 	public void applyLogicalStep(ParallelStep<?, ?> logicalStep) {
 		//_lastLogicalSteps = new ArrayList<>(ChocoHelper.lastChocoLogicalSteps);
 		try {
-			
 			int index = getIndexOf(logicalStep);
+			stepExecutor = solverWrapper.getSolver().getCurrentStepExecutor(); //saved until assertions have been retrieved
+//			int index = _lastLogicalSteps.indexOf(logicalStep);
+
 			solverWrapper.applyLogicalStepByIndex(index);
 			resolveOccurrenceRelations(_intermediateResult.get(index));
 		} catch (SolverException e) {
@@ -461,7 +473,7 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 	public void initialize(AbstractConcurrentModelExecutionContext context) 
 	{
 		if (context instanceof MoccmlModelExecutionContext){
-			_alternativeExecutionModelPath = ((MoccmlModelExecutionContext)context).alternativeExecutionModelPath;
+			_alternativeExecutionModelPath = ((MoccmlModelExecutionContext)context).getRunConfiguration().getExecutionModelPath();
 		}
 		createSolver(context);
 	}
@@ -655,22 +667,6 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 				}
 		}
 		listressource = Collections.unmodifiableList(listressource);
-//		mappingURI = new HashMap<URI, Resource>();
-//		/********/
-//		for (Resource r : listressource) {
-//			System.out.println("URI :" + r.getURI());
-//			mappingURI.put(r.getURI(), r);
-//		}
-//		mappingURI = Collections.unmodifiableMap(mappingURI);
-//		/**********/
-//		for (IOutputOption ioo : cachedtable.values()) {
-//			try {
-//				if (ioo.isActivable())
-//					ioo.updateModel();
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
 
 	}
 
@@ -726,7 +722,130 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 			}
 		});
 	}
+	
+	
+	
+	@Override
+	public List<String> getAssertionViolations() {
+		ArrayList<String> res = new ArrayList<>();
+		if (assertionList == null) { //lazy initialization
+			assertionList = solverWrapper.getAssertList();
+		}
+		for(ModelElementReference assertion : assertionList) {
+			 List<String> nameList = new ArrayList<String>();
+			 for(EObject eo : assertion.getElementRef()) {
+				 nameList.add(((NamedElement)eo).getName());
+			 }
+			String qn = String.join("::", nameList);
+			if (stepExecutor.isAssertionViolated(qn)) {
+				res.add(qn);
+			}
+		}
+		stepExecutor = null; //not needed anymore, flushed
+		return res;
+	}
 
+	public void addClockCoincidence(EventOccurrence occ1, EventOccurrence occ2) {
+		solverWrapper.addClockCoincidence((ModelElementReference)occ1.getReferedElement(), (ModelElementReference)occ2.getReferedElement());
+	}	
+	
+	
+	
+	//formal Analysis stuff, implementing org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLExplorer
+	
+	
+	StepExecutor stepExecutor = null;
+	
+	@Override
+	public void initSolverForExploration() {
+		stepExecutor = new StepExecutor(this.getSolverWrapper().getSolver());
+		this.getSolverWrapper().getSolver().setCurrentStepExecutor(stepExecutor); //convenience to force clocks
+		stepExecutor.inSimulationMode = false;
+		stepExecutor.clearStepData();
+		stepExecutor.stepPreHook();
+		try {
+			stepExecutor.computePossibleClockStates();
+		} catch (SimulationException e) {
+			e.printStackTrace();
+		}
+	}
+
+		@Override
+		public void prepareSolverForNewStepForExploration() {
+			stepExecutor.clearFiredClock();
+			try {
+				stepExecutor.computePossibleClockStates(); // hack to change
+														   // constraint state
+														   // from semantics!!
+
+			} catch (SimulationException e) {
+				e.printStackTrace();
+			} 
+		}
+		
+		@Override
+		public void resetCurrentStepForExploration() {
+			stepExecutor.clearStepData();
+			stepExecutor.freeAll();
+		}
+
+		@Override
+		public List<Step<?>> computeAndGetPossibleLogicalStepsForExploration() {
+			
+			try {
+				_intermediateResult = stepExecutor.computeAndGetPossibleLogicalSteps();
+						//solverWrapper.computeAndGetPossibleLogicalSteps();			
+				_lastLogicalSteps.clear();
+				for (fr.inria.aoste.trace.LogicalStep lsFromTimesquare : _intermediateResult)
+				{
+					ParallelStep<? extends Step<?>, ?> lsFromTrace = createLogicalStep(lsFromTimesquare);
+					_lastLogicalSteps.add(lsFromTrace);
+				}
+				return new ArrayList<Step<?>>(_lastLogicalSteps);
+			} catch (NoBooleanSolution e) {
+				Activator.getDefault().error(e.getMessage(), e);
+			} catch (SolverException e) {
+				Activator.getDefault().error(e.getMessage(), e);
+			} catch (SimulationException e) {
+				Activator.getDefault().error(e.getMessage(), e);
+			}
+			return new ArrayList<Step<?>>();
+		}
+		
+		
+		@Override
+		public Set<ParallelStep<? extends Step<?>, ?>> updatePossibleLogicalStepsForExploration() {
+			
+			try {
+				_intermediateResult = stepExecutor.getAllSolutions();
+						//solverWrapper.computeAndGetPossibleLogicalSteps();			
+				_lastLogicalSteps.clear();
+				for (fr.inria.aoste.trace.LogicalStep lsFromTimesquare : _intermediateResult)
+				{
+					ParallelStep<? extends Step<?>, ?> lsFromTrace = createLogicalStep(lsFromTimesquare);
+					_lastLogicalSteps.add(lsFromTrace);
+				}
+				return new HashSet<ParallelStep<? extends Step<?>, ?>>(_lastLogicalSteps);
+			} catch (NoBooleanSolution e) {
+				Activator.getDefault().error(e.getMessage(), e);
+			}
+			return new HashSet<ParallelStep<? extends Step<?>, ?>>();
+		}
+		
+		
+		@Override
+		public void applyLogicalStepForExploration(Step<?> logicalStep) {
+			try {
+				int index = _lastLogicalSteps.indexOf(logicalStep);
+				stepExecutor.applyLogicalStepByIndex(index);
+				//solverWrapper.applyLogicalStepByIndex(index);
+				resolveOccurrenceRelations(_intermediateResult.get(index));
+			} catch (SolverException e) {
+				Activator.getDefault().error(e.getMessage(), e);
+			} catch (SimulationException e) {
+				Activator.getDefault().error(e.getMessage(), e);
+			}
+		}
 
 
 
