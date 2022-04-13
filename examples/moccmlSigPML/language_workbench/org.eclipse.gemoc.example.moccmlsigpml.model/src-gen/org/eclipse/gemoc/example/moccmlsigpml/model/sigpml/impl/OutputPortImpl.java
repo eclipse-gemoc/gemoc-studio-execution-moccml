@@ -43,6 +43,7 @@ public class OutputPortImpl extends PortImpl implements OutputPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void write() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT

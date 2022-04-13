@@ -89,6 +89,7 @@ public class HWComputationalResourceImpl extends HWRessourceImpl implements HWCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public boolean isIsUnderPreemptiveManagement() {
 		return isUnderPreemptiveManagement;
 	}
@@ -98,6 +99,7 @@ public class HWComputationalResourceImpl extends HWRessourceImpl implements HWCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setIsUnderPreemptiveManagement(boolean newIsUnderPreemptiveManagement) {
 		boolean oldIsUnderPreemptiveManagement = isUnderPreemptiveManagement;
 		isUnderPreemptiveManagement = newIsUnderPreemptiveManagement;
@@ -110,6 +112,7 @@ public class HWComputationalResourceImpl extends HWRessourceImpl implements HWCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Agent> getAllocatedAgents() {
 		if (allocatedAgents == null) {
 			allocatedAgents = new EObjectResolvingEList<Agent>(Agent.class, this, SigpmlPackage.HW_COMPUTATIONAL_RESOURCE__ALLOCATED_AGENTS);
@@ -122,7 +125,20 @@ public class HWComputationalResourceImpl extends HWRessourceImpl implements HWCo
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void incCycle() {
+	@Override
+	public void isExecuting() {
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void idle() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();
@@ -206,8 +222,11 @@ public class HWComputationalResourceImpl extends HWRessourceImpl implements HWCo
 	@Override
 	public Object eInvoke(int operationID, EList<?> arguments) throws InvocationTargetException {
 		switch (operationID) {
-			case SigpmlPackage.HW_COMPUTATIONAL_RESOURCE___INC_CYCLE:
-				incCycle();
+			case SigpmlPackage.HW_COMPUTATIONAL_RESOURCE___IS_EXECUTING:
+				isExecuting();
+				return null;
+			case SigpmlPackage.HW_COMPUTATIONAL_RESOURCE___IDLE:
+				idle();
 				return null;
 		}
 		return super.eInvoke(operationID, arguments);

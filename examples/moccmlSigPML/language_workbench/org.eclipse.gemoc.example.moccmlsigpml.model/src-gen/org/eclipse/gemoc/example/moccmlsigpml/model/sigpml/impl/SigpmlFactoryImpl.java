@@ -117,6 +117,7 @@ public class SigpmlFactoryImpl extends EFactoryImpl implements SigpmlFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Application createApplication() {
 		ApplicationImpl application = new ApplicationImpl();
 		return application;
@@ -127,6 +128,7 @@ public class SigpmlFactoryImpl extends EFactoryImpl implements SigpmlFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Agent createAgent() {
 		AgentImpl agent = new AgentImpl();
 		return agent;
@@ -137,6 +139,7 @@ public class SigpmlFactoryImpl extends EFactoryImpl implements SigpmlFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InputPort createInputPort() {
 		InputPortImpl inputPort = new InputPortImpl();
 		return inputPort;
@@ -147,6 +150,7 @@ public class SigpmlFactoryImpl extends EFactoryImpl implements SigpmlFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OutputPort createOutputPort() {
 		OutputPortImpl outputPort = new OutputPortImpl();
 		return outputPort;
@@ -157,6 +161,7 @@ public class SigpmlFactoryImpl extends EFactoryImpl implements SigpmlFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Place createPlace() {
 		PlaceImpl place = new PlaceImpl();
 		return place;
@@ -167,6 +172,7 @@ public class SigpmlFactoryImpl extends EFactoryImpl implements SigpmlFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public HWComputationalResource createHWComputationalResource() {
 		HWComputationalResourceImpl hwComputationalResource = new HWComputationalResourceImpl();
 		return hwComputationalResource;
@@ -177,6 +183,7 @@ public class SigpmlFactoryImpl extends EFactoryImpl implements SigpmlFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public HWStorageResource createHWStorageResource() {
 		HWStorageResourceImpl hwStorageResource = new HWStorageResourceImpl();
 		return hwStorageResource;
@@ -187,6 +194,7 @@ public class SigpmlFactoryImpl extends EFactoryImpl implements SigpmlFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public HWCommunicationResource createHWCommunicationResource() {
 		HWCommunicationResourceImpl hwCommunicationResource = new HWCommunicationResourceImpl();
 		return hwCommunicationResource;
@@ -197,6 +205,7 @@ public class SigpmlFactoryImpl extends EFactoryImpl implements SigpmlFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public HWPlatform createHWPlatform() {
 		HWPlatformImpl hwPlatform = new HWPlatformImpl();
 		return hwPlatform;
@@ -207,6 +216,7 @@ public class SigpmlFactoryImpl extends EFactoryImpl implements SigpmlFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.System createSystem() {
 		SystemImpl system = new SystemImpl();
 		return system;
@@ -235,6 +245,7 @@ public class SigpmlFactoryImpl extends EFactoryImpl implements SigpmlFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SigpmlPackage getSigpmlPackage() {
 		return (SigpmlPackage)getEPackage();
 	}

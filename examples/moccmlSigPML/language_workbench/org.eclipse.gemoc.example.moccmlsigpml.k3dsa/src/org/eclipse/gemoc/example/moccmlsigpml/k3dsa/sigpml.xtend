@@ -34,15 +34,18 @@ import fr.inria.diverse.k3.al.annotationprocessor.Step
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.NotInStateSpace
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.api.Containment
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.api.Containment.ContainmentStrategy
+import java.util.List
+import java.util.ArrayList
 
 @Aspect(className = HWComputationalResource)
 class HWComputationalResourceAspect {
-	
-	@NotInStateSpace
 	public Integer executionCycle = 0
 
-	def void incCycle() {
-		
+	def void idle() {	
+		if (SystemAspect.DEBUG) println("CPU " + _self.name + " is idle")
+	}
+	
+	def void isExecuting() {	
 		_self.executionCycle = _self.executionCycle + 1
 		if (SystemAspect.DEBUG) println("execution cycle in CPU " + _self.name + " = " + _self.executionCycle)
 	}
@@ -50,14 +53,13 @@ class HWComputationalResourceAspect {
 
 @Aspect(className = Agent) 
 class AgentAspect extends NamedElementAspect {
-	@Containment(ContainmentStrategy.REFERENCE)
+	@NotInStateSpace @Containment(value=ContainmentStrategy.REFERENCE)
 	public SwingPlotter plotter = new InteractiveSwingPlotter
-	@Containment(ContainmentStrategy.REFERENCE)
+	@NotInStateSpace @Containment(value=ContainmentStrategy.REFERENCE)
 	public JFrame frame = new JFrame
-	@Containment(ContainmentStrategy.REFERENCE)
+	@NotInStateSpace @Containment(value=ContainmentStrategy.REFERENCE)
 	public Figure figure = new Figure
 	public Boolean hasBeenStopped = false
-	@NotInStateSpace
 	public Integer currentExecCycle = 0;
 	public Boolean isCurrentlyExecuting = false;
 
@@ -138,29 +140,7 @@ class AgentAspect extends NamedElementAspect {
 			val ucl = AgentAspect.classLoader
 			//val ucl = _self.class.classLoader	
 			val shell = new GroovyShell(ucl,binding)
-			println(_self.code)
-			
-			
-			val failingString  = '''import java.util.Map;
-			import java.util.LinkedHashMap;
-			
-					Map<String, Object> res = new LinkedHashMap<String, Object>();
-					Double state = null
-			
-					if(pA1inState.get(0) == null){
-						state = new Float(0)
-					}else{
-						state = pA1inState.get(0)
-					}
-			
-					Double radians = Math.toRadians(state);
-					Double  value = Math.sin(radians)
-					state = (state + 10)
-					res.put("pA1out", value);
-					res.put("pA1outState", state)
-					return res;
-			'''
-			shell.parse(failingString)
+	
 			val res = shell.evaluate(_self.code) as Map<String, Object>
 	
 				
@@ -214,8 +194,7 @@ class PlaceAspect extends NamedElementAspect {
 //	@Exposed
 //	@Input(cond="true")
 //	@Output(cond="true")
-	@Containment()
-	public EList<Object> fifo = new BasicEList()
+	public List<Object> fifo = new ArrayList()
 	public Integer currentSize = 0
 	public Boolean isInitialized = false
 
@@ -277,9 +256,38 @@ class PlaceAspect extends NamedElementAspect {
 	}
 }
 
+class SharedMemory implements java.lang.Cloneable{
+	LinkedListMultimap<String,Object> shm
+
+	new( ){
+		shm = LinkedListMultimap.create
+	}
+	
+	def boolean remove(String key, Object value){
+		shm.remove(key,value)
+	}
+	
+	def List<Object> get(String key){
+		shm.get(key)
+	}
+	def boolean put(String key, Object value){
+		shm.put(key,value)
+	}
+	
+	override SharedMemory clone(){
+		var SharedMemory mem = new SharedMemory;
+		for(String k :shm.keys){
+			for(Object o : shm.get(k)){
+				mem.put(k,o)
+			}
+		}
+		return mem
+	}
+}
+
 @Aspect(className=System)
 class SystemAspect {
-	public LinkedListMultimap<String,Object> sharedMemory
+	public SharedMemory sharedMemory
 	public static Boolean DEBUG = false;
 	@InitializeModel
 	def void initializeModel(EList<String> args){
@@ -296,7 +304,7 @@ abstract class NamedElementAspect {
 		val system = contents.findFirst[x | x instanceof System] as System
 		
 		if (system !== null && system.sharedMemory === null)
-			system.sharedMemory = LinkedListMultimap.create
+			system.sharedMemory = new SharedMemory
 			
 		return system
 	}

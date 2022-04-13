@@ -62,6 +62,7 @@ public class HWStorageResourceImpl extends HWRessourceImpl implements HWStorageR
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Place> getAllocatedPlaces() {
 		if (allocatedPlaces == null) {
 			allocatedPlaces = new EObjectResolvingEList<Place>(Place.class, this, SigpmlPackage.HW_STORAGE_RESOURCE__ALLOCATED_PLACES);

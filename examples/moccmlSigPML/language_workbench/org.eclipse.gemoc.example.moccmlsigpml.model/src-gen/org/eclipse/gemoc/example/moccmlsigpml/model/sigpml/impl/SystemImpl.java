@@ -73,6 +73,7 @@ public class SystemImpl extends NamedElementImpl implements org.eclipse.gemoc.ex
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Application getOwnedApplication() {
 		return ownedApplication;
 	}
@@ -97,6 +98,7 @@ public class SystemImpl extends NamedElementImpl implements org.eclipse.gemoc.ex
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwnedApplication(Application newOwnedApplication) {
 		if (newOwnedApplication != ownedApplication) {
 			NotificationChain msgs = null;
@@ -116,6 +118,7 @@ public class SystemImpl extends NamedElementImpl implements org.eclipse.gemoc.ex
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public HWPlatform getOwnedHWPlatform() {
 		return ownedHWPlatform;
 	}
@@ -140,6 +143,7 @@ public class SystemImpl extends NamedElementImpl implements org.eclipse.gemoc.ex
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwnedHWPlatform(HWPlatform newOwnedHWPlatform) {
 		if (newOwnedHWPlatform != ownedHWPlatform) {
 			NotificationChain msgs = null;

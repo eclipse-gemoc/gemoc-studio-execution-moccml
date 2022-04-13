@@ -122,28 +122,32 @@ public class SigPMLModelStateHelper implements IK3ModelStateHelper{
 					elemState.setModelElement(elem);
 					res.getOwnedElementstates().add(elemState);
 					Object propertyValue = null;
+					if (allRTDs) {  //property not in state space:plotter
 					// Annotation REFERENCE
-					propertyValue = SigPMLRTDAccessor.saveProperty_plotter((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent)elem);
-					AttributeNameToValue n2v0 = new AttributeNameToValue("plotter", propertyValue);
-					elemState.getSavedRTDs().add(n2v0);
+						propertyValue = SigPMLRTDAccessor.saveProperty_plotter((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent)elem);
+						AttributeNameToValue n2v0 = new AttributeNameToValue("plotter", propertyValue);
+						elemState.getSavedRTDs().add(n2v0);
+					}
+					if (allRTDs) {  //property not in state space:frame
 					// Annotation REFERENCE
-					propertyValue = SigPMLRTDAccessor.saveProperty_frame((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent)elem);
-					AttributeNameToValue n2v1 = new AttributeNameToValue("frame", propertyValue);
-					elemState.getSavedRTDs().add(n2v1);
+						propertyValue = SigPMLRTDAccessor.saveProperty_frame((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent)elem);
+						AttributeNameToValue n2v1 = new AttributeNameToValue("frame", propertyValue);
+						elemState.getSavedRTDs().add(n2v1);
+					}
+					if (allRTDs) {  //property not in state space:figure
 					// Annotation REFERENCE
-					propertyValue = SigPMLRTDAccessor.saveProperty_figure((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent)elem);
-					AttributeNameToValue n2v2 = new AttributeNameToValue("figure", propertyValue);
-					elemState.getSavedRTDs().add(n2v2);
+						propertyValue = SigPMLRTDAccessor.saveProperty_figure((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent)elem);
+						AttributeNameToValue n2v2 = new AttributeNameToValue("figure", propertyValue);
+						elemState.getSavedRTDs().add(n2v2);
+					}
 					// Annotation CONTAINER
 					propertyValue = SigPMLRTDAccessor.saveProperty_hasBeenStopped((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent)elem);
 					AttributeNameToValue n2v3 = new AttributeNameToValue("hasBeenStopped", propertyValue);
 					elemState.getSavedRTDs().add(n2v3);
-					if (allRTDs) {  //property not in state space:currentExecCycle
 					// Annotation CONTAINER
-						propertyValue = SigPMLRTDAccessor.saveProperty_currentExecCycle((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent)elem);
-						AttributeNameToValue n2v4 = new AttributeNameToValue("currentExecCycle", propertyValue);
-						elemState.getSavedRTDs().add(n2v4);
-					}
+					propertyValue = SigPMLRTDAccessor.saveProperty_currentExecCycle((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent)elem);
+					AttributeNameToValue n2v4 = new AttributeNameToValue("currentExecCycle", propertyValue);
+					elemState.getSavedRTDs().add(n2v4);
 					// Annotation CONTAINER
 					propertyValue = SigPMLRTDAccessor.saveProperty_isCurrentlyExecuting((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Agent)elem);
 					AttributeNameToValue n2v5 = new AttributeNameToValue("isCurrentlyExecuting", propertyValue);
@@ -166,12 +170,10 @@ public class SigPMLModelStateHelper implements IK3ModelStateHelper{
 					elemState.setModelElement(elem);
 					res.getOwnedElementstates().add(elemState);
 					Object propertyValue = null;
-					if (allRTDs) {  //property not in state space:executionCycle
 					// Annotation CONTAINER
-						propertyValue = SigPMLRTDAccessor.saveProperty_executionCycle((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWComputationalResource)elem);
-						AttributeNameToValue n2v0 = new AttributeNameToValue("executionCycle", propertyValue);
-						elemState.getSavedRTDs().add(n2v0);
-					}
+					propertyValue = SigPMLRTDAccessor.saveProperty_executionCycle((org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWComputationalResource)elem);
+					AttributeNameToValue n2v0 = new AttributeNameToValue("executionCycle", propertyValue);
+					elemState.getSavedRTDs().add(n2v0);
 				}
 			}
 		}

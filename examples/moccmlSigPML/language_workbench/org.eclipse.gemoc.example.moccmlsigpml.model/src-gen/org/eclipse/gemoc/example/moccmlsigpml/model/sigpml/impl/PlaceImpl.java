@@ -124,6 +124,7 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public OutputPort getItsOutputPort() {
 		if (itsOutputPort != null && itsOutputPort.eIsProxy()) {
 			InternalEObject oldItsOutputPort = (InternalEObject)itsOutputPort;
@@ -150,6 +151,7 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setItsOutputPort(OutputPort newItsOutputPort) {
 		OutputPort oldItsOutputPort = itsOutputPort;
 		itsOutputPort = newItsOutputPort;
@@ -162,6 +164,7 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public InputPort getItsInputPort() {
 		if (itsInputPort != null && itsInputPort.eIsProxy()) {
 			InternalEObject oldItsInputPort = (InternalEObject)itsInputPort;
@@ -188,6 +191,7 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setItsInputPort(InputPort newItsInputPort) {
 		InputPort oldItsInputPort = itsInputPort;
 		itsInputPort = newItsInputPort;
@@ -200,6 +204,7 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getSize() {
 		return size;
 	}
@@ -209,6 +214,7 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setSize(int newSize) {
 		int oldSize = size;
 		size = newSize;
@@ -221,6 +227,7 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Application getOwner() {
 		if (eContainerFeatureID() != SigpmlPackage.PLACE__OWNER) return null;
 		return (Application)eInternalContainer();
@@ -241,6 +248,7 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwner(Application newOwner) {
 		if (newOwner != eInternalContainer() || (eContainerFeatureID() != SigpmlPackage.PLACE__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
@@ -262,6 +270,7 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getDelay() {
 		return delay;
 	}
@@ -271,6 +280,7 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setDelay(int newDelay) {
 		int oldDelay = delay;
 		delay = newDelay;
@@ -283,6 +293,7 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void push() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -294,6 +305,7 @@ public class PlaceImpl extends NamedElementImpl implements Place {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void pop() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT

@@ -43,6 +43,7 @@ public class InputPortImpl extends PortImpl implements InputPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void read() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT

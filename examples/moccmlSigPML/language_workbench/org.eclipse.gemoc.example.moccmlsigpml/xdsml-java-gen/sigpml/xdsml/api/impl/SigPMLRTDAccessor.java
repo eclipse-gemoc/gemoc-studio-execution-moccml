@@ -10,21 +10,21 @@ import org.eclipse.gemoc.executionframework.engine.commons.K3DslHelper;
 
 
 public class SigPMLRTDAccessor {
-  public static org.eclipse.emf.common.util.EList getfifo(org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place eObject) {
-     org.eclipse.emf.common.util.EList theProperty = (org.eclipse.emf.common.util.EList)getAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.PlaceAspect", "fifo");
+  public static java.util.List getfifo(org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place eObject) {
+     java.util.List theProperty = (java.util.List)getAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.PlaceAspect", "fifo");
 		return theProperty;
 }
-  public static org.eclipse.emf.common.util.EList saveProperty_fifo(org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place eObject) {
-		org.eclipse.emf.common.util.EList propertyValue = (org.eclipse.emf.common.util.EList)getAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.PlaceAspect", "fifo");
-		propertyValue = propertyValue == null ? null : (org.eclipse.emf.common.util.EList)Copier.clone(propertyValue);
+  public static java.util.List saveProperty_fifo(org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place eObject) {
+		java.util.List propertyValue = (java.util.List)getAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.PlaceAspect", "fifo");
+		propertyValue = propertyValue == null ? null : (java.util.List)Copier.clone(propertyValue);
 		return propertyValue;
 }
-	public static boolean setfifo(org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place eObject, org.eclipse.emf.common.util.EList newValue) {
+	public static boolean setfifo(org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place eObject, java.util.List newValue) {
 		return setAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.PlaceAspect", "fifo", newValue);
 	}
-	public static boolean restoreProperty_fifo(org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place eObject, org.eclipse.emf.common.util.EList newValue) {
-		org.eclipse.emf.common.util.EList propertyValue = newValue;
-		propertyValue = propertyValue == null ? null : (org.eclipse.emf.common.util.EList)Copier.clone(propertyValue);
+	public static boolean restoreProperty_fifo(org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place eObject, java.util.List newValue) {
+		java.util.List propertyValue = newValue;
+		propertyValue = propertyValue == null ? null : (java.util.List)Copier.clone(propertyValue);
 		return setAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.PlaceAspect", "fifo", propertyValue);
 	}
   public static java.lang.Integer getcurrentSize(org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.Place eObject) {
@@ -61,21 +61,21 @@ public class SigPMLRTDAccessor {
 		propertyValue = propertyValue == null ? null : (java.lang.Boolean)Copier.clone(propertyValue);
 		return setAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.PlaceAspect", "isInitialized", propertyValue);
 	}
-  public static com.google.common.collect.LinkedListMultimap getsharedMemory(org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.System eObject) {
-     com.google.common.collect.LinkedListMultimap theProperty = (com.google.common.collect.LinkedListMultimap)getAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SystemAspect", "sharedMemory");
+  public static org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SharedMemory getsharedMemory(org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.System eObject) {
+     org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SharedMemory theProperty = (org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SharedMemory)getAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SystemAspect", "sharedMemory");
 		return theProperty;
 }
-  public static com.google.common.collect.LinkedListMultimap saveProperty_sharedMemory(org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.System eObject) {
-		com.google.common.collect.LinkedListMultimap propertyValue = (com.google.common.collect.LinkedListMultimap)getAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SystemAspect", "sharedMemory");
-		propertyValue = propertyValue == null ? null : (com.google.common.collect.LinkedListMultimap)Copier.clone(propertyValue);
+  public static org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SharedMemory saveProperty_sharedMemory(org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.System eObject) {
+		org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SharedMemory propertyValue = (org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SharedMemory)getAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SystemAspect", "sharedMemory");
+		propertyValue = propertyValue == null ? null : (org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SharedMemory)Copier.clone(propertyValue);
 		return propertyValue;
 }
-	public static boolean setsharedMemory(org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.System eObject, com.google.common.collect.LinkedListMultimap newValue) {
+	public static boolean setsharedMemory(org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.System eObject, org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SharedMemory newValue) {
 		return setAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SystemAspect", "sharedMemory", newValue);
 	}
-	public static boolean restoreProperty_sharedMemory(org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.System eObject, com.google.common.collect.LinkedListMultimap newValue) {
-		com.google.common.collect.LinkedListMultimap propertyValue = newValue;
-		propertyValue = propertyValue == null ? null : (com.google.common.collect.LinkedListMultimap)Copier.clone(propertyValue);
+	public static boolean restoreProperty_sharedMemory(org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.System eObject, org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SharedMemory newValue) {
+		org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SharedMemory propertyValue = newValue;
+		propertyValue = propertyValue == null ? null : (org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SharedMemory)Copier.clone(propertyValue);
 		return setAspectProperty(eObject, "xSigPML", "org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SystemAspect", "sharedMemory", propertyValue);
 	}
   public static java.lang.Integer getsizeWritten(org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.OutputPort eObject) {
