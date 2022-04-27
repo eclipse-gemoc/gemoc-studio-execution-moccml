@@ -7,10 +7,9 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.tests,
- org.eclipse.gemoc.example.moccmlsigpml.model.tests,
- org.gemoc.sample.sigpml.tests
+ org.eclipse.gemoc.example.moccmlsigpml.model.tests
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gemoc.example.moccmlsigpml.model;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,

@@ -4,7 +4,7 @@ Bundle-Name: GEMOC ccsljavaengine extension for K3 runtime data helper
 Bundle-SymbolicName: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate;singleton:=true
 Bundle-Version: 2.3.0.qualifier
 Bundle-ClassPath: .
-Bundle-Vendor: I3S/INRIA Kairos
+Bundle-Vendor: Eclipse GEMOC Project
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState,

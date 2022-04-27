@@ -14,6 +14,7 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc;
 import java.util.Set;
 
 import org.chocosolver.solver.Model;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentModelExecutionContext;
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
@@ -56,6 +57,7 @@ public interface ISolver extends IDisposable {
 	 * @param the LogicalStep to apply
 	 */
 	public void applyLogicalStep(ParallelStep<?,?> logicalStep);
+
 
 	/**
 	 * Actions that could be done to prepare the workspace before any model is

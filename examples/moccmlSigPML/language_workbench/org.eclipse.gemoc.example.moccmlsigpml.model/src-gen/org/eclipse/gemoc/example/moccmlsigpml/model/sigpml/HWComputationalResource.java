@@ -67,9 +67,17 @@ public interface HWComputationalResource extends HWRessource {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	void isExecuting();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model
 	 * @generated
 	 */
-	void incCycle();
+	void idle();
 
 } // HWComputationalResource

@@ -14,7 +14,8 @@ import org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.SigpmlFactory;
  * <p>
  * The following operations are tested:
  * <ul>
- *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWComputationalResource#incCycle() <em>Inc Cycle</em>}</li>
+ *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWComputationalResource#isExecuting() <em>Is Executing</em>}</li>
+ *   <li>{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWComputationalResource#idle() <em>Idle</em>}</li>
  * </ul>
  * </p>
  * @generated
@@ -74,13 +75,26 @@ public class HWComputationalResourceTest extends HWRessourceTest {
 	}
 
 	/**
-	 * Tests the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWComputationalResource#incCycle() <em>Inc Cycle</em>}' operation.
+	 * Tests the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWComputationalResource#isExecuting() <em>Is Executing</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWComputationalResource#incCycle()
+	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWComputationalResource#isExecuting()
 	 * @generated
 	 */
-	public void testIncCycle() {
+	public void testIsExecuting() {
+		// TODO: implement this operation test method
+		// Ensure that you remove @generated or mark it @generated NOT
+		fail();
+	}
+
+	/**
+	 * Tests the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWComputationalResource#idle() <em>Idle</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWComputationalResource#idle()
+	 * @generated
+	 */
+	public void testIdle() {
 		// TODO: implement this operation test method
 		// Ensure that you remove @generated or mark it @generated NOT
 		fail();

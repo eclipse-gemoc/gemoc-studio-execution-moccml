@@ -27,4 +27,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.eclipse.gemoc.addon.vcdgenerator,
  org.eclipse.gemoc.addon.vcdgenerator.behaviors,
  org.eclipse.gemoc.addon.vcdgenerator.manager
-Bundle-Vendor: Inria Aoste/I3S
+Bundle-Vendor: Eclipse GEMOC Project

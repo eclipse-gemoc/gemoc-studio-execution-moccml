@@ -78,6 +78,7 @@ public class ApplicationImpl extends NamedElementImpl implements Application {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Agent> getOwnedAgents() {
 		if (ownedAgents == null) {
 			ownedAgents = new EObjectContainmentWithInverseEList<Agent>(Agent.class, this, SigpmlPackage.APPLICATION__OWNED_AGENTS, SigpmlPackage.AGENT__OWNER);
@@ -90,6 +91,7 @@ public class ApplicationImpl extends NamedElementImpl implements Application {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Place> getOwnedPlaces() {
 		if (ownedPlaces == null) {
 			ownedPlaces = new EObjectContainmentWithInverseEList<Place>(Place.class, this, SigpmlPackage.APPLICATION__OWNED_PLACES, SigpmlPackage.PLACE__OWNER);

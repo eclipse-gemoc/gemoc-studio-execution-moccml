@@ -51,7 +51,7 @@ public abstract class AbstractSolverCodeExecutorConcurrentEngine<C extends Abstr
 	}
 
 	protected Model updatePossibleLogicalSteps() {
-		beforeUpdatePossibleLogicalSteps();
+		//beforeUpdatePossibleLogicalSteps(); //TO BE REMOVED, called before the priority mechanism
 		return getSolver().updatePossibleLogicalSteps();
 	}
 
@@ -60,6 +60,7 @@ public abstract class AbstractSolverCodeExecutorConcurrentEngine<C extends Abstr
 	@Override
 	//here, should be symbolic
 	protected Model computeInitialLogicalSteps() {
+		beforeUpdatePossibleLogicalSteps();
 		computeWithoutUpdatePossibleLogicalSteps();
 		synchronized (this) {
 			return updatePossibleLogicalSteps();

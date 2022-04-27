@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.gemoc.concurrent_addons.feature"
       label="GEMOC Concurrent Addons and Views"
-      version="2.3.0.qualifier"
+      version="3.5.0.qualifier"
       provider-name="%providerName"
       image="gemocstudio32.png">
 

@@ -91,6 +91,7 @@ public class BuilderTemplates {
 "import java.lang.reflect.InvocationTargetException;\n" + 
 "import java.util.List;\n"+
 "import java.lang.reflect.Method;\n" +
+"import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils.Copier;\n"+
 "import org.eclipse.gemoc.executionframework.engine.commons.K3DslHelper;\n" + 
 "${extraImports}\n"+
 "\n"+
@@ -114,11 +115,7 @@ public class BuilderTemplates {
 "		Object res = null;\n" + 
 "		 try {\n" + 
 "			res = aspect.getDeclaredMethod(propertyName, ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).className()).invoke(eObject, eObject);\n" + 
-"			if (res != null) {\n" + 
-"				return res;\n" + 
-"			}else {\n" + 
-"				return null;\n" + 
-"			}\n" + 
+"			return res;\n" + 
 "		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException\n" + 
 "					| NoSuchMethodException | SecurityException e) {\n" + 
 "			e.printStackTrace();\n" + 
@@ -128,42 +125,72 @@ public class BuilderTemplates {
 "	}\n" + 
 "	\n" + 
 "	\n" + 
-"	public static boolean setAspectProperty(EObject eObject, String languageName, String aspectName, String propertyName, Object newValue) {\n" + 
-"		List<Class<?>> aspects = K3DslHelper.getAspectsOn(languageName, eObject.getClass());\n" + 
-"		Class<?> aspect = null;\n" + 
-"		for (Class<?> a : aspects) {\n" + 
-"			try {\n" + 
-"				if (Class.forName(aspectName).isAssignableFrom(a)) {\n" + 
-"					aspect = a;\n" + 
-"				}\n" + 
-"			} catch (ClassNotFoundException e) {\n" + 
-"				e.printStackTrace();\n" + 
-"				return false;\n" + 
-"			}\n" + 
-"		}\n" + 
-"		if (aspect == null) {\n" + 
-"			return false;\n" + 
-"		}\n" + 
-"			 try {\n" + 
-"				 aspect.getMethod(propertyName, ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).className(), newValue.getClass()).invoke(eObject, eObject, newValue);\n" + 
-"				return true;\n" + 
-"				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {\n" + 
-"					Method m = null;\n" + 
-"					for(Class<?> c : ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).getClass().getInterfaces()) {\n" + 
-"						\n" + 
-"						try {\n" + 
-"							aspect.getMethod(propertyName, c, newValue.getClass()).invoke(eObject, eObject, newValue);\n" + 
-"							return true;\n" + 
-"						} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {\n" + 
-"						}\n" + 
-"						if (m == null) {\n" + 
-"							throw new RuntimeException(\"not method found for \"+((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).className()+\"::set\"+propertyName);\n" + 
-"						}\n" + 
-"					}\n" + 
-"				}\n" + 
-"			return false;\n" + 
-"	}\n"+
-"};";
+"public static boolean setAspectProperty(EObject eObject, String languageName, String aspectName, String propertyName, Object newValue) {\n"
++ "		List<Class<?>> aspects = K3DslHelper.getAspectsOn(languageName, eObject.getClass());\n"
++ "		Class<?> aspect = null;\n"
++ "		for (Class<?> a : aspects) {\n"
++ "			try {\n"
++ "				if (Class.forName(aspectName).isAssignableFrom(a)) {\n"
++ "					aspect = a;\n"
++ "				}\n"
++ "			} catch (ClassNotFoundException e) {\n"
++ "				e.printStackTrace();\n"
++ "				return false;\n"
++ "			}\n"
++ "		}\n"
++ "		if (aspect == null) {\n"
++ "			return false;\n"
++ "		}\n"
++ "		 Method m = getSetter(propertyName,newValue,aspect);\n"
++ "		 try {\n"
++ "			m.invoke(eObject, eObject, newValue);\n"
++ "			return true;\n"
++ "		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {\n"
++ "			e.printStackTrace();\n"
++ "		}			\n"
++ "		return false;\n"
++ "}\n"
++ "	\n"
++ "	private static Method getSetter(String propertyName, Object value, Class<?> aspect) {\n"
++ "		Method setter = null;\n"
++ "		try {\n"
++ "			if(value != null) {\n"
++ "				setter = aspect.getMethod(propertyName, ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).className(), value.getClass());\n"
++ "			}else {\n"
++ "				for (Method m : aspect.getMethods()) {\n"
++ "					if (m.getName().compareTo(propertyName) ==0 && m.getParameterCount() == 2) {\n"
++ "						setter= m;\n"
++ "						return setter;\n"
++ "					}\n"
++ "				}\n"
++ "				throw new NoSuchMethodException();\n"
++ "			}\n"
++ "			return setter;\n"
++ "		} catch (NoSuchMethodException | SecurityException | IllegalArgumentException e) {\n"
++ "			\n"
++ "				for(Class<?> c : ((fr.inria.diverse.k3.al.annotationprocessor.Aspect)aspect.getAnnotations()[0]).getClass().getInterfaces()) {\n"
++ "					try {\n"
++ "						if(value != null) {\n"
++ "							setter = aspect.getMethod(propertyName, c, value.getClass());\n"
++ "							return setter;\n"
++ "						}\n"
++ "					} catch (NoSuchMethodException | SecurityException | IllegalArgumentException e1) {\n"
++ "					}\n"
++ "					for (Method m : aspect.getMethods()) {\n"
++ "						if (m.getName().compareTo(propertyName) ==0 && m.getParameterCount() == 2) {\n"
++ "							setter= m;\n"
++ "							return setter;\n"
++ "						}\n"
++ "					}\n"
++ "					\n"
++ "				}\n"
++ "				if (setter == null) {\n"
++ "					throw new RuntimeException(\"no method found for \"+value.getClass().getName()+\"::set\"+propertyName);\n"
++ "				}\n"
++ "			}\n"
++ "		return setter;\n"
++ "	}};";
+
 	
 	public static final String MODEL_STATE_CLASS_TEMPLATE =
 "/* GENERATED FILE, do not modify manually                                                    *\n" +
@@ -171,14 +198,24 @@ public class BuilderTemplates {
 "package ${package.name};\n"+
 "import java.io.Serializable;\n" + 
 "import java.lang.reflect.Method;\n" +
+"import java.util.Collection;\n" +
+"import java.util.HashSet;\n" +
+"import java.util.Map;" +
 "import java.lang.reflect.InvocationTargetException;\n" + 
 "import org.eclipse.emf.common.util.TreeIterator;\n" + 
 "import org.eclipse.emf.ecore.EObject;\n" + 
+"import org.eclipse.emf.ecore.EStructuralFeature.Setting;\n" + 
+"import org.eclipse.emf.ecore.resource.Resource;\n" +
+"import org.eclipse.emf.ecore.util.EcoreUtil;\n" +
 "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.ElementState;\n" + 
 "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelState;\n" + 
 "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelStateFactory;\n"+
 "import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper.IK3ModelStateHelper;"+
+"import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils.Copier;"+
 "import org.eclipse.gemoc.executionframework.engine.commons.K3DslHelper;\n"+
+"import java.util.ArrayList;\n"
++ "import java.util.Arrays;\n"
++ "import java.util.List;\n"+
 "${extraImports}\n"+
 "\n"+
 "public class ${language.name.toupperfirst}ModelStateHelper implements IK3ModelStateHelper{\n"+ 
@@ -214,33 +251,61 @@ public class BuilderTemplates {
 "\n\t\tK3ModelStateFactory theFactory = K3ModelStateFactory.eINSTANCE; \n"+
 "${saveAndRestoreMethod}\n"+
 "\n" + 
-"	public void restoreModelState(K3ModelState state) {\n" + 
-"		for(ElementState elemState : state.getOwnedElementstates()) {\n" + 
-"			for(Object o : elemState.getSavedRTDs()) {\n" + 
-"				AttributeNameToValue n2v = (AttributeNameToValue)o;\n" + 
-"				try {\n" + 
-"					if (n2v.value != null) {\n" + 
-"						Method m = ${language.name.toupperfirst}RTDAccessor.class.getMethod(\"set\"+n2v.name, EObject.class, n2v.value.getClass());\n" + 
-"						m.invoke(null, elemState.getModelElement(), n2v.value);\n" + 
-"					}\n" + 
-"				} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {\n" + 
-"					Method m = null;\n" + 
-"					for(Class<?> c : n2v.value.getClass().getInterfaces()) {\n" + 
-"						\n" + 
-"						try {\n" + 
-"							m = ${language.name.toupperfirst}RTDAccessor.class.getMethod(\"set\"+n2v.name, EObject.class, n2v.value.getClass().getInterfaces()[0]);\n" + 
-"							m.invoke(null, elemState.getModelElement(), n2v.value);\n" + 
-"						} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {\n" + 
-"						}\n" + 
-"						if (m == null) {\n" + 
-"							throw new RuntimeException(\"not method found for \"+n2v.value.getClass().getName()+\"::set\"+n2v.name);\n" + 
-"						}\n" + 
-"					}\n" + 
-"				}\n" + 
-"			}\n" + 
-"		}\n" + 
-"	}\n" + 
-"\n" + 
-"};";
+"	public void restoreModelState(K3ModelState state) {\n"
++ "		for(ElementState elemState : state.getOwnedElementstates()) {\n"
++ "			for(Object o : elemState.getSavedRTDs()) {\n"
++ "				AttributeNameToValue n2v = (AttributeNameToValue)o;\n"
++ "				Method setter = null;\n"
++ "				setter = getRestorePropertySetter(elemState.getModelElement().getClass(), n2v);\n"
++ "				try {\n"
++ "					setter.invoke(null, elemState.getModelElement(), n2v.value);\n"
++ "				} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {\n"
++ "					e.printStackTrace();\n"
++ "				}\n"
++ "				\n"
++ "			}\n"
++ "		}\n"
++ "	}\n"
++ "\n"
++ "\n"
+
++ "	private Method getRestorePropertySetter(Class<?> targetClass, AttributeNameToValue n2v) {\n"
++ "		Method setter = null;\n"
++ "		try {\n"
++ "			for(Method m2 : ${language.name.toupperfirst}RTDAccessor.class.getMethods()) {\n"
++ "				if(m2.getName().equals(\"restoreProperty_\"+n2v.name) && m2.getParameterTypes().length == 2) {\n"
++ "					if(m2.getParameterTypes()[0].isAssignableFrom(targetClass) &&\n"
++ "							(n2v.value == null || m2.getParameterTypes()[1].isAssignableFrom(n2v.value.getClass()))	) {\n"
++ "						setter = m2;\n"
++ "						break;\n"
++ "					}\n"
++ "				}\n"
++ "			}\n"
++ "			if (setter == null) {\n"
++ "				throw new RuntimeException(\"no method found for restoreProperty_\"+n2v.name+\"(\"+targetClass+\", \"+n2v.value.getClass().getName()+\")\");\n"
++ "			}\n"
++ "			return setter;\n"
++ "		} catch (SecurityException | IllegalArgumentException e) {\n"
++ "			throw new RuntimeException(\"no method found for set\"+n2v.name+\"(\"+targetClass+\", \"+n2v.value.getClass().getName()+\")\");\n"
++ "		}\n"
++ "	}\n"
++ "	\n"
++ "	public static List<Class> getSuperClasses(Class c) {\n"
++ "		List<Class> r = new ArrayList<>();\n"
++ "		List<Class> q = new ArrayList<>();\n"
++ "		q.add(c);\n"
++ "		while (!q.isEmpty()) {\n"
++ "			c = q.remove(0);\n"
++ "			r.add(c);\n"
++ "			if (c.getSuperclass() != null) {\n"
++ "				q.add(c.getSuperclass());\n"
++ "			}\n"
++ "			for (Class i : c.getInterfaces()) {\n"
++ "				q.add(i);\n"
++ "			}\n"
++ "		}\n"
++ "		return r;\n"
++ "	}\n"
++ "};";
 	
 }

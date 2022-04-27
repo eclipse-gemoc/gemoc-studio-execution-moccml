@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
 
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
@@ -124,7 +125,7 @@ public class ASynchroneExecution extends OperationExecution {
 			for (Entry<Force, When> entry : _forces.entrySet()) {
 				Condition condition = entry.getValue().getCondition();
 				if (condition instanceof ActionFinishedCondition) {
-					_clockController.freeInTheFuture(entry.getKey().getEventToBeForced());
+					_clockController.freeInTheFuture(entry.getValue().getCondition().eResource().getURIFragment(entry.getKey().getEventToBeForced()));
 				} else {
 					dealWithExecutionResult(entry, condition);
 				}
@@ -151,12 +152,21 @@ public class ASynchroneExecution extends OperationExecution {
 				break;
 			}
 			if (goOn) {
-				if (entry.getKey().getOnTrigger() == null) {
-					_clockController.freeInTheFuture(entry.getKey().getEventToBeForced());
-				} else {
-					FreeClockFutureAction action = new FreeClockFutureAction(entry.getKey().getEventToBeForced(),
-							entry.getKey().getOnTrigger(), _clockController);
+				Resource feedBackRes = entry.getKey().getEventToBeForced().eResource();
+				if (entry.getKey().getOnTrigger() != null) {
+					FreeClockFutureAction action = new FreeClockFutureAction(feedBackRes.getURIFragment(entry.getKey().getEventToBeForced()),
+							feedBackRes.getURIFragment(entry.getKey().getOnTrigger()));
 					((MoccmlExecutionEngine)getEngine()).addFutureAction(action);
+				} else {
+					if (entry.getKey().getUntilTrigger() != null) {
+						_clockController.forceAbsenceTickInTheFuture(entry.getKey().getEventToBeForced());
+						
+						FreeClockFutureAction action = new FreeClockFutureAction(feedBackRes.getURIFragment(entry.getKey().getEventToBeForced()),
+								feedBackRes.getURIFragment(entry.getKey().getUntilTrigger()));
+						((MoccmlExecutionEngine)getEngine()).addFutureAction(action);
+					} else {
+						_clockController.freeInTheFuture(feedBackRes.getURIFragment(entry.getKey().getEventToBeForced()));
+					}
 				}
 			}
 		}

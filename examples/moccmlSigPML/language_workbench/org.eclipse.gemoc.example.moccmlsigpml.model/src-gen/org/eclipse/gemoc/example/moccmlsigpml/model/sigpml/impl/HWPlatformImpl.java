@@ -66,6 +66,7 @@ public class HWPlatformImpl extends NamedElementImpl implements HWPlatform {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<HWRessource> getOwnedHWResources() {
 		if (ownedHWResources == null) {
 			ownedHWResources = new EObjectContainmentWithInverseEList<HWRessource>(HWRessource.class, this, SigpmlPackage.HW_PLATFORM__OWNED_HW_RESOURCES, SigpmlPackage.HW_RESSOURCE__OWNER);

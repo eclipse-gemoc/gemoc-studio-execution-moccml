@@ -70,6 +70,7 @@ public abstract class HWRessourceImpl extends NamedElementImpl implements HWRess
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public HWPlatform getOwner() {
 		if (eContainerFeatureID() != SigpmlPackage.HW_RESSOURCE__OWNER) return null;
 		return (HWPlatform)eInternalContainer();
@@ -90,6 +91,7 @@ public abstract class HWRessourceImpl extends NamedElementImpl implements HWRess
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwner(HWPlatform newOwner) {
 		if (newOwner != eInternalContainer() || (eContainerFeatureID() != SigpmlPackage.HW_RESSOURCE__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
@@ -111,6 +113,7 @@ public abstract class HWRessourceImpl extends NamedElementImpl implements HWRess
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<HWRessource> getConnectedTo() {
 		if (connectedTo == null) {
 			connectedTo = new EObjectResolvingEList<HWRessource>(HWRessource.class, this, SigpmlPackage.HW_RESSOURCE__CONNECTED_TO);
