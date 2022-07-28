@@ -18,8 +18,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -36,9 +36,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.concurrentmse.FeedbackMSE;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse.ASynchroneExecution;
@@ -195,8 +193,8 @@ public class MoccmlExecutionEngine extends
 			Consumer<Step<?>> beforeStep = s -> {
 				beforeExecutionStep(s);
 			};
-			Runnable afterStep = () -> {
-				afterExecutionStep();
+			Consumer<Optional<Object>> afterStep = (o) -> {
+				afterExecutionStep(o);
 			};
 			if (whenStatements.size() == 0) {
 				execution = new SynchroneExecution(smallStep, this, beforeStep, afterStep);

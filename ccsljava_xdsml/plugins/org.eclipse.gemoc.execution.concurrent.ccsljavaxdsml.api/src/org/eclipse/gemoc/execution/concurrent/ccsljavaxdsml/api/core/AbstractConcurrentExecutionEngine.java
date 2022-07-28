@@ -2,6 +2,7 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.DeciderException;
@@ -98,7 +99,7 @@ public abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcur
 				SmallStep<?> sstep = (SmallStep<?>) step;
 				executeSmallStep(sstep);
 			}
-			afterExecutionStep();
+			afterExecutionStep(Optional.empty());
 		}
 	}
 
