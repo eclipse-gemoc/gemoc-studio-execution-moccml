@@ -1,5 +1,23 @@
 # Changelog
 
+## v3.5.0 (30/06/2022)
+
+#### Enhancements:
+
+- [**enhancement**] WIP adding a new filtering strategy rule [#67](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/67)
+- [**enhancement**] Initial version of a Webprotocol based EngineAddon server [#68](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/68)
+
+#### Version upgrades
+
+- [**bump**] Bump to 3.5.0 [#64](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/64)
+- [**bump**] Bump eclipse 2021 12 [#65](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/65)
+
+#### Release Engineering
+
+- [**releng**] Use tpd for defining target platform [#66](https://github.com/eclipse/gemoc-studio-execution-moccml/pull/66)
+
+---
+
 ## v3.4.0 (10/01/2022)
 
 #### Enhancements:
