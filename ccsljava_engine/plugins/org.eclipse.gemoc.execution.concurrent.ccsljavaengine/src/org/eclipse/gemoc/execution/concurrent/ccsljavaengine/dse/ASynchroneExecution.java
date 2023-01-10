@@ -13,6 +13,7 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
 
@@ -38,11 +39,11 @@ public class ASynchroneExecution extends OperationExecution {
 	private IMoccmlMSEStateController _clockController;
 	private HashMap<Force, When> _forces;
 	private Consumer<Step<?>> beforeStep;
-	private Runnable afterStep;
+	private Consumer<Optional<Object>> afterStep;
 
 	public ASynchroneExecution(SmallStep<?> smallStep, Collection<When> whenStatements,
 			IMoccmlMSEStateController clockController, AbstractConcurrentExecutionEngine engine, Consumer<Step<?>> beforeStep,
-			Runnable afterStep) {
+			Consumer<Optional<Object>> afterStep) {
 		super(smallStep, engine, beforeStep, afterStep);
 		this.beforeStep = beforeStep;
 		this.afterStep = afterStep;
