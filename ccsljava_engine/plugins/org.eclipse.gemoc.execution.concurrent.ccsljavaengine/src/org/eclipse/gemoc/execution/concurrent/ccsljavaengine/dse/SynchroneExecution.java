@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 
@@ -22,8 +24,8 @@ import org.eclipse.gemoc.trace.commons.model.trace.Step;
 
 public class SynchroneExecution extends OperationExecution {
 
-	public SynchroneExecution(SmallStep<?> smallStep, AbstractConcurrentExecutionEngine engine, Consumer<Step<?>> beforeStep,
-			Consumer<Optional<Object>> afterStep) {
+	public SynchroneExecution(SmallStep<?> smallStep, AbstractConcurrentExecutionEngine engine,
+			Consumer<Step<?>> beforeStep, Consumer<List<Object>> afterStep) {
 		super(smallStep, engine, beforeStep, afterStep);
 	}
 
@@ -38,7 +40,7 @@ public class SynchroneExecution extends OperationExecution {
 		} catch (InterruptedException e) {
 			Activator.getDefault().error("Exception received " + e.getMessage(), e);
 		}
-		afterStepCallback(Optional.of(res));
+		afterStepCallback(Collections.singletonList(res));
 	}
 
 	/**
