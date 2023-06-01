@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -38,7 +37,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlDSLHelper;
@@ -168,10 +166,8 @@ public class MoccmlExecutionEngine extends
 		synchronized (_futureActionsLock) {
 			ArrayList<IMoccmlFutureAction> actionsToRemove = new ArrayList<IMoccmlFutureAction>();
 			for (IMoccmlFutureAction action : _futureActions) {
-				if (((ModelSpecificEvent)_mseStateController.getFeedBackModelResource().getEObject(action.getTriggeringMSEURI())).getName()
-						.compareTo(
-								mse.getName()
-						)==0) {
+				if (((ModelSpecificEvent) _mseStateController.getFeedBackModelResource()
+						.getEObject(action.getTriggeringMSEURI())).getName().compareTo(mse.getName()) == 0) {
 					actionsToRemove.add(action);
 					action.perform(_mseStateController);
 				}
@@ -199,8 +195,8 @@ public class MoccmlExecutionEngine extends
 			Consumer<Step<?>> beforeStep = s -> {
 				beforeExecutionStep(s);
 			};
-			Runnable afterStep = () -> {
-				afterExecutionStep();
+			Consumer<List<Object>> afterStep = (o) -> {
+				afterExecutionStep(o);
 			};
 			if (whenStatements.size() == 0) {
 				execution = new SynchroneExecution(smallStep, this, beforeStep, afterStep);
@@ -226,8 +222,8 @@ public class MoccmlExecutionEngine extends
 			Activator.getDefault().debug("No more LogicalStep to run");
 		//	stop()
 		} else {
-			//scenario mangement
-			if(moccmlScenario != null) {
+			// scenario mangement
+			if (moccmlScenario != null) {
 				applyScenarioEffect();
 			}
 			try {
@@ -292,41 +288,44 @@ public class MoccmlExecutionEngine extends
 	private void applyScenarioEffect() {
 		Statement currentScenarioStatement = scenarioStatementSequence.get(indexInScenarioStatementSequence);
 		dealWithRwRCallStatement(currentScenarioStatement);
-		if(currentScenarioStatement instanceof MseStatement) {
+		if (currentScenarioStatement instanceof MseStatement) {
 			HashSet<Clock> clockToForceAbsent = new HashSet<Clock>(clockUsedInScenario);
 			EList<Clock> statementClocks = ((MseStatement) currentScenarioStatement).getClocks();
-			for(Clock toRemove : statementClocks) {
+			for (Clock toRemove : statementClocks) {
 				clockToForceAbsent.remove(toRemove);
 			}
-			for(Clock c : clockToForceAbsent) {
+			for (Clock c : clockToForceAbsent) {
 				EventOccurrence occ = getEventOccurrenceFromClock(c);
 				_solver.forbidEventOccurrence(occ);
 			}
-			if(statementClocks.size() > 1) {
+			if (statementClocks.size() > 1) {
 				Clock oneClock = statementClocks.get(0);
 				EventOccurrence oneClockOcc = getEventOccurrenceFromClock(oneClock);
-				for(int i = 1; i < statementClocks.size(); i++) {
+				for (int i = 1; i < statementClocks.size(); i++) {
 					EventOccurrence anotherClockOcc = getEventOccurrenceFromClock(statementClocks.get(i));
 					_solver.addClockCoincidence(oneClockOcc, anotherClockOcc);
 				}
 			}
 			_possibleLogicalSteps = computePossibleLogicalSteps();
 			if (!_solver.hasSolution()) {
-				Activator.getDefault().error("The scenario violates the semantics at step "+indexInScenarioStatementSequence+". One of these clock cannot be absent: "+clockToForceAbsent);
+				Activator.getDefault()
+						.error("The scenario violates the semantics at step " + indexInScenarioStatementSequence
+								+ ". One of these clock cannot be absent: " + clockToForceAbsent);
 //						stop();
-			} 
-			//try to force presence of currentStatement but if not possible it does not mean it will not be possible in a future step so we have to revert
-			for(Clock toForce : statementClocks) {
+			}
+			// try to force presence of currentStatement but if not possible it does not
+			// mean it will not be possible in a future step so we have to revert
+			for (Clock toForce : statementClocks) {
 				EventOccurrence occ = getEventOccurrenceFromClock(toForce);
 				_solver.forceEventOccurrence(occ);
 			}
-			if(!_solver.hasSolution()) {
+			if (!_solver.hasSolution()) {
 				_solver.revertForceClockEffect();
-				for(Clock c : clockToForceAbsent) {
+				for (Clock c : clockToForceAbsent) {
 					EventOccurrence occ = getEventOccurrenceFromClock(c);
 					_solver.forbidEventOccurrence(occ);
 				}
-				
+
 			}
 			_possibleLogicalSteps = computePossibleLogicalSteps();
 			notifyProposedLogicalStepsChanged();
@@ -342,8 +341,7 @@ public class MoccmlExecutionEngine extends
 		occ.setReferedElement(mer);
 		return occ;
 	}
-	
-	
+
 	public void recomputePossibleLogicalSteps() {
 		getSolver().revertForceClockEffect();
 		updatePossibleLogicalSteps();
@@ -372,7 +370,7 @@ public class MoccmlExecutionEngine extends
 		Resource resFeedbackModel = executionContext.setUpFeedbackModel();
 		_mseStateController.setFeedBackModelResource(resFeedbackModel);
 
-		if(executionContext.hasARegisteredScenario) {
+		if (executionContext.hasARegisteredScenario) {
 //			URI scenarioModelPlatformURI = URI.createPlatformResourceURI(
 //						concurrentExecutionContext.getMoccmlscenarioModelPath(), true);
 //			ResourceSet resourceSet = new ResourceSetImpl();
@@ -383,12 +381,13 @@ public class MoccmlExecutionEngine extends
 			indexInScenarioStatementSequence = 0;
 			clockUsedInScenario = new HashSet<Clock>();
 
-			for(Statement s : moccmlScenario.getStatementSequence().stream().filter(s -> s instanceof MseStatement).collect(Collectors.toList())) {
-				clockUsedInScenario.addAll(((MseStatement)s).getClocks());
+			for (Statement s : moccmlScenario.getStatementSequence().stream().filter(s -> s instanceof MseStatement)
+					.collect(Collectors.toList())) {
+				clockUsedInScenario.addAll(((MseStatement) s).getClocks());
 			}
 		}
 	}
-	
+
 	private Scenario loadTestScenarioLangification(String filename) {
 		if (filename == null || filename.isEmpty()) {
 			return null;
@@ -397,15 +396,14 @@ public class MoccmlExecutionEngine extends
 		Injector injector = TestScenarioLangActivator.getInstance().getInjector(language);
 		XtextResourceSetProvider provider = injector.getInstance(XtextResourceSetProvider.class);
 
-		XtextResourceSet resourceSet = (XtextResourceSet) provider
-				.get(findContainingProject(filename));
+		XtextResourceSet resourceSet = (XtextResourceSet) provider.get(findContainingProject(filename));
 		resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
 
 		URI uri = URI.createPlatformResourceURI(filename, true);
 		XtextResource resource = (XtextResource) resourceSet.getResource(uri, true);
 		List<Diagnostic> errors = resource.getErrors();
 		if (!errors.isEmpty()) {
-			System.err.println("the moccml scenrio file contains errors: "+errors);
+			System.err.println("the moccml scenrio file contains errors: " + errors);
 			return null;
 		}
 		return (Scenario) resource.getContents().get(0);
@@ -420,25 +418,24 @@ public class MoccmlExecutionEngine extends
 		return (file != null ? file.getProject() : null);
 	}
 	
-	
 	@Override
 	protected void doAfterLogicalStepExecution(ParallelStep<?,?> logicalStep) {
-	
 		getSolver().applyLogicalStep(logicalStep);
 		List<String> assertions = getSolver().getAssertionViolations();
-		if(assertions.size() > 0) {
+		if (assertions.size() > 0) {
 			System.err.println("###############################################\n  WARNING ! Assertion violation");
-			Activator.getDefault().error("###############################################\n  WARNING ! Assertion violation");
+			Activator.getDefault()
+					.error("###############################################\n  WARNING ! Assertion violation");
 		}
-		for(String ass : assertions) {
-			System.err.println("#    "+ ass);
-			Activator.getDefault().error("#    "+ ass);
+		for (String ass : assertions) {
+			System.err.println("#    " + ass);
+			Activator.getDefault().error("#    " + ass);
 		}
-		if(assertions.size() > 0) {
+		if (assertions.size() > 0) {
 			System.err.println("###############################################");
 			Activator.getDefault().error("###############################################");
 		}
-		if(moccmlScenario != null) {
+		if (moccmlScenario != null) {
 			manageScenario(logicalStep);
 		}
 	}
@@ -448,7 +445,8 @@ public class MoccmlExecutionEngine extends
 		if (currentScenarioStatement instanceof MseStatement) {
 			ArrayList<Clock> clocksThatTicked = new ArrayList<Clock>();
 			retrieveAllClocksFromStep(logicalStep, clocksThatTicked);
-			if (((MseStatement)currentScenarioStatement).getClocks().stream().allMatch(c -> clocksThatTicked.stream().anyMatch(c2 ->c2.getName().compareTo(c.getName()) == 0))){
+			if (((MseStatement) currentScenarioStatement).getClocks().stream().allMatch(
+					c -> clocksThatTicked.stream().anyMatch(c2 -> c2.getName().compareTo(c.getName()) == 0))) {
 				indexInScenarioStatementSequence++;
 				currentScenarioStatement = scenarioStatementSequence.get(indexInScenarioStatementSequence);
 				dealWithRwRCallStatement(currentScenarioStatement);
@@ -457,7 +455,7 @@ public class MoccmlExecutionEngine extends
 	}
 
 	private void dealWithRwRCallStatement(Statement currentScenarioStatement) {
-		while(! (currentScenarioStatement instanceof MseStatement)) {
+		while (!(currentScenarioStatement instanceof MseStatement)) {
 			RewritingRuleCallStatement rwrcallStatement = (RewritingRuleCallStatement) currentScenarioStatement;
 			ObjectVariable ov = rwrcallStatement.getObjectVariable();
 			JavaVariable javaVar = new JavaVariable(ov.getName(), ov.getType().getType().getQualifiedName());
@@ -466,15 +464,15 @@ public class MoccmlExecutionEngine extends
 			EList<Variable> params = rwrcallStatement.getParameters();
 			Object[] realParams = new Object[params.size()];
 			Class<?>[] realParamTypes = new Class<?>[params.size()];
-			for(int i = 0; i < params.size();i++) {
+			for (int i = 0; i < params.size(); i++) {
 				Variable v = params.get(i);
 				if (v instanceof EObjectRef) {
-					realParams[i]=((EObjectRef)v).getObject();
-					realParamTypes[i]=(EObject.class);//(EObjectRef)v).getObject().getClass();
+					realParams[i] = ((EObjectRef) v).getObject();
+					realParamTypes[i] = (EObject.class);// (EObjectRef)v).getObject().getClass();
 				}
 				if (v instanceof IntegerLiteral) {
-					realParams[i]=new Integer(((IntegerLiteral)v).getValue());
-					realParamTypes[i] =Integer.class;
+					realParams[i] = new Integer(((IntegerLiteral) v).getValue());
+					realParamTypes[i] = Integer.class;
 				}
 			}
 			Method m;
@@ -483,7 +481,8 @@ public class MoccmlExecutionEngine extends
 				// it is possible to get the result here !
 				Object res = m.invoke(obj, realParams);
 				System.out.println(res);
-			} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -494,31 +493,33 @@ public class MoccmlExecutionEngine extends
 
 	private void retrieveAllClocksFromStep(Step<?> logicalStep, ArrayList<Clock> clocksThatTicked) {
 		TreeIterator<EObject> it = logicalStep.eAllContents();
-		while(it.hasNext()) {
+		while (it.hasNext()) {
 			EObject eo = it.next();
 			if (eo instanceof GenericSmallStep) {
-				MSE mse = ((GenericSmallStep)eo).getMseoccurrence().getMse();
+				MSE mse = ((GenericSmallStep) eo).getMseoccurrence().getMse();
 				if (mse instanceof FeedbackMSE) {
 					EObject se = ((FeedbackMSE) mse).getFeedbackModelSpecificEvent().getSolverEvent();
 					if (se instanceof Clock) {
 						clocksThatTicked.add((Clock) se);
 					}
 				}
-				
+
 			}
 		}
 	}
-	
-	public Pair<Map<String, Boolean>, ArrayList<IMoccmlFutureAction>> saveState(){ //one map is enough since view are not used in exhaustive simulation
+
+	public Pair<Map<String, Boolean>, ArrayList<IMoccmlFutureAction>> saveState() { // one map is enough since view are
+																					// not used in exhaustive simulation
 		return Pair.of(
-				new HashMap<String, Boolean>(((DefaultMSEStateController)getExecutionContext().getExecutionPlatform().getMSEStateControllers().iterator().next())._mseNextStates),
-				new ArrayList<>(this._futureActions)
-				);
+				new HashMap<String, Boolean>(((DefaultMSEStateController) getExecutionContext().getExecutionPlatform()
+						.getMSEStateControllers().iterator().next())._mseNextStates),
+				new ArrayList<>(this._futureActions));
 	}
-	
-	public void restoreState(Pair<Map<String, Boolean>, ArrayList<IMoccmlFutureAction>> controllerStates){
+
+	public void restoreState(Pair<Map<String, Boolean>, ArrayList<IMoccmlFutureAction>> controllerStates) {
 //		((DefaultMSEStateController)getExecutionContext().getExecutionPlatform().getMSEStateControllers().iterator().next())._mseNextStates = new HashMap<String, Boolean>(controllerStates.getLeft());
-		((DefaultMSEStateController)_mseStateController)._mseNextStates = new HashMap<String, Boolean>(controllerStates.getLeft());
+		((DefaultMSEStateController) _mseStateController)._mseNextStates = new HashMap<String, Boolean>(
+				controllerStates.getLeft());
 		this._futureActions = new ArrayList<IMoccmlFutureAction>(controllerStates.getRight());
 	}
 	

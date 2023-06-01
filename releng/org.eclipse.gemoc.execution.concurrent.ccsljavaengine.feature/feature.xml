@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.feature"
       label="GEMOC Execution Engine CCSL Java Runtime"
-      version="3.6.0.qualifier"
+      version="3.6.1.qualifier"
       provider-name="%providerName"
       image="gemocstudio32.png">
 

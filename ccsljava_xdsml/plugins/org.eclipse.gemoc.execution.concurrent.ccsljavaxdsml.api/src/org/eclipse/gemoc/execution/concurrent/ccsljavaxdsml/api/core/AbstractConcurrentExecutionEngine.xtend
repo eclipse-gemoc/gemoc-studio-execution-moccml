@@ -191,7 +191,7 @@ abstract class AbstractConcurrentExecutionEngine<C extends AbstractConcurrentMod
 				var SmallStep<?> sstep = (step as SmallStep<?>)
 				executeSmallStep(sstep)
 			}
-			afterExecutionStep()
+			afterExecutionStep(Collections.emptyList())
 		}
 	}
 

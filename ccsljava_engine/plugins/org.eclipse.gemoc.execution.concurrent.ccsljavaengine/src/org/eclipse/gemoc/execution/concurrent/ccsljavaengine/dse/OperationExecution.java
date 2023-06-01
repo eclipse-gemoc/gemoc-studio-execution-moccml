@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
@@ -25,10 +26,10 @@ public abstract class OperationExecution {
 	private AbstractConcurrentExecutionEngine _engine;
 	private Object _result;
 	private Consumer<Step<?>> beforeStepCallback;
-	private Runnable afterStepCallback;
+	private Consumer<List<Object>> afterStepCallback;
 
 	protected OperationExecution(SmallStep<?> smallStep, AbstractConcurrentExecutionEngine engine,
-			Consumer<Step<?>> beforeStepCallback, Runnable afterStepCallback) {
+			Consumer<Step<?>> beforeStepCallback, Consumer<List<Object>> afterStepCallback) {
 		this.smallStep = smallStep;
 		_engine = engine;
 		this.beforeStepCallback = beforeStepCallback;
@@ -39,8 +40,8 @@ public abstract class OperationExecution {
 		beforeStepCallback.accept(s);
 	}
 
-	protected void afterStepCallback() {
-		afterStepCallback.run();
+	protected void afterStepCallback(List<Object> returnValue) {
+		afterStepCallback.accept(returnValue);
 	}
 
 	abstract public void run() throws CodeExecutionException;
