@@ -13,14 +13,14 @@ package org.eclipse.gemoc.example.moccml.tfsm.k3dsa;
 import org.eclipse.gemoc.commons.eclipse.logging.backends.DefaultLoggingBackend;
 import org.eclipse.gemoc.commons.eclipse.messagingsystem.api.MessagingSystem;
 import org.eclipse.gemoc.commons.eclipse.messagingsystem.api.MessagingSystemManager;
-import org.eclipse.gemoc.commons.eclipse.pde.GemocPlugin;
+import org.eclipse.gemoc.commons.eclipse.pde.ui.GemocUIPlugin;
 import org.osgi.framework.BundleContext;
 
 
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends GemocPlugin {
+public class Activator extends GemocUIPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.eclipse.gemoc.example.moccml.tfsm.k3dsa"; //$NON-NLS-1$
