@@ -4,27 +4,22 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import org.chocosolver.solver.Model;
-
-
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.CodeExecutorBasedExecutionPlatform;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentModelExecutionContext;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IConcurrentRunConfiguration;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.ICodeExecutor;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ISolver;
 import org.eclipse.gemoc.executionframework.engine.Activator;
+import org.eclipse.gemoc.executionframework.engine.concurrency.AbstractConcurrentExecutionEngine;
+import org.eclipse.gemoc.executionframework.engine.concurrency.AbstractConcurrentModelExecutionContext;
+import org.eclipse.gemoc.executionframework.engine.concurrency.IConcurrentRunConfiguration;
 import org.eclipse.gemoc.executionframework.engine.core.CommandExecution;
-import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
-import org.eclipse.gemoc.trace.commons.model.trace.Step;
 
 import fr.inria.diverse.k3.al.annotationprocessor.InitializeModel;
 

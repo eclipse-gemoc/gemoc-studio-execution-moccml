@@ -18,9 +18,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.gemoc.commons.eclipse.ui.ViewHelper;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.step.LogicalStepsView;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.ClockStatus;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.ModelSpecificEventWrapper;
+import org.eclipse.gemoc.executionframework.engine.ui.concurrency.views.step.LogicalStepsView;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;

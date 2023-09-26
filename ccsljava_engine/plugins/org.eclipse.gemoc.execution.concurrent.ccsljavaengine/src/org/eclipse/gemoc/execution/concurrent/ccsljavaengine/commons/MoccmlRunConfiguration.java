@@ -2,8 +2,8 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ConcurrentRunConfiguration;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IMoccmlRunConfiguration;
+import org.eclipse.gemoc.executionframework.engine.concurrency.ConcurrentRunConfiguration;
 
 public class MoccmlRunConfiguration  extends ConcurrentRunConfiguration implements IMoccmlRunConfiguration{
 	public static final String EXTRA_TIMEMODEL_PATH = "TIMEMODEL_PATH";

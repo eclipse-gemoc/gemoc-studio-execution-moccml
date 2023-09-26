@@ -49,10 +49,10 @@ import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.concurrentmse.FeedbackMSE;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.timesquare.Activator;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils.ccsl.QvtoTransformationPerformer;
-import org.eclipse.gemoc.execution.concurrent.symbolic.ChocoHelper;
-import org.eclipse.gemoc.execution.concurrent.symbolic.SmallStepVariable;
+import org.eclipse.gemoc.executionframework.engine.concurrency.AbstractConcurrentModelExecutionContext;
+import org.eclipse.gemoc.executionframework.engine.concurrency.ChocoHelper;
+import org.eclipse.gemoc.executionframework.engine.concurrency.SmallStepVariable;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ActionModel;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
@@ -317,11 +317,13 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 			allParVars.add(aParVar);
 			
 		}
-		ReExpression theRootParVar = allParVars.get(0);
-		for(int i=1; i < allParVars.size(); i++) {
-			theRootParVar = theRootParVar.xor(allParVars.get(i));
+		if (allParVars.size() > 1) {
+			ReExpression theRootParVar = allParVars.get(0);
+			for(int i=1; i < allParVars.size(); i++) {
+				theRootParVar = theRootParVar.xor(allParVars.get(i));
+			}
+			theRootParVar.post();
 		}
-		theRootParVar.post();
 		return symbolicPossibleSteps;
 	}
 

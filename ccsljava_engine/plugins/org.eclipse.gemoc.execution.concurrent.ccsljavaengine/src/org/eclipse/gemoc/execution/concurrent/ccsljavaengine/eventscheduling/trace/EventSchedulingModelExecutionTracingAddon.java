@@ -51,11 +51,11 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.AbstractSolv
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper.IK3ModelStateHelper;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelState;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlFutureAction;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.executionframework.engine.Activator;
+import org.eclipse.gemoc.executionframework.engine.concurrency.AbstractConcurrentExecutionEngine;
+import org.eclipse.gemoc.executionframework.engine.concurrency.AbstractConcurrentModelExecutionContext;
 import org.eclipse.gemoc.executionframework.engine.core.CommandExecution;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.Branch;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.Choice;
@@ -64,7 +64,6 @@ import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trac
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.Gemoc_execution_traceFactory;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.ModelState;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.SolverState;
-import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;

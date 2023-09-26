@@ -12,9 +12,9 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.deciders;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders.DeciderSpecificationExtension;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders.DeciderSpecificationExtensionPoint;
+import org.eclipse.gemoc.executionframework.engine.concurrency.ILogicalStepDecider;
+import org.eclipse.gemoc.executionframework.engine.concurrency.deciders.DeciderSpecificationExtension;
+import org.eclipse.gemoc.executionframework.engine.concurrency.deciders.DeciderSpecificationExtensionPoint;
 import org.eclipse.gemoc.xdsmlframework.api.core.ExecutionMode;
 
 public class LogicalStepDeciderFactory {

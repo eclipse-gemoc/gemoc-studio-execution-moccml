@@ -26,21 +26,23 @@ import org.eclipse.debug.core.ILaunchConfiguration
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy
 import org.eclipse.emf.common.util.BasicEList
 import org.eclipse.emf.common.util.URI
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.gemoc.commons.eclipse.emf.EMFResource
 import org.eclipse.gemoc.commons.eclipse.emf.URIHelper
 import org.eclipse.gemoc.commons.eclipse.ui.dialogs.SelectAnyIFileDialog
 import org.eclipse.gemoc.dsl.debug.ide.launch.AbstractDSLLaunchConfigurationDelegate
 import org.eclipse.gemoc.dsl.debug.ide.sirius.ui.launch.AbstractDSLLaunchConfigurationDelegateSiriusUI
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlDSLHelper
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.Activator
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.MoccmlLauncherMessages
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ConcurrentRunConfiguration
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.ICodeExecutor
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders.DeciderSpecificationExtension
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders.DeciderSpecificationExtensionPoint
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageAdditionExtension
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages.MoccmlLanguageAdditionExtensionPoint
 import org.eclipse.gemoc.executionframework.engine.commons.DslHelper
+import org.eclipse.gemoc.executionframework.engine.concurrency.ConcurrentRunConfiguration
+import org.eclipse.gemoc.executionframework.engine.concurrency.deciders.DeciderSpecificationExtension
+import org.eclipse.gemoc.executionframework.engine.concurrency.deciders.DeciderSpecificationExtensionPoint
 import org.eclipse.gemoc.executionframework.engine.core.RunConfiguration
 import org.eclipse.gemoc.executionframework.engine.ui.launcher.tabs.AbstractLaunchConfigurationTab
 import org.eclipse.gemoc.xdsmlframework.ui.utils.dialogs.SelectAIRDIFileDialog
@@ -61,8 +63,6 @@ import org.eclipse.swt.widgets.Group
 import org.eclipse.swt.widgets.Label
 import org.eclipse.swt.widgets.Text
 import org.eclipse.xtend.lib.annotations.Accessors
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlDSLHelper
-import org.eclipse.emf.ecore.EObject
 
 class LaunchConfigurationMainTab extends AbstractLaunchConfigurationTab {
 	protected Composite _parent

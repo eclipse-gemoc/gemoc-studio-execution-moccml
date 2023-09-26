@@ -14,9 +14,8 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.deciders;
 import java.util.List;
 
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ILogicalStepDecider;
-import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
+import org.eclipse.gemoc.executionframework.engine.concurrency.AbstractConcurrentExecutionEngine;
+import org.eclipse.gemoc.executionframework.engine.concurrency.ILogicalStepDecider;
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 
 /**

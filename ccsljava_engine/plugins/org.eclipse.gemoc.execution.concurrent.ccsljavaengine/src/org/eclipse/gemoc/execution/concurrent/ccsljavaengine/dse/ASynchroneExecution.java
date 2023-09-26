@@ -19,10 +19,10 @@ import java.util.function.Consumer;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlMSEStateController;
 import org.eclipse.gemoc.executionframework.engine.Activator;
+import org.eclipse.gemoc.executionframework.engine.concurrency.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ActionFinishedCondition;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ActionResultCondition;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ComparisonOperator;

@@ -23,10 +23,11 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dsa.executors.explo
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.Activator;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.StimuliManagerView;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IMoccmlRunConfiguration;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.executionframework.engine.commons.EngineContextException;
+import org.eclipse.gemoc.executionframework.engine.concurrency.AbstractConcurrentExecutionEngine;
+import org.eclipse.gemoc.executionframework.engine.ui.launcher.AbstractConcurrentLauncher;
 import org.eclipse.gemoc.xdsmlframework.api.core.ExecutionMode;
 
 public class MoccmlLauncher extends AbstractConcurrentLauncher<IMoccmlRunConfiguration, MoccmlModelExecutionContext> {
@@ -60,7 +61,7 @@ public class MoccmlLauncher extends AbstractConcurrentLauncher<IMoccmlRunConfigu
 		return _executionEngine;
 
 	}
-
+	
 	@Override
 	protected IMoccmlRunConfiguration createRunConfiguration(ILaunchConfiguration launchConfiguration)
 			throws CoreException {

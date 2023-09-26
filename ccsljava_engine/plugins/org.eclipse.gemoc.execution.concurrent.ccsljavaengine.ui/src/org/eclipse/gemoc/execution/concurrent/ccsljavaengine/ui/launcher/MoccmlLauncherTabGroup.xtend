@@ -18,8 +18,8 @@ import org.eclipse.debug.ui.ILaunchConfigurationTab
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.tabs.LaunchConfigurationAdvancedTab
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.tabs.LaunchConfigurationBackendsTab
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.tabs.LaunchConfigurationMainTab
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.tabs.LaunchConfigurationStrategiesTab
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.LaunchConfigurationContext
+import org.eclipse.gemoc.executionframework.engine.ui.concurrency.launcher.LaunchConfigurationStrategiesTab
+import org.eclipse.gemoc.executionframework.engine.ui.concurrency.strategies.LaunchConfigurationContext
 
 class MoccmlLauncherTabGroup extends AbstractLaunchConfigurationTabGroup {
 	new() {

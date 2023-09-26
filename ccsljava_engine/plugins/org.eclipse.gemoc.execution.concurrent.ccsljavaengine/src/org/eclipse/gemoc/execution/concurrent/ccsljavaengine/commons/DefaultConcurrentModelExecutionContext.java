@@ -1,9 +1,9 @@
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.ConcurrentRunConfiguration;
 import org.eclipse.gemoc.executionframework.engine.commons.DefaultExecutionPlatform;
 import org.eclipse.gemoc.executionframework.engine.commons.EngineContextException;
+import org.eclipse.gemoc.executionframework.engine.concurrency.ConcurrentRunConfiguration;
 import org.eclipse.gemoc.xdsmlframework.api.core.ExecutionMode;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinitionExtension;
 import org.eclipse.gemoc.xdsmlframework.api.extensions.languages.LanguageDefinitionExtensionPoint;

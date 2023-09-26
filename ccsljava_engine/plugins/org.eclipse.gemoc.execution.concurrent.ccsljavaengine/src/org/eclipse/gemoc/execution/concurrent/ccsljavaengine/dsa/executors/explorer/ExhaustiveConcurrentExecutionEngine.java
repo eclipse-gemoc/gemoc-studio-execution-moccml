@@ -32,7 +32,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.h
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLExplorer;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
-import org.eclipse.gemoc.execution.concurrent.symbolic.ChocoHelper;
+import org.eclipse.gemoc.executionframework.engine.concurrency.ChocoHelper;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericStep;

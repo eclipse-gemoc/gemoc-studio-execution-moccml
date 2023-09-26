@@ -13,12 +13,11 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Consumer;
 
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
 import org.eclipse.gemoc.executionframework.engine.Activator;
+import org.eclipse.gemoc.executionframework.engine.concurrency.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 

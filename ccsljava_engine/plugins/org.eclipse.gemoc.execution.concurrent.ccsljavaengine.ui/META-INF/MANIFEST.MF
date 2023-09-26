@@ -33,19 +33,8 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.actions,
- org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.deciders,
- org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.deciders.actions,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.tabs,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.propertytesters,
- org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies,
- org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.concurrency,
- org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategies.filters,
- org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.strategy_selector,
- org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.step,
- org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager,
- org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.actions,
- org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.filters,
- org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.views.stimulimanager.scenario,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.wizards
 Automatic-Module-Name: org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui

@@ -38,7 +38,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlDSLHelper;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.concurrentmse.FeedbackMSE;
@@ -61,6 +60,7 @@ import org.eclipse.gemoc.execution.moccml.testscenariolang.model.TestScenarioLan
 import org.eclipse.gemoc.execution.moccml.testscenariolang.model.TestScenarioLang.Variable;
 import org.eclipse.gemoc.execution.moccml.testscenariolang.xtext.ui.internal.TestScenarioLangActivator;
 import org.eclipse.gemoc.executionframework.engine.Activator;
+import org.eclipse.gemoc.executionframework.engine.concurrency.ConcurrentStepException;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ActionModel;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.When;
@@ -177,7 +177,7 @@ public class MoccmlExecutionEngine extends
 	}
 
 	@Override
-	protected void executeSmallStep(SmallStep<?> smallStep) throws CodeExecutionException {
+	protected void executeSmallStep(SmallStep<?> smallStep) throws ConcurrentStepException {
 		executeAssociatedActions(smallStep.getMseoccurrence().getMse());
 		MSE mse = smallStep.getMseoccurrence().getMse();
 		if (mse.getAction() != null) {
@@ -206,7 +206,11 @@ public class MoccmlExecutionEngine extends
 				execution = new ASynchroneExecution(smallStep, whenStatements, _mseStateController, this, beforeStep,
 						afterStep);
 			}
-			execution.run();
+			try {
+				execution.run();
+			} catch (CodeExecutionException e) {
+				throw new ConcurrentStepException(e);
+			}
 		}
 	}
 
