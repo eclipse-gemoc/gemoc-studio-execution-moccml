@@ -27,7 +27,7 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.IMoccmlRunC
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.executionframework.engine.commons.EngineContextException;
 import org.eclipse.gemoc.executionframework.engine.concurrency.AbstractConcurrentExecutionEngine;
-import org.eclipse.gemoc.executionframework.engine.ui.launcher.AbstractConcurrentLauncher;
+import org.eclipse.gemoc.executionframework.engine.ui.concurrency.launcher.AbstractConcurrentLauncher;
 import org.eclipse.gemoc.xdsmlframework.api.core.ExecutionMode;
 
 public class MoccmlLauncher extends AbstractConcurrentLauncher<IMoccmlRunConfiguration, MoccmlModelExecutionContext> {
