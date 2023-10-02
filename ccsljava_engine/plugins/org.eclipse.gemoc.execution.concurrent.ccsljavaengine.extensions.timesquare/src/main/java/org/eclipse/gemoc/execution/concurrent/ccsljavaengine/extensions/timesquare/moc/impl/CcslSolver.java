@@ -323,6 +323,10 @@ public class CcslSolver implements org.eclipse.gemoc.execution.concurrent.ccslja
 				theRootParVar = theRootParVar.xor(allParVars.get(i));
 			}
 			theRootParVar.post();
+		}else { //creating a fake expression to "feed" the post() method and populate the model
+			ReExpression theRootParVar = allParVars.get(0);
+			theRootParVar = theRootParVar.and(theRootParVar);
+			theRootParVar.post();
 		}
 		return symbolicPossibleSteps;
 	}
