@@ -32,9 +32,11 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.h
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors.CodeExecutionException;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLExplorer;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
+import org.eclipse.gemoc.executionframework.engine.concurrency.ChocoHelper;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericStep;
+import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 
@@ -123,7 +125,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 				}
 				((ICCSLExplorer)this._solver).prepareSolverForNewStepForExploration();
 				
-				Step<?> aStep = getPossibleLogicalSteps().get(i);
+				ParallelStep<? extends Step<?>, ?> aStep = getPossibleLogicalSteps().get(i);
 				setSelectedLogicalStep(aStep);
 				try {
 					executeSelectedLogicalStep();
@@ -156,7 +158,7 @@ public class ExhaustiveConcurrentExecutionEngine extends MoccmlExecutionEngine {
 				modelStateHelper.restoreModelState(currentState.modelState);
 				this._solver.setState(currentState.moCCState); //Arrays.copyOf( ?
 				this.restoreState(Pair.of(currentState.nextEventToForce, currentState.futurActions));
-			}
+ 			}
 			((ICCSLExplorer)this._solver).resetCurrentStepForExploration();
 			//for debugging purpose
 																if(savedDotRegularly && exploredStates%100 == 0) {

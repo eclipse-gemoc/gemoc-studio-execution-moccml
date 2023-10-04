@@ -128,6 +128,7 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EList<Port> getOwnedPorts() {
 		if (ownedPorts == null) {
 			ownedPorts = new EObjectContainmentWithInverseEList<Port>(Port.class, this, SigpmlPackage.AGENT__OWNED_PORTS, SigpmlPackage.PORT__OWNER);
@@ -140,6 +141,7 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getCycles() {
 		return cycles;
 	}
@@ -149,6 +151,7 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCycles(int newCycles) {
 		int oldCycles = cycles;
 		cycles = newCycles;
@@ -161,6 +164,7 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Application getOwner() {
 		if (eContainerFeatureID() != SigpmlPackage.AGENT__OWNER) return null;
 		return (Application)eInternalContainer();
@@ -181,6 +185,7 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwner(Application newOwner) {
 		if (newOwner != eInternalContainer() || (eContainerFeatureID() != SigpmlPackage.AGENT__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
@@ -202,6 +207,7 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public String getCode() {
 		return code;
 	}
@@ -211,6 +217,7 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setCode(String newCode) {
 		String oldCode = code;
 		code = newCode;
@@ -223,6 +230,7 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public HWComputationalResource getAllocatedTo() {
 		if (allocatedTo != null && allocatedTo.eIsProxy()) {
 			InternalEObject oldAllocatedTo = (InternalEObject)allocatedTo;
@@ -249,6 +257,7 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setAllocatedTo(HWComputationalResource newAllocatedTo) {
 		HWComputationalResource oldAllocatedTo = allocatedTo;
 		allocatedTo = newAllocatedTo;
@@ -261,6 +270,7 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void execute() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -272,6 +282,7 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void stop() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT
@@ -283,6 +294,7 @@ public class AgentImpl extends NamedElementImpl implements Agent {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void isExecuting() {
 		// TODO: implement this method
 		// Ensure that you remove @generated or mark it @generated NOT

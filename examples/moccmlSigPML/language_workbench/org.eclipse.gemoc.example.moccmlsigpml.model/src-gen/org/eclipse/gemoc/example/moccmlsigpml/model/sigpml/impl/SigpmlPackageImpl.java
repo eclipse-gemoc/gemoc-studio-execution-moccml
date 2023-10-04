@@ -196,6 +196,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getApplication() {
 		return applicationEClass;
 	}
@@ -205,6 +206,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_OwnedAgents() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(0);
 	}
@@ -214,6 +216,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getApplication_OwnedPlaces() {
 		return (EReference)applicationEClass.getEStructuralFeatures().get(1);
 	}
@@ -223,6 +226,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getAgent() {
 		return agentEClass;
 	}
@@ -232,6 +236,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAgent_OwnedPorts() {
 		return (EReference)agentEClass.getEStructuralFeatures().get(0);
 	}
@@ -241,6 +246,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAgent_Cycles() {
 		return (EAttribute)agentEClass.getEStructuralFeatures().get(1);
 	}
@@ -250,6 +256,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAgent_Owner() {
 		return (EReference)agentEClass.getEStructuralFeatures().get(2);
 	}
@@ -259,6 +266,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getAgent_Code() {
 		return (EAttribute)agentEClass.getEStructuralFeatures().get(3);
 	}
@@ -268,6 +276,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getAgent_AllocatedTo() {
 		return (EReference)agentEClass.getEStructuralFeatures().get(4);
 	}
@@ -277,6 +286,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getAgent__Execute() {
 		return agentEClass.getEOperations().get(0);
 	}
@@ -286,6 +296,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getAgent__Stop() {
 		return agentEClass.getEOperations().get(1);
 	}
@@ -295,6 +306,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getAgent__IsExecuting() {
 		return agentEClass.getEOperations().get(2);
 	}
@@ -304,6 +316,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPort() {
 		return portEClass;
 	}
@@ -313,6 +326,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPort_Owner() {
 		return (EReference)portEClass.getEStructuralFeatures().get(0);
 	}
@@ -322,6 +336,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPort_Rate() {
 		return (EAttribute)portEClass.getEStructuralFeatures().get(1);
 	}
@@ -331,6 +346,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getInputPort() {
 		return inputPortEClass;
 	}
@@ -340,6 +356,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getInputPort__Read() {
 		return inputPortEClass.getEOperations().get(0);
 	}
@@ -349,6 +366,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getOutputPort() {
 		return outputPortEClass;
 	}
@@ -358,6 +376,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getOutputPort__Write() {
 		return outputPortEClass.getEOperations().get(0);
 	}
@@ -367,6 +386,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getPlace() {
 		return placeEClass;
 	}
@@ -376,6 +396,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPlace_ItsOutputPort() {
 		return (EReference)placeEClass.getEStructuralFeatures().get(0);
 	}
@@ -385,6 +406,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPlace_ItsInputPort() {
 		return (EReference)placeEClass.getEStructuralFeatures().get(1);
 	}
@@ -394,6 +416,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPlace_Size() {
 		return (EAttribute)placeEClass.getEStructuralFeatures().get(2);
 	}
@@ -403,6 +426,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getPlace_Owner() {
 		return (EReference)placeEClass.getEStructuralFeatures().get(3);
 	}
@@ -412,6 +436,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getPlace_Delay() {
 		return (EAttribute)placeEClass.getEStructuralFeatures().get(4);
 	}
@@ -421,6 +446,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getPlace__Push() {
 		return placeEClass.getEOperations().get(0);
 	}
@@ -430,6 +456,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EOperation getPlace__Pop() {
 		return placeEClass.getEOperations().get(1);
 	}
@@ -439,6 +466,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getNamedElement() {
 		return namedElementEClass;
 	}
@@ -448,6 +476,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getNamedElement_Name() {
 		return (EAttribute)namedElementEClass.getEStructuralFeatures().get(0);
 	}
@@ -457,6 +486,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getHWRessource() {
 		return hwRessourceEClass;
 	}
@@ -466,6 +496,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getHWRessource_Owner() {
 		return (EReference)hwRessourceEClass.getEStructuralFeatures().get(0);
 	}
@@ -475,6 +506,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getHWRessource_ConnectedTo() {
 		return (EReference)hwRessourceEClass.getEStructuralFeatures().get(1);
 	}
@@ -484,6 +516,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getHWComputationalResource() {
 		return hwComputationalResourceEClass;
 	}
@@ -493,6 +526,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EAttribute getHWComputationalResource_IsUnderPreemptiveManagement() {
 		return (EAttribute)hwComputationalResourceEClass.getEStructuralFeatures().get(0);
 	}
@@ -502,6 +536,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getHWComputationalResource_AllocatedAgents() {
 		return (EReference)hwComputationalResourceEClass.getEStructuralFeatures().get(1);
 	}
@@ -511,7 +546,8 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EOperation getHWComputationalResource__IncCycle() {
+	@Override
+	public EOperation getHWComputationalResource__IsExecuting() {
 		return hwComputationalResourceEClass.getEOperations().get(0);
 	}
 
@@ -520,6 +556,17 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public EOperation getHWComputationalResource__Idle() {
+		return hwComputationalResourceEClass.getEOperations().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getHWStorageResource() {
 		return hwStorageResourceEClass;
 	}
@@ -529,6 +576,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getHWStorageResource_AllocatedPlaces() {
 		return (EReference)hwStorageResourceEClass.getEStructuralFeatures().get(0);
 	}
@@ -538,6 +586,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getHWCommunicationResource() {
 		return hwCommunicationResourceEClass;
 	}
@@ -547,6 +596,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getHWPlatform() {
 		return hwPlatformEClass;
 	}
@@ -556,6 +606,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getHWPlatform_OwnedHWResources() {
 		return (EReference)hwPlatformEClass.getEStructuralFeatures().get(0);
 	}
@@ -565,6 +616,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EClass getSystem() {
 		return systemEClass;
 	}
@@ -574,6 +626,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSystem_OwnedApplication() {
 		return (EReference)systemEClass.getEStructuralFeatures().get(0);
 	}
@@ -583,6 +636,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EReference getSystem_OwnedHWPlatform() {
 		return (EReference)systemEClass.getEStructuralFeatures().get(1);
 	}
@@ -592,6 +646,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EDataType getObject() {
 		return objectEDataType;
 	}
@@ -601,6 +656,7 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public SigpmlFactory getSigpmlFactory() {
 		return (SigpmlFactory)getEFactoryInstance();
 	}
@@ -667,7 +723,8 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 		hwComputationalResourceEClass = createEClass(HW_COMPUTATIONAL_RESOURCE);
 		createEAttribute(hwComputationalResourceEClass, HW_COMPUTATIONAL_RESOURCE__IS_UNDER_PREEMPTIVE_MANAGEMENT);
 		createEReference(hwComputationalResourceEClass, HW_COMPUTATIONAL_RESOURCE__ALLOCATED_AGENTS);
-		createEOperation(hwComputationalResourceEClass, HW_COMPUTATIONAL_RESOURCE___INC_CYCLE);
+		createEOperation(hwComputationalResourceEClass, HW_COMPUTATIONAL_RESOURCE___IS_EXECUTING);
+		createEOperation(hwComputationalResourceEClass, HW_COMPUTATIONAL_RESOURCE___IDLE);
 
 		hwStorageResourceEClass = createEClass(HW_STORAGE_RESOURCE);
 		createEReference(hwStorageResourceEClass, HW_STORAGE_RESOURCE__ALLOCATED_PLACES);
@@ -778,7 +835,9 @@ public class SigpmlPackageImpl extends EPackageImpl implements SigpmlPackage {
 		initEAttribute(getHWComputationalResource_IsUnderPreemptiveManagement(), ecorePackage.getEBoolean(), "isUnderPreemptiveManagement", null, 0, 1, HWComputationalResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getHWComputationalResource_AllocatedAgents(), this.getAgent(), null, "allocatedAgents", null, 0, -1, HWComputationalResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEOperation(getHWComputationalResource__IncCycle(), null, "incCycle", 0, 1, IS_UNIQUE, IS_ORDERED);
+		initEOperation(getHWComputationalResource__IsExecuting(), null, "isExecuting", 0, 1, IS_UNIQUE, IS_ORDERED);
+
+		initEOperation(getHWComputationalResource__Idle(), null, "idle", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(hwStorageResourceEClass, HWStorageResource.class, "HWStorageResource", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getHWStorageResource_AllocatedPlaces(), this.getPlace(), null, "allocatedPlaces", null, 0, -1, HWStorageResource.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

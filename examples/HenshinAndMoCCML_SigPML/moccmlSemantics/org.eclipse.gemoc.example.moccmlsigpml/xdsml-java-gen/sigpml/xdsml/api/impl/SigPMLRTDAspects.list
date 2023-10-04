@@ -1,0 +1,6 @@
+org.eclipse.gemoc.example.moccmlsigpml.k3dsa.PlaceAspect
+org.eclipse.gemoc.example.moccmlsigpml.k3dsa.SystemAspect
+org.eclipse.gemoc.example.moccmlsigpml.k3dsa.OutputPortAspect
+org.eclipse.gemoc.example.moccmlsigpml.k3dsa.AgentAspect
+org.eclipse.gemoc.example.moccmlsigpml.k3dsa.InputPortAspect
+org.eclipse.gemoc.example.moccmlsigpml.k3dsa.HWComputationalResourceAspect

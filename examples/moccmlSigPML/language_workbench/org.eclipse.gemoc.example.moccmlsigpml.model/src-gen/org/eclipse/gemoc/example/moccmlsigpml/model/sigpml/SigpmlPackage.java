@@ -662,13 +662,22 @@ public interface SigpmlPackage extends EPackage {
 	int HW_COMPUTATIONAL_RESOURCE_FEATURE_COUNT = HW_RESSOURCE_FEATURE_COUNT + 2;
 
 	/**
-	 * The operation id for the '<em>Inc Cycle</em>' operation.
+	 * The operation id for the '<em>Is Executing</em>' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int HW_COMPUTATIONAL_RESOURCE___INC_CYCLE = HW_RESSOURCE_OPERATION_COUNT + 0;
+	int HW_COMPUTATIONAL_RESOURCE___IS_EXECUTING = HW_RESSOURCE_OPERATION_COUNT + 0;
+
+	/**
+	 * The operation id for the '<em>Idle</em>' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HW_COMPUTATIONAL_RESOURCE___IDLE = HW_RESSOURCE_OPERATION_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>HW Computational Resource</em>' class.
@@ -677,7 +686,7 @@ public interface SigpmlPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int HW_COMPUTATIONAL_RESOURCE_OPERATION_COUNT = HW_RESSOURCE_OPERATION_COUNT + 1;
+	int HW_COMPUTATIONAL_RESOURCE_OPERATION_COUNT = HW_RESSOURCE_OPERATION_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.HWStorageResourceImpl <em>HW Storage Resource</em>}' class.
@@ -1280,14 +1289,24 @@ public interface SigpmlPackage extends EPackage {
 	EReference getHWComputationalResource_AllocatedAgents();
 
 	/**
-	 * Returns the meta object for the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWComputationalResource#incCycle() <em>Inc Cycle</em>}' operation.
+	 * Returns the meta object for the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWComputationalResource#isExecuting() <em>Is Executing</em>}' operation.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the '<em>Inc Cycle</em>' operation.
-	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWComputationalResource#incCycle()
+	 * @return the meta object for the '<em>Is Executing</em>' operation.
+	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWComputationalResource#isExecuting()
 	 * @generated
 	 */
-	EOperation getHWComputationalResource__IncCycle();
+	EOperation getHWComputationalResource__IsExecuting();
+
+	/**
+	 * Returns the meta object for the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWComputationalResource#idle() <em>Idle</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the '<em>Idle</em>' operation.
+	 * @see org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWComputationalResource#idle()
+	 * @generated
+	 */
+	EOperation getHWComputationalResource__Idle();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.HWStorageResource <em>HW Storage Resource</em>}'.
@@ -1706,12 +1725,20 @@ public interface SigpmlPackage extends EPackage {
 		EReference HW_COMPUTATIONAL_RESOURCE__ALLOCATED_AGENTS = eINSTANCE.getHWComputationalResource_AllocatedAgents();
 
 		/**
-		 * The meta object literal for the '<em><b>Inc Cycle</b></em>' operation.
+		 * The meta object literal for the '<em><b>Is Executing</b></em>' operation.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EOperation HW_COMPUTATIONAL_RESOURCE___INC_CYCLE = eINSTANCE.getHWComputationalResource__IncCycle();
+		EOperation HW_COMPUTATIONAL_RESOURCE___IS_EXECUTING = eINSTANCE.getHWComputationalResource__IsExecuting();
+
+		/**
+		 * The meta object literal for the '<em><b>Idle</b></em>' operation.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EOperation HW_COMPUTATIONAL_RESOURCE___IDLE = eINSTANCE.getHWComputationalResource__Idle();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.gemoc.example.moccmlsigpml.model.sigpml.impl.HWStorageResourceImpl <em>HW Storage Resource</em>}' class.

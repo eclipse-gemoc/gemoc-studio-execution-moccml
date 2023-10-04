@@ -14,14 +14,19 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate,
  org.eclipse.gemoc.executionframework.engine,
  org.eclipse.emf.transaction;bundle-version="1.9.1",
- org.eclipse.gemoc.commons.eclipse.pde;bundle-version="3.0.0"
+ org.eclipse.gemoc.commons.eclipse.pde;bundle-version="3.0.0",
+ com.google.guava,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtend.lib,
+ org.eclipse.xtend.lib.macro,
+ org.eclipse.debug.core
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: Eclipse GEMOC Project
 Automatic-Module-Name: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api
 Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dsa.executors,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse,
- org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.deciders,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.extensions.languages,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc
 Import-Package: org.eclipse.gemoc.commons.eclipse.ui
+Bundle-ClassPath: .

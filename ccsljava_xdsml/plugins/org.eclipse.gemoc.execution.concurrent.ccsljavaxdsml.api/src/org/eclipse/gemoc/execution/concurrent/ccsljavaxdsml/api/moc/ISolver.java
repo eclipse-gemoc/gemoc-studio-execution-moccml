@@ -11,10 +11,12 @@
  *******************************************************************************/
 package org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc;
 
-import java.util.List;
+import java.util.Set;
 
+import org.chocosolver.solver.Model;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentModelExecutionContext;
+import org.eclipse.gemoc.executionframework.engine.concurrency.AbstractConcurrentModelExecutionContext;
+import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.xdsmlframework.api.core.IDisposable;
 
@@ -32,14 +34,14 @@ public interface ISolver extends IDisposable {
 	 * 
 	 * @return a list of LogicalSteps
 	 */
-	public List<Step<?>> computeAndGetPossibleLogicalSteps();
+	public Model computeAndGetPossibleLogicalSteps();
 
 	/**
 	 * Returns the currently possible LogicalSteps
 	 * 
 	 * @return a list of LogicalSteps
 	 */
-	public List<Step<?>> updatePossibleLogicalSteps();
+	public Model updatePossibleLogicalSteps();
 
 	/**
 	 * among the currently possible LogicalStep (see {@link getPossibleLogicalSteps}
@@ -47,15 +49,16 @@ public interface ISolver extends IDisposable {
 	 * 
 	 * @return the logical step proposed from possible LogicalSteps
 	 */
-	public Step<?> proposeLogicalStep();
+	public ParallelStep<?,?> proposeLogicalStep();
 
 	/**
 	 * ask the solver to apply the given LogicalStep and thus compute next step
 	 * 
 	 * @param the LogicalStep to apply
 	 */
-	public void applyLogicalStep(Step<?> logicalStep);
-	
+	public void applyLogicalStep(ParallelStep<?,?> logicalStep);
+
+
 	/**
 	 * Actions that could be done to prepare the workspace before any model is
 	 * loaded Ie. in the context the model is not loaded yet

@@ -23,16 +23,27 @@ import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.compare.Comparison;
+import org.eclipse.emf.compare.Diff;
+import org.eclipse.emf.compare.EMFCompare;
+import org.eclipse.emf.compare.merge.BatchMerger;
+import org.eclipse.emf.compare.merge.IBatchMerger;
+import org.eclipse.emf.compare.merge.IMerger;
+import org.eclipse.emf.compare.scope.DefaultComparisonScope;
+import org.eclipse.emf.compare.scope.IComparisonScope;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EContentAdapter;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
@@ -40,11 +51,11 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.AbstractSolv
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper.IK3ModelStateHelper;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelState;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlFutureAction;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.executionframework.engine.Activator;
+import org.eclipse.gemoc.executionframework.engine.concurrency.AbstractConcurrentExecutionEngine;
+import org.eclipse.gemoc.executionframework.engine.concurrency.AbstractConcurrentModelExecutionContext;
 import org.eclipse.gemoc.executionframework.engine.core.CommandExecution;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.Branch;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.Choice;
@@ -53,7 +64,6 @@ import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trac
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.Gemoc_execution_traceFactory;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.ModelState;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.SolverState;
-import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
@@ -156,7 +166,7 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 
 	private void restoreModelState(Choice choice) {
 		ModelState state = choice.getContextState().getModelState();
-		restoreModelState(state, true);
+		restoreModelState(state);
 	}
 
 	private FileOutputStream getFileOutputStream(File f) {
@@ -209,7 +219,7 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 			@Override
 			public void run() {
 				long t1 = System.nanoTime();
-				restoreModelState(state, false);
+				restoreModelState(state);
 				long t2 = System.nanoTime();
 				System.out.println("MEASURED TIME: " + (t2 - t1));
 				if (outputRestoreTmpWriter != null) {
@@ -220,14 +230,22 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 //		}
 	}
 
-	/**
-	 * This method works only with concurrentExecuctioncontex
-	 * 
-	 * @param state
-	 * @param restoreAspects
-	 */
-	private void restoreModelState(ModelState state, boolean restoreAspects) {
-		modelStateHelper.restoreModelState((K3ModelState) state.getModel());
+	private void restoreModelState(ModelState state) {
+		if (modelStateHelper != null) {
+			modelStateHelper.restoreModelState((K3ModelState) state.getModel());
+		} else {
+			EObject left = state.getModel();
+			EObject right = _executionContext.getResourceModel().getContents().get(0);
+
+			IComparisonScope scope = new DefaultComparisonScope(left, right, null);
+			EMFCompare build = EMFCompare.builder().build();
+			Comparison comparison = build.compare(scope);
+			List<Diff> differences = comparison.getDifferences();
+
+			IMerger.Registry mergerRegistry = IMerger.RegistryImpl.createStandaloneInstance();
+			IBatchMerger merger = new BatchMerger(mergerRegistry);
+			merger.copyAllLeftToRight(differences, new BasicMonitor());
+		}
 	}
 
 	private void restoreSolverState(Choice choice) {
@@ -261,7 +279,28 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 		return result;
 	}
 
-	private void addModelStateIfChanged() {
+	private void addModelStateIfChanged_generic() {
+		Resource traceResource = _executionTraceModel.eResource();
+		if (traceResource.getContents().size() > 0) {
+			ExecutionTraceModel traceModel = (ExecutionTraceModel) traceResource.getContents().get(0);
+			Activator.getDefault().debug(String.format("[trace-%10s] new model state %3d detected",
+					getCurrentEngineShortName(), traceModel.getReachedStates().size()));
+
+			// Recursive copy of the model
+			EObject result = EcoreUtil.copy(_executionContext.getResourceModel().getContents().get(0));
+			result.eAdapters().clear();
+
+			// Store the copy in the trace
+			ModelState modelState = Gemoc_execution_traceFactory.eINSTANCE.createModelState();
+			traceModel.getReachedStates().add(modelState);
+			modelState.setModel(result);
+			currentState = modelState;
+			traceResource.getContents().add(result);
+
+		}
+	}
+
+	private void addModelStateIfChanged_moccml() {
 		Resource traceResource = _executionTraceModel.eResource();
 		if (traceResource.getContents().size() > 0) {
 
@@ -317,7 +356,12 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 			List<Choice> choices = traceModel.getChoices();
 			if (choices.size() > 0) {
 
-				addModelStateIfChanged();
+				if (_executionEngine instanceof MoccmlExecutionEngine) {
+					addModelStateIfChanged_moccml();
+
+				} else {
+					addModelStateIfChanged_generic();
+				}
 
 				ContextState contextState = Gemoc_execution_traceFactory.eINSTANCE.createContextState();
 				ModelState modelState = currentState;
@@ -500,20 +544,10 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 					if (_lastChoice != null) {
 						if (_lastChoice.getPossibleLogicalSteps().size() == 0)
 							return;
-						if (_lastChoice.getPossibleLogicalSteps().contains(selectedLogicalStep.eContainer())) { // warning
-																												// we
-																												// want
-																												// to
-																												// store
-																												// all
-																												// the
-																												// generic
-																												// small
-																												// step
-																												// chosen
-																												// in
-																												// parallel
+						if (_lastChoice.getPossibleLogicalSteps().contains(selectedLogicalStep.eContainer())) {
 							_lastChoice.setChosenLogicalStep((GenericParallelStep) selectedLogicalStep.eContainer());
+						} else if (_lastChoice.getPossibleLogicalSteps().contains(selectedLogicalStep)) {
+							_lastChoice.setChosenLogicalStep((GenericParallelStep) selectedLogicalStep);
 						}
 					}
 				} else {
@@ -548,7 +582,13 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 	@Override
 	public void aboutToSelectStep(IExecutionEngine<?> engine, Collection<Step<?>> logicalSteps) {
 		setUp(engine);
-		updateTraceModelBeforeDeciding(logicalSteps);
+		
+		// Inverse the order of the step list, to display the same order as the decider view
+		List<Step<?>> stepsAsList = new ArrayList<Step<?>>();
+		stepsAsList.addAll(logicalSteps);
+		Collections.reverse(stepsAsList);
+		
+		updateTraceModelBeforeDeciding(stepsAsList);
 	}
 
 	@Override

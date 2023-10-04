@@ -17,11 +17,10 @@ import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gemoc.commons.eclipse.ui.Activator;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.eventscheduling.trace.EventSchedulingModelExecutionTracingAddon;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.eventscheduling.trace.ModelExecutionTracingException;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.deciders.AbstractUserDecider;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.core.AbstractConcurrentExecutionEngine;
+import org.eclipse.gemoc.executionframework.engine.concurrency.AbstractConcurrentExecutionEngine;
+import org.eclipse.gemoc.executionframework.engine.ui.concurrency.deciders.AbstractUserDecider;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.Branch;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.Choice;
 import org.eclipse.gemoc.executionframework.ui.views.engine.IEngineSelectionListener;
@@ -29,6 +28,7 @@ import org.eclipse.gemoc.timeline.editpart.PossibleStepEditPart;
 import org.eclipse.gemoc.timeline.editpart.TimelineEditPartFactory;
 import org.eclipse.gemoc.timeline.view.AbstractTimelineView;
 import org.eclipse.gemoc.timeline.view.ITimelineProvider;
+import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.xdsmlframework.api.core.EngineStatus.RunStatus;
 import org.eclipse.gemoc.xdsmlframework.api.core.ExecutionMode;
@@ -225,7 +225,7 @@ public class EventSchedulingTimeLineView extends AbstractTimelineView implements
 				Object o2 = ((PossibleStepEditPart) selected).getModel().getPossibleStep();
 				if (o1 instanceof Choice && o2 instanceof Step) {
 					Choice choice = (Choice) o1;
-					Step<?> logicalStep = (Step<?>) o2;
+					ParallelStep<?,?> logicalStep = (ParallelStep<?,?>) o2;
 					if (_currentEngine.getRunningStatus().equals(RunStatus.WaitingLogicalStepSelection)) {
 						// If this choice has never been executed, we execute
 						// the chosen logical step
@@ -251,9 +251,9 @@ public class EventSchedulingTimeLineView extends AbstractTimelineView implements
 		}
 	}
 
-	private void performExecutionStep(Step<?> logicalStep) {
-		if (_currentEngine instanceof MoccmlExecutionEngine) {
-			MoccmlExecutionEngine engine_cast = (MoccmlExecutionEngine) _currentEngine;
+	private void performExecutionStep(ParallelStep<?,?> logicalStep) {
+		if (_currentEngine instanceof AbstractConcurrentExecutionEngine) {
+			AbstractConcurrentExecutionEngine<?, ?> engine_cast = (AbstractConcurrentExecutionEngine<?, ?>) _currentEngine;
 		if (engine_cast.getLogicalStepDecider() instanceof AbstractUserDecider) {
 			AbstractUserDecider decider = (AbstractUserDecider) engine_cast
 					.getLogicalStepDecider();

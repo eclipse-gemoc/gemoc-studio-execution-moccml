@@ -75,6 +75,7 @@ public abstract class PortImpl extends NamedElementImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public Agent getOwner() {
 		if (eContainerFeatureID() != SigpmlPackage.PORT__OWNER) return null;
 		return (Agent)eInternalContainer();
@@ -95,6 +96,7 @@ public abstract class PortImpl extends NamedElementImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setOwner(Agent newOwner) {
 		if (newOwner != eInternalContainer() || (eContainerFeatureID() != SigpmlPackage.PORT__OWNER && newOwner != null)) {
 			if (EcoreUtil.isAncestor(this, newOwner))
@@ -116,6 +118,7 @@ public abstract class PortImpl extends NamedElementImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public int getRate() {
 		return rate;
 	}
@@ -125,6 +128,7 @@ public abstract class PortImpl extends NamedElementImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public void setRate(int newRate) {
 		int oldRate = rate;
 		rate = newRate;

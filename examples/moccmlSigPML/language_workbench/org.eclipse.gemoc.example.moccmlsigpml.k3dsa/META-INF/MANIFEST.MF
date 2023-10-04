@@ -2,7 +2,6 @@ Manifest-Version: 1.0
 Automatic-Module-Name: org.eclipse.gemoc.example.moccmlsigpml.k3dsa
 Bundle-SymbolicName: org.eclipse.gemoc.example.moccmlsigpml.k3dsa;singleton:=true
 Require-Bundle: fr.inria.diverse.k3.al.annotationprocessor.plugin;bundle-version="3.0.0",
- org.eclipse.gemoc.ultimateplotter;bundle-version="1.0.0";visibility:=reexport,
  org.eclipse.emf.ecore.xmi;bundle-version="2.8.0";visibility:=reexport,
  org.eclipse.emf.ecore;bundle-version="2.8.0";visibility:=reexport,
  org.eclipse.emf.common;bundle-version="2.8.0";visibility:=reexport,
@@ -13,7 +12,8 @@ Require-Bundle: fr.inria.diverse.k3.al.annotationprocessor.plugin;bundle-version
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api;bundle-version="1.0.0",
  org.eclipse.gemoc.trace.commons.model;bundle-version="0.1.0",
  fr.inria.aoste.utils.grph;bundle-version="1.0.0",
- org.eclipse.gemoc.example.moccmlsigpml.groovy;bundle-version="1.0.0"
+ org.eclipse.gemoc.groovy;bundle-version="2.4.9",
+ org.eclipse.gemoc.ultimateplotter;bundle-version="2.3.0"
 Bundle-ManifestVersion: 2
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

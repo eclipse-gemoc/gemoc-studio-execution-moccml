@@ -25,6 +25,8 @@ Require-Bundle: org.eclipse.core.runtime,
  fr.inria.aoste.utils.grph;bundle-version="1.0.0",
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate;bundle-version="0.1.0",
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3;bundle-version="2.3.0",
+ org.eclipse.gemoc.dsl;bundle-version="3.0.0",
+ org.eclipse.gemoc.moccml.mapping;bundle-version="1.0.0",
  org.apache.commons.lang3;bundle-version="3.1.0",
  org.eclipse.gemoc.execution.moccml.testscenariolang.model;bundle-version="1.0.0",
  org.eclipse.pde.core,
@@ -33,7 +35,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gemoc.execution.moccml.testscenariolang.xtext.ui;bundle-version="1.0.0",
  org.eclipse.xtext.ui,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils;bundle-version="2.3.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaengine,
  org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons,

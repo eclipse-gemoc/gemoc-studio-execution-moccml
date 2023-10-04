@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -34,8 +35,10 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
+import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlDSLHelper;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.commons.MoccmlModelExecutionContext;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.concurrentmse.FeedbackMSE;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.dse.ASynchroneExecution;
@@ -57,11 +60,13 @@ import org.eclipse.gemoc.execution.moccml.testscenariolang.model.TestScenarioLan
 import org.eclipse.gemoc.execution.moccml.testscenariolang.model.TestScenarioLang.Variable;
 import org.eclipse.gemoc.execution.moccml.testscenariolang.xtext.ui.internal.TestScenarioLangActivator;
 import org.eclipse.gemoc.executionframework.engine.Activator;
+import org.eclipse.gemoc.executionframework.engine.concurrency.ConcurrentStepException;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ActionModel;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.ModelSpecificEvent;
 import org.eclipse.gemoc.moccml.mapping.feedback.feedback.When;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericSmallStep;
 import org.eclipse.gemoc.trace.commons.model.trace.MSE;
+import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.SmallStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
 import org.eclipse.gemoc.xdsmlframework.api.core.IExecutionEngine;
@@ -172,7 +177,7 @@ public class MoccmlExecutionEngine extends
 	}
 
 	@Override
-	protected void executeSmallStep(SmallStep<?> smallStep) throws CodeExecutionException {
+	protected void executeSmallStep(SmallStep<?> smallStep) throws ConcurrentStepException {
 		executeAssociatedActions(smallStep.getMseoccurrence().getMse());
 		MSE mse = smallStep.getMseoccurrence().getMse();
 		if (mse.getAction() != null) {
@@ -201,7 +206,11 @@ public class MoccmlExecutionEngine extends
 				execution = new ASynchroneExecution(smallStep, whenStatements, _mseStateController, this, beforeStep,
 						afterStep);
 			}
-			execution.run();
+			try {
+				execution.run();
+			} catch (CodeExecutionException e) {
+				throw new ConcurrentStepException(e);
+			}
 		}
 	}
 
@@ -212,25 +221,23 @@ public class MoccmlExecutionEngine extends
 	protected void performExecutionStep() {
 		switchDeciderIfNecessary();
 		_possibleLogicalSteps = computePossibleLogicalSteps();
+		/* Since we can use Strategy to explore, this is boring if it stops. Moreover we cannot go backward in time anymore...*/
 		if (_possibleLogicalSteps.size() == 0) {
 			Activator.getDefault().debug("No more LogicalStep to run");
-//			stop();
+		//	stop()
 		} else {
 			// scenario mangement
 			if (moccmlScenario != null) {
 				applyScenarioEffect();
 			}
 			try {
-				Step<?> selectedLogicalStep = selectAndExecuteLogicalStep();
-
+				ParallelStep<?, ?> selectedLogicalStep = selectAndExecuteLogicalStep();
 				// 3 - run the selected logical step
 				// inform the solver that we will run this step
 				if (selectedLogicalStep != null) {
 					doAfterLogicalStepExecution(selectedLogicalStep);
 					engineStatus.incrementNbLogicalStepRun();
-
-				} else {
-					// no logical step was selected, this is most probably due to a
+				} else { // no logical step was selected, this is most probably due to a
 					// preempt on the LogicalStepDecider and a change of Decider,
 					// notify Addons that we'll rerun this ExecutionStep
 					// recomputePossibleLogicalSteps();
@@ -240,7 +247,47 @@ public class MoccmlExecutionEngine extends
 			}
 
 		}
+		
 	}
+	
+	
+	
+	
+	
+	
+	
+/*	
+	_possibleLogicalSteps = computePossibleLogicalSteps()
+	/* Since we can use Strategy to explore, this is boring if it stops. Moreover we cannot go backward in time anymore...
+	 * if (_possibleLogicalSteps.size() === 0) {
+		Activator::getDefault().debug("No more LogicalStep to run")
+		stop()
+	} else {*/
+	/*	try {
+			var ParallelStep<?, ?> selectedLogicalStep = selectAndExecuteLogicalStep()
+			// 3 - run the selected logical step
+			// inform the solver that we will run this step
+			if (selectedLogicalStep !== null) {
+				doAfterLogicalStepExecution(selectedLogicalStep)
+				engineStatus.incrementNbLogicalStepRun()
+			} else { // no logical step was selected, this is most probably due to a
+				// preempt on the LogicalStepDecider and a change of Decider,
+				// notify Addons that we'll rerun this ExecutionStep
+				// recomputePossibleLogicalSteps();
+			}
+		} catch (Throwable t) {
+			throw new RuntimeException(t)
+		}
+	
+	
+	*/
+	
+	
+	
+	
+	
+	
+	
 
 	private void applyScenarioEffect() {
 		Statement currentScenarioStatement = scenarioStatementSequence.get(indexInScenarioStatementSequence);
@@ -374,10 +421,9 @@ public class MoccmlExecutionEngine extends
 		IFile file = (IFile) root.findMember(filename);
 		return (file != null ? file.getProject() : null);
 	}
-
+	
 	@Override
-	protected void doAfterLogicalStepExecution(Step<?> logicalStep) {
-
+	protected void doAfterLogicalStepExecution(ParallelStep<?,?> logicalStep) {
 		getSolver().applyLogicalStep(logicalStep);
 		List<String> assertions = getSolver().getAssertionViolations();
 		if (assertions.size() > 0) {
@@ -479,6 +525,16 @@ public class MoccmlExecutionEngine extends
 		((DefaultMSEStateController) _mseStateController)._mseNextStates = new HashMap<String, Boolean>(
 				controllerStates.getLeft());
 		this._futureActions = new ArrayList<IMoccmlFutureAction>(controllerStates.getRight());
+	}
+	
+	public Set<EPackage> getAbstractSyntax() {
+		String dslname = this.getExecutionContext().getLanguageDefinitionExtension().getName();
+		return MoccmlDSLHelper.getAbstractSyntax(dslname);
+	}
+	
+	public Set<String> getSemanticRules() {
+		String dslname = this.getExecutionContext().getLanguageDefinitionExtension().getName();
+		return MoccmlDSLHelper.getSemanticRules(dslname);
 	}
 
 }
