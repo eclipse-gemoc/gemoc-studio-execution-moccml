@@ -19,83 +19,49 @@ import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.m
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlFutureAction;
 import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.executionframework.engine.Activator;
-import org.eclipse.gemoc.executionframework.engine.concurrency.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.Choice;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.ContextState;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.ExecutionTraceModel;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.Gemoc_execution_traceFactory;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.ModelState;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.SolverState;
+import org.eclipse.gemoc.trace.gemoc.concurrent.AbstractEventSchedulingModelExecutionTracingAddon;
 
-public class EventSchedulingModelExecutionTracingAddonMoccmlExtension implements EventSchedulingModelExecutionTracingAddonMetaApproachExtension {
+public class MoccmlEventSchedulingModelExecutionTracingAddon extends AbstractEventSchedulingModelExecutionTracingAddon {
 
-	private MoccmlExecutionEngine executionEngine;
-	private ExecutionTraceModel executionTraceModel;	
-	private EventSchedulingModelExecutionTracingAddon addon;
 	private IK3ModelStateHelper modelStateHelper;
-	
-	
-	@Override
-	public void initialize(AbstractConcurrentExecutionEngine<?, ?> engine, ExecutionTraceModel executionTraceModel,
-			EventSchedulingModelExecutionTracingAddon addon) {
-		
-		this.executionEngine = (MoccmlExecutionEngine) engine;
-		this.executionTraceModel = executionTraceModel;	
-		this.addon = addon;
-		
-		String fullLanguageName = this.executionEngine.getExecutionContext().getLanguageDefinitionExtension().getName();
-		int lastDot = fullLanguageName.lastIndexOf(".");
-		if (lastDot == -1)
-			lastDot = 0;
-		String languageName = fullLanguageName.substring(lastDot + 1);
-		String languageToUpperFirst = languageName.substring(0, 1).toUpperCase() + languageName.substring(1);
-		try {
-			modelStateHelper = (IK3ModelStateHelper) this.executionEngine.getExecutionContext().getDslBundle()
-					.loadClass(languageToUpperFirst.toLowerCase() + ".xdsml.api.impl." + languageToUpperFirst
-							+ "ModelStateHelper")
-					.getConstructor().newInstance();
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException
-				| IllegalArgumentException | InvocationTargetException | NoSuchMethodException
-				| SecurityException e) {
-			e.printStackTrace();
+
+	private IK3ModelStateHelper obtainModelStateHelper() {
+		if (modelStateHelper == null) {
+
+			String fullLanguageName = this._executionEngine.getExecutionContext().getLanguageDefinitionExtension()
+					.getName();
+			int lastDot = fullLanguageName.lastIndexOf(".");
+			if (lastDot == -1)
+				lastDot = 0;
+			String languageName = fullLanguageName.substring(lastDot + 1);
+			String languageToUpperFirst = languageName.substring(0, 1).toUpperCase() + languageName.substring(1);
+			try {
+				modelStateHelper = (IK3ModelStateHelper) this._executionEngine
+						.getExecutionContext().getDslBundle().loadClass(languageToUpperFirst.toLowerCase()
+								+ ".xdsml.api.impl." + languageToUpperFirst + "ModelStateHelper")
+						.getConstructor().newInstance();
+			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IllegalArgumentException
+					| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+				e.printStackTrace();
+			}
 		}
-		
+		return modelStateHelper;
 	}
 
 	
-	@Override
-	public Optional<ModelState> storeModelStateIfChanged() {
-		Resource traceResource = executionTraceModel.eResource();
-		if (traceResource.getContents().size() > 0) {
-
-			ExecutionTraceModel traceModel = (ExecutionTraceModel) traceResource.getContents().get(0);
-
-//			if (stateChanged || currentState == null) {
-			Activator.getDefault().debug(String.format("[trace-%10s] new model state %3d detected",
-					addon.getCurrentEngineShortName(), traceModel.getReachedStates().size()));
-			// new way to save RTDs
-
-
-			EObject model = this.executionEngine.getExecutionContext().getResourceModel().getContents().get(0);
-			K3ModelState result = modelStateHelper.getK3ModelState(model);
-
-			// No one needs to observe the clone
-			result.eAdapters().clear();
-			ModelState modelState = null;
-			modelState = Gemoc_execution_traceFactory.eINSTANCE.createModelState();
-			traceModel.getReachedStates().add(modelState);
-			modelState.setModel(result);
-			traceResource.getContents().add(result);
-//				stateChanged = false;
-			return Optional.of(modelState);
-		}
-		return Optional.empty();
-//		}
+	private MoccmlExecutionEngine castEngine() {
+		return ((MoccmlExecutionEngine) this._executionEngine);
 	}
-
+	
 	@Override
-	public void storeSolverState(ContextState contextState) {
-		MoccmlExecutionEngine engine_cast = (MoccmlExecutionEngine) executionEngine;
+	protected void storeSolverState(ContextState contextState) {
+		MoccmlExecutionEngine engine_cast =castEngine();
 		Pair<Map<String, Boolean>, ArrayList<IMoccmlFutureAction>> engineState = engine_cast.saveState();
 
 		ICCSLSolver solver_cast = engine_cast.getSolver();
@@ -118,8 +84,8 @@ public class EventSchedulingModelExecutionTracingAddonMoccmlExtension implements
 	}
 
 	@Override
-	public void restoreSolverState(Choice choice) {
-		ICCSLSolver solver = executionEngine.getSolver();
+	protected void restoreSolverState(Choice choice) {
+		ICCSLSolver solver = castEngine().getSolver();
 		Activator.getDefault()
 				.debug("restoring solver state: " + choice.getContextState().getSolverState().getSerializableModel());
 
@@ -135,17 +101,42 @@ public class EventSchedulingModelExecutionTracingAddonMoccmlExtension implements
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		executionEngine
+		castEngine()
 				.restoreState((Pair<Map<String, Boolean>, ArrayList<IMoccmlFutureAction>>) ((Pair) thePair).getLeft());
 		solver.setState((byte[]) ((Pair) thePair).getRight());
-
 	}
 
 	@Override
-	public void restoreModelState(ModelState state) {
-		modelStateHelper.restoreModelState((K3ModelState) state.getModel());
+	protected void restoreModelState(ModelState state) {
+		obtainModelStateHelper().restoreModelState((K3ModelState) state.getModel());
 	}
 
+	@Override
+	protected void storeModelStateIfChanged() {
+		Resource traceResource = this._executionTraceModel.eResource();
+		if (traceResource.getContents().size() > 0) {
 
+			ExecutionTraceModel traceModel = (ExecutionTraceModel) traceResource.getContents().get(0);
+
+//			if (stateChanged || currentState == null) {
+			Activator.getDefault().debug(String.format("[trace-%10s] new model state %3d detected",
+					this.getCurrentEngineShortName(), traceModel.getReachedStates().size()));
+			// new way to save RTDs
+
+			EObject model = this._executionEngine.getExecutionContext().getResourceModel().getContents().get(0);
+			K3ModelState result = obtainModelStateHelper().getK3ModelState(model);
+
+			// No one needs to observe the clone
+			result.eAdapters().clear();
+			ModelState modelState = null;
+			modelState = Gemoc_execution_traceFactory.eINSTANCE.createModelState();
+			traceModel.getReachedStates().add(modelState);
+			modelState.setModel(result);
+			traceResource.getContents().add(result);
+//				stateChanged = false;
+			this.currentState = modelState;
+		}
+//		}
+	}
 
 }

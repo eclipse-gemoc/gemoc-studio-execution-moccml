@@ -18,7 +18,6 @@
 	<artifactId>org.eclipse.gemoc.concurrent_addons.plugins</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<module>org.eclipse.gemoc.addon.eventscheduling.timeline</module>
 		<module>org.eclipse.gemoc.addon.vcdgenerator</module>
 	</modules>
 </project>
