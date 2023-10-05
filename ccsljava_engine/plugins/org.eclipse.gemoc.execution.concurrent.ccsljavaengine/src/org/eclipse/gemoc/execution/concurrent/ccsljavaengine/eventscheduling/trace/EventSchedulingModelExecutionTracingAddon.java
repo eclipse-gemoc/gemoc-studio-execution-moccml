@@ -11,23 +11,17 @@
  *******************************************************************************/
 package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.eventscheduling.trace;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.emf.common.util.URI;
@@ -43,16 +37,9 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EContentAdapter;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.emf.transaction.util.TransactionUtil;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.AbstractSolverCodeExecutorConcurrentEngine;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.engine.MoccmlExecutionEngine;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.dsa.helper.IK3ModelStateHelper;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaengine.extensions.k3.rtd.modelstate.k3ModelState.K3ModelState;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.dse.IMoccmlFutureAction;
-import org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.api.moc.ICCSLSolver;
 import org.eclipse.gemoc.executionframework.engine.Activator;
 import org.eclipse.gemoc.executionframework.engine.concurrency.AbstractConcurrentExecutionEngine;
 import org.eclipse.gemoc.executionframework.engine.concurrency.AbstractConcurrentModelExecutionContext;
@@ -63,7 +50,6 @@ import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trac
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.ExecutionTraceModel;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.Gemoc_execution_traceFactory;
 import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.ModelState;
-import org.eclipse.gemoc.executionframework.reflectivetrace.gemoc_execution_trace.SolverState;
 import org.eclipse.gemoc.trace.commons.model.generictrace.GenericParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.ParallelStep;
 import org.eclipse.gemoc.trace.commons.model.trace.Step;
@@ -95,6 +81,8 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 //	private boolean stateChanged = false;
 	private boolean _backToPastHappened = false;
 	private boolean _cannotSaveTrace = false;
+	
+	private Optional<EventSchedulingModelExecutionTracingAddonMetaApproachExtension> metaApproachExtension;
 
 	protected int stepNumber = 0;
 
@@ -151,7 +139,9 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 					}
 					try {
 						restoreModelState(choice);
-						restoreSolverState(choice);
+						if (metaApproachExtension.isPresent()) {
+							metaApproachExtension.get().restoreSolverState(choice);
+						}
 						// TODO: here we should notify the addons !
 					} catch (Exception e) {
 						org.eclipse.gemoc.execution.concurrent.ccsljavaengine.Activator.getDefault()
@@ -182,7 +172,6 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 	private File outputRestoreTmp = null;
 	private FileOutputStream outputRestoreTmpStream = null;
 	private PrintWriter outputRestoreTmpWriter = null;
-	private IK3ModelStateHelper modelStateHelper = null;
 
 	@Override
 	public void engineAboutToStop(IExecutionEngine<?> engine) {
@@ -231,8 +220,8 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 	}
 
 	private void restoreModelState(ModelState state) {
-		if (modelStateHelper != null) {
-			modelStateHelper.restoreModelState((K3ModelState) state.getModel());
+		if (metaApproachExtension.isPresent()) {
+			metaApproachExtension.get().restoreModelState(state);
 		} else {
 			EObject left = state.getModel();
 			EObject right = _executionContext.getResourceModel().getContents().get(0);
@@ -248,29 +237,7 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 		}
 	}
 
-	private void restoreSolverState(Choice choice) {
-		if (_executionEngine instanceof AbstractSolverCodeExecutorConcurrentEngine) {
-			MoccmlExecutionEngine engine_cast = (MoccmlExecutionEngine) _executionEngine;
-			ICCSLSolver solver = engine_cast.getSolver();
-			Activator.getDefault().debug(
-					"restoring solver state: " + choice.getContextState().getSolverState().getSerializableModel());
-			
-			byte[] moccmlEngineState = choice.getContextState().getSolverState().getSerializableModel();
-			ByteArrayInputStream out = new ByteArrayInputStream(moccmlEngineState);
-	        ObjectInputStream objOut;
-	        Object thePair = null;
-			try {
-				objOut = new ObjectInputStream(out);
-				thePair = objOut.readObject();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-			engine_cast.restoreState((Pair<Map<String, Boolean>, ArrayList<IMoccmlFutureAction>>)((Pair)thePair).getLeft());
-			solver.setState((byte[]) ((Pair)thePair).getRight());
-		}
-	}
+
 
 	public boolean hasRewindHappened(boolean resetFlag) {
 		boolean result = _backToPastHappened;
@@ -280,70 +247,9 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 	}
 
 	private void addModelStateIfChanged_generic() {
-		Resource traceResource = _executionTraceModel.eResource();
-		if (traceResource.getContents().size() > 0) {
-			ExecutionTraceModel traceModel = (ExecutionTraceModel) traceResource.getContents().get(0);
-			Activator.getDefault().debug(String.format("[trace-%10s] new model state %3d detected",
-					getCurrentEngineShortName(), traceModel.getReachedStates().size()));
 
-			// Recursive copy of the model
-			EObject result = EcoreUtil.copy(_executionContext.getResourceModel().getContents().get(0));
-			result.eAdapters().clear();
-
-			// Store the copy in the trace
-			ModelState modelState = Gemoc_execution_traceFactory.eINSTANCE.createModelState();
-			traceModel.getReachedStates().add(modelState);
-			modelState.setModel(result);
-			currentState = modelState;
-			traceResource.getContents().add(result);
-
-		}
 	}
 
-	private void addModelStateIfChanged_moccml() {
-		Resource traceResource = _executionTraceModel.eResource();
-		if (traceResource.getContents().size() > 0) {
-
-			ExecutionTraceModel traceModel = (ExecutionTraceModel) traceResource.getContents().get(0);
-
-//			if (stateChanged || currentState == null) {
-			Activator.getDefault().debug(String.format("[trace-%10s] new model state %3d detected",
-					getCurrentEngineShortName(), traceModel.getReachedStates().size()));
-			// new way to save RTDs
-			String fullLanguageName = this._executionContext.getLanguageDefinitionExtension().getName();
-			int lastDot = fullLanguageName.lastIndexOf(".");
-			if (lastDot == -1)
-				lastDot = 0;
-			String languageName = fullLanguageName.substring(lastDot + 1);
-			String languageToUpperFirst = languageName.substring(0, 1).toUpperCase() + languageName.substring(1);
-			if (modelStateHelper == null) {
-				try {
-					modelStateHelper = (IK3ModelStateHelper) this._executionContext.getDslBundle()
-							.loadClass(languageToUpperFirst.toLowerCase() + ".xdsml.api.impl." + languageToUpperFirst
-									+ "ModelStateHelper")
-							.getConstructor().newInstance();
-				} catch (InstantiationException | IllegalAccessException | ClassNotFoundException
-						| IllegalArgumentException | InvocationTargetException | NoSuchMethodException
-						| SecurityException e) {
-					e.printStackTrace();
-				}
-			}
-			EObject model = this._executionContext.getResourceModel().getContents().get(0);
-			K3ModelState result = modelStateHelper.getK3ModelState(model);
-
-			// No one needs to observe the clone
-			result.eAdapters().clear();
-			ModelState modelState = null;
-			modelState = Gemoc_execution_traceFactory.eINSTANCE.createModelState();
-			traceModel.getReachedStates().add(modelState);
-			modelState.setModel(result);
-			currentState = modelState;
-			traceResource.getContents().add(result);
-//				stateChanged = false;
-
-		}
-//		}
-	}
 
 	/**
 	 * Store the current context State
@@ -356,9 +262,12 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 			List<Choice> choices = traceModel.getChoices();
 			if (choices.size() > 0) {
 
-				if (_executionEngine instanceof MoccmlExecutionEngine) {
-					addModelStateIfChanged_moccml();
-
+				if (metaApproachExtension.isPresent()) {
+					Optional<ModelState> result = metaApproachExtension.get().storeModelStateIfChanged();
+					if (result.isPresent()) {
+						currentState = result.get();
+					}
+						
 				} else {
 					addModelStateIfChanged_generic();
 				}
@@ -367,28 +276,10 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 				ModelState modelState = currentState;
 				contextState.setModelState(modelState);
 
-				if (_executionEngine instanceof MoccmlExecutionEngine) {
-					MoccmlExecutionEngine engine_cast = (MoccmlExecutionEngine) _executionEngine;
-					Pair<Map<String, Boolean>, ArrayList<IMoccmlFutureAction>> engineState = engine_cast.saveState();
-					
-					ICCSLSolver solver_cast = engine_cast.getSolver();
-					
-					ByteArrayOutputStream out = new ByteArrayOutputStream();
-			        ObjectOutputStream objOut;
-			        byte[] serializableEngineState = null;
-					try {
-						objOut = new ObjectOutputStream(out);
-				        objOut.writeObject(Pair.of(engineState,solver_cast.getState()));
-				        serializableEngineState= out.toByteArray();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					
-					SolverState solverState = Gemoc_execution_traceFactory.eINSTANCE.createSolverState();
-					solverState.setSerializableModel(serializableEngineState);
-					contextState.setSolverState(solverState);
+				if (metaApproachExtension.isPresent()) {
+					metaApproachExtension.get().storeSolverState(contextState);
 				}
-
+					
 				choices.get(choices.size() - 1).setContextState(contextState);
 				contextState.setChoice(choices.get(choices.size() - 1));
 
@@ -476,6 +367,9 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 
 			_executionContext.getResourceModel().eAdapters().add(adapter);
 
+			//TODO find extension and assign here
+			this.metaApproachExtension = Optional.empty();
+			
 		}
 	}
 
@@ -649,7 +543,9 @@ public class EventSchedulingModelExecutionTracingAddon implements IEngineAddon {
 					_currentBranch.getChoices().remove(choice);
 					try {
 						restoreModelState(choice);
-						restoreSolverState(choice);
+						if (metaApproachExtension.isPresent()) {
+							metaApproachExtension.get().restoreSolverState(choice);
+						}
 						_executionEngine.getLogicalStepDecider().preempt();
 					} catch (Exception e) {
 						org.eclipse.gemoc.execution.concurrent.ccsljavaengine.Activator.getDefault()

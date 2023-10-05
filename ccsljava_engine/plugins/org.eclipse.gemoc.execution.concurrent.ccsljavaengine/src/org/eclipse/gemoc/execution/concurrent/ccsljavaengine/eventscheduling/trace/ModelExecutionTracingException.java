@@ -15,6 +15,8 @@ package org.eclipse.gemoc.execution.concurrent.ccsljavaengine.eventscheduling.tr
 public class ModelExecutionTracingException extends Exception 
 {
 
+	private static final long serialVersionUID = 4697571414834562275L;
+
 	public ModelExecutionTracingException(Exception e) {
 		super(e);
 	}
