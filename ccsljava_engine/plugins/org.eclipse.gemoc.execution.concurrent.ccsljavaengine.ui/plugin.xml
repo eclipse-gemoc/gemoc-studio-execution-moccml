@@ -41,21 +41,11 @@
            type="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher">
 	    </launchConfigurationTabGroup>
 	</extension>
-    <extension
-          point="org.eclipse.core.expressions.propertyTesters">
-       <propertyTester
-             class="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.propertytesters.GemocConcurrentPropertyTester"
-             id="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.propertytesters.GemocConcurrentPropertyTester"
-             namespace="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.propertytesters"
-             properties="isModel, isExecutableDomainSpecificModel"
-             type="org.eclipse.core.runtime.IAdaptable">
-       </propertyTester>
-    </extension>
 	<extension
          point="org.eclipse.debug.ui.launchShortcuts">
       <shortcut
             class="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.launcher.MoccmlLauncher"
-            description="Create a configuration to launch an Eclipse application in debug mode."
+            description="Create a configuration to launch an xDSML using GEMOC in debug mode."
             icon="icons/IconeGemocModel-16.png"
             id="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.GemocExecutableReflectiveModel"
             label="Gemoc Moccml eXecutable Model"
@@ -69,7 +59,7 @@
 		     		<count value="1"/>
 	      			<iterate>
 	       				<or>
-	        				<test property="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.propertytesters.isExecutableDomainSpecificModel"/>
+	        				<test property="org.eclipse.gemoc.executionframework.engine.ui.propertytesters.isExecutableDomainSpecificModel"/>
 	        				<test property="org.eclipse.debug.ui.matchesPattern"
 	                        	value="*.xmi">
 	                     	</test>
@@ -235,12 +225,6 @@
                   style="push">
             </command>
          </menuContribution>
-      </extension>
-      <extension
-            point="org.eclipse.ui.startup">
-         <startup
-               class="org.eclipse.gemoc.execution.concurrent.ccsljavaengine.ui.ModelingWorkbenchEarlyStartup">
-         </startup>
       </extension>
       <extension
             point="org.eclipse.ui.views">
