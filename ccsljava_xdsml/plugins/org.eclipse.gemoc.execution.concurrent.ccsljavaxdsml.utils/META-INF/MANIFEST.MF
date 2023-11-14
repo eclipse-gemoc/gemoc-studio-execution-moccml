@@ -1,5 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
+Automatic-Module-Name: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils
 Bundle-Name: CCSLJavaxdsml Utils
 Bundle-SymbolicName: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils;singleton:=true
 Bundle-Version: 2.3.0.qualifier
@@ -16,7 +17,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gemoc.commons.eclipse.messagingsystem.api;bundle-version="2.3.0",
  fr.inria.aoste.utils.grph;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Export-Package: org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils,
  org.eclipse.gemoc.execution.concurrent.ccsljavaxdsml.utils.ccsl
 Bundle-ClassPath: .
