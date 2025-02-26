@@ -18,4 +18,4 @@ The MoCCML / Concurrency provides components and engines supporting concurrency 
 
 # Development
 - Continuous integration on [Eclipse CI](https://ci.eclipse.org/gemoc/job/gemoc-studio-integration/)
-- [Instructions for building](https://github.com/eclipse/gemoc-studio/tree/master/dev_support/full_compilation)
+- [Instructions for building](https://github.com/eclipse-gemoc/gemoc-studio/tree/master/dev_support/tycho_full_compilation)
